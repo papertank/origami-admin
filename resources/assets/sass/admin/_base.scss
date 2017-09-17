@@ -1,0 +1,40 @@
+body {
+  background-color: $gray-lighter;
+  &.page-auth {
+    padding: 50px 0 0 0;
+  }
+}
+
+// Wrappers
+
+#wrapper {
+  width: 100%;
+}
+
+#page-wrapper {
+  padding: 0 15px 20px 15px;
+  min-height: 568px;
+  background-color: white;
+}
+
+@media(min-width:768px) {
+  #page-wrapper {
+    position: inherit;
+    margin: 0 0 0 250px;
+    padding: 0 30px 20px 30px;
+    border-left: 1px solid darken($gray-lighter, 6.5%);
+  }
+}
+
+
+.no-content {
+  padding: 40px 0;
+  text-align: center;
+  i, p {
+    color: $gray-light;
+  }
+  > p {
+    font-size: $font-size-large;
+    margin: 20px 0;
+  }
+}
