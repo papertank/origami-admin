@@ -31,15 +31,15 @@ class AdminServiceProvider extends ServiceProvider {
     protected function publishViews()
     {
         $this->publishes([
-            __DIR__.'/../resouces/views' => resource_path('views/admin'),
+            __DIR__.'/../resources/views' => resource_path('views/admin'),
         ], 'admin-views');
     }
 
     protected function publishSourceAssets()
     {
         $this->publishes([
-            __DIR__.'/../resouces/assets/js' => resource_path('assets/js'),
-            __DIR__.'/../resouces/assets/sass' => resource_path('assets/sass'),
+            __DIR__.'/../resources/assets/js' => resource_path('assets/js'),
+            __DIR__.'/../resources/assets/sass' => resource_path('assets/sass'),
         ], 'admin-assets');
     }
 

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @show
 
-    <title>@yield('meta_title', app('config.name'))</title>
+    <title>@yield('meta_title', config('app.name'))</title>
 
     @section('fonts')
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
