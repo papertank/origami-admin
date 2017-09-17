@@ -11,10 +11,14 @@ class AdminServiceProvider extends ServiceProvider {
 
     public function boot()
     {
-        $this->publishConfig();
-        $this->publishViews();
-        $this->publishSourceAssets();
-        $this->publishPublicAssets();
+        if ( $this->app->runningInConsole() ) {
+            $this->publishConfig();
+            $this->publishViews();
+            $this->publishSourceAssets();
+            $this->publishPublicAssets();
+        }
+
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         Auth::provider('admins', function($app, array $config) {
             return new AdminUserProvider($app['hash'], $config['model']);
