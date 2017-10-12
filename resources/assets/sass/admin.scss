@@ -5,14 +5,13 @@
 @import "node_modules/font-awesome/scss/font-awesome";
 @import "node_modules/select2/src/scss/core";
 @import "node_modules/datatables.net-bs/css/dataTables.bootstrap";
-@import "node_modules/summernote/src/icons/dist/summernote";
-@import "node_modules/summernote/src/less/summernote";
 
 @import "admin/base";
 @import "admin/navigation";
 @import "admin/buttons";
 @import "admin/charts";
 @import "admin/datepicker";
+@import "admin/editor";
 @import "admin/forms";
 @import "admin/navigation";
 @import "admin/pages";
