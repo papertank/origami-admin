@@ -18,7 +18,7 @@ class AuthenticateAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin')->guest() || ! Auth::guard('admin')->user()->isAdmin()) {
+        if (Auth::guard('admin')->guest() || ! Auth::guard('admin')->user()->can('access-admin')) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
