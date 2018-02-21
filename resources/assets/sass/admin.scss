@@ -1,21 +1,16 @@
-@import "admin/mixins";
 @import "admin/variables";
 
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/font-awesome/scss/font-awesome";
-@import "node_modules/select2/src/scss/core";
-@import "node_modules/datatables.net-bs/css/dataTables.bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
-@import "admin/base";
-@import "admin/navigation";
+@import "~bootstrap/scss/bootstrap";
+@import "~datatables.net-bs/css/dataTables.bootstrap";
+
+@import "admin/global";
+@import "admin/auth";
 @import "admin/buttons";
-@import "admin/charts";
-@import "admin/datepicker";
+@import "admin/cards";
 @import "admin/editor";
-@import "admin/forms";
-@import "admin/navigation";
-@import "admin/pages";
-@import "admin/panels";
+@import "admin/icons";
+@import "admin/nav";
+@import "admin/sidebar";
 @import "admin/tables";
-@import "admin/typography";
-@import "admin/upload";

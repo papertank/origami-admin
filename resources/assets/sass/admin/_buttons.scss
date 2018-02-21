@@ -7,23 +7,23 @@
 }
 
 .btn-primary.btn-outline {
-  color: $brand-primary;
+  color: theme-color('primary');
 }
 
 .btn-success.btn-outline {
-  color: $brand-success;
+  color: theme-color('success');
 }
 
 .btn-info.btn-outline {
-  color: $brand-info;
+  color: theme-color('info');
 }
 
 .btn-warning.btn-outline {
-  color: $brand-warning;
+  color: theme-color('warning');
 }
 
 .btn-danger.btn-outline {
-  color: $brand-danger;
+  color: theme-color('danger');
 }
 
 .btn-primary.btn-outline:hover,
@@ -40,43 +40,13 @@
   }
 }
 
-// Circle Buttons
-
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  padding: 6px 0;
-  border-radius: 15px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.428571429;
-}
-
-.btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  border-radius: 25px;
-  font-size: 18px;
-  line-height: 1.33;
-}
-
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
-  padding: 10px 16px;
-  border-radius: 35px;
-  font-size: 24px;
-  line-height: 1.33;
-}
-
 
 .btn-link {
   background: transparent !important;
   border-color: transparent !important;
   &.btn-danger {
     &, &:active {
-      color: $btn-danger-bg;
+      color: darken(theme-color('danger'), 10%);
     }
   }
 }

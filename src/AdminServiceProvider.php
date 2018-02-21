@@ -4,10 +4,13 @@ namespace Origami\Admin;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Origami\Admin\Auth\AdminUserProvider;
 
 class AdminServiceProvider extends ServiceProvider {
+
+    const VERSION = '2.0.0-dev';
 
     public function boot()
     {
@@ -18,11 +21,23 @@ class AdminServiceProvider extends ServiceProvider {
             $this->publishPublicAssets();
         }
 
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadRoutes();
+        $this->bootAuth();
+    }
+
+    protected function bootAuth()
+    {
+        Gate::define('access-admin', function($user) {
+            return in_array($user->role, ['admin','assessor']);
+        });
 
         Auth::provider('admins', function($app, array $config) {
             return new AdminUserProvider($app['hash'], $config['model']);
         });
+
+        if ( config('admin.impersonating') ) {
+            $this->app->register('Lab404\Impersonate\ImpersonateServiceProvider');
+        }
     }
 
     protected function publishConfig()
@@ -32,10 +47,15 @@ class AdminServiceProvider extends ServiceProvider {
         ], 'admin-config');
     }
 
+    protected function loadRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
+    }
+
     protected function publishViews()
     {
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/admin'),
+            __DIR__.'/../resources/views/admin' => resource_path('views/admin'),
         ], 'admin-views');
     }
 

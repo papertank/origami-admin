@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(4);
+var bind = __webpack_require__(5);
 var isBuffer = __webpack_require__(21);
 
 /*global toString:true*/
@@ -277,7 +277,7 @@ function forEach(obj, fn) {
   }
 
   // Force an array if not already something iterable
-  if (typeof obj !== 'object' && !isArray(obj)) {
+  if (typeof obj !== 'object') {
     /*eslint no-param-reassign:0*/
     obj = [obj];
   }
@@ -10590,9 +10590,9 @@ jQuery.nodeName = nodeName;
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 
 if ( true ) {
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
 		return jQuery;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+	}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 }
 
@@ -10657,10 +10657,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   }
   return adapter;
 }
@@ -10703,6 +10703,10 @@ var defaults = {
     return data;
   }],
 
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
   timeout: 0,
 
   xsrfCookieName: 'XSRF-TOKEN',
@@ -10735,6 +10739,33 @@ module.exports = defaults;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -20231,7 +20262,7 @@ return CodeMirror$1;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20249,7 +20280,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20260,7 +20291,7 @@ var settle = __webpack_require__(25);
 var buildURL = __webpack_require__(27);
 var parseHeaders = __webpack_require__(28);
 var isURLSameOrigin = __webpack_require__(29);
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(30);
 
 module.exports = function xhrAdapter(config) {
@@ -20321,7 +20352,7 @@ module.exports = function xhrAdapter(config) {
       var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        // IE sends 1223 instead of 204 (https://github.com/axios/axios/issues/201)
         status: request.status === 1223 ? 204 : request.status,
         statusText: request.status === 1223 ? 'No Content' : request.statusText,
         headers: responseHeaders,
@@ -20436,7 +20467,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20461,7 +20492,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20473,7 +20504,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20499,26 +20530,26 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(10);
+__webpack_require__(11);
 module.exports = __webpack_require__(39);
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(11);
+window._ = __webpack_require__(12);
 
 try {
     window.$ = window.jQuery = __webpack_require__(1);
 
     __webpack_require__(14);
-    __webpack_require__(15);
-    __webpack_require__(16);
-    __webpack_require__(18);
+    __webpack_require__(49);
+    __webpack_require__(18).replace();
+    console.log(feather);
 } catch (e) {}
 
 window.axios = __webpack_require__(19);
@@ -20527,6 +20558,7 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.csrfToken = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -20535,12 +20567,38 @@ if (token) {
 
     $(function () {
 
+        $('[data-toggle="sidebar"]').on('click', function () {
+            $('#sidebar').toggleClass('open');
+            $('.sidebar-backdrop').toggleClass('show');
+        });
+
+        $('.sidebar-backdrop').on('click', function () {
+            $('#sidebar').toggleClass('open');
+            $('.sidebar-backdrop').toggleClass('show');
+        });
+
+        $('a[data-method]').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            var csrf = $('<input>', {
+                'name': '_token',
+                'value': window.csrfToken,
+                'type': 'hidden'
+            });
+            var form = $('<form>', {
+                'action': link.attr('href'),
+                'method': link.data('method'),
+                'target': '_top'
+            }).append(csrf);
+            form.appendTo(document.body).submit();
+        });
+
         $('.input-editor').summernote({
             height: 300,
             toolbar: [['fontstyle', ['style', 'bold', 'italic', 'underline', 'clear']], ['insert', ['picture', 'link', 'table']], ['para', ['ul', 'ol', 'paragraph']], ['misc', ['codeview']], ['view', ['fullscreen']]]
         });
 
-        $('table').on('click', 'tr[data-href] td', function () {
+        $('table').on('click', 'tr[data-href] td, tr[data-href] th', function () {
             if (!$(this).hasClass('links')) {
                 var url = $(this).closest('tr').data('href');
                 window.location.href = url;
@@ -20572,11 +20630,9 @@ if (token) {
             var title = button.data('confirmAction');
 
             e.preventDefault();
-            bootbox.confirm('Are you sure you want to ' + title + '?', function (result) {
-                if (result) {
-                    form.submit();
-                }
-            });
+            if (confirm('Are you sure you want to ' + title + '?')) {
+                form[0].submit();
+            }
 
             return false;
         });
@@ -20588,47 +20644,17 @@ if (token) {
             var title = button.data('confirmDelete');
 
             e.preventDefault();
-            bootbox.confirm('Are you sure you want to delete ' + title + '?', function (result) {
-                if (result) {
-                    form.submit();
-                }
-            });
+            if (confirm('Are you sure you want to delete ' + title + '?')) {
+                form[0].submit();
+            }
 
             return false;
         });
-
-        $('#side-menu').metisMenu();
-
-        $(window).bind("load resize", function () {
-            topOffset = 50;
-            width = this.window.innerWidth > 0 ? this.window.innerWidth : this.screen.width;
-            if (width < 768) {
-                $('div.navbar-collapse').addClass('collapse');
-                topOffset = 100; // 2-row-menu
-            } else {
-                $('div.navbar-collapse').removeClass('collapse');
-            }
-
-            height = (this.window.innerHeight > 0 ? this.window.innerHeight : this.screen.height) - 1;
-            height = height - topOffset;
-            if (height < 1) height = 1;
-            if (height > topOffset) {
-                $("#page-wrapper").css("min-height", height + "px");
-            }
-        });
-
-        var url = window.location;
-        var element = $('ul.nav a').filter(function () {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }).addClass('active').parent().parent().addClass('in').parent();
-        if (element.is('li')) {
-            element.addClass('active');
-        }
     });
 })();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -37699,9 +37725,9 @@ if (token) {
 
     // Define as an anonymous module so, through path mapping, it can be
     // referenced as the "underscore" module.
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return _;
-    }.call(exports, __webpack_require__, exports, module),
+    }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
@@ -37717,34 +37743,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(13)(module)))
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(13)(module)))
 
 /***/ }),
 /* 13 */
@@ -37776,10738 +37775,6352 @@ module.exports = function(module) {
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under the MIT license
- */
+  * Bootstrap v4.0.0 (https://getbootstrap.com)
+  * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  */
+(function (global, factory) {
+	 true ? factory(exports, __webpack_require__(1), __webpack_require__(15)) :
+	typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
+	(factory((global.bootstrap = {}),global.jQuery,global.Popper));
+}(this, (function (exports,$,Popper) { 'use strict';
 
-if (typeof jQuery === 'undefined') {
-  throw new Error('Bootstrap\'s JavaScript requires jQuery')
+$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+Popper = Popper && Popper.hasOwnProperty('default') ? Popper['default'] : Popper;
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
 }
 
-+function ($) {
-  'use strict';
-  var version = $.fn.jquery.split(' ')[0].split('.')
-  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
-    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
-  }
-}(jQuery);
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
-/* ========================================================================
- * Bootstrap: transition.js v3.3.7
- * http://getbootstrap.com/javascript/#transitions
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): util.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
 
+var Util = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Private TransitionEnd Helpers
+   * ------------------------------------------------------------------------
+   */
+  var transition = false;
+  var MAX_UID = 1000000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
 
-+function ($) {
-  'use strict';
-
-  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
-  // ============================================================
-
-  function transitionEnd() {
-    var el = document.createElement('bootstrap')
-
-    var transEndEventNames = {
-      WebkitTransition : 'webkitTransitionEnd',
-      MozTransition    : 'transitionend',
-      OTransition      : 'oTransitionEnd otransitionend',
-      transition       : 'transitionend'
-    }
-
-    for (var name in transEndEventNames) {
-      if (el.style[name] !== undefined) {
-        return { end: transEndEventNames[name] }
-      }
-    }
-
-    return false // explicit for ie8 (  ._.)
+  function toType(obj) {
+    return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
   }
 
-  // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = function (duration) {
-    var called = false
-    var $el = this
-    $(this).one('bsTransitionEnd', function () { called = true })
-    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
-    setTimeout(callback, duration)
-    return this
+  function getSpecialTransitionEndEvent() {
+    return {
+      bindType: transition.end,
+      delegateType: transition.end,
+      handle: function handle(event) {
+        if ($$$1(event.target).is(this)) {
+          return event.handleObj.handler.apply(this, arguments); // eslint-disable-line prefer-rest-params
+        }
+
+        return undefined; // eslint-disable-line no-undefined
+      }
+    };
   }
 
-  $(function () {
-    $.support.transition = transitionEnd()
+  function transitionEndTest() {
+    if (typeof window !== 'undefined' && window.QUnit) {
+      return false;
+    }
 
-    if (!$.support.transition) return
+    return {
+      end: 'transitionend'
+    };
+  }
 
-    $.event.special.bsTransitionEnd = {
-      bindType: $.support.transition.end,
-      delegateType: $.support.transition.end,
-      handle: function (e) {
-        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+  function transitionEndEmulator(duration) {
+    var _this = this;
+
+    var called = false;
+    $$$1(this).one(Util.TRANSITION_END, function () {
+      called = true;
+    });
+    setTimeout(function () {
+      if (!called) {
+        Util.triggerTransitionEnd(_this);
+      }
+    }, duration);
+    return this;
+  }
+
+  function setTransitionEndSupport() {
+    transition = transitionEndTest();
+    $$$1.fn.emulateTransitionEnd = transitionEndEmulator;
+
+    if (Util.supportsTransitionEnd()) {
+      $$$1.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+    }
+  }
+
+  function escapeId(selector) {
+    // We escape IDs in case of special selectors (selector = '#myId:something')
+    // $.escapeSelector does not exist in jQuery < 3
+    selector = typeof $$$1.escapeSelector === 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
+    return selector;
+  }
+  /**
+   * --------------------------------------------------------------------------
+   * Public Util Api
+   * --------------------------------------------------------------------------
+   */
+
+
+  var Util = {
+    TRANSITION_END: 'bsTransitionEnd',
+    getUID: function getUID(prefix) {
+      do {
+        // eslint-disable-next-line no-bitwise
+        prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster Math.floor() here
+      } while (document.getElementById(prefix));
+
+      return prefix;
+    },
+    getSelectorFromElement: function getSelectorFromElement(element) {
+      var selector = element.getAttribute('data-target');
+
+      if (!selector || selector === '#') {
+        selector = element.getAttribute('href') || '';
+      } // If it's an ID
+
+
+      if (selector.charAt(0) === '#') {
+        selector = escapeId(selector);
+      }
+
+      try {
+        var $selector = $$$1(document).find(selector);
+        return $selector.length > 0 ? selector : null;
+      } catch (err) {
+        return null;
+      }
+    },
+    reflow: function reflow(element) {
+      return element.offsetHeight;
+    },
+    triggerTransitionEnd: function triggerTransitionEnd(element) {
+      $$$1(element).trigger(transition.end);
+    },
+    supportsTransitionEnd: function supportsTransitionEnd() {
+      return Boolean(transition);
+    },
+    isElement: function isElement(obj) {
+      return (obj[0] || obj).nodeType;
+    },
+    typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
+      for (var property in configTypes) {
+        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+          var expectedTypes = configTypes[property];
+          var value = config[property];
+          var valueType = value && Util.isElement(value) ? 'element' : toType(value);
+
+          if (!new RegExp(expectedTypes).test(valueType)) {
+            throw new Error(componentName.toUpperCase() + ": " + ("Option \"" + property + "\" provided type \"" + valueType + "\" ") + ("but expected type \"" + expectedTypes + "\"."));
+          }
+        }
       }
     }
-  })
+  };
+  setTransitionEndSupport();
+  return Util;
+}($);
 
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: alert.js v3.3.7
- * http://getbootstrap.com/javascript/#alerts
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): alert.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
+
+var Alert = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'alert';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.alert';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 150;
+  var Selector = {
+    DISMISS: '[data-dismiss="alert"]'
+  };
+  var Event = {
+    CLOSE: "close" + EVENT_KEY,
+    CLOSED: "closed" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    ALERT: 'alert',
+    FADE: 'fade',
+    SHOW: 'show'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Alert =
+  /*#__PURE__*/
+  function () {
+    function Alert(element) {
+      this._element = element;
+    } // Getters
 
 
-+function ($) {
-  'use strict';
+    var _proto = Alert.prototype;
 
-  // ALERT CLASS DEFINITION
-  // ======================
+    // Public
+    _proto.close = function close(element) {
+      element = element || this._element;
 
-  var dismiss = '[data-dismiss="alert"]'
-  var Alert   = function (el) {
-    $(el).on('click', dismiss, this.close)
-  }
+      var rootElement = this._getRootElement(element);
 
-  Alert.VERSION = '3.3.7'
+      var customEvent = this._triggerCloseEvent(rootElement);
 
-  Alert.TRANSITION_DURATION = 150
+      if (customEvent.isDefaultPrevented()) {
+        return;
+      }
 
-  Alert.prototype.close = function (e) {
-    var $this    = $(this)
-    var selector = $this.attr('data-target')
+      this._removeElement(rootElement);
+    };
 
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    var $parent = $(selector === '#' ? [] : selector)
-
-    if (e) e.preventDefault()
-
-    if (!$parent.length) {
-      $parent = $this.closest('.alert')
-    }
-
-    $parent.trigger(e = $.Event('close.bs.alert'))
-
-    if (e.isDefaultPrevented()) return
-
-    $parent.removeClass('in')
-
-    function removeElement() {
-      // detach from parent, fire event then clean up data
-      $parent.detach().trigger('closed.bs.alert').remove()
-    }
-
-    $.support.transition && $parent.hasClass('fade') ?
-      $parent
-        .one('bsTransitionEnd', removeElement)
-        .emulateTransitionEnd(Alert.TRANSITION_DURATION) :
-      removeElement()
-  }
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      this._element = null;
+    }; // Private
 
 
-  // ALERT PLUGIN DEFINITION
-  // =======================
+    _proto._getRootElement = function _getRootElement(element) {
+      var selector = Util.getSelectorFromElement(element);
+      var parent = false;
 
-  function Plugin(option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.alert')
+      if (selector) {
+        parent = $$$1(selector)[0];
+      }
 
-      if (!data) $this.data('bs.alert', (data = new Alert(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
-  }
+      if (!parent) {
+        parent = $$$1(element).closest("." + ClassName.ALERT)[0];
+      }
 
-  var old = $.fn.alert
+      return parent;
+    };
 
-  $.fn.alert             = Plugin
-  $.fn.alert.Constructor = Alert
+    _proto._triggerCloseEvent = function _triggerCloseEvent(element) {
+      var closeEvent = $$$1.Event(Event.CLOSE);
+      $$$1(element).trigger(closeEvent);
+      return closeEvent;
+    };
+
+    _proto._removeElement = function _removeElement(element) {
+      var _this = this;
+
+      $$$1(element).removeClass(ClassName.SHOW);
+
+      if (!Util.supportsTransitionEnd() || !$$$1(element).hasClass(ClassName.FADE)) {
+        this._destroyElement(element);
+
+        return;
+      }
+
+      $$$1(element).one(Util.TRANSITION_END, function (event) {
+        return _this._destroyElement(element, event);
+      }).emulateTransitionEnd(TRANSITION_DURATION);
+    };
+
+    _proto._destroyElement = function _destroyElement(element) {
+      $$$1(element).detach().trigger(Event.CLOSED).remove();
+    }; // Static
 
 
-  // ALERT NO CONFLICT
-  // =================
+    Alert._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var $element = $$$1(this);
+        var data = $element.data(DATA_KEY);
 
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
-    return this
-  }
+        if (!data) {
+          data = new Alert(this);
+          $element.data(DATA_KEY, data);
+        }
+
+        if (config === 'close') {
+          data[config](this);
+        }
+      });
+    };
+
+    Alert._handleDismiss = function _handleDismiss(alertInstance) {
+      return function (event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        alertInstance.close(this);
+      };
+    };
+
+    _createClass(Alert, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }]);
+    return Alert;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
 
 
-  // ALERT DATA-API
-  // ==============
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DISMISS, Alert._handleDismiss(new Alert()));
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
-  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+  $$$1.fn[NAME] = Alert._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Alert;
 
-}(jQuery);
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Alert._jQueryInterface;
+  };
 
-/* ========================================================================
- * Bootstrap: button.js v3.3.7
- * http://getbootstrap.com/javascript/#buttons
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+  return Alert;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): button.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
+
+var Button = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'button';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.button';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var ClassName = {
+    ACTIVE: 'active',
+    BUTTON: 'btn',
+    FOCUS: 'focus'
+  };
+  var Selector = {
+    DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
+    DATA_TOGGLE: '[data-toggle="buttons"]',
+    INPUT: 'input',
+    ACTIVE: '.active',
+    BUTTON: '.btn'
+  };
+  var Event = {
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY,
+    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY + DATA_API_KEY + " " + ("blur" + EVENT_KEY + DATA_API_KEY)
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Button =
+  /*#__PURE__*/
+  function () {
+    function Button(element) {
+      this._element = element;
+    } // Getters
 
 
-+function ($) {
-  'use strict';
+    var _proto = Button.prototype;
 
-  // BUTTON PUBLIC CLASS DEFINITION
-  // ==============================
+    // Public
+    _proto.toggle = function toggle() {
+      var triggerChangeEvent = true;
+      var addAriaPressed = true;
+      var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
-  var Button = function (element, options) {
-    this.$element  = $(element)
-    this.options   = $.extend({}, Button.DEFAULTS, options)
-    this.isLoading = false
-  }
+      if (rootElement) {
+        var input = $$$1(this._element).find(Selector.INPUT)[0];
 
-  Button.VERSION  = '3.3.7'
+        if (input) {
+          if (input.type === 'radio') {
+            if (input.checked && $$$1(this._element).hasClass(ClassName.ACTIVE)) {
+              triggerChangeEvent = false;
+            } else {
+              var activeElement = $$$1(rootElement).find(Selector.ACTIVE)[0];
 
-  Button.DEFAULTS = {
-    loadingText: 'loading...'
-  }
+              if (activeElement) {
+                $$$1(activeElement).removeClass(ClassName.ACTIVE);
+              }
+            }
+          }
 
-  Button.prototype.setState = function (state) {
-    var d    = 'disabled'
-    var $el  = this.$element
-    var val  = $el.is('input') ? 'val' : 'html'
-    var data = $el.data()
+          if (triggerChangeEvent) {
+            if (input.hasAttribute('disabled') || rootElement.hasAttribute('disabled') || input.classList.contains('disabled') || rootElement.classList.contains('disabled')) {
+              return;
+            }
 
-    state += 'Text'
+            input.checked = !$$$1(this._element).hasClass(ClassName.ACTIVE);
+            $$$1(input).trigger('change');
+          }
 
-    if (data.resetText == null) $el.data('resetText', $el[val]())
-
-    // push to event loop to allow forms to submit
-    setTimeout($.proxy(function () {
-      $el[val](data[state] == null ? this.options[state] : data[state])
-
-      if (state == 'loadingText') {
-        this.isLoading = true
-        $el.addClass(d).attr(d, d).prop(d, true)
-      } else if (this.isLoading) {
-        this.isLoading = false
-        $el.removeClass(d).removeAttr(d).prop(d, false)
+          input.focus();
+          addAriaPressed = false;
+        }
       }
-    }, this), 0)
-  }
 
-  Button.prototype.toggle = function () {
-    var changed = true
-    var $parent = this.$element.closest('[data-toggle="buttons"]')
-
-    if ($parent.length) {
-      var $input = this.$element.find('input')
-      if ($input.prop('type') == 'radio') {
-        if ($input.prop('checked')) changed = false
-        $parent.find('.active').removeClass('active')
-        this.$element.addClass('active')
-      } else if ($input.prop('type') == 'checkbox') {
-        if (($input.prop('checked')) !== this.$element.hasClass('active')) changed = false
-        this.$element.toggleClass('active')
+      if (addAriaPressed) {
+        this._element.setAttribute('aria-pressed', !$$$1(this._element).hasClass(ClassName.ACTIVE));
       }
-      $input.prop('checked', this.$element.hasClass('active'))
-      if (changed) $input.trigger('change')
-    } else {
-      this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
-      this.$element.toggleClass('active')
+
+      if (triggerChangeEvent) {
+        $$$1(this._element).toggleClass(ClassName.ACTIVE);
+      }
+    };
+
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      this._element = null;
+    }; // Static
+
+
+    Button._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
+
+        if (!data) {
+          data = new Button(this);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (config === 'toggle') {
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Button, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }]);
+    return Button;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    event.preventDefault();
+    var button = event.target;
+
+    if (!$$$1(button).hasClass(ClassName.BUTTON)) {
+      button = $$$1(button).closest(Selector.BUTTON);
     }
-  }
 
+    Button._jQueryInterface.call($$$1(button), 'toggle');
+  }).on(Event.FOCUS_BLUR_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    var button = $$$1(event.target).closest(Selector.BUTTON)[0];
+    $$$1(button).toggleClass(ClassName.FOCUS, /^focus(in)?$/.test(event.type));
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
-  // BUTTON PLUGIN DEFINITION
-  // ========================
+  $$$1.fn[NAME] = Button._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Button;
 
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.button')
-      var options = typeof option == 'object' && option
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Button._jQueryInterface;
+  };
 
-      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+  return Button;
+}($);
 
-      if (option == 'toggle') data.toggle()
-      else if (option) data.setState(option)
-    })
-  }
-
-  var old = $.fn.button
-
-  $.fn.button             = Plugin
-  $.fn.button.Constructor = Button
-
-
-  // BUTTON NO CONFLICT
-  // ==================
-
-  $.fn.button.noConflict = function () {
-    $.fn.button = old
-    return this
-  }
-
-
-  // BUTTON DATA-API
-  // ===============
-
-  $(document)
-    .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-      var $btn = $(e.target).closest('.btn')
-      Plugin.call($btn, 'toggle')
-      if (!($(e.target).is('input[type="radio"], input[type="checkbox"]'))) {
-        // Prevent double click on radios, and the double selections (so cancellation) on checkboxes
-        e.preventDefault()
-        // The target component still receive the focus
-        if ($btn.is('input,button')) $btn.trigger('focus')
-        else $btn.find('input:visible,button:visible').first().trigger('focus')
-      }
-    })
-    .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-      $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
-    })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: carousel.js v3.3.7
- * http://getbootstrap.com/javascript/#carousel
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): carousel.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
 
+var Carousel = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'carousel';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.carousel';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 600;
+  var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key
 
-+function ($) {
-  'use strict';
+  var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
 
-  // CAROUSEL CLASS DEFINITION
-  // =========================
+  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
 
-  var Carousel = function (element, options) {
-    this.$element    = $(element)
-    this.$indicators = this.$element.find('.carousel-indicators')
-    this.options     = options
-    this.paused      = null
-    this.sliding     = null
-    this.interval    = null
-    this.$active     = null
-    this.$items      = null
-
-    this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this))
-
-    this.options.pause == 'hover' && !('ontouchstart' in document.documentElement) && this.$element
-      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
-      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
-  }
-
-  Carousel.VERSION  = '3.3.7'
-
-  Carousel.TRANSITION_DURATION = 600
-
-  Carousel.DEFAULTS = {
+  var Default = {
     interval: 5000,
+    keyboard: true,
+    slide: false,
     pause: 'hover',
-    wrap: true,
-    keyboard: true
-  }
-
-  Carousel.prototype.keydown = function (e) {
-    if (/input|textarea/i.test(e.target.tagName)) return
-    switch (e.which) {
-      case 37: this.prev(); break
-      case 39: this.next(); break
-      default: return
-    }
-
-    e.preventDefault()
-  }
-
-  Carousel.prototype.cycle = function (e) {
-    e || (this.paused = false)
-
-    this.interval && clearInterval(this.interval)
-
-    this.options.interval
-      && !this.paused
-      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
-
-    return this
-  }
-
-  Carousel.prototype.getItemIndex = function (item) {
-    this.$items = item.parent().children('.item')
-    return this.$items.index(item || this.$active)
-  }
-
-  Carousel.prototype.getItemForDirection = function (direction, active) {
-    var activeIndex = this.getItemIndex(active)
-    var willWrap = (direction == 'prev' && activeIndex === 0)
-                || (direction == 'next' && activeIndex == (this.$items.length - 1))
-    if (willWrap && !this.options.wrap) return active
-    var delta = direction == 'prev' ? -1 : 1
-    var itemIndex = (activeIndex + delta) % this.$items.length
-    return this.$items.eq(itemIndex)
-  }
-
-  Carousel.prototype.to = function (pos) {
-    var that        = this
-    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
-
-    if (pos > (this.$items.length - 1) || pos < 0) return
-
-    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
-    if (activeIndex == pos) return this.pause().cycle()
-
-    return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
-  }
-
-  Carousel.prototype.pause = function (e) {
-    e || (this.paused = true)
-
-    if (this.$element.find('.next, .prev').length && $.support.transition) {
-      this.$element.trigger($.support.transition.end)
-      this.cycle(true)
-    }
-
-    this.interval = clearInterval(this.interval)
-
-    return this
-  }
-
-  Carousel.prototype.next = function () {
-    if (this.sliding) return
-    return this.slide('next')
-  }
-
-  Carousel.prototype.prev = function () {
-    if (this.sliding) return
-    return this.slide('prev')
-  }
-
-  Carousel.prototype.slide = function (type, next) {
-    var $active   = this.$element.find('.item.active')
-    var $next     = next || this.getItemForDirection(type, $active)
-    var isCycling = this.interval
-    var direction = type == 'next' ? 'left' : 'right'
-    var that      = this
-
-    if ($next.hasClass('active')) return (this.sliding = false)
-
-    var relatedTarget = $next[0]
-    var slideEvent = $.Event('slide.bs.carousel', {
-      relatedTarget: relatedTarget,
-      direction: direction
-    })
-    this.$element.trigger(slideEvent)
-    if (slideEvent.isDefaultPrevented()) return
-
-    this.sliding = true
-
-    isCycling && this.pause()
-
-    if (this.$indicators.length) {
-      this.$indicators.find('.active').removeClass('active')
-      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
-      $nextIndicator && $nextIndicator.addClass('active')
-    }
-
-    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
-    if ($.support.transition && this.$element.hasClass('slide')) {
-      $next.addClass(type)
-      $next[0].offsetWidth // force reflow
-      $active.addClass(direction)
-      $next.addClass(direction)
-      $active
-        .one('bsTransitionEnd', function () {
-          $next.removeClass([type, direction].join(' ')).addClass('active')
-          $active.removeClass(['active', direction].join(' '))
-          that.sliding = false
-          setTimeout(function () {
-            that.$element.trigger(slidEvent)
-          }, 0)
-        })
-        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
-    } else {
-      $active.removeClass('active')
-      $next.addClass('active')
-      this.sliding = false
-      this.$element.trigger(slidEvent)
-    }
-
-    isCycling && this.cycle()
-
-    return this
-  }
-
-
-  // CAROUSEL PLUGIN DEFINITION
-  // ==========================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.carousel')
-      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
-      var action  = typeof option == 'string' ? option : options.slide
-
-      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
-      if (typeof option == 'number') data.to(option)
-      else if (action) data[action]()
-      else if (options.interval) data.pause().cycle()
-    })
-  }
-
-  var old = $.fn.carousel
-
-  $.fn.carousel             = Plugin
-  $.fn.carousel.Constructor = Carousel
-
-
-  // CAROUSEL NO CONFLICT
-  // ====================
-
-  $.fn.carousel.noConflict = function () {
-    $.fn.carousel = old
-    return this
-  }
-
-
-  // CAROUSEL DATA-API
-  // =================
-
-  var clickHandler = function (e) {
-    var href
-    var $this   = $(this)
-    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
-    if (!$target.hasClass('carousel')) return
-    var options = $.extend({}, $target.data(), $this.data())
-    var slideIndex = $this.attr('data-slide-to')
-    if (slideIndex) options.interval = false
-
-    Plugin.call($target, options)
-
-    if (slideIndex) {
-      $target.data('bs.carousel').to(slideIndex)
-    }
-
-    e.preventDefault()
-  }
-
-  $(document)
-    .on('click.bs.carousel.data-api', '[data-slide]', clickHandler)
-    .on('click.bs.carousel.data-api', '[data-slide-to]', clickHandler)
-
-  $(window).on('load', function () {
-    $('[data-ride="carousel"]').each(function () {
-      var $carousel = $(this)
-      Plugin.call($carousel, $carousel.data())
-    })
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: collapse.js v3.3.7
- * http://getbootstrap.com/javascript/#collapse
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-/* jshint latedef: false */
-
-+function ($) {
-  'use strict';
-
-  // COLLAPSE PUBLIC CLASS DEFINITION
-  // ================================
-
-  var Collapse = function (element, options) {
-    this.$element      = $(element)
-    this.options       = $.extend({}, Collapse.DEFAULTS, options)
-    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
-                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
-    this.transitioning = null
-
-    if (this.options.parent) {
-      this.$parent = this.getParent()
-    } else {
-      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
-    }
-
-    if (this.options.toggle) this.toggle()
-  }
-
-  Collapse.VERSION  = '3.3.7'
-
-  Collapse.TRANSITION_DURATION = 350
-
-  Collapse.DEFAULTS = {
-    toggle: true
-  }
-
-  Collapse.prototype.dimension = function () {
-    var hasWidth = this.$element.hasClass('width')
-    return hasWidth ? 'width' : 'height'
-  }
-
-  Collapse.prototype.show = function () {
-    if (this.transitioning || this.$element.hasClass('in')) return
-
-    var activesData
-    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
-
-    if (actives && actives.length) {
-      activesData = actives.data('bs.collapse')
-      if (activesData && activesData.transitioning) return
-    }
-
-    var startEvent = $.Event('show.bs.collapse')
-    this.$element.trigger(startEvent)
-    if (startEvent.isDefaultPrevented()) return
-
-    if (actives && actives.length) {
-      Plugin.call(actives, 'hide')
-      activesData || actives.data('bs.collapse', null)
-    }
-
-    var dimension = this.dimension()
-
-    this.$element
-      .removeClass('collapse')
-      .addClass('collapsing')[dimension](0)
-      .attr('aria-expanded', true)
-
-    this.$trigger
-      .removeClass('collapsed')
-      .attr('aria-expanded', true)
-
-    this.transitioning = 1
-
-    var complete = function () {
-      this.$element
-        .removeClass('collapsing')
-        .addClass('collapse in')[dimension]('')
-      this.transitioning = 0
-      this.$element
-        .trigger('shown.bs.collapse')
-    }
-
-    if (!$.support.transition) return complete.call(this)
-
-    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
-
-    this.$element
-      .one('bsTransitionEnd', $.proxy(complete, this))
-      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
-  }
-
-  Collapse.prototype.hide = function () {
-    if (this.transitioning || !this.$element.hasClass('in')) return
-
-    var startEvent = $.Event('hide.bs.collapse')
-    this.$element.trigger(startEvent)
-    if (startEvent.isDefaultPrevented()) return
-
-    var dimension = this.dimension()
-
-    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
-
-    this.$element
-      .addClass('collapsing')
-      .removeClass('collapse in')
-      .attr('aria-expanded', false)
-
-    this.$trigger
-      .addClass('collapsed')
-      .attr('aria-expanded', false)
-
-    this.transitioning = 1
-
-    var complete = function () {
-      this.transitioning = 0
-      this.$element
-        .removeClass('collapsing')
-        .addClass('collapse')
-        .trigger('hidden.bs.collapse')
-    }
-
-    if (!$.support.transition) return complete.call(this)
-
-    this.$element
-      [dimension](0)
-      .one('bsTransitionEnd', $.proxy(complete, this))
-      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
-  }
-
-  Collapse.prototype.toggle = function () {
-    this[this.$element.hasClass('in') ? 'hide' : 'show']()
-  }
-
-  Collapse.prototype.getParent = function () {
-    return $(this.options.parent)
-      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
-      .each($.proxy(function (i, element) {
-        var $element = $(element)
-        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
-      }, this))
-      .end()
-  }
-
-  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
-    var isOpen = $element.hasClass('in')
-
-    $element.attr('aria-expanded', isOpen)
-    $trigger
-      .toggleClass('collapsed', !isOpen)
-      .attr('aria-expanded', isOpen)
-  }
-
-  function getTargetFromTrigger($trigger) {
-    var href
-    var target = $trigger.attr('data-target')
-      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
-
-    return $(target)
-  }
-
-
-  // COLLAPSE PLUGIN DEFINITION
-  // ==========================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.collapse')
-      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
-      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  var old = $.fn.collapse
-
-  $.fn.collapse             = Plugin
-  $.fn.collapse.Constructor = Collapse
-
-
-  // COLLAPSE NO CONFLICT
-  // ====================
-
-  $.fn.collapse.noConflict = function () {
-    $.fn.collapse = old
-    return this
-  }
-
-
-  // COLLAPSE DATA-API
-  // =================
-
-  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-    var $this   = $(this)
-
-    if (!$this.attr('data-target')) e.preventDefault()
-
-    var $target = getTargetFromTrigger($this)
-    var data    = $target.data('bs.collapse')
-    var option  = data ? 'toggle' : $this.data()
-
-    Plugin.call($target, option)
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: dropdown.js v3.3.7
- * http://getbootstrap.com/javascript/#dropdowns
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // DROPDOWN CLASS DEFINITION
-  // =========================
-
-  var backdrop = '.dropdown-backdrop'
-  var toggle   = '[data-toggle="dropdown"]'
-  var Dropdown = function (element) {
-    $(element).on('click.bs.dropdown', this.toggle)
-  }
-
-  Dropdown.VERSION = '3.3.7'
-
-  function getParent($this) {
-    var selector = $this.attr('data-target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    var $parent = selector && $(selector)
-
-    return $parent && $parent.length ? $parent : $this.parent()
-  }
-
-  function clearMenus(e) {
-    if (e && e.which === 3) return
-    $(backdrop).remove()
-    $(toggle).each(function () {
-      var $this         = $(this)
-      var $parent       = getParent($this)
-      var relatedTarget = { relatedTarget: this }
-
-      if (!$parent.hasClass('open')) return
-
-      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
-
-      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
-
-      if (e.isDefaultPrevented()) return
-
-      $this.attr('aria-expanded', 'false')
-      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
-    })
-  }
-
-  Dropdown.prototype.toggle = function (e) {
-    var $this = $(this)
-
-    if ($this.is('.disabled, :disabled')) return
-
-    var $parent  = getParent($this)
-    var isActive = $parent.hasClass('open')
-
-    clearMenus()
-
-    if (!isActive) {
-      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-        // if mobile we use a backdrop because click events don't delegate
-        $(document.createElement('div'))
-          .addClass('dropdown-backdrop')
-          .insertAfter($(this))
-          .on('click', clearMenus)
+    wrap: true
+  };
+  var DefaultType = {
+    interval: '(number|boolean)',
+    keyboard: 'boolean',
+    slide: '(boolean|string)',
+    pause: '(string|boolean)',
+    wrap: 'boolean'
+  };
+  var Direction = {
+    NEXT: 'next',
+    PREV: 'prev',
+    LEFT: 'left',
+    RIGHT: 'right'
+  };
+  var Event = {
+    SLIDE: "slide" + EVENT_KEY,
+    SLID: "slid" + EVENT_KEY,
+    KEYDOWN: "keydown" + EVENT_KEY,
+    MOUSEENTER: "mouseenter" + EVENT_KEY,
+    MOUSELEAVE: "mouseleave" + EVENT_KEY,
+    TOUCHEND: "touchend" + EVENT_KEY,
+    LOAD_DATA_API: "load" + EVENT_KEY + DATA_API_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    CAROUSEL: 'carousel',
+    ACTIVE: 'active',
+    SLIDE: 'slide',
+    RIGHT: 'carousel-item-right',
+    LEFT: 'carousel-item-left',
+    NEXT: 'carousel-item-next',
+    PREV: 'carousel-item-prev',
+    ITEM: 'carousel-item'
+  };
+  var Selector = {
+    ACTIVE: '.active',
+    ACTIVE_ITEM: '.active.carousel-item',
+    ITEM: '.carousel-item',
+    NEXT_PREV: '.carousel-item-next, .carousel-item-prev',
+    INDICATORS: '.carousel-indicators',
+    DATA_SLIDE: '[data-slide], [data-slide-to]',
+    DATA_RIDE: '[data-ride="carousel"]'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Carousel =
+  /*#__PURE__*/
+  function () {
+    function Carousel(element, config) {
+      this._items = null;
+      this._interval = null;
+      this._activeElement = null;
+      this._isPaused = false;
+      this._isSliding = false;
+      this.touchTimeout = null;
+      this._config = this._getConfig(config);
+      this._element = $$$1(element)[0];
+      this._indicatorsElement = $$$1(this._element).find(Selector.INDICATORS)[0];
+
+      this._addEventListeners();
+    } // Getters
+
+
+    var _proto = Carousel.prototype;
+
+    // Public
+    _proto.next = function next() {
+      if (!this._isSliding) {
+        this._slide(Direction.NEXT);
+      }
+    };
+
+    _proto.nextWhenVisible = function nextWhenVisible() {
+      // Don't call next when the page isn't visible
+      // or the carousel or its parent isn't visible
+      if (!document.hidden && $$$1(this._element).is(':visible') && $$$1(this._element).css('visibility') !== 'hidden') {
+        this.next();
+      }
+    };
+
+    _proto.prev = function prev() {
+      if (!this._isSliding) {
+        this._slide(Direction.PREV);
+      }
+    };
+
+    _proto.pause = function pause(event) {
+      if (!event) {
+        this._isPaused = true;
       }
 
-      var relatedTarget = { relatedTarget: this }
-      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+      if ($$$1(this._element).find(Selector.NEXT_PREV)[0] && Util.supportsTransitionEnd()) {
+        Util.triggerTransitionEnd(this._element);
+        this.cycle(true);
+      }
 
-      if (e.isDefaultPrevented()) return
+      clearInterval(this._interval);
+      this._interval = null;
+    };
 
-      $this
-        .trigger('focus')
-        .attr('aria-expanded', 'true')
+    _proto.cycle = function cycle(event) {
+      if (!event) {
+        this._isPaused = false;
+      }
 
-      $parent
-        .toggleClass('open')
-        .trigger($.Event('shown.bs.dropdown', relatedTarget))
-    }
+      if (this._interval) {
+        clearInterval(this._interval);
+        this._interval = null;
+      }
 
-    return false
-  }
+      if (this._config.interval && !this._isPaused) {
+        this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval);
+      }
+    };
 
-  Dropdown.prototype.keydown = function (e) {
-    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+    _proto.to = function to(index) {
+      var _this = this;
 
-    var $this = $(this)
+      this._activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
 
-    e.preventDefault()
-    e.stopPropagation()
+      var activeIndex = this._getItemIndex(this._activeElement);
 
-    if ($this.is('.disabled, :disabled')) return
+      if (index > this._items.length - 1 || index < 0) {
+        return;
+      }
 
-    var $parent  = getParent($this)
-    var isActive = $parent.hasClass('open')
+      if (this._isSliding) {
+        $$$1(this._element).one(Event.SLID, function () {
+          return _this.to(index);
+        });
+        return;
+      }
 
-    if (!isActive && e.which != 27 || isActive && e.which == 27) {
-      if (e.which == 27) $parent.find(toggle).trigger('focus')
-      return $this.trigger('click')
-    }
+      if (activeIndex === index) {
+        this.pause();
+        this.cycle();
+        return;
+      }
 
-    var desc = ' li:not(.disabled):visible a'
-    var $items = $parent.find('.dropdown-menu' + desc)
+      var direction = index > activeIndex ? Direction.NEXT : Direction.PREV;
 
-    if (!$items.length) return
+      this._slide(direction, this._items[index]);
+    };
 
-    var index = $items.index(e.target)
-
-    if (e.which == 38 && index > 0)                 index--         // up
-    if (e.which == 40 && index < $items.length - 1) index++         // down
-    if (!~index)                                    index = 0
-
-    $items.eq(index).trigger('focus')
-  }
-
-
-  // DROPDOWN PLUGIN DEFINITION
-  // ==========================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.dropdown')
-
-      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
-  }
-
-  var old = $.fn.dropdown
-
-  $.fn.dropdown             = Plugin
-  $.fn.dropdown.Constructor = Dropdown
+    _proto.dispose = function dispose() {
+      $$$1(this._element).off(EVENT_KEY);
+      $$$1.removeData(this._element, DATA_KEY);
+      this._items = null;
+      this._config = null;
+      this._element = null;
+      this._interval = null;
+      this._isPaused = null;
+      this._isSliding = null;
+      this._activeElement = null;
+      this._indicatorsElement = null;
+    }; // Private
 
 
-  // DROPDOWN NO CONFLICT
-  // ====================
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
+      Util.typeCheckConfig(NAME, config, DefaultType);
+      return config;
+    };
 
-  $.fn.dropdown.noConflict = function () {
-    $.fn.dropdown = old
-    return this
-  }
+    _proto._addEventListeners = function _addEventListeners() {
+      var _this2 = this;
+
+      if (this._config.keyboard) {
+        $$$1(this._element).on(Event.KEYDOWN, function (event) {
+          return _this2._keydown(event);
+        });
+      }
+
+      if (this._config.pause === 'hover') {
+        $$$1(this._element).on(Event.MOUSEENTER, function (event) {
+          return _this2.pause(event);
+        }).on(Event.MOUSELEAVE, function (event) {
+          return _this2.cycle(event);
+        });
+
+        if ('ontouchstart' in document.documentElement) {
+          // If it's a touch-enabled device, mouseenter/leave are fired as
+          // part of the mouse compatibility events on first tap - the carousel
+          // would stop cycling until user tapped out of it;
+          // here, we listen for touchend, explicitly pause the carousel
+          // (as if it's the second time we tap on it, mouseenter compat event
+          // is NOT fired) and after a timeout (to allow for mouse compatibility
+          // events to fire) we explicitly restart cycling
+          $$$1(this._element).on(Event.TOUCHEND, function () {
+            _this2.pause();
+
+            if (_this2.touchTimeout) {
+              clearTimeout(_this2.touchTimeout);
+            }
+
+            _this2.touchTimeout = setTimeout(function (event) {
+              return _this2.cycle(event);
+            }, TOUCHEVENT_COMPAT_WAIT + _this2._config.interval);
+          });
+        }
+      }
+    };
+
+    _proto._keydown = function _keydown(event) {
+      if (/input|textarea/i.test(event.target.tagName)) {
+        return;
+      }
+
+      switch (event.which) {
+        case ARROW_LEFT_KEYCODE:
+          event.preventDefault();
+          this.prev();
+          break;
+
+        case ARROW_RIGHT_KEYCODE:
+          event.preventDefault();
+          this.next();
+          break;
+
+        default:
+      }
+    };
+
+    _proto._getItemIndex = function _getItemIndex(element) {
+      this._items = $$$1.makeArray($$$1(element).parent().find(Selector.ITEM));
+      return this._items.indexOf(element);
+    };
+
+    _proto._getItemByDirection = function _getItemByDirection(direction, activeElement) {
+      var isNextDirection = direction === Direction.NEXT;
+      var isPrevDirection = direction === Direction.PREV;
+
+      var activeIndex = this._getItemIndex(activeElement);
+
+      var lastItemIndex = this._items.length - 1;
+      var isGoingToWrap = isPrevDirection && activeIndex === 0 || isNextDirection && activeIndex === lastItemIndex;
+
+      if (isGoingToWrap && !this._config.wrap) {
+        return activeElement;
+      }
+
+      var delta = direction === Direction.PREV ? -1 : 1;
+      var itemIndex = (activeIndex + delta) % this._items.length;
+      return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
+    };
+
+    _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
+      var targetIndex = this._getItemIndex(relatedTarget);
+
+      var fromIndex = this._getItemIndex($$$1(this._element).find(Selector.ACTIVE_ITEM)[0]);
+
+      var slideEvent = $$$1.Event(Event.SLIDE, {
+        relatedTarget: relatedTarget,
+        direction: eventDirectionName,
+        from: fromIndex,
+        to: targetIndex
+      });
+      $$$1(this._element).trigger(slideEvent);
+      return slideEvent;
+    };
+
+    _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
+      if (this._indicatorsElement) {
+        $$$1(this._indicatorsElement).find(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+
+        var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
+
+        if (nextIndicator) {
+          $$$1(nextIndicator).addClass(ClassName.ACTIVE);
+        }
+      }
+    };
+
+    _proto._slide = function _slide(direction, element) {
+      var _this3 = this;
+
+      var activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+
+      var activeElementIndex = this._getItemIndex(activeElement);
+
+      var nextElement = element || activeElement && this._getItemByDirection(direction, activeElement);
+
+      var nextElementIndex = this._getItemIndex(nextElement);
+
+      var isCycling = Boolean(this._interval);
+      var directionalClassName;
+      var orderClassName;
+      var eventDirectionName;
+
+      if (direction === Direction.NEXT) {
+        directionalClassName = ClassName.LEFT;
+        orderClassName = ClassName.NEXT;
+        eventDirectionName = Direction.LEFT;
+      } else {
+        directionalClassName = ClassName.RIGHT;
+        orderClassName = ClassName.PREV;
+        eventDirectionName = Direction.RIGHT;
+      }
+
+      if (nextElement && $$$1(nextElement).hasClass(ClassName.ACTIVE)) {
+        this._isSliding = false;
+        return;
+      }
+
+      var slideEvent = this._triggerSlideEvent(nextElement, eventDirectionName);
+
+      if (slideEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      if (!activeElement || !nextElement) {
+        // Some weirdness is happening, so we bail
+        return;
+      }
+
+      this._isSliding = true;
+
+      if (isCycling) {
+        this.pause();
+      }
+
+      this._setActiveIndicatorElement(nextElement);
+
+      var slidEvent = $$$1.Event(Event.SLID, {
+        relatedTarget: nextElement,
+        direction: eventDirectionName,
+        from: activeElementIndex,
+        to: nextElementIndex
+      });
+
+      if (Util.supportsTransitionEnd() && $$$1(this._element).hasClass(ClassName.SLIDE)) {
+        $$$1(nextElement).addClass(orderClassName);
+        Util.reflow(nextElement);
+        $$$1(activeElement).addClass(directionalClassName);
+        $$$1(nextElement).addClass(directionalClassName);
+        $$$1(activeElement).one(Util.TRANSITION_END, function () {
+          $$$1(nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(ClassName.ACTIVE);
+          $$$1(activeElement).removeClass(ClassName.ACTIVE + " " + orderClassName + " " + directionalClassName);
+          _this3._isSliding = false;
+          setTimeout(function () {
+            return $$$1(_this3._element).trigger(slidEvent);
+          }, 0);
+        }).emulateTransitionEnd(TRANSITION_DURATION);
+      } else {
+        $$$1(activeElement).removeClass(ClassName.ACTIVE);
+        $$$1(nextElement).addClass(ClassName.ACTIVE);
+        this._isSliding = false;
+        $$$1(this._element).trigger(slidEvent);
+      }
+
+      if (isCycling) {
+        this.cycle();
+      }
+    }; // Static
 
 
-  // APPLY TO STANDARD DROPDOWN ELEMENTS
-  // ===================================
+    Carousel._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
 
-  $(document)
-    .on('click.bs.dropdown.data-api', clearMenus)
-    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
-    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
-    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
-    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
+        var _config = _extends({}, Default, $$$1(this).data());
 
-}(jQuery);
+        if (typeof config === 'object') {
+          _config = _extends({}, _config, config);
+        }
 
-/* ========================================================================
- * Bootstrap: modal.js v3.3.7
- * http://getbootstrap.com/javascript/#modals
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+        var action = typeof config === 'string' ? config : _config.slide;
+
+        if (!data) {
+          data = new Carousel(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'number') {
+          data.to(config);
+        } else if (typeof action === 'string') {
+          if (typeof data[action] === 'undefined') {
+            throw new TypeError("No method named \"" + action + "\"");
+          }
+
+          data[action]();
+        } else if (_config.interval) {
+          data.pause();
+          data.cycle();
+        }
+      });
+    };
+
+    Carousel._dataApiClickHandler = function _dataApiClickHandler(event) {
+      var selector = Util.getSelectorFromElement(this);
+
+      if (!selector) {
+        return;
+      }
+
+      var target = $$$1(selector)[0];
+
+      if (!target || !$$$1(target).hasClass(ClassName.CAROUSEL)) {
+        return;
+      }
+
+      var config = _extends({}, $$$1(target).data(), $$$1(this).data());
+      var slideIndex = this.getAttribute('data-slide-to');
+
+      if (slideIndex) {
+        config.interval = false;
+      }
+
+      Carousel._jQueryInterface.call($$$1(target), config);
+
+      if (slideIndex) {
+        $$$1(target).data(DATA_KEY).to(slideIndex);
+      }
+
+      event.preventDefault();
+    };
+
+    _createClass(Carousel, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }]);
+    return Carousel;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_SLIDE, Carousel._dataApiClickHandler);
+  $$$1(window).on(Event.LOAD_DATA_API, function () {
+    $$$1(Selector.DATA_RIDE).each(function () {
+      var $carousel = $$$1(this);
+
+      Carousel._jQueryInterface.call($carousel, $carousel.data());
+    });
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $$$1.fn[NAME] = Carousel._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Carousel;
+
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Carousel._jQueryInterface;
+  };
+
+  return Carousel;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): collapse.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
+
+var Collapse = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'collapse';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.collapse';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 600;
+  var Default = {
+    toggle: true,
+    parent: ''
+  };
+  var DefaultType = {
+    toggle: 'boolean',
+    parent: '(string|element)'
+  };
+  var Event = {
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    SHOW: 'show',
+    COLLAPSE: 'collapse',
+    COLLAPSING: 'collapsing',
+    COLLAPSED: 'collapsed'
+  };
+  var Dimension = {
+    WIDTH: 'width',
+    HEIGHT: 'height'
+  };
+  var Selector = {
+    ACTIVES: '.show, .collapsing',
+    DATA_TOGGLE: '[data-toggle="collapse"]'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Collapse =
+  /*#__PURE__*/
+  function () {
+    function Collapse(element, config) {
+      this._isTransitioning = false;
+      this._element = element;
+      this._config = this._getConfig(config);
+      this._triggerArray = $$$1.makeArray($$$1("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
+      var tabToggles = $$$1(Selector.DATA_TOGGLE);
+
+      for (var i = 0; i < tabToggles.length; i++) {
+        var elem = tabToggles[i];
+        var selector = Util.getSelectorFromElement(elem);
+
+        if (selector !== null && $$$1(selector).filter(element).length > 0) {
+          this._selector = selector;
+
+          this._triggerArray.push(elem);
+        }
+      }
+
+      this._parent = this._config.parent ? this._getParent() : null;
+
+      if (!this._config.parent) {
+        this._addAriaAndCollapsedClass(this._element, this._triggerArray);
+      }
+
+      if (this._config.toggle) {
+        this.toggle();
+      }
+    } // Getters
 
 
-+function ($) {
-  'use strict';
+    var _proto = Collapse.prototype;
 
-  // MODAL CLASS DEFINITION
-  // ======================
+    // Public
+    _proto.toggle = function toggle() {
+      if ($$$1(this._element).hasClass(ClassName.SHOW)) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    };
 
-  var Modal = function (element, options) {
-    this.options             = options
-    this.$body               = $(document.body)
-    this.$element            = $(element)
-    this.$dialog             = this.$element.find('.modal-dialog')
-    this.$backdrop           = null
-    this.isShown             = null
-    this.originalBodyPad     = null
-    this.scrollbarWidth      = 0
-    this.ignoreBackdropClick = false
+    _proto.show = function show() {
+      var _this = this;
 
-    if (this.options.remote) {
-      this.$element
-        .find('.modal-content')
-        .load(this.options.remote, $.proxy(function () {
-          this.$element.trigger('loaded.bs.modal')
-        }, this))
+      if (this._isTransitioning || $$$1(this._element).hasClass(ClassName.SHOW)) {
+        return;
+      }
+
+      var actives;
+      var activesData;
+
+      if (this._parent) {
+        actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+
+        if (actives.length === 0) {
+          actives = null;
+        }
+      }
+
+      if (actives) {
+        activesData = $$$1(actives).not(this._selector).data(DATA_KEY);
+
+        if (activesData && activesData._isTransitioning) {
+          return;
+        }
+      }
+
+      var startEvent = $$$1.Event(Event.SHOW);
+      $$$1(this._element).trigger(startEvent);
+
+      if (startEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      if (actives) {
+        Collapse._jQueryInterface.call($$$1(actives).not(this._selector), 'hide');
+
+        if (!activesData) {
+          $$$1(actives).data(DATA_KEY, null);
+        }
+      }
+
+      var dimension = this._getDimension();
+
+      $$$1(this._element).removeClass(ClassName.COLLAPSE).addClass(ClassName.COLLAPSING);
+      this._element.style[dimension] = 0;
+
+      if (this._triggerArray.length > 0) {
+        $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
+      }
+
+      this.setTransitioning(true);
+
+      var complete = function complete() {
+        $$$1(_this._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).addClass(ClassName.SHOW);
+        _this._element.style[dimension] = '';
+
+        _this.setTransitioning(false);
+
+        $$$1(_this._element).trigger(Event.SHOWN);
+      };
+
+      if (!Util.supportsTransitionEnd()) {
+        complete();
+        return;
+      }
+
+      var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
+      var scrollSize = "scroll" + capitalizedDimension;
+      $$$1(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      this._element.style[dimension] = this._element[scrollSize] + "px";
+    };
+
+    _proto.hide = function hide() {
+      var _this2 = this;
+
+      if (this._isTransitioning || !$$$1(this._element).hasClass(ClassName.SHOW)) {
+        return;
+      }
+
+      var startEvent = $$$1.Event(Event.HIDE);
+      $$$1(this._element).trigger(startEvent);
+
+      if (startEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      var dimension = this._getDimension();
+
+      this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
+      Util.reflow(this._element);
+      $$$1(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
+
+      if (this._triggerArray.length > 0) {
+        for (var i = 0; i < this._triggerArray.length; i++) {
+          var trigger = this._triggerArray[i];
+          var selector = Util.getSelectorFromElement(trigger);
+
+          if (selector !== null) {
+            var $elem = $$$1(selector);
+
+            if (!$elem.hasClass(ClassName.SHOW)) {
+              $$$1(trigger).addClass(ClassName.COLLAPSED).attr('aria-expanded', false);
+            }
+          }
+        }
+      }
+
+      this.setTransitioning(true);
+
+      var complete = function complete() {
+        _this2.setTransitioning(false);
+
+        $$$1(_this2._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).trigger(Event.HIDDEN);
+      };
+
+      this._element.style[dimension] = '';
+
+      if (!Util.supportsTransitionEnd()) {
+        complete();
+        return;
+      }
+
+      $$$1(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+    };
+
+    _proto.setTransitioning = function setTransitioning(isTransitioning) {
+      this._isTransitioning = isTransitioning;
+    };
+
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      this._config = null;
+      this._parent = null;
+      this._element = null;
+      this._triggerArray = null;
+      this._isTransitioning = null;
+    }; // Private
+
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
+      config.toggle = Boolean(config.toggle); // Coerce string values
+
+      Util.typeCheckConfig(NAME, config, DefaultType);
+      return config;
+    };
+
+    _proto._getDimension = function _getDimension() {
+      var hasWidth = $$$1(this._element).hasClass(Dimension.WIDTH);
+      return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
+    };
+
+    _proto._getParent = function _getParent() {
+      var _this3 = this;
+
+      var parent = null;
+
+      if (Util.isElement(this._config.parent)) {
+        parent = this._config.parent; // It's a jQuery object
+
+        if (typeof this._config.parent.jquery !== 'undefined') {
+          parent = this._config.parent[0];
+        }
+      } else {
+        parent = $$$1(this._config.parent)[0];
+      }
+
+      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
+      $$$1(parent).find(selector).each(function (i, element) {
+        _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
+      });
+      return parent;
+    };
+
+    _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
+      if (element) {
+        var isOpen = $$$1(element).hasClass(ClassName.SHOW);
+
+        if (triggerArray.length > 0) {
+          $$$1(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
+        }
+      }
+    }; // Static
+
+
+    Collapse._getTargetFromElement = function _getTargetFromElement(element) {
+      var selector = Util.getSelectorFromElement(element);
+      return selector ? $$$1(selector)[0] : null;
+    };
+
+    Collapse._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var $this = $$$1(this);
+        var data = $this.data(DATA_KEY);
+
+        var _config = _extends({}, Default, $this.data(), typeof config === 'object' && config);
+
+        if (!data && _config.toggle && /show|hide/.test(config)) {
+          _config.toggle = false;
+        }
+
+        if (!data) {
+          data = new Collapse(this, _config);
+          $this.data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Collapse, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }]);
+    return Collapse;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
+    if (event.currentTarget.tagName === 'A') {
+      event.preventDefault();
     }
-  }
 
-  Modal.VERSION  = '3.3.7'
+    var $trigger = $$$1(this);
+    var selector = Util.getSelectorFromElement(this);
+    $$$1(selector).each(function () {
+      var $target = $$$1(this);
+      var data = $target.data(DATA_KEY);
+      var config = data ? 'toggle' : $trigger.data();
 
-  Modal.TRANSITION_DURATION = 300
-  Modal.BACKDROP_TRANSITION_DURATION = 150
+      Collapse._jQueryInterface.call($target, config);
+    });
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
-  Modal.DEFAULTS = {
+  $$$1.fn[NAME] = Collapse._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Collapse;
+
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Collapse._jQueryInterface;
+  };
+
+  return Collapse;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): dropdown.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Dropdown = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'dropdown';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.dropdown';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+
+  var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
+
+  var TAB_KEYCODE = 9; // KeyboardEvent.which value for tab key
+
+  var ARROW_UP_KEYCODE = 38; // KeyboardEvent.which value for up arrow key
+
+  var ARROW_DOWN_KEYCODE = 40; // KeyboardEvent.which value for down arrow key
+
+  var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
+
+  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE);
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    CLICK: "click" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY,
+    KEYDOWN_DATA_API: "keydown" + EVENT_KEY + DATA_API_KEY,
+    KEYUP_DATA_API: "keyup" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    DISABLED: 'disabled',
+    SHOW: 'show',
+    DROPUP: 'dropup',
+    DROPRIGHT: 'dropright',
+    DROPLEFT: 'dropleft',
+    MENURIGHT: 'dropdown-menu-right',
+    MENULEFT: 'dropdown-menu-left',
+    POSITION_STATIC: 'position-static'
+  };
+  var Selector = {
+    DATA_TOGGLE: '[data-toggle="dropdown"]',
+    FORM_CHILD: '.dropdown form',
+    MENU: '.dropdown-menu',
+    NAVBAR_NAV: '.navbar-nav',
+    VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled)'
+  };
+  var AttachmentMap = {
+    TOP: 'top-start',
+    TOPEND: 'top-end',
+    BOTTOM: 'bottom-start',
+    BOTTOMEND: 'bottom-end',
+    RIGHT: 'right-start',
+    RIGHTEND: 'right-end',
+    LEFT: 'left-start',
+    LEFTEND: 'left-end'
+  };
+  var Default = {
+    offset: 0,
+    flip: true,
+    boundary: 'scrollParent'
+  };
+  var DefaultType = {
+    offset: '(number|string|function)',
+    flip: 'boolean',
+    boundary: '(string|element)'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Dropdown =
+  /*#__PURE__*/
+  function () {
+    function Dropdown(element, config) {
+      this._element = element;
+      this._popper = null;
+      this._config = this._getConfig(config);
+      this._menu = this._getMenuElement();
+      this._inNavbar = this._detectNavbar();
+
+      this._addEventListeners();
+    } // Getters
+
+
+    var _proto = Dropdown.prototype;
+
+    // Public
+    _proto.toggle = function toggle() {
+      if (this._element.disabled || $$$1(this._element).hasClass(ClassName.DISABLED)) {
+        return;
+      }
+
+      var parent = Dropdown._getParentFromElement(this._element);
+
+      var isActive = $$$1(this._menu).hasClass(ClassName.SHOW);
+
+      Dropdown._clearMenus();
+
+      if (isActive) {
+        return;
+      }
+
+      var relatedTarget = {
+        relatedTarget: this._element
+      };
+      var showEvent = $$$1.Event(Event.SHOW, relatedTarget);
+      $$$1(parent).trigger(showEvent);
+
+      if (showEvent.isDefaultPrevented()) {
+        return;
+      } // Disable totally Popper.js for Dropdown in Navbar
+
+
+      if (!this._inNavbar) {
+        /**
+         * Check for Popper dependency
+         * Popper - https://popper.js.org
+         */
+        if (typeof Popper === 'undefined') {
+          throw new TypeError('Bootstrap dropdown require Popper.js (https://popper.js.org)');
+        }
+
+        var element = this._element; // For dropup with alignment we use the parent as popper container
+
+        if ($$$1(parent).hasClass(ClassName.DROPUP)) {
+          if ($$$1(this._menu).hasClass(ClassName.MENULEFT) || $$$1(this._menu).hasClass(ClassName.MENURIGHT)) {
+            element = parent;
+          }
+        } // If boundary is not `scrollParent`, then set position to `static`
+        // to allow the menu to "escape" the scroll parent's boundaries
+        // https://github.com/twbs/bootstrap/issues/24251
+
+
+        if (this._config.boundary !== 'scrollParent') {
+          $$$1(parent).addClass(ClassName.POSITION_STATIC);
+        }
+
+        this._popper = new Popper(element, this._menu, this._getPopperConfig());
+      } // If this is a touch-enabled device we add extra
+      // empty mouseover listeners to the body's immediate children;
+      // only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+
+
+      if ('ontouchstart' in document.documentElement && $$$1(parent).closest(Selector.NAVBAR_NAV).length === 0) {
+        $$$1('body').children().on('mouseover', null, $$$1.noop);
+      }
+
+      this._element.focus();
+
+      this._element.setAttribute('aria-expanded', true);
+
+      $$$1(this._menu).toggleClass(ClassName.SHOW);
+      $$$1(parent).toggleClass(ClassName.SHOW).trigger($$$1.Event(Event.SHOWN, relatedTarget));
+    };
+
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      $$$1(this._element).off(EVENT_KEY);
+      this._element = null;
+      this._menu = null;
+
+      if (this._popper !== null) {
+        this._popper.destroy();
+
+        this._popper = null;
+      }
+    };
+
+    _proto.update = function update() {
+      this._inNavbar = this._detectNavbar();
+
+      if (this._popper !== null) {
+        this._popper.scheduleUpdate();
+      }
+    }; // Private
+
+
+    _proto._addEventListeners = function _addEventListeners() {
+      var _this = this;
+
+      $$$1(this._element).on(Event.CLICK, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this.toggle();
+      });
+    };
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, this.constructor.Default, $$$1(this._element).data(), config);
+      Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+      return config;
+    };
+
+    _proto._getMenuElement = function _getMenuElement() {
+      if (!this._menu) {
+        var parent = Dropdown._getParentFromElement(this._element);
+
+        this._menu = $$$1(parent).find(Selector.MENU)[0];
+      }
+
+      return this._menu;
+    };
+
+    _proto._getPlacement = function _getPlacement() {
+      var $parentDropdown = $$$1(this._element).parent();
+      var placement = AttachmentMap.BOTTOM; // Handle dropup
+
+      if ($parentDropdown.hasClass(ClassName.DROPUP)) {
+        placement = AttachmentMap.TOP;
+
+        if ($$$1(this._menu).hasClass(ClassName.MENURIGHT)) {
+          placement = AttachmentMap.TOPEND;
+        }
+      } else if ($parentDropdown.hasClass(ClassName.DROPRIGHT)) {
+        placement = AttachmentMap.RIGHT;
+      } else if ($parentDropdown.hasClass(ClassName.DROPLEFT)) {
+        placement = AttachmentMap.LEFT;
+      } else if ($$$1(this._menu).hasClass(ClassName.MENURIGHT)) {
+        placement = AttachmentMap.BOTTOMEND;
+      }
+
+      return placement;
+    };
+
+    _proto._detectNavbar = function _detectNavbar() {
+      return $$$1(this._element).closest('.navbar').length > 0;
+    };
+
+    _proto._getPopperConfig = function _getPopperConfig() {
+      var _this2 = this;
+
+      var offsetConf = {};
+
+      if (typeof this._config.offset === 'function') {
+        offsetConf.fn = function (data) {
+          data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets) || {});
+          return data;
+        };
+      } else {
+        offsetConf.offset = this._config.offset;
+      }
+
+      var popperConfig = {
+        placement: this._getPlacement(),
+        modifiers: {
+          offset: offsetConf,
+          flip: {
+            enabled: this._config.flip
+          },
+          preventOverflow: {
+            boundariesElement: this._config.boundary
+          }
+        }
+      };
+      return popperConfig;
+    }; // Static
+
+
+    Dropdown._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
+
+        var _config = typeof config === 'object' ? config : null;
+
+        if (!data) {
+          data = new Dropdown(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    Dropdown._clearMenus = function _clearMenus(event) {
+      if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH || event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
+        return;
+      }
+
+      var toggles = $$$1.makeArray($$$1(Selector.DATA_TOGGLE));
+
+      for (var i = 0; i < toggles.length; i++) {
+        var parent = Dropdown._getParentFromElement(toggles[i]);
+
+        var context = $$$1(toggles[i]).data(DATA_KEY);
+        var relatedTarget = {
+          relatedTarget: toggles[i]
+        };
+
+        if (!context) {
+          continue;
+        }
+
+        var dropdownMenu = context._menu;
+
+        if (!$$$1(parent).hasClass(ClassName.SHOW)) {
+          continue;
+        }
+
+        if (event && (event.type === 'click' && /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) && $$$1.contains(parent, event.target)) {
+          continue;
+        }
+
+        var hideEvent = $$$1.Event(Event.HIDE, relatedTarget);
+        $$$1(parent).trigger(hideEvent);
+
+        if (hideEvent.isDefaultPrevented()) {
+          continue;
+        } // If this is a touch-enabled device we remove the extra
+        // empty mouseover listeners we added for iOS support
+
+
+        if ('ontouchstart' in document.documentElement) {
+          $$$1('body').children().off('mouseover', null, $$$1.noop);
+        }
+
+        toggles[i].setAttribute('aria-expanded', 'false');
+        $$$1(dropdownMenu).removeClass(ClassName.SHOW);
+        $$$1(parent).removeClass(ClassName.SHOW).trigger($$$1.Event(Event.HIDDEN, relatedTarget));
+      }
+    };
+
+    Dropdown._getParentFromElement = function _getParentFromElement(element) {
+      var parent;
+      var selector = Util.getSelectorFromElement(element);
+
+      if (selector) {
+        parent = $$$1(selector)[0];
+      }
+
+      return parent || element.parentNode;
+    }; // eslint-disable-next-line complexity
+
+
+    Dropdown._dataApiKeydownHandler = function _dataApiKeydownHandler(event) {
+      // If not input/textarea:
+      //  - And not a key in REGEXP_KEYDOWN => not a dropdown command
+      // If input/textarea:
+      //  - If space key => not a dropdown command
+      //  - If key is other than escape
+      //    - If key is not up or down => not a dropdown command
+      //    - If trigger inside the menu => not a dropdown command
+      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $$$1(event.target).closest(Selector.MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.disabled || $$$1(this).hasClass(ClassName.DISABLED)) {
+        return;
+      }
+
+      var parent = Dropdown._getParentFromElement(this);
+
+      var isActive = $$$1(parent).hasClass(ClassName.SHOW);
+
+      if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
+        if (event.which === ESCAPE_KEYCODE) {
+          var toggle = $$$1(parent).find(Selector.DATA_TOGGLE)[0];
+          $$$1(toggle).trigger('focus');
+        }
+
+        $$$1(this).trigger('click');
+        return;
+      }
+
+      var items = $$$1(parent).find(Selector.VISIBLE_ITEMS).get();
+
+      if (items.length === 0) {
+        return;
+      }
+
+      var index = items.indexOf(event.target);
+
+      if (event.which === ARROW_UP_KEYCODE && index > 0) {
+        // Up
+        index--;
+      }
+
+      if (event.which === ARROW_DOWN_KEYCODE && index < items.length - 1) {
+        // Down
+        index++;
+      }
+
+      if (index < 0) {
+        index = 0;
+      }
+
+      items[index].focus();
+    };
+
+    _createClass(Dropdown, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType;
+      }
+    }]);
+    return Dropdown;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.KEYDOWN_DATA_API, Selector.DATA_TOGGLE, Dropdown._dataApiKeydownHandler).on(Event.KEYDOWN_DATA_API, Selector.MENU, Dropdown._dataApiKeydownHandler).on(Event.CLICK_DATA_API + " " + Event.KEYUP_DATA_API, Dropdown._clearMenus).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    Dropdown._jQueryInterface.call($$$1(this), 'toggle');
+  }).on(Event.CLICK_DATA_API, Selector.FORM_CHILD, function (e) {
+    e.stopPropagation();
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $$$1.fn[NAME] = Dropdown._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Dropdown;
+
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Dropdown._jQueryInterface;
+  };
+
+  return Dropdown;
+}($, Popper);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): modal.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Modal = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'modal';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.modal';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 300;
+  var BACKDROP_TRANSITION_DURATION = 150;
+  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+
+  var Default = {
     backdrop: true,
     keyboard: true,
+    focus: true,
     show: true
-  }
+  };
+  var DefaultType = {
+    backdrop: '(boolean|string)',
+    keyboard: 'boolean',
+    focus: 'boolean',
+    show: 'boolean'
+  };
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    FOCUSIN: "focusin" + EVENT_KEY,
+    RESIZE: "resize" + EVENT_KEY,
+    CLICK_DISMISS: "click.dismiss" + EVENT_KEY,
+    KEYDOWN_DISMISS: "keydown.dismiss" + EVENT_KEY,
+    MOUSEUP_DISMISS: "mouseup.dismiss" + EVENT_KEY,
+    MOUSEDOWN_DISMISS: "mousedown.dismiss" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
+    BACKDROP: 'modal-backdrop',
+    OPEN: 'modal-open',
+    FADE: 'fade',
+    SHOW: 'show'
+  };
+  var Selector = {
+    DIALOG: '.modal-dialog',
+    DATA_TOGGLE: '[data-toggle="modal"]',
+    DATA_DISMISS: '[data-dismiss="modal"]',
+    FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+    STICKY_CONTENT: '.sticky-top',
+    NAVBAR_TOGGLER: '.navbar-toggler'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
 
-  Modal.prototype.toggle = function (_relatedTarget) {
-    return this.isShown ? this.hide() : this.show(_relatedTarget)
-  }
+  };
 
-  Modal.prototype.show = function (_relatedTarget) {
-    var that = this
-    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
+  var Modal =
+  /*#__PURE__*/
+  function () {
+    function Modal(element, config) {
+      this._config = this._getConfig(config);
+      this._element = element;
+      this._dialog = $$$1(element).find(Selector.DIALOG)[0];
+      this._backdrop = null;
+      this._isShown = false;
+      this._isBodyOverflowing = false;
+      this._ignoreBackdropClick = false;
+      this._originalBodyPadding = 0;
+      this._scrollbarWidth = 0;
+    } // Getters
 
-    this.$element.trigger(e)
 
-    if (this.isShown || e.isDefaultPrevented()) return
+    var _proto = Modal.prototype;
 
-    this.isShown = true
+    // Public
+    _proto.toggle = function toggle(relatedTarget) {
+      return this._isShown ? this.hide() : this.show(relatedTarget);
+    };
 
-    this.checkScrollbar()
-    this.setScrollbar()
-    this.$body.addClass('modal-open')
+    _proto.show = function show(relatedTarget) {
+      var _this = this;
 
-    this.escape()
-    this.resize()
-
-    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
-
-    this.$dialog.on('mousedown.dismiss.bs.modal', function () {
-      that.$element.one('mouseup.dismiss.bs.modal', function (e) {
-        if ($(e.target).is(that.$element)) that.ignoreBackdropClick = true
-      })
-    })
-
-    this.backdrop(function () {
-      var transition = $.support.transition && that.$element.hasClass('fade')
-
-      if (!that.$element.parent().length) {
-        that.$element.appendTo(that.$body) // don't move modals dom position
+      if (this._isTransitioning || this._isShown) {
+        return;
       }
 
-      that.$element
-        .show()
-        .scrollTop(0)
+      if (Util.supportsTransitionEnd() && $$$1(this._element).hasClass(ClassName.FADE)) {
+        this._isTransitioning = true;
+      }
 
-      that.adjustDialog()
+      var showEvent = $$$1.Event(Event.SHOW, {
+        relatedTarget: relatedTarget
+      });
+      $$$1(this._element).trigger(showEvent);
+
+      if (this._isShown || showEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      this._isShown = true;
+
+      this._checkScrollbar();
+
+      this._setScrollbar();
+
+      this._adjustDialog();
+
+      $$$1(document.body).addClass(ClassName.OPEN);
+
+      this._setEscapeEvent();
+
+      this._setResizeEvent();
+
+      $$$1(this._element).on(Event.CLICK_DISMISS, Selector.DATA_DISMISS, function (event) {
+        return _this.hide(event);
+      });
+      $$$1(this._dialog).on(Event.MOUSEDOWN_DISMISS, function () {
+        $$$1(_this._element).one(Event.MOUSEUP_DISMISS, function (event) {
+          if ($$$1(event.target).is(_this._element)) {
+            _this._ignoreBackdropClick = true;
+          }
+        });
+      });
+
+      this._showBackdrop(function () {
+        return _this._showElement(relatedTarget);
+      });
+    };
+
+    _proto.hide = function hide(event) {
+      var _this2 = this;
+
+      if (event) {
+        event.preventDefault();
+      }
+
+      if (this._isTransitioning || !this._isShown) {
+        return;
+      }
+
+      var hideEvent = $$$1.Event(Event.HIDE);
+      $$$1(this._element).trigger(hideEvent);
+
+      if (!this._isShown || hideEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      this._isShown = false;
+      var transition = Util.supportsTransitionEnd() && $$$1(this._element).hasClass(ClassName.FADE);
 
       if (transition) {
-        that.$element[0].offsetWidth // force reflow
+        this._isTransitioning = true;
       }
 
-      that.$element.addClass('in')
+      this._setEscapeEvent();
 
-      that.enforceFocus()
+      this._setResizeEvent();
 
-      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+      $$$1(document).off(Event.FOCUSIN);
+      $$$1(this._element).removeClass(ClassName.SHOW);
+      $$$1(this._element).off(Event.CLICK_DISMISS);
+      $$$1(this._dialog).off(Event.MOUSEDOWN_DISMISS);
 
-      transition ?
-        that.$dialog // wait for modal to slide in
-          .one('bsTransitionEnd', function () {
-            that.$element.trigger('focus').trigger(e)
-          })
-          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-        that.$element.trigger('focus').trigger(e)
-    })
-  }
-
-  Modal.prototype.hide = function (e) {
-    if (e) e.preventDefault()
-
-    e = $.Event('hide.bs.modal')
-
-    this.$element.trigger(e)
-
-    if (!this.isShown || e.isDefaultPrevented()) return
-
-    this.isShown = false
-
-    this.escape()
-    this.resize()
-
-    $(document).off('focusin.bs.modal')
-
-    this.$element
-      .removeClass('in')
-      .off('click.dismiss.bs.modal')
-      .off('mouseup.dismiss.bs.modal')
-
-    this.$dialog.off('mousedown.dismiss.bs.modal')
-
-    $.support.transition && this.$element.hasClass('fade') ?
-      this.$element
-        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
-        .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-      this.hideModal()
-  }
-
-  Modal.prototype.enforceFocus = function () {
-    $(document)
-      .off('focusin.bs.modal') // guard against infinite focus loop
-      .on('focusin.bs.modal', $.proxy(function (e) {
-        if (document !== e.target &&
-            this.$element[0] !== e.target &&
-            !this.$element.has(e.target).length) {
-          this.$element.trigger('focus')
-        }
-      }, this))
-  }
-
-  Modal.prototype.escape = function () {
-    if (this.isShown && this.options.keyboard) {
-      this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
-        e.which == 27 && this.hide()
-      }, this))
-    } else if (!this.isShown) {
-      this.$element.off('keydown.dismiss.bs.modal')
-    }
-  }
-
-  Modal.prototype.resize = function () {
-    if (this.isShown) {
-      $(window).on('resize.bs.modal', $.proxy(this.handleUpdate, this))
-    } else {
-      $(window).off('resize.bs.modal')
-    }
-  }
-
-  Modal.prototype.hideModal = function () {
-    var that = this
-    this.$element.hide()
-    this.backdrop(function () {
-      that.$body.removeClass('modal-open')
-      that.resetAdjustments()
-      that.resetScrollbar()
-      that.$element.trigger('hidden.bs.modal')
-    })
-  }
-
-  Modal.prototype.removeBackdrop = function () {
-    this.$backdrop && this.$backdrop.remove()
-    this.$backdrop = null
-  }
-
-  Modal.prototype.backdrop = function (callback) {
-    var that = this
-    var animate = this.$element.hasClass('fade') ? 'fade' : ''
-
-    if (this.isShown && this.options.backdrop) {
-      var doAnimate = $.support.transition && animate
-
-      this.$backdrop = $(document.createElement('div'))
-        .addClass('modal-backdrop ' + animate)
-        .appendTo(this.$body)
-
-      this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
-        if (this.ignoreBackdropClick) {
-          this.ignoreBackdropClick = false
-          return
-        }
-        if (e.target !== e.currentTarget) return
-        this.options.backdrop == 'static'
-          ? this.$element[0].focus()
-          : this.hide()
-      }, this))
-
-      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
-
-      this.$backdrop.addClass('in')
-
-      if (!callback) return
-
-      doAnimate ?
-        this.$backdrop
-          .one('bsTransitionEnd', callback)
-          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
-        callback()
-
-    } else if (!this.isShown && this.$backdrop) {
-      this.$backdrop.removeClass('in')
-
-      var callbackRemove = function () {
-        that.removeBackdrop()
-        callback && callback()
+      if (transition) {
+        $$$1(this._element).one(Util.TRANSITION_END, function (event) {
+          return _this2._hideModal(event);
+        }).emulateTransitionEnd(TRANSITION_DURATION);
+      } else {
+        this._hideModal();
       }
-      $.support.transition && this.$element.hasClass('fade') ?
-        this.$backdrop
-          .one('bsTransitionEnd', callbackRemove)
-          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
-        callbackRemove()
+    };
 
-    } else if (callback) {
-      callback()
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      $$$1(window, document, this._element, this._backdrop).off(EVENT_KEY);
+      this._config = null;
+      this._element = null;
+      this._dialog = null;
+      this._backdrop = null;
+      this._isShown = null;
+      this._isBodyOverflowing = null;
+      this._ignoreBackdropClick = null;
+      this._scrollbarWidth = null;
+    };
+
+    _proto.handleUpdate = function handleUpdate() {
+      this._adjustDialog();
+    }; // Private
+
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
+      Util.typeCheckConfig(NAME, config, DefaultType);
+      return config;
+    };
+
+    _proto._showElement = function _showElement(relatedTarget) {
+      var _this3 = this;
+
+      var transition = Util.supportsTransitionEnd() && $$$1(this._element).hasClass(ClassName.FADE);
+
+      if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+        // Don't move modal's DOM position
+        document.body.appendChild(this._element);
+      }
+
+      this._element.style.display = 'block';
+
+      this._element.removeAttribute('aria-hidden');
+
+      this._element.scrollTop = 0;
+
+      if (transition) {
+        Util.reflow(this._element);
+      }
+
+      $$$1(this._element).addClass(ClassName.SHOW);
+
+      if (this._config.focus) {
+        this._enforceFocus();
+      }
+
+      var shownEvent = $$$1.Event(Event.SHOWN, {
+        relatedTarget: relatedTarget
+      });
+
+      var transitionComplete = function transitionComplete() {
+        if (_this3._config.focus) {
+          _this3._element.focus();
+        }
+
+        _this3._isTransitioning = false;
+        $$$1(_this3._element).trigger(shownEvent);
+      };
+
+      if (transition) {
+        $$$1(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
+      } else {
+        transitionComplete();
+      }
+    };
+
+    _proto._enforceFocus = function _enforceFocus() {
+      var _this4 = this;
+
+      $$$1(document).off(Event.FOCUSIN) // Guard against infinite focus loop
+      .on(Event.FOCUSIN, function (event) {
+        if (document !== event.target && _this4._element !== event.target && $$$1(_this4._element).has(event.target).length === 0) {
+          _this4._element.focus();
+        }
+      });
+    };
+
+    _proto._setEscapeEvent = function _setEscapeEvent() {
+      var _this5 = this;
+
+      if (this._isShown && this._config.keyboard) {
+        $$$1(this._element).on(Event.KEYDOWN_DISMISS, function (event) {
+          if (event.which === ESCAPE_KEYCODE) {
+            event.preventDefault();
+
+            _this5.hide();
+          }
+        });
+      } else if (!this._isShown) {
+        $$$1(this._element).off(Event.KEYDOWN_DISMISS);
+      }
+    };
+
+    _proto._setResizeEvent = function _setResizeEvent() {
+      var _this6 = this;
+
+      if (this._isShown) {
+        $$$1(window).on(Event.RESIZE, function (event) {
+          return _this6.handleUpdate(event);
+        });
+      } else {
+        $$$1(window).off(Event.RESIZE);
+      }
+    };
+
+    _proto._hideModal = function _hideModal() {
+      var _this7 = this;
+
+      this._element.style.display = 'none';
+
+      this._element.setAttribute('aria-hidden', true);
+
+      this._isTransitioning = false;
+
+      this._showBackdrop(function () {
+        $$$1(document.body).removeClass(ClassName.OPEN);
+
+        _this7._resetAdjustments();
+
+        _this7._resetScrollbar();
+
+        $$$1(_this7._element).trigger(Event.HIDDEN);
+      });
+    };
+
+    _proto._removeBackdrop = function _removeBackdrop() {
+      if (this._backdrop) {
+        $$$1(this._backdrop).remove();
+        this._backdrop = null;
+      }
+    };
+
+    _proto._showBackdrop = function _showBackdrop(callback) {
+      var _this8 = this;
+
+      var animate = $$$1(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : '';
+
+      if (this._isShown && this._config.backdrop) {
+        var doAnimate = Util.supportsTransitionEnd() && animate;
+        this._backdrop = document.createElement('div');
+        this._backdrop.className = ClassName.BACKDROP;
+
+        if (animate) {
+          $$$1(this._backdrop).addClass(animate);
+        }
+
+        $$$1(this._backdrop).appendTo(document.body);
+        $$$1(this._element).on(Event.CLICK_DISMISS, function (event) {
+          if (_this8._ignoreBackdropClick) {
+            _this8._ignoreBackdropClick = false;
+            return;
+          }
+
+          if (event.target !== event.currentTarget) {
+            return;
+          }
+
+          if (_this8._config.backdrop === 'static') {
+            _this8._element.focus();
+          } else {
+            _this8.hide();
+          }
+        });
+
+        if (doAnimate) {
+          Util.reflow(this._backdrop);
+        }
+
+        $$$1(this._backdrop).addClass(ClassName.SHOW);
+
+        if (!callback) {
+          return;
+        }
+
+        if (!doAnimate) {
+          callback();
+          return;
+        }
+
+        $$$1(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+      } else if (!this._isShown && this._backdrop) {
+        $$$1(this._backdrop).removeClass(ClassName.SHOW);
+
+        var callbackRemove = function callbackRemove() {
+          _this8._removeBackdrop();
+
+          if (callback) {
+            callback();
+          }
+        };
+
+        if (Util.supportsTransitionEnd() && $$$1(this._element).hasClass(ClassName.FADE)) {
+          $$$1(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+        } else {
+          callbackRemove();
+        }
+      } else if (callback) {
+        callback();
+      }
+    }; // ----------------------------------------------------------------------
+    // the following methods are used to handle overflowing modals
+    // todo (fat): these should probably be refactored out of modal.js
+    // ----------------------------------------------------------------------
+
+
+    _proto._adjustDialog = function _adjustDialog() {
+      var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+
+      if (!this._isBodyOverflowing && isModalOverflowing) {
+        this._element.style.paddingLeft = this._scrollbarWidth + "px";
+      }
+
+      if (this._isBodyOverflowing && !isModalOverflowing) {
+        this._element.style.paddingRight = this._scrollbarWidth + "px";
+      }
+    };
+
+    _proto._resetAdjustments = function _resetAdjustments() {
+      this._element.style.paddingLeft = '';
+      this._element.style.paddingRight = '';
+    };
+
+    _proto._checkScrollbar = function _checkScrollbar() {
+      var rect = document.body.getBoundingClientRect();
+      this._isBodyOverflowing = rect.left + rect.right < window.innerWidth;
+      this._scrollbarWidth = this._getScrollbarWidth();
+    };
+
+    _proto._setScrollbar = function _setScrollbar() {
+      var _this9 = this;
+
+      if (this._isBodyOverflowing) {
+        // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
+        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
+        // Adjust fixed content padding
+        $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
+          var actualPadding = $$$1(element)[0].style.paddingRight;
+          var calculatedPadding = $$$1(element).css('padding-right');
+          $$$1(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
+        }); // Adjust sticky content margin
+
+        $$$1(Selector.STICKY_CONTENT).each(function (index, element) {
+          var actualMargin = $$$1(element)[0].style.marginRight;
+          var calculatedMargin = $$$1(element).css('margin-right');
+          $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
+        }); // Adjust navbar-toggler margin
+
+        $$$1(Selector.NAVBAR_TOGGLER).each(function (index, element) {
+          var actualMargin = $$$1(element)[0].style.marginRight;
+          var calculatedMargin = $$$1(element).css('margin-right');
+          $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) + _this9._scrollbarWidth + "px");
+        }); // Adjust body padding
+
+        var actualPadding = document.body.style.paddingRight;
+        var calculatedPadding = $$$1('body').css('padding-right');
+        $$$1('body').data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
+      }
+    };
+
+    _proto._resetScrollbar = function _resetScrollbar() {
+      // Restore fixed content padding
+      $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
+        var padding = $$$1(element).data('padding-right');
+
+        if (typeof padding !== 'undefined') {
+          $$$1(element).css('padding-right', padding).removeData('padding-right');
+        }
+      }); // Restore sticky content and navbar-toggler margin
+
+      $$$1(Selector.STICKY_CONTENT + ", " + Selector.NAVBAR_TOGGLER).each(function (index, element) {
+        var margin = $$$1(element).data('margin-right');
+
+        if (typeof margin !== 'undefined') {
+          $$$1(element).css('margin-right', margin).removeData('margin-right');
+        }
+      }); // Restore body padding
+
+      var padding = $$$1('body').data('padding-right');
+
+      if (typeof padding !== 'undefined') {
+        $$$1('body').css('padding-right', padding).removeData('padding-right');
+      }
+    };
+
+    _proto._getScrollbarWidth = function _getScrollbarWidth() {
+      // thx d.walsh
+      var scrollDiv = document.createElement('div');
+      scrollDiv.className = ClassName.SCROLLBAR_MEASURER;
+      document.body.appendChild(scrollDiv);
+      var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+      return scrollbarWidth;
+    }; // Static
+
+
+    Modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
+
+        var _config = _extends({}, Modal.Default, $$$1(this).data(), typeof config === 'object' && config);
+
+        if (!data) {
+          data = new Modal(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config](relatedTarget);
+        } else if (_config.show) {
+          data.show(relatedTarget);
+        }
+      });
+    };
+
+    _createClass(Modal, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }]);
+    return Modal;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    var _this10 = this;
+
+    var target;
+    var selector = Util.getSelectorFromElement(this);
+
+    if (selector) {
+      target = $$$1(selector)[0];
     }
-  }
 
-  // these following methods are used to handle overflowing modals
+    var config = $$$1(target).data(DATA_KEY) ? 'toggle' : _extends({}, $$$1(target).data(), $$$1(this).data());
 
-  Modal.prototype.handleUpdate = function () {
-    this.adjustDialog()
-  }
-
-  Modal.prototype.adjustDialog = function () {
-    var modalIsOverflowing = this.$element[0].scrollHeight > document.documentElement.clientHeight
-
-    this.$element.css({
-      paddingLeft:  !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '',
-      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''
-    })
-  }
-
-  Modal.prototype.resetAdjustments = function () {
-    this.$element.css({
-      paddingLeft: '',
-      paddingRight: ''
-    })
-  }
-
-  Modal.prototype.checkScrollbar = function () {
-    var fullWindowWidth = window.innerWidth
-    if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
-      var documentElementRect = document.documentElement.getBoundingClientRect()
-      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+    if (this.tagName === 'A' || this.tagName === 'AREA') {
+      event.preventDefault();
     }
-    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth
-    this.scrollbarWidth = this.measureScrollbar()
-  }
 
-  Modal.prototype.setScrollbar = function () {
-    var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
-    this.originalBodyPad = document.body.style.paddingRight || ''
-    if (this.bodyIsOverflowing) this.$body.css('padding-right', bodyPad + this.scrollbarWidth)
-  }
+    var $target = $$$1(target).one(Event.SHOW, function (showEvent) {
+      if (showEvent.isDefaultPrevented()) {
+        // Only register focus restorer if modal will actually get shown
+        return;
+      }
 
-  Modal.prototype.resetScrollbar = function () {
-    this.$body.css('padding-right', this.originalBodyPad)
-  }
+      $target.one(Event.HIDDEN, function () {
+        if ($$$1(_this10).is(':visible')) {
+          _this10.focus();
+        }
+      });
+    });
 
-  Modal.prototype.measureScrollbar = function () { // thx walsh
-    var scrollDiv = document.createElement('div')
-    scrollDiv.className = 'modal-scrollbar-measure'
-    this.$body.append(scrollDiv)
-    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
-    this.$body[0].removeChild(scrollDiv)
-    return scrollbarWidth
-  }
+    Modal._jQueryInterface.call($$$1(target), config, this);
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
+  $$$1.fn[NAME] = Modal._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Modal;
 
-  // MODAL PLUGIN DEFINITION
-  // =======================
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Modal._jQueryInterface;
+  };
 
-  function Plugin(option, _relatedTarget) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.modal')
-      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
+  return Modal;
+}($);
 
-      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
-      if (typeof option == 'string') data[option](_relatedTarget)
-      else if (options.show) data.show(_relatedTarget)
-    })
-  }
-
-  var old = $.fn.modal
-
-  $.fn.modal             = Plugin
-  $.fn.modal.Constructor = Modal
-
-
-  // MODAL NO CONFLICT
-  // =================
-
-  $.fn.modal.noConflict = function () {
-    $.fn.modal = old
-    return this
-  }
-
-
-  // MODAL DATA-API
-  // ==============
-
-  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
-    var $this   = $(this)
-    var href    = $this.attr('href')
-    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
-    var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
-
-    if ($this.is('a')) e.preventDefault()
-
-    $target.one('show.bs.modal', function (showEvent) {
-      if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
-      $target.one('hidden.bs.modal', function () {
-        $this.is(':visible') && $this.trigger('focus')
-      })
-    })
-    Plugin.call($target, option, this)
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: tooltip.js v3.3.7
- * http://getbootstrap.com/javascript/#tooltip
- * Inspired by the original jQuery.tipsy by Jason Frame
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): tooltip.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
 
-
-+function ($) {
-  'use strict';
-
-  // TOOLTIP PUBLIC CLASS DEFINITION
-  // ===============================
-
-  var Tooltip = function (element, options) {
-    this.type       = null
-    this.options    = null
-    this.enabled    = null
-    this.timeout    = null
-    this.hoverState = null
-    this.$element   = null
-    this.inState    = null
-
-    this.init('tooltip', element, options)
-  }
-
-  Tooltip.VERSION  = '3.3.7'
-
-  Tooltip.TRANSITION_DURATION = 150
-
-  Tooltip.DEFAULTS = {
+var Tooltip = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'tooltip';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.tooltip';
+  var EVENT_KEY = "." + DATA_KEY;
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 150;
+  var CLASS_PREFIX = 'bs-tooltip';
+  var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
+  var DefaultType = {
+    animation: 'boolean',
+    template: 'string',
+    title: '(string|element|function)',
+    trigger: 'string',
+    delay: '(number|object)',
+    html: 'boolean',
+    selector: '(string|boolean)',
+    placement: '(string|function)',
+    offset: '(number|string)',
+    container: '(string|element|boolean)',
+    fallbackPlacement: '(string|array)',
+    boundary: '(string|element)'
+  };
+  var AttachmentMap = {
+    AUTO: 'auto',
+    TOP: 'top',
+    RIGHT: 'right',
+    BOTTOM: 'bottom',
+    LEFT: 'left'
+  };
+  var Default = {
     animation: true,
-    placement: 'top',
-    selector: false,
-    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+    template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
     trigger: 'hover focus',
     title: '',
     delay: 0,
     html: false,
+    selector: false,
+    placement: 'top',
+    offset: 0,
     container: false,
-    viewport: {
-      selector: 'body',
-      padding: 0
-    }
-  }
+    fallbackPlacement: 'flip',
+    boundary: 'scrollParent'
+  };
+  var HoverState = {
+    SHOW: 'show',
+    OUT: 'out'
+  };
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    INSERTED: "inserted" + EVENT_KEY,
+    CLICK: "click" + EVENT_KEY,
+    FOCUSIN: "focusin" + EVENT_KEY,
+    FOCUSOUT: "focusout" + EVENT_KEY,
+    MOUSEENTER: "mouseenter" + EVENT_KEY,
+    MOUSELEAVE: "mouseleave" + EVENT_KEY
+  };
+  var ClassName = {
+    FADE: 'fade',
+    SHOW: 'show'
+  };
+  var Selector = {
+    TOOLTIP: '.tooltip',
+    TOOLTIP_INNER: '.tooltip-inner',
+    ARROW: '.arrow'
+  };
+  var Trigger = {
+    HOVER: 'hover',
+    FOCUS: 'focus',
+    CLICK: 'click',
+    MANUAL: 'manual'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
 
-  Tooltip.prototype.init = function (type, element, options) {
-    this.enabled   = true
-    this.type      = type
-    this.$element  = $(element)
-    this.options   = this.getOptions(options)
-    this.$viewport = this.options.viewport && $($.isFunction(this.options.viewport) ? this.options.viewport.call(this, this.$element) : (this.options.viewport.selector || this.options.viewport))
-    this.inState   = { click: false, hover: false, focus: false }
+  };
 
-    if (this.$element[0] instanceof document.constructor && !this.options.selector) {
-      throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!')
-    }
+  var Tooltip =
+  /*#__PURE__*/
+  function () {
+    function Tooltip(element, config) {
+      /**
+       * Check for Popper dependency
+       * Popper - https://popper.js.org
+       */
+      if (typeof Popper === 'undefined') {
+        throw new TypeError('Bootstrap tooltips require Popper.js (https://popper.js.org)');
+      } // private
 
-    var triggers = this.options.trigger.split(' ')
 
-    for (var i = triggers.length; i--;) {
-      var trigger = triggers[i]
+      this._isEnabled = true;
+      this._timeout = 0;
+      this._hoverState = '';
+      this._activeTrigger = {};
+      this._popper = null; // Protected
 
-      if (trigger == 'click') {
-        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
-      } else if (trigger != 'manual') {
-        var eventIn  = trigger == 'hover' ? 'mouseenter' : 'focusin'
-        var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout'
+      this.element = element;
+      this.config = this._getConfig(config);
+      this.tip = null;
 
-        this.$element.on(eventIn  + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
-        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
-      }
-    }
+      this._setListeners();
+    } // Getters
 
-    this.options.selector ?
-      (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
-      this.fixTitle()
-  }
 
-  Tooltip.prototype.getDefaults = function () {
-    return Tooltip.DEFAULTS
-  }
+    var _proto = Tooltip.prototype;
 
-  Tooltip.prototype.getOptions = function (options) {
-    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+    // Public
+    _proto.enable = function enable() {
+      this._isEnabled = true;
+    };
 
-    if (options.delay && typeof options.delay == 'number') {
-      options.delay = {
-        show: options.delay,
-        hide: options.delay
-      }
-    }
+    _proto.disable = function disable() {
+      this._isEnabled = false;
+    };
 
-    return options
-  }
+    _proto.toggleEnabled = function toggleEnabled() {
+      this._isEnabled = !this._isEnabled;
+    };
 
-  Tooltip.prototype.getDelegateOptions = function () {
-    var options  = {}
-    var defaults = this.getDefaults()
-
-    this._options && $.each(this._options, function (key, value) {
-      if (defaults[key] != value) options[key] = value
-    })
-
-    return options
-  }
-
-  Tooltip.prototype.enter = function (obj) {
-    var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget).data('bs.' + this.type)
-
-    if (!self) {
-      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
-      $(obj.currentTarget).data('bs.' + this.type, self)
-    }
-
-    if (obj instanceof $.Event) {
-      self.inState[obj.type == 'focusin' ? 'focus' : 'hover'] = true
-    }
-
-    if (self.tip().hasClass('in') || self.hoverState == 'in') {
-      self.hoverState = 'in'
-      return
-    }
-
-    clearTimeout(self.timeout)
-
-    self.hoverState = 'in'
-
-    if (!self.options.delay || !self.options.delay.show) return self.show()
-
-    self.timeout = setTimeout(function () {
-      if (self.hoverState == 'in') self.show()
-    }, self.options.delay.show)
-  }
-
-  Tooltip.prototype.isInStateTrue = function () {
-    for (var key in this.inState) {
-      if (this.inState[key]) return true
-    }
-
-    return false
-  }
-
-  Tooltip.prototype.leave = function (obj) {
-    var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget).data('bs.' + this.type)
-
-    if (!self) {
-      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
-      $(obj.currentTarget).data('bs.' + this.type, self)
-    }
-
-    if (obj instanceof $.Event) {
-      self.inState[obj.type == 'focusout' ? 'focus' : 'hover'] = false
-    }
-
-    if (self.isInStateTrue()) return
-
-    clearTimeout(self.timeout)
-
-    self.hoverState = 'out'
-
-    if (!self.options.delay || !self.options.delay.hide) return self.hide()
-
-    self.timeout = setTimeout(function () {
-      if (self.hoverState == 'out') self.hide()
-    }, self.options.delay.hide)
-  }
-
-  Tooltip.prototype.show = function () {
-    var e = $.Event('show.bs.' + this.type)
-
-    if (this.hasContent() && this.enabled) {
-      this.$element.trigger(e)
-
-      var inDom = $.contains(this.$element[0].ownerDocument.documentElement, this.$element[0])
-      if (e.isDefaultPrevented() || !inDom) return
-      var that = this
-
-      var $tip = this.tip()
-
-      var tipId = this.getUID(this.type)
-
-      this.setContent()
-      $tip.attr('id', tipId)
-      this.$element.attr('aria-describedby', tipId)
-
-      if (this.options.animation) $tip.addClass('fade')
-
-      var placement = typeof this.options.placement == 'function' ?
-        this.options.placement.call(this, $tip[0], this.$element[0]) :
-        this.options.placement
-
-      var autoToken = /\s?auto?\s?/i
-      var autoPlace = autoToken.test(placement)
-      if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
-
-      $tip
-        .detach()
-        .css({ top: 0, left: 0, display: 'block' })
-        .addClass(placement)
-        .data('bs.' + this.type, this)
-
-      this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
-      this.$element.trigger('inserted.bs.' + this.type)
-
-      var pos          = this.getPosition()
-      var actualWidth  = $tip[0].offsetWidth
-      var actualHeight = $tip[0].offsetHeight
-
-      if (autoPlace) {
-        var orgPlacement = placement
-        var viewportDim = this.getPosition(this.$viewport)
-
-        placement = placement == 'bottom' && pos.bottom + actualHeight > viewportDim.bottom ? 'top'    :
-                    placement == 'top'    && pos.top    - actualHeight < viewportDim.top    ? 'bottom' :
-                    placement == 'right'  && pos.right  + actualWidth  > viewportDim.width  ? 'left'   :
-                    placement == 'left'   && pos.left   - actualWidth  < viewportDim.left   ? 'right'  :
-                    placement
-
-        $tip
-          .removeClass(orgPlacement)
-          .addClass(placement)
+    _proto.toggle = function toggle(event) {
+      if (!this._isEnabled) {
+        return;
       }
 
-      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+      if (event) {
+        var dataKey = this.constructor.DATA_KEY;
+        var context = $$$1(event.currentTarget).data(dataKey);
 
-      this.applyPlacement(calculatedOffset, placement)
+        if (!context) {
+          context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+          $$$1(event.currentTarget).data(dataKey, context);
+        }
 
-      var complete = function () {
-        var prevHoverState = that.hoverState
-        that.$element.trigger('shown.bs.' + that.type)
-        that.hoverState = null
+        context._activeTrigger.click = !context._activeTrigger.click;
 
-        if (prevHoverState == 'out') that.leave(that)
+        if (context._isWithActiveTrigger()) {
+          context._enter(null, context);
+        } else {
+          context._leave(null, context);
+        }
+      } else {
+        if ($$$1(this.getTipElement()).hasClass(ClassName.SHOW)) {
+          this._leave(null, this);
+
+          return;
+        }
+
+        this._enter(null, this);
+      }
+    };
+
+    _proto.dispose = function dispose() {
+      clearTimeout(this._timeout);
+      $$$1.removeData(this.element, this.constructor.DATA_KEY);
+      $$$1(this.element).off(this.constructor.EVENT_KEY);
+      $$$1(this.element).closest('.modal').off('hide.bs.modal');
+
+      if (this.tip) {
+        $$$1(this.tip).remove();
       }
 
-      $.support.transition && this.$tip.hasClass('fade') ?
-        $tip
-          .one('bsTransitionEnd', complete)
-          .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
-        complete()
-    }
-  }
+      this._isEnabled = null;
+      this._timeout = null;
+      this._hoverState = null;
+      this._activeTrigger = null;
 
-  Tooltip.prototype.applyPlacement = function (offset, placement) {
-    var $tip   = this.tip()
-    var width  = $tip[0].offsetWidth
-    var height = $tip[0].offsetHeight
-
-    // manually read margins because getBoundingClientRect includes difference
-    var marginTop = parseInt($tip.css('margin-top'), 10)
-    var marginLeft = parseInt($tip.css('margin-left'), 10)
-
-    // we must check for NaN for ie 8/9
-    if (isNaN(marginTop))  marginTop  = 0
-    if (isNaN(marginLeft)) marginLeft = 0
-
-    offset.top  += marginTop
-    offset.left += marginLeft
-
-    // $.fn.offset doesn't round pixel values
-    // so we use setOffset directly with our own function B-0
-    $.offset.setOffset($tip[0], $.extend({
-      using: function (props) {
-        $tip.css({
-          top: Math.round(props.top),
-          left: Math.round(props.left)
-        })
+      if (this._popper !== null) {
+        this._popper.destroy();
       }
-    }, offset), 0)
 
-    $tip.addClass('in')
+      this._popper = null;
+      this.element = null;
+      this.config = null;
+      this.tip = null;
+    };
 
-    // check to see if placing tip in new offset caused the tip to resize itself
-    var actualWidth  = $tip[0].offsetWidth
-    var actualHeight = $tip[0].offsetHeight
+    _proto.show = function show() {
+      var _this = this;
 
-    if (placement == 'top' && actualHeight != height) {
-      offset.top = offset.top + height - actualHeight
-    }
-
-    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
-
-    if (delta.left) offset.left += delta.left
-    else offset.top += delta.top
-
-    var isVertical          = /top|bottom/.test(placement)
-    var arrowDelta          = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
-    var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight'
-
-    $tip.offset(offset)
-    this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
-  }
-
-  Tooltip.prototype.replaceArrow = function (delta, dimension, isVertical) {
-    this.arrow()
-      .css(isVertical ? 'left' : 'top', 50 * (1 - delta / dimension) + '%')
-      .css(isVertical ? 'top' : 'left', '')
-  }
-
-  Tooltip.prototype.setContent = function () {
-    var $tip  = this.tip()
-    var title = this.getTitle()
-
-    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
-    $tip.removeClass('fade in top bottom left right')
-  }
-
-  Tooltip.prototype.hide = function (callback) {
-    var that = this
-    var $tip = $(this.$tip)
-    var e    = $.Event('hide.bs.' + this.type)
-
-    function complete() {
-      if (that.hoverState != 'in') $tip.detach()
-      if (that.$element) { // TODO: Check whether guarding this code with this `if` is really necessary.
-        that.$element
-          .removeAttr('aria-describedby')
-          .trigger('hidden.bs.' + that.type)
+      if ($$$1(this.element).css('display') === 'none') {
+        throw new Error('Please use show on visible elements');
       }
-      callback && callback()
-    }
 
-    this.$element.trigger(e)
+      var showEvent = $$$1.Event(this.constructor.Event.SHOW);
 
-    if (e.isDefaultPrevented()) return
+      if (this.isWithContent() && this._isEnabled) {
+        $$$1(this.element).trigger(showEvent);
+        var isInTheDom = $$$1.contains(this.element.ownerDocument.documentElement, this.element);
 
-    $tip.removeClass('in')
+        if (showEvent.isDefaultPrevented() || !isInTheDom) {
+          return;
+        }
 
-    $.support.transition && $tip.hasClass('fade') ?
-      $tip
-        .one('bsTransitionEnd', complete)
-        .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
-      complete()
+        var tip = this.getTipElement();
+        var tipId = Util.getUID(this.constructor.NAME);
+        tip.setAttribute('id', tipId);
+        this.element.setAttribute('aria-describedby', tipId);
+        this.setContent();
 
-    this.hoverState = null
+        if (this.config.animation) {
+          $$$1(tip).addClass(ClassName.FADE);
+        }
 
-    return this
-  }
+        var placement = typeof this.config.placement === 'function' ? this.config.placement.call(this, tip, this.element) : this.config.placement;
 
-  Tooltip.prototype.fixTitle = function () {
-    var $e = this.$element
-    if ($e.attr('title') || typeof $e.attr('data-original-title') != 'string') {
-      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
-    }
-  }
+        var attachment = this._getAttachment(placement);
 
-  Tooltip.prototype.hasContent = function () {
-    return this.getTitle()
-  }
+        this.addAttachmentClass(attachment);
+        var container = this.config.container === false ? document.body : $$$1(this.config.container);
+        $$$1(tip).data(this.constructor.DATA_KEY, this);
 
-  Tooltip.prototype.getPosition = function ($element) {
-    $element   = $element || this.$element
+        if (!$$$1.contains(this.element.ownerDocument.documentElement, this.tip)) {
+          $$$1(tip).appendTo(container);
+        }
 
-    var el     = $element[0]
-    var isBody = el.tagName == 'BODY'
+        $$$1(this.element).trigger(this.constructor.Event.INSERTED);
+        this._popper = new Popper(this.element, tip, {
+          placement: attachment,
+          modifiers: {
+            offset: {
+              offset: this.config.offset
+            },
+            flip: {
+              behavior: this.config.fallbackPlacement
+            },
+            arrow: {
+              element: Selector.ARROW
+            },
+            preventOverflow: {
+              boundariesElement: this.config.boundary
+            }
+          },
+          onCreate: function onCreate(data) {
+            if (data.originalPlacement !== data.placement) {
+              _this._handlePopperPlacementChange(data);
+            }
+          },
+          onUpdate: function onUpdate(data) {
+            _this._handlePopperPlacementChange(data);
+          }
+        });
+        $$$1(tip).addClass(ClassName.SHOW); // If this is a touch-enabled device we add extra
+        // empty mouseover listeners to the body's immediate children;
+        // only needed because of broken event delegation on iOS
+        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
-    var elRect    = el.getBoundingClientRect()
-    if (elRect.width == null) {
-      // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
-      elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
-    }
-    var isSvg = window.SVGElement && el instanceof window.SVGElement
-    // Avoid using $.offset() on SVGs since it gives incorrect results in jQuery 3.
-    // See https://github.com/twbs/bootstrap/issues/20280
-    var elOffset  = isBody ? { top: 0, left: 0 } : (isSvg ? null : $element.offset())
-    var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
-    var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
+        if ('ontouchstart' in document.documentElement) {
+          $$$1('body').children().on('mouseover', null, $$$1.noop);
+        }
 
-    return $.extend({}, elRect, scroll, outerDims, elOffset)
-  }
+        var complete = function complete() {
+          if (_this.config.animation) {
+            _this._fixTransition();
+          }
 
-  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
-    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2 } :
-           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 } :
-           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
-        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width }
+          var prevHoverState = _this._hoverState;
+          _this._hoverState = null;
+          $$$1(_this.element).trigger(_this.constructor.Event.SHOWN);
 
-  }
+          if (prevHoverState === HoverState.OUT) {
+            _this._leave(null, _this);
+          }
+        };
 
-  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
-    var delta = { top: 0, left: 0 }
-    if (!this.$viewport) return delta
-
-    var viewportPadding = this.options.viewport && this.options.viewport.padding || 0
-    var viewportDimensions = this.getPosition(this.$viewport)
-
-    if (/right|left/.test(placement)) {
-      var topEdgeOffset    = pos.top - viewportPadding - viewportDimensions.scroll
-      var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight
-      if (topEdgeOffset < viewportDimensions.top) { // top overflow
-        delta.top = viewportDimensions.top - topEdgeOffset
-      } else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) { // bottom overflow
-        delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset
+        if (Util.supportsTransitionEnd() && $$$1(this.tip).hasClass(ClassName.FADE)) {
+          $$$1(this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(Tooltip._TRANSITION_DURATION);
+        } else {
+          complete();
+        }
       }
-    } else {
-      var leftEdgeOffset  = pos.left - viewportPadding
-      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
-      if (leftEdgeOffset < viewportDimensions.left) { // left overflow
-        delta.left = viewportDimensions.left - leftEdgeOffset
-      } else if (rightEdgeOffset > viewportDimensions.right) { // right overflow
-        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
+    };
+
+    _proto.hide = function hide(callback) {
+      var _this2 = this;
+
+      var tip = this.getTipElement();
+      var hideEvent = $$$1.Event(this.constructor.Event.HIDE);
+
+      var complete = function complete() {
+        if (_this2._hoverState !== HoverState.SHOW && tip.parentNode) {
+          tip.parentNode.removeChild(tip);
+        }
+
+        _this2._cleanTipClass();
+
+        _this2.element.removeAttribute('aria-describedby');
+
+        $$$1(_this2.element).trigger(_this2.constructor.Event.HIDDEN);
+
+        if (_this2._popper !== null) {
+          _this2._popper.destroy();
+        }
+
+        if (callback) {
+          callback();
+        }
+      };
+
+      $$$1(this.element).trigger(hideEvent);
+
+      if (hideEvent.isDefaultPrevented()) {
+        return;
       }
-    }
 
-    return delta
-  }
+      $$$1(tip).removeClass(ClassName.SHOW); // If this is a touch-enabled device we remove the extra
+      // empty mouseover listeners we added for iOS support
 
-  Tooltip.prototype.getTitle = function () {
-    var title
-    var $e = this.$element
-    var o  = this.options
-
-    title = $e.attr('data-original-title')
-      || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-    return title
-  }
-
-  Tooltip.prototype.getUID = function (prefix) {
-    do prefix += ~~(Math.random() * 1000000)
-    while (document.getElementById(prefix))
-    return prefix
-  }
-
-  Tooltip.prototype.tip = function () {
-    if (!this.$tip) {
-      this.$tip = $(this.options.template)
-      if (this.$tip.length != 1) {
-        throw new Error(this.type + ' `template` option must consist of exactly 1 top-level element!')
+      if ('ontouchstart' in document.documentElement) {
+        $$$1('body').children().off('mouseover', null, $$$1.noop);
       }
-    }
-    return this.$tip
-  }
 
-  Tooltip.prototype.arrow = function () {
-    return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'))
-  }
+      this._activeTrigger[Trigger.CLICK] = false;
+      this._activeTrigger[Trigger.FOCUS] = false;
+      this._activeTrigger[Trigger.HOVER] = false;
 
-  Tooltip.prototype.enable = function () {
-    this.enabled = true
-  }
-
-  Tooltip.prototype.disable = function () {
-    this.enabled = false
-  }
-
-  Tooltip.prototype.toggleEnabled = function () {
-    this.enabled = !this.enabled
-  }
-
-  Tooltip.prototype.toggle = function (e) {
-    var self = this
-    if (e) {
-      self = $(e.currentTarget).data('bs.' + this.type)
-      if (!self) {
-        self = new this.constructor(e.currentTarget, this.getDelegateOptions())
-        $(e.currentTarget).data('bs.' + this.type, self)
+      if (Util.supportsTransitionEnd() && $$$1(this.tip).hasClass(ClassName.FADE)) {
+        $$$1(tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      } else {
+        complete();
       }
-    }
 
-    if (e) {
-      self.inState.click = !self.inState.click
-      if (self.isInStateTrue()) self.enter(self)
-      else self.leave(self)
-    } else {
-      self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
-    }
-  }
+      this._hoverState = '';
+    };
 
-  Tooltip.prototype.destroy = function () {
-    var that = this
-    clearTimeout(this.timeout)
-    this.hide(function () {
-      that.$element.off('.' + that.type).removeData('bs.' + that.type)
-      if (that.$tip) {
-        that.$tip.detach()
+    _proto.update = function update() {
+      if (this._popper !== null) {
+        this._popper.scheduleUpdate();
       }
-      that.$tip = null
-      that.$arrow = null
-      that.$viewport = null
-      that.$element = null
-    })
-  }
+    }; // Protected
 
 
-  // TOOLTIP PLUGIN DEFINITION
-  // =========================
+    _proto.isWithContent = function isWithContent() {
+      return Boolean(this.getTitle());
+    };
 
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.tooltip')
-      var options = typeof option == 'object' && option
+    _proto.addAttachmentClass = function addAttachmentClass(attachment) {
+      $$$1(this.getTipElement()).addClass(CLASS_PREFIX + "-" + attachment);
+    };
 
-      if (!data && /destroy|hide/.test(option)) return
-      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
+    _proto.getTipElement = function getTipElement() {
+      this.tip = this.tip || $$$1(this.config.template)[0];
+      return this.tip;
+    };
 
-  var old = $.fn.tooltip
+    _proto.setContent = function setContent() {
+      var $tip = $$$1(this.getTipElement());
+      this.setElementContent($tip.find(Selector.TOOLTIP_INNER), this.getTitle());
+      $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
+    };
 
-  $.fn.tooltip             = Plugin
-  $.fn.tooltip.Constructor = Tooltip
+    _proto.setElementContent = function setElementContent($element, content) {
+      var html = this.config.html;
+
+      if (typeof content === 'object' && (content.nodeType || content.jquery)) {
+        // Content is a DOM node or a jQuery
+        if (html) {
+          if (!$$$1(content).parent().is($element)) {
+            $element.empty().append(content);
+          }
+        } else {
+          $element.text($$$1(content).text());
+        }
+      } else {
+        $element[html ? 'html' : 'text'](content);
+      }
+    };
+
+    _proto.getTitle = function getTitle() {
+      var title = this.element.getAttribute('data-original-title');
+
+      if (!title) {
+        title = typeof this.config.title === 'function' ? this.config.title.call(this.element) : this.config.title;
+      }
+
+      return title;
+    }; // Private
 
 
-  // TOOLTIP NO CONFLICT
-  // ===================
+    _proto._getAttachment = function _getAttachment(placement) {
+      return AttachmentMap[placement.toUpperCase()];
+    };
 
-  $.fn.tooltip.noConflict = function () {
-    $.fn.tooltip = old
-    return this
-  }
+    _proto._setListeners = function _setListeners() {
+      var _this3 = this;
 
-}(jQuery);
+      var triggers = this.config.trigger.split(' ');
+      triggers.forEach(function (trigger) {
+        if (trigger === 'click') {
+          $$$1(_this3.element).on(_this3.constructor.Event.CLICK, _this3.config.selector, function (event) {
+            return _this3.toggle(event);
+          });
+        } else if (trigger !== Trigger.MANUAL) {
+          var eventIn = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSEENTER : _this3.constructor.Event.FOCUSIN;
+          var eventOut = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSELEAVE : _this3.constructor.Event.FOCUSOUT;
+          $$$1(_this3.element).on(eventIn, _this3.config.selector, function (event) {
+            return _this3._enter(event);
+          }).on(eventOut, _this3.config.selector, function (event) {
+            return _this3._leave(event);
+          });
+        }
 
-/* ========================================================================
- * Bootstrap: popover.js v3.3.7
- * http://getbootstrap.com/javascript/#popovers
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+        $$$1(_this3.element).closest('.modal').on('hide.bs.modal', function () {
+          return _this3.hide();
+        });
+      });
+
+      if (this.config.selector) {
+        this.config = _extends({}, this.config, {
+          trigger: 'manual',
+          selector: ''
+        });
+      } else {
+        this._fixTitle();
+      }
+    };
+
+    _proto._fixTitle = function _fixTitle() {
+      var titleType = typeof this.element.getAttribute('data-original-title');
+
+      if (this.element.getAttribute('title') || titleType !== 'string') {
+        this.element.setAttribute('data-original-title', this.element.getAttribute('title') || '');
+        this.element.setAttribute('title', '');
+      }
+    };
+
+    _proto._enter = function _enter(event, context) {
+      var dataKey = this.constructor.DATA_KEY;
+      context = context || $$$1(event.currentTarget).data(dataKey);
+
+      if (!context) {
+        context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+        $$$1(event.currentTarget).data(dataKey, context);
+      }
+
+      if (event) {
+        context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
+      }
+
+      if ($$$1(context.getTipElement()).hasClass(ClassName.SHOW) || context._hoverState === HoverState.SHOW) {
+        context._hoverState = HoverState.SHOW;
+        return;
+      }
+
+      clearTimeout(context._timeout);
+      context._hoverState = HoverState.SHOW;
+
+      if (!context.config.delay || !context.config.delay.show) {
+        context.show();
+        return;
+      }
+
+      context._timeout = setTimeout(function () {
+        if (context._hoverState === HoverState.SHOW) {
+          context.show();
+        }
+      }, context.config.delay.show);
+    };
+
+    _proto._leave = function _leave(event, context) {
+      var dataKey = this.constructor.DATA_KEY;
+      context = context || $$$1(event.currentTarget).data(dataKey);
+
+      if (!context) {
+        context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+        $$$1(event.currentTarget).data(dataKey, context);
+      }
+
+      if (event) {
+        context._activeTrigger[event.type === 'focusout' ? Trigger.FOCUS : Trigger.HOVER] = false;
+      }
+
+      if (context._isWithActiveTrigger()) {
+        return;
+      }
+
+      clearTimeout(context._timeout);
+      context._hoverState = HoverState.OUT;
+
+      if (!context.config.delay || !context.config.delay.hide) {
+        context.hide();
+        return;
+      }
+
+      context._timeout = setTimeout(function () {
+        if (context._hoverState === HoverState.OUT) {
+          context.hide();
+        }
+      }, context.config.delay.hide);
+    };
+
+    _proto._isWithActiveTrigger = function _isWithActiveTrigger() {
+      for (var trigger in this._activeTrigger) {
+        if (this._activeTrigger[trigger]) {
+          return true;
+        }
+      }
+
+      return false;
+    };
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, this.constructor.Default, $$$1(this.element).data(), config);
+
+      if (typeof config.delay === 'number') {
+        config.delay = {
+          show: config.delay,
+          hide: config.delay
+        };
+      }
+
+      if (typeof config.title === 'number') {
+        config.title = config.title.toString();
+      }
+
+      if (typeof config.content === 'number') {
+        config.content = config.content.toString();
+      }
+
+      Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+      return config;
+    };
+
+    _proto._getDelegateConfig = function _getDelegateConfig() {
+      var config = {};
+
+      if (this.config) {
+        for (var key in this.config) {
+          if (this.constructor.Default[key] !== this.config[key]) {
+            config[key] = this.config[key];
+          }
+        }
+      }
+
+      return config;
+    };
+
+    _proto._cleanTipClass = function _cleanTipClass() {
+      var $tip = $$$1(this.getTipElement());
+      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
+
+      if (tabClass !== null && tabClass.length > 0) {
+        $tip.removeClass(tabClass.join(''));
+      }
+    };
+
+    _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(data) {
+      this._cleanTipClass();
+
+      this.addAttachmentClass(this._getAttachment(data.placement));
+    };
+
+    _proto._fixTransition = function _fixTransition() {
+      var tip = this.getTipElement();
+      var initConfigAnimation = this.config.animation;
+
+      if (tip.getAttribute('x-placement') !== null) {
+        return;
+      }
+
+      $$$1(tip).removeClass(ClassName.FADE);
+      this.config.animation = false;
+      this.hide();
+      this.show();
+      this.config.animation = initConfigAnimation;
+    }; // Static
+
+
+    Tooltip._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
+
+        var _config = typeof config === 'object' && config;
+
+        if (!data && /dispose|hide/.test(config)) {
+          return;
+        }
+
+        if (!data) {
+          data = new Tooltip(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Tooltip, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }, {
+      key: "NAME",
+      get: function get() {
+        return NAME;
+      }
+    }, {
+      key: "DATA_KEY",
+      get: function get() {
+        return DATA_KEY;
+      }
+    }, {
+      key: "Event",
+      get: function get() {
+        return Event;
+      }
+    }, {
+      key: "EVENT_KEY",
+      get: function get() {
+        return EVENT_KEY;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType;
+      }
+    }]);
+    return Tooltip;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1.fn[NAME] = Tooltip._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Tooltip;
+
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Tooltip._jQueryInterface;
+  };
+
+  return Tooltip;
+}($, Popper);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): popover.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
 
-
-+function ($) {
-  'use strict';
-
-  // POPOVER PUBLIC CLASS DEFINITION
-  // ===============================
-
-  var Popover = function (element, options) {
-    this.init('popover', element, options)
-  }
-
-  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
-
-  Popover.VERSION  = '3.3.7'
-
-  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+var Popover = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'popover';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.popover';
+  var EVENT_KEY = "." + DATA_KEY;
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var CLASS_PREFIX = 'bs-popover';
+  var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
+  var Default = _extends({}, Tooltip.Default, {
     placement: 'right',
     trigger: 'click',
     content: '',
-    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-  })
+    template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
+  });
+  var DefaultType = _extends({}, Tooltip.DefaultType, {
+    content: '(string|element|function)'
+  });
+  var ClassName = {
+    FADE: 'fade',
+    SHOW: 'show'
+  };
+  var Selector = {
+    TITLE: '.popover-header',
+    CONTENT: '.popover-body'
+  };
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    INSERTED: "inserted" + EVENT_KEY,
+    CLICK: "click" + EVENT_KEY,
+    FOCUSIN: "focusin" + EVENT_KEY,
+    FOCUSOUT: "focusout" + EVENT_KEY,
+    MOUSEENTER: "mouseenter" + EVENT_KEY,
+    MOUSELEAVE: "mouseleave" + EVENT_KEY
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Popover =
+  /*#__PURE__*/
+  function (_Tooltip) {
+    _inheritsLoose(Popover, _Tooltip);
+
+    function Popover() {
+      return _Tooltip.apply(this, arguments) || this;
+    }
+
+    var _proto = Popover.prototype;
+
+    // Overrides
+    _proto.isWithContent = function isWithContent() {
+      return this.getTitle() || this._getContent();
+    };
+
+    _proto.addAttachmentClass = function addAttachmentClass(attachment) {
+      $$$1(this.getTipElement()).addClass(CLASS_PREFIX + "-" + attachment);
+    };
+
+    _proto.getTipElement = function getTipElement() {
+      this.tip = this.tip || $$$1(this.config.template)[0];
+      return this.tip;
+    };
+
+    _proto.setContent = function setContent() {
+      var $tip = $$$1(this.getTipElement()); // We use append for html objects to maintain js events
+
+      this.setElementContent($tip.find(Selector.TITLE), this.getTitle());
+
+      var content = this._getContent();
+
+      if (typeof content === 'function') {
+        content = content.call(this.element);
+      }
+
+      this.setElementContent($tip.find(Selector.CONTENT), content);
+      $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
+    }; // Private
 
 
-  // NOTE: POPOVER EXTENDS tooltip.js
-  // ================================
+    _proto._getContent = function _getContent() {
+      return this.element.getAttribute('data-content') || this.config.content;
+    };
 
-  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+    _proto._cleanTipClass = function _cleanTipClass() {
+      var $tip = $$$1(this.getTipElement());
+      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
 
-  Popover.prototype.constructor = Popover
-
-  Popover.prototype.getDefaults = function () {
-    return Popover.DEFAULTS
-  }
-
-  Popover.prototype.setContent = function () {
-    var $tip    = this.tip()
-    var title   = this.getTitle()
-    var content = this.getContent()
-
-    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
-    ](content)
-
-    $tip.removeClass('fade top bottom left right in')
-
-    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
-    // this manually by checking the contents.
-    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
-  }
-
-  Popover.prototype.hasContent = function () {
-    return this.getTitle() || this.getContent()
-  }
-
-  Popover.prototype.getContent = function () {
-    var $e = this.$element
-    var o  = this.options
-
-    return $e.attr('data-content')
-      || (typeof o.content == 'function' ?
-            o.content.call($e[0]) :
-            o.content)
-  }
-
-  Popover.prototype.arrow = function () {
-    return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
-  }
+      if (tabClass !== null && tabClass.length > 0) {
+        $tip.removeClass(tabClass.join(''));
+      }
+    }; // Static
 
 
-  // POPOVER PLUGIN DEFINITION
-  // =========================
+    Popover._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
 
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.popover')
-      var options = typeof option == 'object' && option
+        var _config = typeof config === 'object' ? config : null;
 
-      if (!data && /destroy|hide/.test(option)) return
-      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
+        if (!data && /destroy|hide/.test(config)) {
+          return;
+        }
 
-  var old = $.fn.popover
+        if (!data) {
+          data = new Popover(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
 
-  $.fn.popover             = Plugin
-  $.fn.popover.Constructor = Popover
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Popover, null, [{
+      key: "VERSION",
+      // Getters
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }, {
+      key: "NAME",
+      get: function get() {
+        return NAME;
+      }
+    }, {
+      key: "DATA_KEY",
+      get: function get() {
+        return DATA_KEY;
+      }
+    }, {
+      key: "Event",
+      get: function get() {
+        return Event;
+      }
+    }, {
+      key: "EVENT_KEY",
+      get: function get() {
+        return EVENT_KEY;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType;
+      }
+    }]);
+    return Popover;
+  }(Tooltip);
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
 
-  // POPOVER NO CONFLICT
-  // ===================
+  $$$1.fn[NAME] = Popover._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Popover;
 
-  $.fn.popover.noConflict = function () {
-    $.fn.popover = old
-    return this
-  }
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Popover._jQueryInterface;
+  };
 
-}(jQuery);
+  return Popover;
+}($);
 
-/* ========================================================================
- * Bootstrap: scrollspy.js v3.3.7
- * http://getbootstrap.com/javascript/#scrollspy
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): scrollspy.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
+
+var ScrollSpy = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'scrollspy';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.scrollspy';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var Default = {
+    offset: 10,
+    method: 'auto',
+    target: ''
+  };
+  var DefaultType = {
+    offset: 'number',
+    method: 'string',
+    target: '(string|element)'
+  };
+  var Event = {
+    ACTIVATE: "activate" + EVENT_KEY,
+    SCROLL: "scroll" + EVENT_KEY,
+    LOAD_DATA_API: "load" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    DROPDOWN_ITEM: 'dropdown-item',
+    DROPDOWN_MENU: 'dropdown-menu',
+    ACTIVE: 'active'
+  };
+  var Selector = {
+    DATA_SPY: '[data-spy="scroll"]',
+    ACTIVE: '.active',
+    NAV_LIST_GROUP: '.nav, .list-group',
+    NAV_LINKS: '.nav-link',
+    NAV_ITEMS: '.nav-item',
+    LIST_ITEMS: '.list-group-item',
+    DROPDOWN: '.dropdown',
+    DROPDOWN_ITEMS: '.dropdown-item',
+    DROPDOWN_TOGGLE: '.dropdown-toggle'
+  };
+  var OffsetMethod = {
+    OFFSET: 'offset',
+    POSITION: 'position'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var ScrollSpy =
+  /*#__PURE__*/
+  function () {
+    function ScrollSpy(element, config) {
+      var _this = this;
+
+      this._element = element;
+      this._scrollElement = element.tagName === 'BODY' ? window : element;
+      this._config = this._getConfig(config);
+      this._selector = this._config.target + " " + Selector.NAV_LINKS + "," + (this._config.target + " " + Selector.LIST_ITEMS + ",") + (this._config.target + " " + Selector.DROPDOWN_ITEMS);
+      this._offsets = [];
+      this._targets = [];
+      this._activeTarget = null;
+      this._scrollHeight = 0;
+      $$$1(this._scrollElement).on(Event.SCROLL, function (event) {
+        return _this._process(event);
+      });
+      this.refresh();
+
+      this._process();
+    } // Getters
 
 
-+function ($) {
-  'use strict';
+    var _proto = ScrollSpy.prototype;
 
-  // SCROLLSPY CLASS DEFINITION
-  // ==========================
+    // Public
+    _proto.refresh = function refresh() {
+      var _this2 = this;
 
-  function ScrollSpy(element, options) {
-    this.$body          = $(document.body)
-    this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
-    this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
-    this.selector       = (this.options.target || '') + ' .nav li > a'
-    this.offsets        = []
-    this.targets        = []
-    this.activeTarget   = null
-    this.scrollHeight   = 0
+      var autoMethod = this._scrollElement === this._scrollElement.window ? OffsetMethod.OFFSET : OffsetMethod.POSITION;
+      var offsetMethod = this._config.method === 'auto' ? autoMethod : this._config.method;
+      var offsetBase = offsetMethod === OffsetMethod.POSITION ? this._getScrollTop() : 0;
+      this._offsets = [];
+      this._targets = [];
+      this._scrollHeight = this._getScrollHeight();
+      var targets = $$$1.makeArray($$$1(this._selector));
+      targets.map(function (element) {
+        var target;
+        var targetSelector = Util.getSelectorFromElement(element);
 
-    this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
-    this.refresh()
-    this.process()
-  }
+        if (targetSelector) {
+          target = $$$1(targetSelector)[0];
+        }
 
-  ScrollSpy.VERSION  = '3.3.7'
+        if (target) {
+          var targetBCR = target.getBoundingClientRect();
 
-  ScrollSpy.DEFAULTS = {
-    offset: 10
-  }
+          if (targetBCR.width || targetBCR.height) {
+            // TODO (fat): remove sketch reliance on jQuery position/offset
+            return [$$$1(target)[offsetMethod]().top + offsetBase, targetSelector];
+          }
+        }
 
-  ScrollSpy.prototype.getScrollHeight = function () {
-    return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
-  }
+        return null;
+      }).filter(function (item) {
+        return item;
+      }).sort(function (a, b) {
+        return a[0] - b[0];
+      }).forEach(function (item) {
+        _this2._offsets.push(item[0]);
 
-  ScrollSpy.prototype.refresh = function () {
-    var that          = this
-    var offsetMethod  = 'offset'
-    var offsetBase    = 0
+        _this2._targets.push(item[1]);
+      });
+    };
 
-    this.offsets      = []
-    this.targets      = []
-    this.scrollHeight = this.getScrollHeight()
-
-    if (!$.isWindow(this.$scrollElement[0])) {
-      offsetMethod = 'position'
-      offsetBase   = this.$scrollElement.scrollTop()
-    }
-
-    this.$body
-      .find(this.selector)
-      .map(function () {
-        var $el   = $(this)
-        var href  = $el.data('target') || $el.attr('href')
-        var $href = /^#./.test(href) && $(href)
-
-        return ($href
-          && $href.length
-          && $href.is(':visible')
-          && [[$href[offsetMethod]().top + offsetBase, href]]) || null
-      })
-      .sort(function (a, b) { return a[0] - b[0] })
-      .each(function () {
-        that.offsets.push(this[0])
-        that.targets.push(this[1])
-      })
-  }
-
-  ScrollSpy.prototype.process = function () {
-    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
-    var scrollHeight = this.getScrollHeight()
-    var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
-    var offsets      = this.offsets
-    var targets      = this.targets
-    var activeTarget = this.activeTarget
-    var i
-
-    if (this.scrollHeight != scrollHeight) {
-      this.refresh()
-    }
-
-    if (scrollTop >= maxScroll) {
-      return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
-    }
-
-    if (activeTarget && scrollTop < offsets[0]) {
-      this.activeTarget = null
-      return this.clear()
-    }
-
-    for (i = offsets.length; i--;) {
-      activeTarget != targets[i]
-        && scrollTop >= offsets[i]
-        && (offsets[i + 1] === undefined || scrollTop < offsets[i + 1])
-        && this.activate(targets[i])
-    }
-  }
-
-  ScrollSpy.prototype.activate = function (target) {
-    this.activeTarget = target
-
-    this.clear()
-
-    var selector = this.selector +
-      '[data-target="' + target + '"],' +
-      this.selector + '[href="' + target + '"]'
-
-    var active = $(selector)
-      .parents('li')
-      .addClass('active')
-
-    if (active.parent('.dropdown-menu').length) {
-      active = active
-        .closest('li.dropdown')
-        .addClass('active')
-    }
-
-    active.trigger('activate.bs.scrollspy')
-  }
-
-  ScrollSpy.prototype.clear = function () {
-    $(this.selector)
-      .parentsUntil(this.options.target, '.active')
-      .removeClass('active')
-  }
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      $$$1(this._scrollElement).off(EVENT_KEY);
+      this._element = null;
+      this._scrollElement = null;
+      this._config = null;
+      this._selector = null;
+      this._offsets = null;
+      this._targets = null;
+      this._activeTarget = null;
+      this._scrollHeight = null;
+    }; // Private
 
 
-  // SCROLLSPY PLUGIN DEFINITION
-  // ===========================
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
 
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.scrollspy')
-      var options = typeof option == 'object' && option
+      if (typeof config.target !== 'string') {
+        var id = $$$1(config.target).attr('id');
 
-      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
+        if (!id) {
+          id = Util.getUID(NAME);
+          $$$1(config.target).attr('id', id);
+        }
 
-  var old = $.fn.scrollspy
+        config.target = "#" + id;
+      }
 
-  $.fn.scrollspy             = Plugin
-  $.fn.scrollspy.Constructor = ScrollSpy
+      Util.typeCheckConfig(NAME, config, DefaultType);
+      return config;
+    };
+
+    _proto._getScrollTop = function _getScrollTop() {
+      return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
+    };
+
+    _proto._getScrollHeight = function _getScrollHeight() {
+      return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    };
+
+    _proto._getOffsetHeight = function _getOffsetHeight() {
+      return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
+    };
+
+    _proto._process = function _process() {
+      var scrollTop = this._getScrollTop() + this._config.offset;
+
+      var scrollHeight = this._getScrollHeight();
+
+      var maxScroll = this._config.offset + scrollHeight - this._getOffsetHeight();
+
+      if (this._scrollHeight !== scrollHeight) {
+        this.refresh();
+      }
+
+      if (scrollTop >= maxScroll) {
+        var target = this._targets[this._targets.length - 1];
+
+        if (this._activeTarget !== target) {
+          this._activate(target);
+        }
+
+        return;
+      }
+
+      if (this._activeTarget && scrollTop < this._offsets[0] && this._offsets[0] > 0) {
+        this._activeTarget = null;
+
+        this._clear();
+
+        return;
+      }
+
+      for (var i = this._offsets.length; i--;) {
+        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
+
+        if (isActiveTarget) {
+          this._activate(this._targets[i]);
+        }
+      }
+    };
+
+    _proto._activate = function _activate(target) {
+      this._activeTarget = target;
+
+      this._clear();
+
+      var queries = this._selector.split(','); // eslint-disable-next-line arrow-body-style
 
 
-  // SCROLLSPY NO CONFLICT
-  // =====================
+      queries = queries.map(function (selector) {
+        return selector + "[data-target=\"" + target + "\"]," + (selector + "[href=\"" + target + "\"]");
+      });
+      var $link = $$$1(queries.join(','));
 
-  $.fn.scrollspy.noConflict = function () {
-    $.fn.scrollspy = old
-    return this
-  }
-
-
-  // SCROLLSPY DATA-API
-  // ==================
-
-  $(window).on('load.bs.scrollspy.data-api', function () {
-    $('[data-spy="scroll"]').each(function () {
-      var $spy = $(this)
-      Plugin.call($spy, $spy.data())
-    })
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: tab.js v3.3.7
- * http://getbootstrap.com/javascript/#tabs
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // TAB CLASS DEFINITION
-  // ====================
-
-  var Tab = function (element) {
-    // jscs:disable requireDollarBeforejQueryAssignment
-    this.element = $(element)
-    // jscs:enable requireDollarBeforejQueryAssignment
-  }
-
-  Tab.VERSION = '3.3.7'
-
-  Tab.TRANSITION_DURATION = 150
-
-  Tab.prototype.show = function () {
-    var $this    = this.element
-    var $ul      = $this.closest('ul:not(.dropdown-menu)')
-    var selector = $this.data('target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    if ($this.parent('li').hasClass('active')) return
-
-    var $previous = $ul.find('.active:last a')
-    var hideEvent = $.Event('hide.bs.tab', {
-      relatedTarget: $this[0]
-    })
-    var showEvent = $.Event('show.bs.tab', {
-      relatedTarget: $previous[0]
-    })
-
-    $previous.trigger(hideEvent)
-    $this.trigger(showEvent)
-
-    if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) return
-
-    var $target = $(selector)
-
-    this.activate($this.closest('li'), $ul)
-    this.activate($target, $target.parent(), function () {
-      $previous.trigger({
-        type: 'hidden.bs.tab',
-        relatedTarget: $this[0]
-      })
-      $this.trigger({
-        type: 'shown.bs.tab',
-        relatedTarget: $previous[0]
-      })
-    })
-  }
-
-  Tab.prototype.activate = function (element, container, callback) {
-    var $active    = container.find('> .active')
-    var transition = callback
-      && $.support.transition
-      && ($active.length && $active.hasClass('fade') || !!container.find('> .fade').length)
-
-    function next() {
-      $active
-        .removeClass('active')
-        .find('> .dropdown-menu > .active')
-          .removeClass('active')
-        .end()
-        .find('[data-toggle="tab"]')
-          .attr('aria-expanded', false)
-
-      element
-        .addClass('active')
-        .find('[data-toggle="tab"]')
-          .attr('aria-expanded', true)
-
-      if (transition) {
-        element[0].offsetWidth // reflow for transition
-        element.addClass('in')
+      if ($link.hasClass(ClassName.DROPDOWN_ITEM)) {
+        $link.closest(Selector.DROPDOWN).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+        $link.addClass(ClassName.ACTIVE);
       } else {
-        element.removeClass('fade')
+        // Set triggered link as active
+        $link.addClass(ClassName.ACTIVE); // Set triggered links parents as active
+        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
+
+        $link.parents(Selector.NAV_LIST_GROUP).prev(Selector.NAV_LINKS + ", " + Selector.LIST_ITEMS).addClass(ClassName.ACTIVE); // Handle special case when .nav-link is inside .nav-item
+
+        $link.parents(Selector.NAV_LIST_GROUP).prev(Selector.NAV_ITEMS).children(Selector.NAV_LINKS).addClass(ClassName.ACTIVE);
       }
 
-      if (element.parent('.dropdown-menu').length) {
-        element
-          .closest('li.dropdown')
-            .addClass('active')
-          .end()
-          .find('[data-toggle="tab"]')
-            .attr('aria-expanded', true)
-      }
+      $$$1(this._scrollElement).trigger(Event.ACTIVATE, {
+        relatedTarget: target
+      });
+    };
 
-      callback && callback()
+    _proto._clear = function _clear() {
+      $$$1(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+    }; // Static
+
+
+    ScrollSpy._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $$$1(this).data(DATA_KEY);
+
+        var _config = typeof config === 'object' && config;
+
+        if (!data) {
+          data = new ScrollSpy(this, _config);
+          $$$1(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(ScrollSpy, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }]);
+    return ScrollSpy;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(window).on(Event.LOAD_DATA_API, function () {
+    var scrollSpys = $$$1.makeArray($$$1(Selector.DATA_SPY));
+
+    for (var i = scrollSpys.length; i--;) {
+      var $spy = $$$1(scrollSpys[i]);
+
+      ScrollSpy._jQueryInterface.call($spy, $spy.data());
     }
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
-    $active.length && transition ?
-      $active
-        .one('bsTransitionEnd', next)
-        .emulateTransitionEnd(Tab.TRANSITION_DURATION) :
-      next()
+  $$$1.fn[NAME] = ScrollSpy._jQueryInterface;
+  $$$1.fn[NAME].Constructor = ScrollSpy;
 
-    $active.removeClass('in')
-  }
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return ScrollSpy._jQueryInterface;
+  };
 
+  return ScrollSpy;
+}($);
 
-  // TAB PLUGIN DEFINITION
-  // =====================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.tab')
-
-      if (!data) $this.data('bs.tab', (data = new Tab(this)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  var old = $.fn.tab
-
-  $.fn.tab             = Plugin
-  $.fn.tab.Constructor = Tab
-
-
-  // TAB NO CONFLICT
-  // ===============
-
-  $.fn.tab.noConflict = function () {
-    $.fn.tab = old
-    return this
-  }
-
-
-  // TAB DATA-API
-  // ============
-
-  var clickHandler = function (e) {
-    e.preventDefault()
-    Plugin.call($(this), 'show')
-  }
-
-  $(document)
-    .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
-    .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: affix.js v3.3.7
- * http://getbootstrap.com/javascript/#affix
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): tab.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * --------------------------------------------------------------------------
+ */
+
+var Tab = function ($$$1) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'tab';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.tab';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 150;
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    DROPDOWN_MENU: 'dropdown-menu',
+    ACTIVE: 'active',
+    DISABLED: 'disabled',
+    FADE: 'fade',
+    SHOW: 'show'
+  };
+  var Selector = {
+    DROPDOWN: '.dropdown',
+    NAV_LIST_GROUP: '.nav, .list-group',
+    ACTIVE: '.active',
+    ACTIVE_UL: '> li > .active',
+    DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
+    DROPDOWN_TOGGLE: '.dropdown-toggle',
+    DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Tab =
+  /*#__PURE__*/
+  function () {
+    function Tab(element) {
+      this._element = element;
+    } // Getters
 
 
-+function ($) {
-  'use strict';
+    var _proto = Tab.prototype;
 
-  // AFFIX CLASS DEFINITION
-  // ======================
+    // Public
+    _proto.show = function show() {
+      var _this = this;
 
-  var Affix = function (element, options) {
-    this.options = $.extend({}, Affix.DEFAULTS, options)
+      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $$$1(this._element).hasClass(ClassName.ACTIVE) || $$$1(this._element).hasClass(ClassName.DISABLED)) {
+        return;
+      }
 
-    this.$target = $(this.options.target)
-      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
-      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
+      var target;
+      var previous;
+      var listElement = $$$1(this._element).closest(Selector.NAV_LIST_GROUP)[0];
+      var selector = Util.getSelectorFromElement(this._element);
 
-    this.$element     = $(element)
-    this.affixed      = null
-    this.unpin        = null
-    this.pinnedOffset = null
+      if (listElement) {
+        var itemSelector = listElement.nodeName === 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE;
+        previous = $$$1.makeArray($$$1(listElement).find(itemSelector));
+        previous = previous[previous.length - 1];
+      }
 
-    this.checkPosition()
+      var hideEvent = $$$1.Event(Event.HIDE, {
+        relatedTarget: this._element
+      });
+      var showEvent = $$$1.Event(Event.SHOW, {
+        relatedTarget: previous
+      });
+
+      if (previous) {
+        $$$1(previous).trigger(hideEvent);
+      }
+
+      $$$1(this._element).trigger(showEvent);
+
+      if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      if (selector) {
+        target = $$$1(selector)[0];
+      }
+
+      this._activate(this._element, listElement);
+
+      var complete = function complete() {
+        var hiddenEvent = $$$1.Event(Event.HIDDEN, {
+          relatedTarget: _this._element
+        });
+        var shownEvent = $$$1.Event(Event.SHOWN, {
+          relatedTarget: previous
+        });
+        $$$1(previous).trigger(hiddenEvent);
+        $$$1(_this._element).trigger(shownEvent);
+      };
+
+      if (target) {
+        this._activate(target, target.parentNode, complete);
+      } else {
+        complete();
+      }
+    };
+
+    _proto.dispose = function dispose() {
+      $$$1.removeData(this._element, DATA_KEY);
+      this._element = null;
+    }; // Private
+
+
+    _proto._activate = function _activate(element, container, callback) {
+      var _this2 = this;
+
+      var activeElements;
+
+      if (container.nodeName === 'UL') {
+        activeElements = $$$1(container).find(Selector.ACTIVE_UL);
+      } else {
+        activeElements = $$$1(container).children(Selector.ACTIVE);
+      }
+
+      var active = activeElements[0];
+      var isTransitioning = callback && Util.supportsTransitionEnd() && active && $$$1(active).hasClass(ClassName.FADE);
+
+      var complete = function complete() {
+        return _this2._transitionComplete(element, active, callback);
+      };
+
+      if (active && isTransitioning) {
+        $$$1(active).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      } else {
+        complete();
+      }
+    };
+
+    _proto._transitionComplete = function _transitionComplete(element, active, callback) {
+      if (active) {
+        $$$1(active).removeClass(ClassName.SHOW + " " + ClassName.ACTIVE);
+        var dropdownChild = $$$1(active.parentNode).find(Selector.DROPDOWN_ACTIVE_CHILD)[0];
+
+        if (dropdownChild) {
+          $$$1(dropdownChild).removeClass(ClassName.ACTIVE);
+        }
+
+        if (active.getAttribute('role') === 'tab') {
+          active.setAttribute('aria-selected', false);
+        }
+      }
+
+      $$$1(element).addClass(ClassName.ACTIVE);
+
+      if (element.getAttribute('role') === 'tab') {
+        element.setAttribute('aria-selected', true);
+      }
+
+      Util.reflow(element);
+      $$$1(element).addClass(ClassName.SHOW);
+
+      if (element.parentNode && $$$1(element.parentNode).hasClass(ClassName.DROPDOWN_MENU)) {
+        var dropdownElement = $$$1(element).closest(Selector.DROPDOWN)[0];
+
+        if (dropdownElement) {
+          $$$1(dropdownElement).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+        }
+
+        element.setAttribute('aria-expanded', true);
+      }
+
+      if (callback) {
+        callback();
+      }
+    }; // Static
+
+
+    Tab._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var $this = $$$1(this);
+        var data = $this.data(DATA_KEY);
+
+        if (!data) {
+          data = new Tab(this);
+          $this.data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Tab, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }]);
+    return Tab;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    event.preventDefault();
+
+    Tab._jQueryInterface.call($$$1(this), 'show');
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $$$1.fn[NAME] = Tab._jQueryInterface;
+  $$$1.fn[NAME].Constructor = Tab;
+
+  $$$1.fn[NAME].noConflict = function () {
+    $$$1.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Tab._jQueryInterface;
+  };
+
+  return Tab;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0-alpha.6): index.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+(function ($$$1) {
+  if (typeof $$$1 === 'undefined') {
+    throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
   }
 
-  Affix.VERSION  = '3.3.7'
+  var version = $$$1.fn.jquery.split(' ')[0].split('.');
+  var minMajor = 1;
+  var ltMajor = 2;
+  var minMinor = 9;
+  var minPatch = 1;
+  var maxMajor = 4;
 
-  Affix.RESET    = 'affix affix-top affix-bottom'
-
-  Affix.DEFAULTS = {
-    offset: 0,
-    target: window
+  if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+    throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
   }
+})($);
 
-  Affix.prototype.getState = function (scrollHeight, height, offsetTop, offsetBottom) {
-    var scrollTop    = this.$target.scrollTop()
-    var position     = this.$element.offset()
-    var targetHeight = this.$target.height()
+exports.Util = Util;
+exports.Alert = Alert;
+exports.Button = Button;
+exports.Carousel = Carousel;
+exports.Collapse = Collapse;
+exports.Dropdown = Dropdown;
+exports.Modal = Modal;
+exports.Popover = Popover;
+exports.Scrollspy = ScrollSpy;
+exports.Tab = Tab;
+exports.Tooltip = Tooltip;
 
-    if (offsetTop != null && this.affixed == 'top') return scrollTop < offsetTop ? 'top' : false
+Object.defineProperty(exports, '__esModule', { value: true });
 
-    if (this.affixed == 'bottom') {
-      if (offsetTop != null) return (scrollTop + this.unpin <= position.top) ? false : 'bottom'
-      return (scrollTop + targetHeight <= scrollHeight - offsetBottom) ? false : 'bottom'
-    }
-
-    var initializing   = this.affixed == null
-    var colliderTop    = initializing ? scrollTop : position.top
-    var colliderHeight = initializing ? targetHeight : height
-
-    if (offsetTop != null && scrollTop <= offsetTop) return 'top'
-    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom'
-
-    return false
-  }
-
-  Affix.prototype.getPinnedOffset = function () {
-    if (this.pinnedOffset) return this.pinnedOffset
-    this.$element.removeClass(Affix.RESET).addClass('affix')
-    var scrollTop = this.$target.scrollTop()
-    var position  = this.$element.offset()
-    return (this.pinnedOffset = position.top - scrollTop)
-  }
-
-  Affix.prototype.checkPositionWithEventLoop = function () {
-    setTimeout($.proxy(this.checkPosition, this), 1)
-  }
-
-  Affix.prototype.checkPosition = function () {
-    if (!this.$element.is(':visible')) return
-
-    var height       = this.$element.height()
-    var offset       = this.options.offset
-    var offsetTop    = offset.top
-    var offsetBottom = offset.bottom
-    var scrollHeight = Math.max($(document).height(), $(document.body).height())
-
-    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
-    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
-    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
-
-    var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom)
-
-    if (this.affixed != affix) {
-      if (this.unpin != null) this.$element.css('top', '')
-
-      var affixType = 'affix' + (affix ? '-' + affix : '')
-      var e         = $.Event(affixType + '.bs.affix')
-
-      this.$element.trigger(e)
-
-      if (e.isDefaultPrevented()) return
-
-      this.affixed = affix
-      this.unpin = affix == 'bottom' ? this.getPinnedOffset() : null
-
-      this.$element
-        .removeClass(Affix.RESET)
-        .addClass(affixType)
-        .trigger(affixType.replace('affix', 'affixed') + '.bs.affix')
-    }
-
-    if (affix == 'bottom') {
-      this.$element.offset({
-        top: scrollHeight - height - offsetBottom
-      })
-    }
-  }
-
-
-  // AFFIX PLUGIN DEFINITION
-  // =======================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.affix')
-      var options = typeof option == 'object' && option
-
-      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  var old = $.fn.affix
-
-  $.fn.affix             = Plugin
-  $.fn.affix.Constructor = Affix
-
-
-  // AFFIX NO CONFLICT
-  // =================
-
-  $.fn.affix.noConflict = function () {
-    $.fn.affix = old
-    return this
-  }
-
-
-  // AFFIX DATA-API
-  // ==============
-
-  $(window).on('load', function () {
-    $('[data-spy="affix"]').each(function () {
-      var $spy = $(this)
-      var data = $spy.data()
-
-      data.offset = data.offset || {}
-
-      if (data.offsetBottom != null) data.offset.bottom = data.offsetBottom
-      if (data.offsetTop    != null) data.offset.top    = data.offsetTop
-
-      Plugin.call($spy, data)
-    })
-  })
-
-}(jQuery);
+})));
+//# sourceMappingURL=bootstrap.js.map
 
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
- * metismenu - v2.7.0
- * A jQuery menu plugin
- * https://github.com/onokumus/metismenu#readme
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global) {/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.12.9
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
  *
- * Made by Osman Nuri Okumus <onokumus@gmail.com> (https://github.com/onokumus)
- * Under MIT License
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-
-(function (global, factory) {
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if (typeof exports !== "undefined") {
-    factory(require('jquery'));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(global.jquery);
-    global.metisMenu = mod.exports;
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+var timeoutDuration = 0;
+for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+    timeoutDuration = 1;
+    break;
   }
-})(this, function (_jquery) {
-  'use strict';
+}
 
-  var _jquery2 = _interopRequireDefault(_jquery);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+function microtaskDebounce(fn) {
+  var called = false;
+  return function () {
+    if (called) {
+      return;
+    }
+    called = true;
+    window.Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
   };
+}
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var Util = function ($) {
-    var transition = false;
-
-    var TransitionEndEvent = {
-      WebkitTransition: 'webkitTransitionEnd',
-      MozTransition: 'transitionend',
-      OTransition: 'oTransitionEnd otransitionend',
-      transition: 'transitionend'
-    };
-
-    function getSpecialTransitionEndEvent() {
-      return {
-        bindType: transition.end,
-        delegateType: transition.end,
-        handle: function handle(event) {
-          if ($(event.target).is(this)) {
-            return event.handleObj.handler.apply(this, arguments);
-          }
-          return undefined;
-        }
-      };
-    }
-
-    function transitionEndTest() {
-      if (window.QUnit) {
-        return false;
-      }
-
-      var el = document.createElement('mm');
-
-      for (var name in TransitionEndEvent) {
-        if (el.style[name] !== undefined) {
-          return {
-            end: TransitionEndEvent[name]
-          };
-        }
-      }
-
-      return false;
-    }
-
-    function transitionEndEmulator(duration) {
-      var _this2 = this;
-
-      var called = false;
-
-      $(this).one(Util.TRANSITION_END, function () {
-        called = true;
-      });
-
+function taskDebounce(fn) {
+  var scheduled = false;
+  return function () {
+    if (!scheduled) {
+      scheduled = true;
       setTimeout(function () {
-        if (!called) {
-          Util.triggerTransitionEnd(_this2);
-        }
-      }, duration);
-
-      return this;
+        scheduled = false;
+        fn();
+      }, timeoutDuration);
     }
+  };
+}
 
-    function setTransitionEndSupport() {
-      transition = transitionEndTest();
-      $.fn.emulateTransitionEnd = transitionEndEmulator;
+var supportsMicroTasks = isBrowser && window.Promise;
 
-      if (Util.supportsTransitionEnd()) {
-        $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
-      }
-    }
+/**
+* Create a debounced version of a method, that's asynchronously deferred
+* but called in the minimum time possible.
+*
+* @method
+* @memberof Popper.Utils
+* @argument {Function} fn
+* @returns {Function}
+*/
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
 
-    var Util = {
-      TRANSITION_END: 'mmTransitionEnd',
-
-      triggerTransitionEnd: function triggerTransitionEnd(element) {
-        $(element).trigger(transition.end);
-      },
-      supportsTransitionEnd: function supportsTransitionEnd() {
-        return Boolean(transition);
-      }
-    };
-
-    setTransitionEndSupport();
-
-    return Util;
-  }(jQuery);
-
-  var MetisMenu = function ($) {
-
-    var NAME = 'metisMenu';
-    var DATA_KEY = 'metisMenu';
-    var EVENT_KEY = '.' + DATA_KEY;
-    var DATA_API_KEY = '.data-api';
-    var JQUERY_NO_CONFLICT = $.fn[NAME];
-    var TRANSITION_DURATION = 350;
-
-    var Default = {
-      toggle: true,
-      preventDefault: true,
-      activeClass: 'active',
-      collapseClass: 'collapse',
-      collapseInClass: 'in',
-      collapsingClass: 'collapsing',
-      triggerElement: 'a',
-      parentTrigger: 'li',
-      subMenu: 'ul'
-    };
-
-    var Event = {
-      SHOW: 'show' + EVENT_KEY,
-      SHOWN: 'shown' + EVENT_KEY,
-      HIDE: 'hide' + EVENT_KEY,
-      HIDDEN: 'hidden' + EVENT_KEY,
-      CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY
-    };
-
-    var MetisMenu = function () {
-      function MetisMenu(element, config) {
-        _classCallCheck(this, MetisMenu);
-
-        this._element = element;
-        this._config = this._getConfig(config);
-        this._transitioning = null;
-
-        this.init();
-      }
-
-      MetisMenu.prototype.init = function init() {
-        var self = this;
-        $(this._element).find(this._config.parentTrigger + '.' + this._config.activeClass).has(this._config.subMenu).children(this._config.subMenu).attr('aria-expanded', true).addClass(this._config.collapseClass + ' ' + this._config.collapseInClass);
-
-        $(this._element).find(this._config.parentTrigger).not('.' + this._config.activeClass).has(this._config.subMenu).children(this._config.subMenu).attr('aria-expanded', false).addClass(this._config.collapseClass);
-
-        $(this._element).find(this._config.parentTrigger).has(this._config.subMenu).children(this._config.triggerElement).on(Event.CLICK_DATA_API, function (e) {
-          var _this = $(this);
-          var _parent = _this.parent(self._config.parentTrigger);
-          var _siblings = _parent.siblings(self._config.parentTrigger).children(self._config.triggerElement);
-          var _list = _parent.children(self._config.subMenu);
-          if (self._config.preventDefault) {
-            e.preventDefault();
-          }
-          if (_this.attr('aria-disabled') === 'true') {
-            return;
-          }
-          if (_parent.hasClass(self._config.activeClass)) {
-            _this.attr('aria-expanded', false);
-            self._hide(_list);
-          } else {
-            self._show(_list);
-            _this.attr('aria-expanded', true);
-            if (self._config.toggle) {
-              _siblings.attr('aria-expanded', false);
-            }
-          }
-
-          if (self._config.onTransitionStart) {
-            self._config.onTransitionStart(e);
-          }
-        });
-      };
-
-      MetisMenu.prototype._show = function _show(element) {
-        if (this._transitioning || $(element).hasClass(this._config.collapsingClass)) {
-          return;
-        }
-        var _this = this;
-        var _el = $(element);
-
-        var startEvent = $.Event(Event.SHOW);
-        _el.trigger(startEvent);
-
-        if (startEvent.isDefaultPrevented()) {
-          return;
-        }
-
-        _el.parent(this._config.parentTrigger).addClass(this._config.activeClass);
-
-        if (this._config.toggle) {
-          this._hide(_el.parent(this._config.parentTrigger).siblings().children(this._config.subMenu + '.' + this._config.collapseInClass).attr('aria-expanded', false));
-        }
-
-        _el.removeClass(this._config.collapseClass).addClass(this._config.collapsingClass).height(0);
-
-        this.setTransitioning(true);
-
-        var complete = function complete() {
-
-          _el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').attr('aria-expanded', true);
-
-          _this.setTransitioning(false);
-
-          _el.trigger(Event.SHOWN);
-        };
-
-        if (!Util.supportsTransitionEnd()) {
-          complete();
-          return;
-        }
-
-        _el.height(_el[0].scrollHeight).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
-      };
-
-      MetisMenu.prototype._hide = function _hide(element) {
-
-        if (this._transitioning || !$(element).hasClass(this._config.collapseInClass)) {
-          return;
-        }
-        var _this = this;
-        var _el = $(element);
-
-        var startEvent = $.Event(Event.HIDE);
-        _el.trigger(startEvent);
-
-        if (startEvent.isDefaultPrevented()) {
-          return;
-        }
-
-        _el.parent(this._config.parentTrigger).removeClass(this._config.activeClass);
-        _el.height(_el.height())[0].offsetHeight;
-
-        _el.addClass(this._config.collapsingClass).removeClass(this._config.collapseClass).removeClass(this._config.collapseInClass);
-
-        this.setTransitioning(true);
-
-        var complete = function complete() {
-          if (_this._transitioning && _this._config.onTransitionEnd) {
-            _this._config.onTransitionEnd();
-          }
-
-          _this.setTransitioning(false);
-          _el.trigger(Event.HIDDEN);
-
-          _el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass).attr('aria-expanded', false);
-        };
-
-        if (!Util.supportsTransitionEnd()) {
-          complete();
-          return;
-        }
-
-        _el.height() == 0 || _el.css('display') == 'none' ? complete() : _el.height(0).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
-      };
-
-      MetisMenu.prototype.setTransitioning = function setTransitioning(isTransitioning) {
-        this._transitioning = isTransitioning;
-      };
-
-      MetisMenu.prototype.dispose = function dispose() {
-        $.removeData(this._element, DATA_KEY);
-
-        $(this._element).find(this._config.parentTrigger).has(this._config.subMenu).children(this._config.triggerElement).off('click');
-
-        this._transitioning = null;
-        this._config = null;
-        this._element = null;
-      };
-
-      MetisMenu.prototype._getConfig = function _getConfig(config) {
-        config = $.extend({}, Default, config);
-        return config;
-      };
-
-      MetisMenu._jQueryInterface = function _jQueryInterface(config) {
-        return this.each(function () {
-          var $this = $(this);
-          var data = $this.data(DATA_KEY);
-          var _config = $.extend({}, Default, $this.data(), (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' && config);
-
-          if (!data && /dispose/.test(config)) {
-            this.dispose();
-          }
-
-          if (!data) {
-            data = new MetisMenu(this, _config);
-            $this.data(DATA_KEY, data);
-          }
-
-          if (typeof config === 'string') {
-            if (data[config] === undefined) {
-              throw new Error('No method named "' + config + '"');
-            }
-            data[config]();
-          }
-        });
-      };
-
-      return MetisMenu;
-    }();
-
-    /**
-     * ------------------------------------------------------------------------
-     * jQuery
-     * ------------------------------------------------------------------------
-     */
-
-    $.fn[NAME] = MetisMenu._jQueryInterface;
-    $.fn[NAME].Constructor = MetisMenu;
-    $.fn[NAME].noConflict = function () {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return MetisMenu._jQueryInterface;
-    };
-    return MetisMenu;
-  }(jQuery);
-});
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * Super simple wysiwyg editor v0.8.8
- * http://summernote.org/
- *
- * summernote.js
- * Copyright 2013- Alan Hong. and other contributors
- * summernote may be freely distributed under the MIT license./
- *
- * Date: 2017-09-09T11:03Z
+/**
+ * Check if the given variable is a function
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Any} functionToCheck - variable to check
+ * @returns {Boolean} answer to: is a function?
  */
-(function (factory) {
-  /* global define */
-  if (true) {
-    // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if (typeof module === 'object' && module.exports) {
-    // Node/CommonJS
-    module.exports = factory(require('jquery'));
+function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
+/**
+ * Get CSS computed property of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Eement} element
+ * @argument {String} property
+ */
+function getStyleComputedProperty(element, property) {
+  if (element.nodeType !== 1) {
+    return [];
+  }
+  // NOTE: 1 DOM access here
+  var css = getComputedStyle(element, null);
+  return property ? css[property] : css;
+}
+
+/**
+ * Returns the parentNode or the host of the element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} parent
+ */
+function getParentNode(element) {
+  if (element.nodeName === 'HTML') {
+    return element;
+  }
+  return element.parentNode || element.host;
+}
+
+/**
+ * Returns the scrolling parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} scroll parent
+ */
+function getScrollParent(element) {
+  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
+  if (!element) {
+    return document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+    case '#document':
+      return element.body;
+  }
+
+  // Firefox want us to check `-x` and `-y` variations as well
+
+  var _getStyleComputedProp = getStyleComputedProperty(element),
+      overflow = _getStyleComputedProp.overflow,
+      overflowX = _getStyleComputedProp.overflowX,
+      overflowY = _getStyleComputedProp.overflowY;
+
+  if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
+    return element;
+  }
+
+  return getScrollParent(getParentNode(element));
+}
+
+/**
+ * Returns the offset parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} offset parent
+ */
+function getOffsetParent(element) {
+  // NOTE: 1 DOM access here
+  var offsetParent = element && element.offsetParent;
+  var nodeName = offsetParent && offsetParent.nodeName;
+
+  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    if (element) {
+      return element.ownerDocument.documentElement;
+    }
+
+    return document.documentElement;
+  }
+
+  // .offsetParent will return the closest TD or TABLE in case
+  // no offsetParent is present, I hate this job...
+  if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+    return getOffsetParent(offsetParent);
+  }
+
+  return offsetParent;
+}
+
+function isOffsetContainer(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY') {
+    return false;
+  }
+  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
+}
+
+/**
+ * Finds the root node (document, shadowDOM root) of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} node
+ * @returns {Element} root node
+ */
+function getRoot(node) {
+  if (node.parentNode !== null) {
+    return getRoot(node.parentNode);
+  }
+
+  return node;
+}
+
+/**
+ * Finds the offset parent common to the two provided nodes
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element1
+ * @argument {Element} element2
+ * @returns {Element} common offset parent
+ */
+function findCommonOffsetParent(element1, element2) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+    return document.documentElement;
+  }
+
+  // Here we make sure to give as "start" the element that comes first in the DOM
+  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  var start = order ? element1 : element2;
+  var end = order ? element2 : element1;
+
+  // Get common ancestor container
+  var range = document.createRange();
+  range.setStart(start, 0);
+  range.setEnd(end, 0);
+  var commonAncestorContainer = range.commonAncestorContainer;
+
+  // Both nodes are inside #document
+
+  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
+    if (isOffsetContainer(commonAncestorContainer)) {
+      return commonAncestorContainer;
+    }
+
+    return getOffsetParent(commonAncestorContainer);
+  }
+
+  // one of the nodes is inside shadowDOM, find which one
+  var element1root = getRoot(element1);
+  if (element1root.host) {
+    return findCommonOffsetParent(element1root.host, element2);
   } else {
-    // Browser globals
-    factory(window.jQuery);
+    return findCommonOffsetParent(element1, getRoot(element2).host);
   }
-}(function ($) {
-  'use strict';
+}
 
-  var isSupportAmd = "function" === 'function' && __webpack_require__(17);
+/**
+ * Gets the scroll value of the given element in the given side (top and left)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {String} side `top` or `left`
+ * @returns {number} amount of scrolled pixels
+ */
+function getScroll(element) {
+  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
 
-  /**
-   * returns whether font is installed or not.
-   *
-   * @param {String} fontName
-   * @return {Boolean}
-   */
-  var isFontInstalled = function (fontName) {
-    var testFontName = fontName === 'Comic Sans MS' ? 'Courier New' : 'Comic Sans MS';
-    var $tester = $('<div>').css({
-      position: 'absolute',
-      left: '-9999px',
-      top: '-9999px',
-      fontSize: '200px'
-    }).text('mmmmmmmmmwwwwwww').appendTo(document.body);
+  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
+  var nodeName = element.nodeName;
 
-    var originalWidth = $tester.css('fontFamily', testFontName).width();
-    var width = $tester.css('fontFamily', fontName + ',' + testFontName).width();
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
+    return scrollingElement[upperSide];
+  }
 
-    $tester.remove();
+  return element[upperSide];
+}
 
-    return originalWidth !== width;
+/*
+ * Sum or subtract the element scroll values (left and top) from a given rect object
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} rect - Rect object you want to change
+ * @param {HTMLElement} element - The element from the function reads the scroll values
+ * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+ * @return {Object} rect - The modifier rect object
+ */
+function includeScroll(rect, element) {
+  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var scrollTop = getScroll(element, 'top');
+  var scrollLeft = getScroll(element, 'left');
+  var modifier = subtract ? -1 : 1;
+  rect.top += scrollTop * modifier;
+  rect.bottom += scrollTop * modifier;
+  rect.left += scrollLeft * modifier;
+  rect.right += scrollLeft * modifier;
+  return rect;
+}
+
+/*
+ * Helper to detect borders of a given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {CSSStyleDeclaration} styles
+ * Result of `getStyleComputedProperty` on the given element
+ * @param {String} axis - `x` or `y`
+ * @return {number} borders - The borders size of the given axis
+ */
+
+function getBordersSize(styles, axis) {
+  var sideA = axis === 'x' ? 'Left' : 'Top';
+  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
+
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+}
+
+/**
+ * Tells if you are running Internet Explorer 10
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean} isIE10
+ */
+var isIE10 = undefined;
+
+var isIE10$1 = function () {
+  if (isIE10 === undefined) {
+    isIE10 = navigator.appVersion.indexOf('MSIE 10') !== -1;
+  }
+  return isIE10;
+};
+
+function getSize(axis, body, html, computedStyle) {
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE10$1() ? html['offset' + axis] + computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')] + computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')] : 0);
+}
+
+function getWindowSizes() {
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE10$1() && getComputedStyle(html);
+
+  return {
+    height: getSize('Height', body, html, computedStyle),
+    width: getSize('Width', body, html, computedStyle)
   };
+}
 
-  var userAgent = navigator.userAgent;
-  var isMSIE = /MSIE|Trident/i.test(userAgent);
-  var browserVersion;
-  if (isMSIE) {
-    var matches = /MSIE (\d+[.]\d+)/.exec(userAgent);
-    if (matches) {
-      browserVersion = parseFloat(matches[1]);
-    }
-    matches = /Trident\/.*rv:([0-9]{1,}[\.0-9]{0,})/.exec(userAgent);
-    if (matches) {
-      browserVersion = parseFloat(matches[1]);
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
 
-  var isEdge = /Edge\/\d+/.test(userAgent);
-
-  var hasCodeMirror = !!window.CodeMirror;
-  if (!hasCodeMirror && isSupportAmd) {
-    // Webpack
-    if (true) { // jshint ignore:line
-      try {
-        // If CodeMirror can't be resolved, `require.resolve` will throw an
-        // exception and `hasCodeMirror` won't be set to `true`.
-        /*require.resolve*/(3);
-        hasCodeMirror = true;
-      } catch (e) {
-        // do nothing
-      }
-    } else if (typeof require !== 'undefined') {
-      // Browserify
-      if (typeof require.resolve !== 'undefined') {
-        try {
-          // If CodeMirror can't be resolved, `require.resolve` will throw an
-          // exception and `hasCodeMirror` won't be set to `true`.
-          require.resolve('codemirror');
-          hasCodeMirror = true;
-        } catch (e) {
-          // do nothing
-        }
-      // Almond/Require
-      } else if (typeof require.specified !== 'undefined') {
-        hasCodeMirror = require.specified('codemirror');
-      }
-    }
-  }
-
-  var isSupportTouch =
-    (('ontouchstart' in window) ||
-     (navigator.MaxTouchPoints > 0) ||
-     (navigator.msMaxTouchPoints > 0));
-
-  /**
-   * @class core.agent
-   *
-   * Object which check platform and agent
-   *
-   * @singleton
-   * @alternateClassName agent
-   */
-  var agent = {
-    isMac: navigator.appVersion.indexOf('Mac') > -1,
-    isMSIE: isMSIE,
-    isEdge: isEdge,
-    isFF: !isEdge && /firefox/i.test(userAgent),
-    isPhantom: /PhantomJS/i.test(userAgent),
-    isWebkit: !isEdge && /webkit/i.test(userAgent),
-    isChrome: !isEdge && /chrome/i.test(userAgent),
-    isSafari: !isEdge && /safari/i.test(userAgent),
-    browserVersion: browserVersion,
-    jqueryVersion: parseFloat($.fn.jquery),
-    isSupportAmd: isSupportAmd,
-    isSupportTouch: isSupportTouch,
-    hasCodeMirror: hasCodeMirror,
-    isFontInstalled: isFontInstalled,
-    isW3CRangeSupport: !!document.createRange
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
   };
+}();
 
-  /**
-   * @class core.func
-   *
-   * func utils (for high-order func's arg)
-   *
-   * @singleton
-   * @alternateClassName func
-   */
-  var func = (function () {
-    var eq = function (itemA) {
-      return function (itemB) {
-        return itemA === itemB;
-      };
-    };
 
-    var eq2 = function (itemA, itemB) {
-      return itemA === itemB;
-    };
 
-    var peq2 = function (propName) {
-      return function (itemA, itemB) {
-        return itemA[propName] === itemB[propName];
-      };
-    };
 
-    var ok = function () {
-      return true;
-    };
 
-    var fail = function () {
-      return false;
-    };
-
-    var not = function (f) {
-      return function () {
-        return !f.apply(f, arguments);
-      };
-    };
-
-    var and = function (fA, fB) {
-      return function (item) {
-        return fA(item) && fB(item);
-      };
-    };
-
-    var self = function (a) {
-      return a;
-    };
-
-    var invoke = function (obj, method) {
-      return function () {
-        return obj[method].apply(obj, arguments);
-      };
-    };
-
-    var idCounter = 0;
-
-    /**
-     * generate a globally-unique id
-     *
-     * @param {String} [prefix]
-     */
-    var uniqueId = function (prefix) {
-      var id = ++idCounter + '';
-      return prefix ? prefix + id : id;
-    };
-
-    /**
-     * returns bnd (bounds) from rect
-     *
-     * - IE Compatibility Issue: http://goo.gl/sRLOAo
-     * - Scroll Issue: http://goo.gl/sNjUc
-     *
-     * @param {Rect} rect
-     * @return {Object} bounds
-     * @return {Number} bounds.top
-     * @return {Number} bounds.left
-     * @return {Number} bounds.width
-     * @return {Number} bounds.height
-     */
-    var rect2bnd = function (rect) {
-      var $document = $(document);
-      return {
-        top: rect.top + $document.scrollTop(),
-        left: rect.left + $document.scrollLeft(),
-        width: rect.right - rect.left,
-        height: rect.bottom - rect.top
-      };
-    };
-
-    /**
-     * returns a copy of the object where the keys have become the values and the values the keys.
-     * @param {Object} obj
-     * @return {Object}
-     */
-    var invertObject = function (obj) {
-      var inverted = {};
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          inverted[obj[key]] = key;
-        }
-      }
-      return inverted;
-    };
-
-    /**
-     * @param {String} namespace
-     * @param {String} [prefix]
-     * @return {String}
-     */
-    var namespaceToCamel = function (namespace, prefix) {
-      prefix = prefix || '';
-      return prefix + namespace.split('.').map(function (name) {
-        return name.substring(0, 1).toUpperCase() + name.substring(1);
-      }).join('');
-    };
-
-    /**
-     * Returns a function, that, as long as it continues to be invoked, will not
-     * be triggered. The function will be called after it stops being called for
-     * N milliseconds. If `immediate` is passed, trigger the function on the
-     * leading edge, instead of the trailing.
-     * @param {Function} func
-     * @param {Number} wait
-     * @param {Boolean} immediate
-     * @return {Function}
-     */
-    var debounce = function (func, wait, immediate) {
-      var timeout;
-      return function () {
-        var context = this, args = arguments;
-        var later = function () {
-          timeout = null;
-          if (!immediate) {
-            func.apply(context, args);
-          }
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) {
-          func.apply(context, args);
-        }
-      };
-    };
-
-    return {
-      eq: eq,
-      eq2: eq2,
-      peq2: peq2,
-      ok: ok,
-      fail: fail,
-      self: self,
-      not: not,
-      and: and,
-      invoke: invoke,
-      uniqueId: uniqueId,
-      rect2bnd: rect2bnd,
-      invertObject: invertObject,
-      namespaceToCamel: namespaceToCamel,
-      debounce: debounce
-    };
-  })();
-
-  /**
-   * @class core.list
-   *
-   * list utils
-   *
-   * @singleton
-   * @alternateClassName list
-   */
-  var list = (function () {
-    /**
-     * returns the first item of an array.
-     *
-     * @param {Array} array
-     */
-    var head = function (array) {
-      return array[0];
-    };
-
-    /**
-     * returns the last item of an array.
-     *
-     * @param {Array} array
-     */
-    var last = function (array) {
-      return array[array.length - 1];
-    };
-
-    /**
-     * returns everything but the last entry of the array.
-     *
-     * @param {Array} array
-     */
-    var initial = function (array) {
-      return array.slice(0, array.length - 1);
-    };
-
-    /**
-     * returns the rest of the items in an array.
-     *
-     * @param {Array} array
-     */
-    var tail = function (array) {
-      return array.slice(1);
-    };
-
-    /**
-     * returns item of array
-     */
-    var find = function (array, pred) {
-      for (var idx = 0, len = array.length; idx < len; idx ++) {
-        var item = array[idx];
-        if (pred(item)) {
-          return item;
-        }
-      }
-    };
-
-    /**
-     * returns true if all of the values in the array pass the predicate truth test.
-     */
-    var all = function (array, pred) {
-      for (var idx = 0, len = array.length; idx < len; idx ++) {
-        if (!pred(array[idx])) {
-          return false;
-        }
-      }
-      return true;
-    };
-
-    /**
-     * returns index of item
-     */
-    var indexOf = function (array, item) {
-      return $.inArray(item, array);
-    };
-
-    /**
-     * returns true if the value is present in the list.
-     */
-    var contains = function (array, item) {
-      return indexOf(array, item) !== -1;
-    };
-
-    /**
-     * get sum from a list
-     *
-     * @param {Array} array - array
-     * @param {Function} fn - iterator
-     */
-    var sum = function (array, fn) {
-      fn = fn || func.self;
-      return array.reduce(function (memo, v) {
-        return memo + fn(v);
-      }, 0);
-    };
-  
-    /**
-     * returns a copy of the collection with array type.
-     * @param {Collection} collection - collection eg) node.childNodes, ...
-     */
-    var from = function (collection) {
-      var result = [], idx = -1, length = collection.length;
-      while (++idx < length) {
-        result[idx] = collection[idx];
-      }
-      return result;
-    };
-
-    /**
-     * returns whether list is empty or not
-     */
-    var isEmpty = function (array) {
-      return !array || !array.length;
-    };
-  
-    /**
-     * cluster elements by predicate function.
-     *
-     * @param {Array} array - array
-     * @param {Function} fn - predicate function for cluster rule
-     * @param {Array[]}
-     */
-    var clusterBy = function (array, fn) {
-      if (!array.length) { return []; }
-      var aTail = tail(array);
-      return aTail.reduce(function (memo, v) {
-        var aLast = last(memo);
-        if (fn(last(aLast), v)) {
-          aLast[aLast.length] = v;
-        } else {
-          memo[memo.length] = [v];
-        }
-        return memo;
-      }, [[head(array)]]);
-    };
-  
-    /**
-     * returns a copy of the array with all false values removed
-     *
-     * @param {Array} array - array
-     * @param {Function} fn - predicate function for cluster rule
-     */
-    var compact = function (array) {
-      var aResult = [];
-      for (var idx = 0, len = array.length; idx < len; idx ++) {
-        if (array[idx]) { aResult.push(array[idx]); }
-      }
-      return aResult;
-    };
-
-    /**
-     * produces a duplicate-free version of the array
-     *
-     * @param {Array} array
-     */
-    var unique = function (array) {
-      var results = [];
-
-      for (var idx = 0, len = array.length; idx < len; idx ++) {
-        if (!contains(results, array[idx])) {
-          results.push(array[idx]);
-        }
-      }
-
-      return results;
-    };
-
-    /**
-     * returns next item.
-     * @param {Array} array
-     */
-    var next = function (array, item) {
-      var idx = indexOf(array, item);
-      if (idx === -1) { return null; }
-
-      return array[idx + 1];
-    };
-
-    /**
-     * returns prev item.
-     * @param {Array} array
-     */
-    var prev = function (array, item) {
-      var idx = indexOf(array, item);
-      if (idx === -1) { return null; }
-
-      return array[idx - 1];
-    };
-
-    return { head: head, last: last, initial: initial, tail: tail,
-             prev: prev, next: next, find: find, contains: contains,
-             all: all, sum: sum, from: from, isEmpty: isEmpty,
-             clusterBy: clusterBy, compact: compact, unique: unique };
-  })();
-
-
-  var NBSP_CHAR = String.fromCharCode(160);
-  var ZERO_WIDTH_NBSP_CHAR = '\ufeff';
-
-  /**
-   * @class core.dom
-   *
-   * Dom functions
-   *
-   * @singleton
-   * @alternateClassName dom
-   */
-  var dom = (function () {
-    /**
-     * @method isEditable
-     *
-     * returns whether node is `note-editable` or not.
-     *
-     * @param {Node} node
-     * @return {Boolean}
-     */
-    var isEditable = function (node) {
-      return node && $(node).hasClass('note-editable');
-    };
-
-    /**
-     * @method isControlSizing
-     *
-     * returns whether node is `note-control-sizing` or not.
-     *
-     * @param {Node} node
-     * @return {Boolean}
-     */
-    var isControlSizing = function (node) {
-      return node && $(node).hasClass('note-control-sizing');
-    };
-
-    /**
-     * @method makePredByNodeName
-     *
-     * returns predicate which judge whether nodeName is same
-     *
-     * @param {String} nodeName
-     * @return {Function}
-     */
-    var makePredByNodeName = function (nodeName) {
-      nodeName = nodeName.toUpperCase();
-      return function (node) {
-        return node && node.nodeName.toUpperCase() === nodeName;
-      };
-    };
-
-    /**
-     * @method isText
-     *
-     *
-     *
-     * @param {Node} node
-     * @return {Boolean} true if node's type is text(3)
-     */
-    var isText = function (node) {
-      return node && node.nodeType === 3;
-    };
-
-    /**
-     * @method isElement
-     *
-     *
-     *
-     * @param {Node} node
-     * @return {Boolean} true if node's type is element(1)
-     */
-    var isElement = function (node) {
-      return node && node.nodeType === 1;
-    };
-
-    /**
-     * ex) br, col, embed, hr, img, input, ...
-     * @see http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
-     */
-    var isVoid = function (node) {
-      return node && /^BR|^IMG|^HR|^IFRAME|^BUTTON|^INPUT/.test(node.nodeName.toUpperCase());
-    };
-
-    var isPara = function (node) {
-      if (isEditable(node)) {
-        return false;
-      }
-
-      // Chrome(v31.0), FF(v25.0.1) use DIV for paragraph
-      return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName.toUpperCase());
-    };
-
-    var isHeading = function (node) {
-      return node && /^H[1-7]/.test(node.nodeName.toUpperCase());
-    };
-
-    var isPre = makePredByNodeName('PRE');
-
-    var isLi = makePredByNodeName('LI');
-
-    var isPurePara = function (node) {
-      return isPara(node) && !isLi(node);
-    };
-
-    var isTable = makePredByNodeName('TABLE');
-
-    var isData = makePredByNodeName('DATA');
-
-    var isInline = function (node) {
-      return !isBodyContainer(node) &&
-             !isList(node) &&
-             !isHr(node) &&
-             !isPara(node) &&
-             !isTable(node) &&
-             !isBlockquote(node) &&
-             !isData(node);
-    };
-
-    var isList = function (node) {
-      return node && /^UL|^OL/.test(node.nodeName.toUpperCase());
-    };
-
-    var isHr = makePredByNodeName('HR');
-
-    var isCell = function (node) {
-      return node && /^TD|^TH/.test(node.nodeName.toUpperCase());
-    };
-
-    var isBlockquote = makePredByNodeName('BLOCKQUOTE');
-
-    var isBodyContainer = function (node) {
-      return isCell(node) || isBlockquote(node) || isEditable(node);
-    };
-
-    var isAnchor = makePredByNodeName('A');
-
-    var isParaInline = function (node) {
-      return isInline(node) && !!ancestor(node, isPara);
-    };
-
-    var isBodyInline = function (node) {
-      return isInline(node) && !ancestor(node, isPara);
-    };
-
-    var isBody = makePredByNodeName('BODY');
-
-    /**
-     * returns whether nodeB is closest sibling of nodeA
-     *
-     * @param {Node} nodeA
-     * @param {Node} nodeB
-     * @return {Boolean}
-     */
-    var isClosestSibling = function (nodeA, nodeB) {
-      return nodeA.nextSibling === nodeB ||
-             nodeA.previousSibling === nodeB;
-    };
-
-    /**
-     * returns array of closest siblings with node
-     *
-     * @param {Node} node
-     * @param {function} [pred] - predicate function
-     * @return {Node[]}
-     */
-    var withClosestSiblings = function (node, pred) {
-      pred = pred || func.ok;
-
-      var siblings = [];
-      if (node.previousSibling && pred(node.previousSibling)) {
-        siblings.push(node.previousSibling);
-      }
-      siblings.push(node);
-      if (node.nextSibling && pred(node.nextSibling)) {
-        siblings.push(node.nextSibling);
-      }
-      return siblings;
-    };
-
-    /**
-     * blank HTML for cursor position
-     * - [workaround] old IE only works with &nbsp;
-     * - [workaround] IE11 and other browser works with bogus br
-     */
-    var blankHTML = agent.isMSIE && agent.browserVersion < 11 ? '&nbsp;' : '<br>';
-
-    /**
-     * @method nodeLength
-     *
-     * returns #text's text size or element's childNodes size
-     *
-     * @param {Node} node
-     */
-    var nodeLength = function (node) {
-      if (isText(node)) {
-        return node.nodeValue.length;
-      }
-      
-      if (node) {
-        return node.childNodes.length;
-      }
-      
-      return 0;
-      
-    };
-
-    /**
-     * returns whether node is empty or not.
-     *
-     * @param {Node} node
-     * @return {Boolean}
-     */
-    var isEmpty = function (node) {
-      var len = nodeLength(node);
-
-      if (len === 0) {
-        return true;
-      } else if (!isText(node) && len === 1 && node.innerHTML === blankHTML) {
-        // ex) <p><br></p>, <span><br></span>
-        return true;
-      } else if (list.all(node.childNodes, isText) && node.innerHTML === '') {
-        // ex) <p></p>, <span></span>
-        return true;
-      }
-
-      return false;
-    };
-
-    /**
-     * padding blankHTML if node is empty (for cursor position)
-     */
-    var paddingBlankHTML = function (node) {
-      if (!isVoid(node) && !nodeLength(node)) {
-        node.innerHTML = blankHTML;
-      }
-    };
-
-    /**
-     * find nearest ancestor predicate hit
-     *
-     * @param {Node} node
-     * @param {Function} pred - predicate function
-     */
-    var ancestor = function (node, pred) {
-      while (node) {
-        if (pred(node)) { return node; }
-        if (isEditable(node)) { break; }
-
-        node = node.parentNode;
-      }
-      return null;
-    };
-
-    /**
-     * find nearest ancestor only single child blood line and predicate hit
-     *
-     * @param {Node} node
-     * @param {Function} pred - predicate function
-     */
-    var singleChildAncestor = function (node, pred) {
-      node = node.parentNode;
-
-      while (node) {
-        if (nodeLength(node) !== 1) { break; }
-        if (pred(node)) { return node; }
-        if (isEditable(node)) { break; }
-
-        node = node.parentNode;
-      }
-      return null;
-    };
-
-    /**
-     * returns new array of ancestor nodes (until predicate hit).
-     *
-     * @param {Node} node
-     * @param {Function} [optional] pred - predicate function
-     */
-    var listAncestor = function (node, pred) {
-      pred = pred || func.fail;
-
-      var ancestors = [];
-      ancestor(node, function (el) {
-        if (!isEditable(el)) {
-          ancestors.push(el);
-        }
-
-        return pred(el);
-      });
-      return ancestors;
-    };
-
-    /**
-     * find farthest ancestor predicate hit
-     */
-    var lastAncestor = function (node, pred) {
-      var ancestors = listAncestor(node);
-      return list.last(ancestors.filter(pred));
-    };
-
-    /**
-     * returns common ancestor node between two nodes.
-     *
-     * @param {Node} nodeA
-     * @param {Node} nodeB
-     */
-    var commonAncestor = function (nodeA, nodeB) {
-      var ancestors = listAncestor(nodeA);
-      for (var n = nodeB; n; n = n.parentNode) {
-        if ($.inArray(n, ancestors) > -1) { return n; }
-      }
-      return null; // difference document area
-    };
-
-    /**
-     * listing all previous siblings (until predicate hit).
-     *
-     * @param {Node} node
-     * @param {Function} [optional] pred - predicate function
-     */
-    var listPrev = function (node, pred) {
-      pred = pred || func.fail;
-
-      var nodes = [];
-      while (node) {
-        if (pred(node)) { break; }
-        nodes.push(node);
-        node = node.previousSibling;
-      }
-      return nodes;
-    };
-
-    /**
-     * listing next siblings (until predicate hit).
-     *
-     * @param {Node} node
-     * @param {Function} [pred] - predicate function
-     */
-    var listNext = function (node, pred) {
-      pred = pred || func.fail;
-
-      var nodes = [];
-      while (node) {
-        if (pred(node)) { break; }
-        nodes.push(node);
-        node = node.nextSibling;
-      }
-      return nodes;
-    };
-
-    /**
-     * listing descendant nodes
-     *
-     * @param {Node} node
-     * @param {Function} [pred] - predicate function
-     */
-    var listDescendant = function (node, pred) {
-      var descendants = [];
-      pred = pred || func.ok;
-
-      // start DFS(depth first search) with node
-      (function fnWalk(current) {
-        if (node !== current && pred(current)) {
-          descendants.push(current);
-        }
-        for (var idx = 0, len = current.childNodes.length; idx < len; idx++) {
-          fnWalk(current.childNodes[idx]);
-        }
-      })(node);
-
-      return descendants;
-    };
-
-    /**
-     * wrap node with new tag.
-     *
-     * @param {Node} node
-     * @param {Node} tagName of wrapper
-     * @return {Node} - wrapper
-     */
-    var wrap = function (node, wrapperName) {
-      var parent = node.parentNode;
-      var wrapper = $('<' + wrapperName + '>')[0];
-
-      parent.insertBefore(wrapper, node);
-      wrapper.appendChild(node);
-
-      return wrapper;
-    };
-
-    /**
-     * insert node after preceding
-     *
-     * @param {Node} node
-     * @param {Node} preceding - predicate function
-     */
-    var insertAfter = function (node, preceding) {
-      var next = preceding.nextSibling, parent = preceding.parentNode;
-      if (next) {
-        parent.insertBefore(node, next);
-      } else {
-        parent.appendChild(node);
-      }
-      return node;
-    };
-
-    /**
-     * append elements.
-     *
-     * @param {Node} node
-     * @param {Collection} aChild
-     */
-    var appendChildNodes = function (node, aChild) {
-      $.each(aChild, function (idx, child) {
-        node.appendChild(child);
-      });
-      return node;
-    };
-
-    /**
-     * returns whether boundaryPoint is left edge or not.
-     *
-     * @param {BoundaryPoint} point
-     * @return {Boolean}
-     */
-    var isLeftEdgePoint = function (point) {
-      return point.offset === 0;
-    };
-
-    /**
-     * returns whether boundaryPoint is right edge or not.
-     *
-     * @param {BoundaryPoint} point
-     * @return {Boolean}
-     */
-    var isRightEdgePoint = function (point) {
-      return point.offset === nodeLength(point.node);
-    };
-
-    /**
-     * returns whether boundaryPoint is edge or not.
-     *
-     * @param {BoundaryPoint} point
-     * @return {Boolean}
-     */
-    var isEdgePoint = function (point) {
-      return isLeftEdgePoint(point) || isRightEdgePoint(point);
-    };
-
-    /**
-     * returns whether node is left edge of ancestor or not.
-     *
-     * @param {Node} node
-     * @param {Node} ancestor
-     * @return {Boolean}
-     */
-    var isLeftEdgeOf = function (node, ancestor) {
-      while (node && node !== ancestor) {
-        if (position(node) !== 0) {
-          return false;
-        }
-        node = node.parentNode;
-      }
-
-      return true;
-    };
-
-    /**
-     * returns whether node is right edge of ancestor or not.
-     *
-     * @param {Node} node
-     * @param {Node} ancestor
-     * @return {Boolean}
-     */
-    var isRightEdgeOf = function (node, ancestor) {
-      if (!ancestor) {
-        return false;
-      }
-      while (node && node !== ancestor) {
-        if (position(node) !== nodeLength(node.parentNode) - 1) {
-          return false;
-        }
-        node = node.parentNode;
-      }
-
-      return true;
-    };
-
-    /**
-     * returns whether point is left edge of ancestor or not.
-     * @param {BoundaryPoint} point
-     * @param {Node} ancestor
-     * @return {Boolean}
-     */
-    var isLeftEdgePointOf = function (point, ancestor) {
-      return isLeftEdgePoint(point) && isLeftEdgeOf(point.node, ancestor);
-    };
-
-    /**
-     * returns whether point is right edge of ancestor or not.
-     * @param {BoundaryPoint} point
-     * @param {Node} ancestor
-     * @return {Boolean}
-     */
-    var isRightEdgePointOf = function (point, ancestor) {
-      return isRightEdgePoint(point) && isRightEdgeOf(point.node, ancestor);
-    };
-
-    /**
-     * returns offset from parent.
-     *
-     * @param {Node} node
-     */
-    var position = function (node) {
-      var offset = 0;
-      while ((node = node.previousSibling)) {
-        offset += 1;
-      }
-      return offset;
-    };
-
-    var hasChildren = function (node) {
-      return !!(node && node.childNodes && node.childNodes.length);
-    };
-
-    /**
-     * returns previous boundaryPoint
-     *
-     * @param {BoundaryPoint} point
-     * @param {Boolean} isSkipInnerOffset
-     * @return {BoundaryPoint}
-     */
-    var prevPoint = function (point, isSkipInnerOffset) {
-      var node, offset;
-
-      if (point.offset === 0) {
-        if (isEditable(point.node)) {
-          return null;
-        }
-
-        node = point.node.parentNode;
-        offset = position(point.node);
-      } else if (hasChildren(point.node)) {
-        node = point.node.childNodes[point.offset - 1];
-        offset = nodeLength(node);
-      } else {
-        node = point.node;
-        offset = isSkipInnerOffset ? 0 : point.offset - 1;
-      }
-
-      return {
-        node: node,
-        offset: offset
-      };
-    };
-
-    /**
-     * returns next boundaryPoint
-     *
-     * @param {BoundaryPoint} point
-     * @param {Boolean} isSkipInnerOffset
-     * @return {BoundaryPoint}
-     */
-    var nextPoint = function (point, isSkipInnerOffset) {
-      var node, offset;
-
-      if (nodeLength(point.node) === point.offset) {
-        if (isEditable(point.node)) {
-          return null;
-        }
-
-        node = point.node.parentNode;
-        offset = position(point.node) + 1;
-      } else if (hasChildren(point.node)) {
-        node = point.node.childNodes[point.offset];
-        offset = 0;
-      } else {
-        node = point.node;
-        offset = isSkipInnerOffset ? nodeLength(point.node) : point.offset + 1;
-      }
-
-      return {
-        node: node,
-        offset: offset
-      };
-    };
-
-    /**
-     * returns whether pointA and pointB is same or not.
-     *
-     * @param {BoundaryPoint} pointA
-     * @param {BoundaryPoint} pointB
-     * @return {Boolean}
-     */
-    var isSamePoint = function (pointA, pointB) {
-      return pointA.node === pointB.node && pointA.offset === pointB.offset;
-    };
-
-    /**
-     * returns whether point is visible (can set cursor) or not.
-     *
-     * @param {BoundaryPoint} point
-     * @return {Boolean}
-     */
-    var isVisiblePoint = function (point) {
-      if (isText(point.node) || !hasChildren(point.node) || isEmpty(point.node)) {
-        return true;
-      }
-
-      var leftNode = point.node.childNodes[point.offset - 1];
-      var rightNode = point.node.childNodes[point.offset];
-      if ((!leftNode || isVoid(leftNode)) && (!rightNode || isVoid(rightNode))) {
-        return true;
-      }
-
-      return false;
-    };
-
-    /**
-     * @method prevPointUtil
-     *
-     * @param {BoundaryPoint} point
-     * @param {Function} pred
-     * @return {BoundaryPoint}
-     */
-    var prevPointUntil = function (point, pred) {
-      while (point) {
-        if (pred(point)) {
-          return point;
-        }
-
-        point = prevPoint(point);
-      }
-
-      return null;
-    };
-
-    /**
-     * @method nextPointUntil
-     *
-     * @param {BoundaryPoint} point
-     * @param {Function} pred
-     * @return {BoundaryPoint}
-     */
-    var nextPointUntil = function (point, pred) {
-      while (point) {
-        if (pred(point)) {
-          return point;
-        }
-
-        point = nextPoint(point);
-      }
-
-      return null;
-    };
-
-    /**
-     * returns whether point has character or not.
-     *
-     * @param {Point} point
-     * @return {Boolean}
-     */
-    var isCharPoint = function (point) {
-      if (!isText(point.node)) {
-        return false;
-      }
-
-      var ch = point.node.nodeValue.charAt(point.offset - 1);
-      return ch && (ch !== ' ' && ch !== NBSP_CHAR);
-    };
-
-    /**
-     * @method walkPoint
-     *
-     * @param {BoundaryPoint} startPoint
-     * @param {BoundaryPoint} endPoint
-     * @param {Function} handler
-     * @param {Boolean} isSkipInnerOffset
-     */
-    var walkPoint = function (startPoint, endPoint, handler, isSkipInnerOffset) {
-      var point = startPoint;
-
-      while (point) {
-        handler(point);
-
-        if (isSamePoint(point, endPoint)) {
-          break;
-        }
-
-        var isSkipOffset = isSkipInnerOffset &&
-                           startPoint.node !== point.node &&
-                           endPoint.node !== point.node;
-        point = nextPoint(point, isSkipOffset);
-      }
-    };
-
-    /**
-     * @method makeOffsetPath
-     *
-     * return offsetPath(array of offset) from ancestor
-     *
-     * @param {Node} ancestor - ancestor node
-     * @param {Node} node
-     */
-    var makeOffsetPath = function (ancestor, node) {
-      var ancestors = listAncestor(node, func.eq(ancestor));
-      return ancestors.map(position).reverse();
-    };
-
-    /**
-     * @method fromOffsetPath
-     *
-     * return element from offsetPath(array of offset)
-     *
-     * @param {Node} ancestor - ancestor node
-     * @param {array} offsets - offsetPath
-     */
-    var fromOffsetPath = function (ancestor, offsets) {
-      var current = ancestor;
-      for (var i = 0, len = offsets.length; i < len; i++) {
-        if (current.childNodes.length <= offsets[i]) {
-          current = current.childNodes[current.childNodes.length - 1];
-        } else {
-          current = current.childNodes[offsets[i]];
-        }
-      }
-      return current;
-    };
-
-    /**
-     * @method splitNode
-     *
-     * split element or #text
-     *
-     * @param {BoundaryPoint} point
-     * @param {Object} [options]
-     * @param {Boolean} [options.isSkipPaddingBlankHTML] - default: false
-     * @param {Boolean} [options.isNotSplitEdgePoint] - default: false
-     * @return {Node} right node of boundaryPoint
-     */
-    var splitNode = function (point, options) {
-      var isSkipPaddingBlankHTML = options && options.isSkipPaddingBlankHTML;
-      var isNotSplitEdgePoint = options && options.isNotSplitEdgePoint;
-
-      // edge case
-      if (isEdgePoint(point) && (isText(point.node) || isNotSplitEdgePoint)) {
-        if (isLeftEdgePoint(point)) {
-          return point.node;
-        } else if (isRightEdgePoint(point)) {
-          return point.node.nextSibling;
-        }
-      }
-
-      // split #text
-      if (isText(point.node)) {
-        return point.node.splitText(point.offset);
-      } else {
-        var childNode = point.node.childNodes[point.offset];
-        var clone = insertAfter(point.node.cloneNode(false), point.node);
-        appendChildNodes(clone, listNext(childNode));
-
-        if (!isSkipPaddingBlankHTML) {
-          paddingBlankHTML(point.node);
-          paddingBlankHTML(clone);
-        }
-
-        return clone;
-      }
-    };
-
-    /**
-     * @method splitTree
-     *
-     * split tree by point
-     *
-     * @param {Node} root - split root
-     * @param {BoundaryPoint} point
-     * @param {Object} [options]
-     * @param {Boolean} [options.isSkipPaddingBlankHTML] - default: false
-     * @param {Boolean} [options.isNotSplitEdgePoint] - default: false
-     * @return {Node} right node of boundaryPoint
-     */
-    var splitTree = function (root, point, options) {
-      // ex) [#text, <span>, <p>]
-      var ancestors = listAncestor(point.node, func.eq(root));
-
-      if (!ancestors.length) {
-        return null;
-      } else if (ancestors.length === 1) {
-        return splitNode(point, options);
-      }
-
-      return ancestors.reduce(function (node, parent) {
-        if (node === point.node) {
-          node = splitNode(point, options);
-        }
-
-        return splitNode({
-          node: parent,
-          offset: node ? dom.position(node) : nodeLength(parent)
-        }, options);
-      });
-    };
-
-    /**
-     * split point
-     *
-     * @param {Point} point
-     * @param {Boolean} isInline
-     * @return {Object}
-     */
-    var splitPoint = function (point, isInline) {
-      // find splitRoot, container
-      //  - inline: splitRoot is a child of paragraph
-      //  - block: splitRoot is a child of bodyContainer
-      var pred = isInline ? isPara : isBodyContainer;
-      var ancestors = listAncestor(point.node, pred);
-      var topAncestor = list.last(ancestors) || point.node;
-
-      var splitRoot, container;
-      if (pred(topAncestor)) {
-        splitRoot = ancestors[ancestors.length - 2];
-        container = topAncestor;
-      } else {
-        splitRoot = topAncestor;
-        container = splitRoot.parentNode;
-      }
-
-      // if splitRoot is exists, split with splitTree
-      var pivot = splitRoot && splitTree(splitRoot, point, {
-        isSkipPaddingBlankHTML: isInline,
-        isNotSplitEdgePoint: isInline
-      });
-
-      // if container is point.node, find pivot with point.offset
-      if (!pivot && container === point.node) {
-        pivot = point.node.childNodes[point.offset];
-      }
-
-      return {
-        rightNode: pivot,
-        container: container
-      };
-    };
-
-    var create = function (nodeName) {
-      return document.createElement(nodeName);
-    };
-
-    var createText = function (text) {
-      return document.createTextNode(text);
-    };
-
-    /**
-     * @method remove
-     *
-     * remove node, (isRemoveChild: remove child or not)
-     *
-     * @param {Node} node
-     * @param {Boolean} isRemoveChild
-     */
-    var remove = function (node, isRemoveChild) {
-      if (!node || !node.parentNode) { return; }
-      if (node.removeNode) { return node.removeNode(isRemoveChild); }
-
-      var parent = node.parentNode;
-      if (!isRemoveChild) {
-        var nodes = [];
-        var i, len;
-        for (i = 0, len = node.childNodes.length; i < len; i++) {
-          nodes.push(node.childNodes[i]);
-        }
-
-        for (i = 0, len = nodes.length; i < len; i++) {
-          parent.insertBefore(nodes[i], node);
-        }
-      }
-
-      parent.removeChild(node);
-    };
-
-    /**
-     * @method removeWhile
-     *
-     * @param {Node} node
-     * @param {Function} pred
-     */
-    var removeWhile = function (node, pred) {
-      while (node) {
-        if (isEditable(node) || !pred(node)) {
-          break;
-        }
-
-        var parent = node.parentNode;
-        remove(node);
-        node = parent;
-      }
-    };
-
-    /**
-     * @method replace
-     *
-     * replace node with provided nodeName
-     *
-     * @param {Node} node
-     * @param {String} nodeName
-     * @return {Node} - new node
-     */
-    var replace = function (node, nodeName) {
-      if (node.nodeName.toUpperCase() === nodeName.toUpperCase()) {
-        return node;
-      }
-
-      var newNode = create(nodeName);
-
-      if (node.style.cssText) {
-        newNode.style.cssText = node.style.cssText;
-      }
-
-      appendChildNodes(newNode, list.from(node.childNodes));
-      insertAfter(newNode, node);
-      remove(node);
-
-      return newNode;
-    };
-
-    var isTextarea = makePredByNodeName('TEXTAREA');
-
-    /**
-     * @param {jQuery} $node
-     * @param {Boolean} [stripLinebreaks] - default: false
-     */
-    var value = function ($node, stripLinebreaks) {
-      var val = isTextarea($node[0]) ? $node.val() : $node.html();
-      if (stripLinebreaks) {
-        return val.replace(/[\n\r]/g, '');
-      }
-      return val;
-    };
-
-    /**
-     * @method html
-     *
-     * get the HTML contents of node
-     *
-     * @param {jQuery} $node
-     * @param {Boolean} [isNewlineOnBlock]
-     */
-    var html = function ($node, isNewlineOnBlock) {
-      var markup = value($node);
-
-      if (isNewlineOnBlock) {
-        var regexTag = /<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g;
-        markup = markup.replace(regexTag, function (match, endSlash, name) {
-          name = name.toUpperCase();
-          var isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &&
-                                       !!endSlash;
-          var isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);
-
-          return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');
-        });
-        markup = $.trim(markup);
-      }
-
-      return markup;
-    };
-
-    var posFromPlaceholder = function (placeholder) {
-      var $placeholder = $(placeholder);
-      var pos = $placeholder.offset();
-      var height = $placeholder.outerHeight(true); // include margin
-
-      return {
-        left: pos.left,
-        top: pos.top + height
-      };
-    };
-
-    var attachEvents = function ($node, events) {
-      Object.keys(events).forEach(function (key) {
-        $node.on(key, events[key]);
-      });
-    };
-
-    var detachEvents = function ($node, events) {
-      Object.keys(events).forEach(function (key) {
-        $node.off(key, events[key]);
-      });
-    };
-
-    /**
-     * @method isCustomStyleTag
-     *
-     * assert if a node contains a "note-styletag" class,
-     * which implies that's a custom-made style tag node
-     *
-     * @param {Node} an HTML DOM node
-     */
-    var isCustomStyleTag = function (node) {
-      return node && !dom.isText(node) && list.contains(node.classList, 'note-styletag');
-    };
-
-    return {
-      /** @property {String} NBSP_CHAR */
-      NBSP_CHAR: NBSP_CHAR,
-      /** @property {String} ZERO_WIDTH_NBSP_CHAR */
-      ZERO_WIDTH_NBSP_CHAR: ZERO_WIDTH_NBSP_CHAR,
-      /** @property {String} blank */
-      blank: blankHTML,
-      /** @property {String} emptyPara */
-      emptyPara: '<p>' + blankHTML + '</p>',
-      makePredByNodeName: makePredByNodeName,
-      isEditable: isEditable,
-      isControlSizing: isControlSizing,
-      isText: isText,
-      isElement: isElement,
-      isVoid: isVoid,
-      isPara: isPara,
-      isPurePara: isPurePara,
-      isHeading: isHeading,
-      isInline: isInline,
-      isBlock: func.not(isInline),
-      isBodyInline: isBodyInline,
-      isBody: isBody,
-      isParaInline: isParaInline,
-      isPre: isPre,
-      isList: isList,
-      isTable: isTable,
-      isData: isData,
-      isCell: isCell,
-      isBlockquote: isBlockquote,
-      isBodyContainer: isBodyContainer,
-      isAnchor: isAnchor,
-      isDiv: makePredByNodeName('DIV'),
-      isLi: isLi,
-      isBR: makePredByNodeName('BR'),
-      isSpan: makePredByNodeName('SPAN'),
-      isB: makePredByNodeName('B'),
-      isU: makePredByNodeName('U'),
-      isS: makePredByNodeName('S'),
-      isI: makePredByNodeName('I'),
-      isImg: makePredByNodeName('IMG'),
-      isTextarea: isTextarea,
-      isEmpty: isEmpty,
-      isEmptyAnchor: func.and(isAnchor, isEmpty),
-      isClosestSibling: isClosestSibling,
-      withClosestSiblings: withClosestSiblings,
-      nodeLength: nodeLength,
-      isLeftEdgePoint: isLeftEdgePoint,
-      isRightEdgePoint: isRightEdgePoint,
-      isEdgePoint: isEdgePoint,
-      isLeftEdgeOf: isLeftEdgeOf,
-      isRightEdgeOf: isRightEdgeOf,
-      isLeftEdgePointOf: isLeftEdgePointOf,
-      isRightEdgePointOf: isRightEdgePointOf,
-      prevPoint: prevPoint,
-      nextPoint: nextPoint,
-      isSamePoint: isSamePoint,
-      isVisiblePoint: isVisiblePoint,
-      prevPointUntil: prevPointUntil,
-      nextPointUntil: nextPointUntil,
-      isCharPoint: isCharPoint,
-      walkPoint: walkPoint,
-      ancestor: ancestor,
-      singleChildAncestor: singleChildAncestor,
-      listAncestor: listAncestor,
-      lastAncestor: lastAncestor,
-      listNext: listNext,
-      listPrev: listPrev,
-      listDescendant: listDescendant,
-      commonAncestor: commonAncestor,
-      wrap: wrap,
-      insertAfter: insertAfter,
-      appendChildNodes: appendChildNodes,
-      position: position,
-      hasChildren: hasChildren,
-      makeOffsetPath: makeOffsetPath,
-      fromOffsetPath: fromOffsetPath,
-      splitTree: splitTree,
-      splitPoint: splitPoint,
-      create: create,
-      createText: createText,
-      remove: remove,
-      removeWhile: removeWhile,
-      replace: replace,
-      html: html,
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
       value: value,
-      posFromPlaceholder: posFromPlaceholder,
-      attachEvents: attachEvents,
-      detachEvents: detachEvents,
-      isCustomStyleTag: isCustomStyleTag
-    };
-  })();
-
-  /**
-   * @param {jQuery} $note
-   * @param {Object} options
-   * @return {Context}
-   */
-  var Context = function ($note, options) {
-    var self = this;
-
-    var ui = $.summernote.ui;
-    this.memos = {};
-    this.modules = {};
-    this.layoutInfo = {};
-    this.options = options;
-
-    /**
-     * create layout and initialize modules and other resources
-     */
-    this.initialize = function () {
-      this.layoutInfo = ui.createLayout($note, options);
-      this._initialize();
-      $note.hide();
-      return this;
-    };
-
-    /**
-     * destroy modules and other resources and remove layout
-     */
-    this.destroy = function () {
-      this._destroy();
-      $note.removeData('summernote');
-      ui.removeLayout($note, this.layoutInfo);
-    };
-
-    /**
-     * destory modules and other resources and initialize it again
-     */
-    this.reset = function () {
-      var disabled = self.isDisabled();
-      this.code(dom.emptyPara);
-      this._destroy();
-      this._initialize();
-
-      if (disabled) {
-        self.disable();
-      }
-    };
-
-    this._initialize = function () {
-      // add optional buttons
-      var buttons = $.extend({}, this.options.buttons);
-      Object.keys(buttons).forEach(function (key) {
-        self.memo('button.' + key, buttons[key]);
-      });
-
-      var modules = $.extend({}, this.options.modules, $.summernote.plugins || {});
-
-      // add and initialize modules
-      Object.keys(modules).forEach(function (key) {
-        self.module(key, modules[key], true);
-      });
-
-      Object.keys(this.modules).forEach(function (key) {
-        self.initializeModule(key);
-      });
-    };
-
-    this._destroy = function () {
-      // destroy modules with reversed order
-      Object.keys(this.modules).reverse().forEach(function (key) {
-        self.removeModule(key);
-      });
-
-      Object.keys(this.memos).forEach(function (key) {
-        self.removeMemo(key);
-      });
-      // trigger custom onDestroy callback
-      this.triggerEvent('destroy', this);
-    };
-
-    this.code = function (html) {
-      var isActivated = this.invoke('codeview.isActivated');
-
-      if (html === undefined) {
-        this.invoke('codeview.sync');
-        return isActivated ? this.layoutInfo.codable.val() : this.layoutInfo.editable.html();
-      } else {
-        if (isActivated) {
-          this.layoutInfo.codable.val(html);
-        } else {
-          this.layoutInfo.editable.html(html);
-        }
-        $note.val(html);
-        this.triggerEvent('change', html);
-      }
-    };
-
-    this.isDisabled = function () {
-      return this.layoutInfo.editable.attr('contenteditable') === 'false';
-    };
-
-    this.enable = function () {
-      this.layoutInfo.editable.attr('contenteditable', true);
-      this.invoke('toolbar.activate', true);
-      this.triggerEvent('disable', false);
-    };
-
-    this.disable = function () {
-      // close codeview if codeview is opend
-      if (this.invoke('codeview.isActivated')) {
-        this.invoke('codeview.deactivate');
-      }
-      this.layoutInfo.editable.attr('contenteditable', false);
-      this.invoke('toolbar.deactivate', true);
-
-      this.triggerEvent('disable', true);
-    };
-
-    this.triggerEvent = function () {
-      var namespace = list.head(arguments);
-      var args = list.tail(list.from(arguments));
-
-      var callback = this.options.callbacks[func.namespaceToCamel(namespace, 'on')];
-      if (callback) {
-        callback.apply($note[0], args);
-      }
-      $note.trigger('summernote.' + namespace, args);
-    };
-
-    this.initializeModule = function (key) {
-      var module = this.modules[key];
-      module.shouldInitialize = module.shouldInitialize || func.ok;
-      if (!module.shouldInitialize()) {
-        return;
-      }
-
-      // initialize module
-      if (module.initialize) {
-        module.initialize();
-      }
-
-      // attach events
-      if (module.events) {
-        dom.attachEvents($note, module.events);
-      }
-    };
-
-    this.module = function (key, ModuleClass, withoutIntialize) {
-      if (arguments.length === 1) {
-        return this.modules[key];
-      }
-
-      this.modules[key] = new ModuleClass(this);
-
-      if (!withoutIntialize) {
-        this.initializeModule(key);
-      }
-    };
-
-    this.removeModule = function (key) {
-      var module = this.modules[key];
-      if (module.shouldInitialize()) {
-        if (module.events) {
-          dom.detachEvents($note, module.events);
-        }
-
-        if (module.destroy) {
-          module.destroy();
-        }
-      }
-
-      delete this.modules[key];
-    };
-
-    this.memo = function (key, obj) {
-      if (arguments.length === 1) {
-        return this.memos[key];
-      }
-      this.memos[key] = obj;
-    };
-
-    this.removeMemo = function (key) {
-      if (this.memos[key] && this.memos[key].destroy) {
-        this.memos[key].destroy();
-      }
-
-      delete this.memos[key];
-    };
-
-    /**
-     *Some buttons need to change their visual style immediately once they get pressed
-     */
-    this.createInvokeHandlerAndUpdateState = function (namespace, value) {
-      return function (event) {
-        self.createInvokeHandler(namespace, value)(event);
-        self.invoke('buttons.updateCurrentStyle');
-      };
-    };
-
-    this.createInvokeHandler = function (namespace, value) {
-      return function (event) {
-        event.preventDefault();
-        var $target = $(event.target);
-        self.invoke(namespace, value || $target.closest('[data-value]').data('value'), $target);
-      };
-    };
-
-    this.invoke = function () {
-      var namespace = list.head(arguments);
-      var args = list.tail(list.from(arguments));
-
-      var splits = namespace.split('.');
-      var hasSeparator = splits.length > 1;
-      var moduleName = hasSeparator && list.head(splits);
-      var methodName = hasSeparator ? list.last(splits) : list.head(splits);
-
-      var module = this.modules[moduleName || 'editor'];
-      if (!moduleName && this[methodName]) {
-        return this[methodName].apply(this, args);
-      } else if (module && module[methodName] && module.shouldInitialize()) {
-        return module[methodName].apply(module, args);
-      }
-    };
-
-    return this.initialize();
-  };
-
-  $.fn.extend({
-    /**
-     * Summernote API
-     *
-     * @param {Object|String}
-     * @return {this}
-     */
-    summernote: function () {
-      var type = $.type(list.head(arguments));
-      var isExternalAPICalled = type === 'string';
-      var hasInitOptions = type === 'object';
-
-      var options = hasInitOptions ? list.head(arguments) : {};
-
-      options = $.extend({}, $.summernote.options, options);
-
-      // Update options
-      options.langInfo = $.extend(true, {}, $.summernote.lang['en-US'], $.summernote.lang[options.lang]);
-      options.icons = $.extend(true, {}, $.summernote.options.icons, options.icons);
-      options.tooltip = options.tooltip === 'auto' ? !agent.isSupportTouch : options.tooltip;
-
-      this.each(function (idx, note) {
-        var $note = $(note);
-        if (!$note.data('summernote')) {
-          var context = new Context($note, options);
-          $note.data('summernote', context);
-          $note.data('summernote').triggerEvent('init', context.layoutInfo);
-        }
-      });
-
-      var $note = this.first();
-      if ($note.length) {
-        var context = $note.data('summernote');
-        if (isExternalAPICalled) {
-          return context.invoke.apply(context, list.from(arguments));
-        } else if (options.focus) {
-          context.invoke('editor.focus');
-        }
-      }
-
-      return this;
-    }
-  });
-
-
-  var Renderer = function (markup, children, options, callback) {
-    this.render = function ($parent) {
-      var $node = $(markup);
-
-      if (options && options.contents) {
-        $node.html(options.contents);
-      }
-
-      if (options && options.className) {
-        $node.addClass(options.className);
-      }
-
-      if (options && options.data) {
-        $.each(options.data, function (k, v) {
-          $node.attr('data-' + k, v);
-        });
-      }
-
-      if (options && options.click) {
-        $node.on('click', options.click);
-      }
-
-      if (children) {
-        var $container = $node.find('.note-children-container');
-        children.forEach(function (child) {
-          child.render($container.length ? $container : $node);
-        });
-      }
-
-      if (callback) {
-        callback($node, options);
-      }
-
-      if (options && options.callback) {
-        options.callback($node);
-      }
-
-      if ($parent) {
-        $parent.append($node);
-      }
-
-      return $node;
-    };
-  };
-
-  var renderer = {
-    create: function (markup, callback) {
-      return function () {
-        var children = $.isArray(arguments[0]) ? arguments[0] : [];
-        var options = typeof arguments[1] === 'object' ? arguments[1] : arguments[0];
-        if (options && options.children) {
-          children = options.children;
-        }
-        return new Renderer(markup, children, options, callback);
-      };
-    }
-  };
-
-  var editor = renderer.create('<div class="note-editor note-frame panel panel-default"/>');
-  var toolbar = renderer.create('<div class="note-toolbar panel-heading"/>');
-  var editingArea = renderer.create('<div class="note-editing-area"/>');
-  var codable = renderer.create('<textarea class="note-codable"/>');
-  var editable = renderer.create('<div class="note-editable panel-body" contentEditable="true"/>');
-  var statusbar = renderer.create([
-    '<div class="note-statusbar">',
-    '  <div class="note-resizebar">',
-    '    <div class="note-icon-bar"/>',
-    '    <div class="note-icon-bar"/>',
-    '    <div class="note-icon-bar"/>',
-    '  </div>',
-    '</div>'
-  ].join(''));
-
-  var airEditor = renderer.create('<div class="note-editor"/>');
-  var airEditable = renderer.create('<div class="note-editable" contentEditable="true"/>');
-
-  var buttonGroup = renderer.create('<div class="note-btn-group btn-group">');
-
-  var dropdown = renderer.create('<div class="dropdown-menu">', function ($node, options) {
-    var markup = $.isArray(options.items) ? options.items.map(function (item) {
-      var value = (typeof item === 'string') ? item : (item.value || '');
-      var content = options.template ? options.template(item) : item;
-      var option = (typeof item === 'object') ? item.option : undefined;
-
-      var dataValue = 'data-value="' + value + '"';
-      var dataOption = (option !== undefined) ? ' data-option="' + option + '"' : '';
-      return '<li><a href="#" ' + (dataValue + dataOption) + '>' + content + '</a></li>';
-    }).join('') : options.items;
-
-    $node.html(markup);
-  });
-
-  var dropdownButtonContents = function (contents, options) {
-    return contents + ' ' + icon(options.icons.caret, 'span');
-  };
-
-  var dropdownCheck = renderer.create('<div class="dropdown-menu note-check">', function ($node, options) {
-    var markup = $.isArray(options.items) ? options.items.map(function (item) {
-      var value = (typeof item === 'string') ? item : (item.value || '');
-      var content = options.template ? options.template(item) : item;
-      return '<li><a href="#" data-value="' + value + '">' + icon(options.checkClassName) + ' ' + content + '</a></li>';
-    }).join('') : options.items;
-    $node.html(markup);
-  });
-
-  var palette = renderer.create('<div class="note-color-palette"/>', function ($node, options) {
-    var contents = [];
-    for (var row = 0, rowSize = options.colors.length; row < rowSize; row++) {
-      var eventName = options.eventName;
-      var colors = options.colors[row];
-      var buttons = [];
-      for (var col = 0, colSize = colors.length; col < colSize; col++) {
-        var color = colors[col];
-        buttons.push([
-          '<button type="button" class="note-color-btn"',
-          'style="background-color:', color, '" ',
-          'data-event="', eventName, '" ',
-          'data-value="', color, '" ',
-          'title="', color, '" ',
-          'data-toggle="button" tabindex="-1"></button>'
-        ].join(''));
-      }
-      contents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
-    }
-    $node.html(contents.join(''));
-
-    if (options.tooltip) {
-      $node.find('.note-color-btn').tooltip({
-        container: 'body',
-        trigger: 'hover',
-        placement: 'bottom'
-      });
-    }
-  });
-
-  var dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-1"/>', function ($node, options) {
-    if (options.fade) {
-      $node.addClass('fade');
-    }
-    $node.html([
-      '<div class="modal-dialog">',
-      '  <div class="modal-content">',
-      (options.title ?
-      '    <div class="modal-header">' +
-      '      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-      '      <h4 class="modal-title">' + options.title + '</h4>' +
-      '    </div>' : ''
-      ),
-      '    <div class="modal-body">' + options.body + '</div>',
-      (options.footer ?
-      '    <div class="modal-footer">' + options.footer + '</div>' : ''
-      ),
-      '  </div>',
-      '</div>'
-    ].join(''));
-  });
-
-  var popover = renderer.create([
-    '<div class="note-popover popover in">',
-    '  <div class="arrow"/>',
-    '  <div class="popover-content note-children-container"/>',
-    '</div>'
-  ].join(''), function ($node, options) {
-    var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
-
-    $node.addClass(direction);
-
-    if (options.hideArrow) {
-      $node.find('.arrow').hide();
-    }
-  });
-
-  var checkbox = renderer.create('<div class="checkbox"></div>', function ($node, options) {
-      $node.html([
-          ' <label' + (options.id ? ' for="' + options.id + '"' : '') + '>',
-          ' <input type="checkbox"' + (options.id ? ' id="' + options.id + '"' : ''),
-          (options.checked ? ' checked' : '') + '/>',
-          (options.text ? options.text : ''),
-          '</label>'
-      ].join(''));
-  });
-
-  var icon = function (iconClassName, tagName) {
-    tagName = tagName || 'i';
-    return '<' + tagName + ' class="' + iconClassName + '"/>';
-  };
-
-  var ui = {
-    editor: editor,
-    toolbar: toolbar,
-    editingArea: editingArea,
-    codable: codable,
-    editable: editable,
-    statusbar: statusbar,
-    airEditor: airEditor,
-    airEditable: airEditable,
-    buttonGroup: buttonGroup,
-    dropdown: dropdown,
-    dropdownButtonContents: dropdownButtonContents,
-    dropdownCheck: dropdownCheck,
-    palette: palette,
-    dialog: dialog,
-    popover: popover,
-    checkbox: checkbox,
-    icon: icon,
-    options: {},
-
-    button: function ($node, options) {
-      return renderer.create('<button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">', function ($node, options) {
-        if (options && options.tooltip && self.options.tooltip) {
-          $node.attr({
-            title: options.tooltip
-          }).tooltip({
-            container: 'body',
-            trigger: 'hover',
-            placement: 'bottom'
-          });
-        }
-      })($node, options);
-    },
-
-    toggleBtn: function ($btn, isEnable) {
-      $btn.toggleClass('disabled', !isEnable);
-      $btn.attr('disabled', !isEnable);
-    },
-
-    toggleBtnActive: function ($btn, isActive) {
-      $btn.toggleClass('active', isActive);
-    },
-
-    onDialogShown: function ($dialog, handler) {
-      $dialog.one('shown.bs.modal', handler);
-    },
-
-    onDialogHidden: function ($dialog, handler) {
-      $dialog.one('hidden.bs.modal', handler);
-    },
-
-    showDialog: function ($dialog) {
-      $dialog.modal('show');
-    },
-
-    hideDialog: function ($dialog) {
-      $dialog.modal('hide');
-    },
-
-    createLayout: function ($note, options) {
-      self.options = options;
-      var $editor = (options.airMode ? ui.airEditor([
-        ui.editingArea([
-          ui.airEditable()
-        ])
-      ]) : ui.editor([
-        ui.toolbar(),
-        ui.editingArea([
-          ui.codable(),
-          ui.editable()
-        ]),
-        ui.statusbar()
-      ])).render();
-
-      $editor.insertAfter($note);
-
-      return {
-        note: $note,
-        editor: $editor,
-        toolbar: $editor.find('.note-toolbar'),
-        editingArea: $editor.find('.note-editing-area'),
-        editable: $editor.find('.note-editable'),
-        codable: $editor.find('.note-codable'),
-        statusbar: $editor.find('.note-statusbar')
-      };
-    },
-
-    removeLayout: function ($note, layoutInfo) {
-      $note.html(layoutInfo.editable.html());
-      layoutInfo.editor.remove();
-      $note.show();
-    }
-  };
-
-  $.summernote = $.summernote || {
-    lang: {}
-  };
-
-  $.extend($.summernote.lang, {
-    'en-US': {
-      font: {
-        bold: 'Bold',
-        italic: 'Italic',
-        underline: 'Underline',
-        clear: 'Remove Font Style',
-        height: 'Line Height',
-        name: 'Font Family',
-        strikethrough: 'Strikethrough',
-        subscript: 'Subscript',
-        superscript: 'Superscript',
-        size: 'Font Size'
-      },
-      image: {
-        image: 'Picture',
-        insert: 'Insert Image',
-        resizeFull: 'Resize Full',
-        resizeHalf: 'Resize Half',
-        resizeQuarter: 'Resize Quarter',
-        floatLeft: 'Float Left',
-        floatRight: 'Float Right',
-        floatNone: 'Float None',
-        shapeRounded: 'Shape: Rounded',
-        shapeCircle: 'Shape: Circle',
-        shapeThumbnail: 'Shape: Thumbnail',
-        shapeNone: 'Shape: None',
-        dragImageHere: 'Drag image or text here',
-        dropImage: 'Drop image or Text',
-        selectFromFiles: 'Select from files',
-        maximumFileSize: 'Maximum file size',
-        maximumFileSizeError: 'Maximum file size exceeded.',
-        url: 'Image URL',
-        remove: 'Remove Image'
-      },
-      video: {
-        video: 'Video',
-        videoLink: 'Video Link',
-        insert: 'Insert Video',
-        url: 'Video URL?',
-        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
-      },
-      link: {
-        link: 'Link',
-        insert: 'Insert Link',
-        unlink: 'Unlink',
-        edit: 'Edit',
-        textToDisplay: 'Text to display',
-        url: 'To what URL should this link go?',
-        openInNewWindow: 'Open in new window'
-      },
-      table: {
-        table: 'Table',
-        addRowAbove: 'Add row above',
-        addRowBelow: 'Add row below',
-        addColLeft: 'Add column left',
-        addColRight: 'Add column right',
-        delRow: 'Delete row',
-        delCol: 'Delete column',
-        delTable: 'Delete table'
-      },
-      hr: {
-        insert: 'Insert Horizontal Rule'
-      },
-      style: {
-        style: 'Style',
-        p: 'Normal',
-        blockquote: 'Quote',
-        pre: 'Code',
-        h1: 'Header 1',
-        h2: 'Header 2',
-        h3: 'Header 3',
-        h4: 'Header 4',
-        h5: 'Header 5',
-        h6: 'Header 6'
-      },
-      lists: {
-        unordered: 'Unordered list',
-        ordered: 'Ordered list'
-      },
-      options: {
-        help: 'Help',
-        fullscreen: 'Full Screen',
-        codeview: 'Code View'
-      },
-      paragraph: {
-        paragraph: 'Paragraph',
-        outdent: 'Outdent',
-        indent: 'Indent',
-        left: 'Align left',
-        center: 'Align center',
-        right: 'Align right',
-        justify: 'Justify full'
-      },
-      color: {
-        recent: 'Recent Color',
-        more: 'More Color',
-        background: 'Background Color',
-        foreground: 'Foreground Color',
-        transparent: 'Transparent',
-        setTransparent: 'Set transparent',
-        reset: 'Reset',
-        resetToDefault: 'Reset to default'
-      },
-      shortcut: {
-        shortcuts: 'Keyboard shortcuts',
-        close: 'Close',
-        textFormatting: 'Text formatting',
-        action: 'Action',
-        paragraphFormatting: 'Paragraph formatting',
-        documentStyle: 'Document Style',
-        extraKeys: 'Extra keys'
-      },
-      help: {
-        'insertParagraph': 'Insert Paragraph',
-        'undo': 'Undoes the last command',
-        'redo': 'Redoes the last command',
-        'tab': 'Tab',
-        'untab': 'Untab',
-        'bold': 'Set a bold style',
-        'italic': 'Set a italic style',
-        'underline': 'Set a underline style',
-        'strikethrough': 'Set a strikethrough style',
-        'removeFormat': 'Clean a style',
-        'justifyLeft': 'Set left align',
-        'justifyCenter': 'Set center align',
-        'justifyRight': 'Set right align',
-        'justifyFull': 'Set full align',
-        'insertUnorderedList': 'Toggle unordered list',
-        'insertOrderedList': 'Toggle ordered list',
-        'outdent': 'Outdent on current paragraph',
-        'indent': 'Indent on current paragraph',
-        'formatPara': 'Change current block\'s format as a paragraph(P tag)',
-        'formatH1': 'Change current block\'s format as H1',
-        'formatH2': 'Change current block\'s format as H2',
-        'formatH3': 'Change current block\'s format as H3',
-        'formatH4': 'Change current block\'s format as H4',
-        'formatH5': 'Change current block\'s format as H5',
-        'formatH6': 'Change current block\'s format as H6',
-        'insertHorizontalRule': 'Insert horizontal rule',
-        'linkDialog.show': 'Show Link Dialog'
-      },
-      history: {
-        undo: 'Undo',
-        redo: 'Redo'
-      },
-      specialChar: {
-        specialChar: 'SPECIAL CHARACTERS',
-        select: 'Select Special characters'
-      }
-    }
-  });
-
-
-  /**
-   * @class core.key
-   *
-   * Object for keycodes.
-   *
-   * @singleton
-   * @alternateClassName key
-   */
-  var key = (function () {
-    var keyMap = {
-      'BACKSPACE': 8,
-      'TAB': 9,
-      'ENTER': 13,
-      'SPACE': 32,
-      'DELETE': 46,
-
-      // Arrow
-      'LEFT': 37,
-      'UP': 38,
-      'RIGHT': 39,
-      'DOWN': 40,
-
-      // Number: 0-9
-      'NUM0': 48,
-      'NUM1': 49,
-      'NUM2': 50,
-      'NUM3': 51,
-      'NUM4': 52,
-      'NUM5': 53,
-      'NUM6': 54,
-      'NUM7': 55,
-      'NUM8': 56,
-
-      // Alphabet: a-z
-      'B': 66,
-      'E': 69,
-      'I': 73,
-      'J': 74,
-      'K': 75,
-      'L': 76,
-      'R': 82,
-      'S': 83,
-      'U': 85,
-      'V': 86,
-      'Y': 89,
-      'Z': 90,
-
-      'SLASH': 191,
-      'LEFTBRACKET': 219,
-      'BACKSLASH': 220,
-      'RIGHTBRACKET': 221
-    };
-
-    return {
-      /**
-       * @method isEdit
-       *
-       * @param {Number} keyCode
-       * @return {Boolean}
-       */
-      isEdit: function (keyCode) {
-        return list.contains([
-          keyMap.BACKSPACE,
-          keyMap.TAB,
-          keyMap.ENTER,
-          keyMap.SPACE,
-          keyMap.DELETE
-        ], keyCode);
-      },
-      /**
-       * @method isMove
-       *
-       * @param {Number} keyCode
-       * @return {Boolean}
-       */
-      isMove: function (keyCode) {
-        return list.contains([
-          keyMap.LEFT,
-          keyMap.UP,
-          keyMap.RIGHT,
-          keyMap.DOWN
-        ], keyCode);
-      },
-      /**
-       * @property {Object} nameFromCode
-       * @property {String} nameFromCode.8 "BACKSPACE"
-       */
-      nameFromCode: func.invertObject(keyMap),
-      code: keyMap
-    };
-  })();
-
-  var range = (function () {
-
-    /**
-     * return boundaryPoint from TextRange, inspired by Andy Na's HuskyRange.js
-     *
-     * @param {TextRange} textRange
-     * @param {Boolean} isStart
-     * @return {BoundaryPoint}
-     *
-     * @see http://msdn.microsoft.com/en-us/library/ie/ms535872(v=vs.85).aspx
-     */
-    var textRangeToPoint = function (textRange, isStart) {
-      var container = textRange.parentElement(), offset;
-  
-      var tester = document.body.createTextRange(), prevContainer;
-      var childNodes = list.from(container.childNodes);
-      for (offset = 0; offset < childNodes.length; offset++) {
-        if (dom.isText(childNodes[offset])) {
-          continue;
-        }
-        tester.moveToElementText(childNodes[offset]);
-        if (tester.compareEndPoints('StartToStart', textRange) >= 0) {
-          break;
-        }
-        prevContainer = childNodes[offset];
-      }
-  
-      if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
-        var textRangeStart = document.body.createTextRange(), curTextNode = null;
-        textRangeStart.moveToElementText(prevContainer || container);
-        textRangeStart.collapse(!prevContainer);
-        curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
-  
-        var pointTester = textRange.duplicate();
-        pointTester.setEndPoint('StartToStart', textRangeStart);
-        var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
-  
-        while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
-          textCount -= curTextNode.nodeValue.length;
-          curTextNode = curTextNode.nextSibling;
-        }
-  
-        /* jshint ignore:start */
-        var dummy = curTextNode.nodeValue; // enforce IE to re-reference curTextNode, hack
-        /* jshint ignore:end */
-  
-        if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
-            textCount === curTextNode.nodeValue.length) {
-          textCount -= curTextNode.nodeValue.length;
-          curTextNode = curTextNode.nextSibling;
-        }
-  
-        container = curTextNode;
-        offset = textCount;
-      }
-  
-      return {
-        cont: container,
-        offset: offset
-      };
-    };
-    
-    /**
-     * return TextRange from boundary point (inspired by google closure-library)
-     * @param {BoundaryPoint} point
-     * @return {TextRange}
-     */
-    var pointToTextRange = function (point) {
-      var textRangeInfo = function (container, offset) {
-        var node, isCollapseToStart;
-  
-        if (dom.isText(container)) {
-          var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
-          var prevContainer = list.last(prevTextNodes).previousSibling;
-          node =  prevContainer || container.parentNode;
-          offset += list.sum(list.tail(prevTextNodes), dom.nodeLength);
-          isCollapseToStart = !prevContainer;
-        } else {
-          node = container.childNodes[offset] || container;
-          if (dom.isText(node)) {
-            return textRangeInfo(node, 0);
-          }
-  
-          offset = 0;
-          isCollapseToStart = false;
-        }
-  
-        return {
-          node: node,
-          collapseToStart: isCollapseToStart,
-          offset: offset
-        };
-      };
-  
-      var textRange = document.body.createTextRange();
-      var info = textRangeInfo(point.node, point.offset);
-  
-      textRange.moveToElementText(info.node);
-      textRange.collapse(info.collapseToStart);
-      textRange.moveStart('character', info.offset);
-      return textRange;
-    };
-    
-    /**
-     * Wrapped Range
-     *
-     * @constructor
-     * @param {Node} sc - start container
-     * @param {Number} so - start offset
-     * @param {Node} ec - end container
-     * @param {Number} eo - end offset
-     */
-    var WrappedRange = function (sc, so, ec, eo) {
-      this.sc = sc;
-      this.so = so;
-      this.ec = ec;
-      this.eo = eo;
-  
-      // nativeRange: get nativeRange from sc, so, ec, eo
-      var nativeRange = function () {
-        if (agent.isW3CRangeSupport) {
-          var w3cRange = document.createRange();
-          w3cRange.setStart(sc, so);
-          w3cRange.setEnd(ec, eo);
-
-          return w3cRange;
-        } else {
-          var textRange = pointToTextRange({
-            node: sc,
-            offset: so
-          });
-
-          textRange.setEndPoint('EndToEnd', pointToTextRange({
-            node: ec,
-            offset: eo
-          }));
-
-          return textRange;
-        }
-      };
-
-      this.getPoints = function () {
-        return {
-          sc: sc,
-          so: so,
-          ec: ec,
-          eo: eo
-        };
-      };
-
-      this.getStartPoint = function () {
-        return {
-          node: sc,
-          offset: so
-        };
-      };
-
-      this.getEndPoint = function () {
-        return {
-          node: ec,
-          offset: eo
-        };
-      };
-
-      /**
-       * select update visible range
-       */
-      this.select = function () {
-        var nativeRng = nativeRange();
-        if (agent.isW3CRangeSupport) {
-          var selection = document.getSelection();
-          if (selection.rangeCount > 0) {
-            selection.removeAllRanges();
-          }
-          selection.addRange(nativeRng);
-        } else {
-          nativeRng.select();
-        }
-        
-        return this;
-      };
-
-      /**
-       * Moves the scrollbar to start container(sc) of current range
-       *
-       * @return {WrappedRange}
-       */
-      this.scrollIntoView = function (container) {
-        var height = $(container).height();
-        if (container.scrollTop + height < this.sc.offsetTop) {
-          container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);
-        }
-
-        return this;
-      };
-
-      /**
-       * @return {WrappedRange}
-       */
-      this.normalize = function () {
-
-        /**
-         * @param {BoundaryPoint} point
-         * @param {Boolean} isLeftToRight
-         * @return {BoundaryPoint}
-         */
-        var getVisiblePoint = function (point, isLeftToRight) {
-          if ((dom.isVisiblePoint(point) && !dom.isEdgePoint(point)) ||
-              (dom.isVisiblePoint(point) && dom.isRightEdgePoint(point) && !isLeftToRight) ||
-              (dom.isVisiblePoint(point) && dom.isLeftEdgePoint(point) && isLeftToRight) ||
-              (dom.isVisiblePoint(point) && dom.isBlock(point.node) && dom.isEmpty(point.node))) {
-            return point;
-          }
-
-          // point on block's edge
-          var block = dom.ancestor(point.node, dom.isBlock);
-          if (((dom.isLeftEdgePointOf(point, block) || dom.isVoid(dom.prevPoint(point).node)) && !isLeftToRight) ||
-              ((dom.isRightEdgePointOf(point, block) || dom.isVoid(dom.nextPoint(point).node)) && isLeftToRight)) {
-
-            // returns point already on visible point
-            if (dom.isVisiblePoint(point)) {
-              return point;
-            }
-            // reverse direction 
-            isLeftToRight = !isLeftToRight;
-          }
-
-          var nextPoint = isLeftToRight ? dom.nextPointUntil(dom.nextPoint(point), dom.isVisiblePoint) :
-                                          dom.prevPointUntil(dom.prevPoint(point), dom.isVisiblePoint);
-          return nextPoint || point;
-        };
-
-        var endPoint = getVisiblePoint(this.getEndPoint(), false);
-        var startPoint = this.isCollapsed() ? endPoint : getVisiblePoint(this.getStartPoint(), true);
-
-        return new WrappedRange(
-          startPoint.node,
-          startPoint.offset,
-          endPoint.node,
-          endPoint.offset
-        );
-      };
-
-      /**
-       * returns matched nodes on range
-       *
-       * @param {Function} [pred] - predicate function
-       * @param {Object} [options]
-       * @param {Boolean} [options.includeAncestor]
-       * @param {Boolean} [options.fullyContains]
-       * @return {Node[]}
-       */
-      this.nodes = function (pred, options) {
-        pred = pred || func.ok;
-
-        var includeAncestor = options && options.includeAncestor;
-        var fullyContains = options && options.fullyContains;
-
-        // TODO compare points and sort
-        var startPoint = this.getStartPoint();
-        var endPoint = this.getEndPoint();
-
-        var nodes = [];
-        var leftEdgeNodes = [];
-
-        dom.walkPoint(startPoint, endPoint, function (point) {
-          if (dom.isEditable(point.node)) {
-            return;
-          }
-
-          var node;
-          if (fullyContains) {
-            if (dom.isLeftEdgePoint(point)) {
-              leftEdgeNodes.push(point.node);
-            }
-            if (dom.isRightEdgePoint(point) && list.contains(leftEdgeNodes, point.node)) {
-              node = point.node;
-            }
-          } else if (includeAncestor) {
-            node = dom.ancestor(point.node, pred);
-          } else {
-            node = point.node;
-          }
-
-          if (node && pred(node)) {
-            nodes.push(node);
-          }
-        }, true);
-
-        return list.unique(nodes);
-      };
-
-      /**
-       * returns commonAncestor of range
-       * @return {Element} - commonAncestor
-       */
-      this.commonAncestor = function () {
-        return dom.commonAncestor(sc, ec);
-      };
-
-      /**
-       * returns expanded range by pred
-       *
-       * @param {Function} pred - predicate function
-       * @return {WrappedRange}
-       */
-      this.expand = function (pred) {
-        var startAncestor = dom.ancestor(sc, pred);
-        var endAncestor = dom.ancestor(ec, pred);
-
-        if (!startAncestor && !endAncestor) {
-          return new WrappedRange(sc, so, ec, eo);
-        }
-
-        var boundaryPoints = this.getPoints();
-
-        if (startAncestor) {
-          boundaryPoints.sc = startAncestor;
-          boundaryPoints.so = 0;
-        }
-
-        if (endAncestor) {
-          boundaryPoints.ec = endAncestor;
-          boundaryPoints.eo = dom.nodeLength(endAncestor);
-        }
-
-        return new WrappedRange(
-          boundaryPoints.sc,
-          boundaryPoints.so,
-          boundaryPoints.ec,
-          boundaryPoints.eo
-        );
-      };
-
-      /**
-       * @param {Boolean} isCollapseToStart
-       * @return {WrappedRange}
-       */
-      this.collapse = function (isCollapseToStart) {
-        if (isCollapseToStart) {
-          return new WrappedRange(sc, so, sc, so);
-        } else {
-          return new WrappedRange(ec, eo, ec, eo);
-        }
-      };
-
-      /**
-       * splitText on range
-       */
-      this.splitText = function () {
-        var isSameContainer = sc === ec;
-        var boundaryPoints = this.getPoints();
-
-        if (dom.isText(ec) && !dom.isEdgePoint(this.getEndPoint())) {
-          ec.splitText(eo);
-        }
-
-        if (dom.isText(sc) && !dom.isEdgePoint(this.getStartPoint())) {
-          boundaryPoints.sc = sc.splitText(so);
-          boundaryPoints.so = 0;
-
-          if (isSameContainer) {
-            boundaryPoints.ec = boundaryPoints.sc;
-            boundaryPoints.eo = eo - so;
-          }
-        }
-
-        return new WrappedRange(
-          boundaryPoints.sc,
-          boundaryPoints.so,
-          boundaryPoints.ec,
-          boundaryPoints.eo
-        );
-      };
-
-      /**
-       * delete contents on range
-       * @return {WrappedRange}
-       */
-      this.deleteContents = function () {
-        if (this.isCollapsed()) {
-          return this;
-        }
-
-        var rng = this.splitText();
-        var nodes = rng.nodes(null, {
-          fullyContains: true
-        });
-
-        // find new cursor point
-        var point = dom.prevPointUntil(rng.getStartPoint(), function (point) {
-          return !list.contains(nodes, point.node);
-        });
-
-        var emptyParents = [];
-        $.each(nodes, function (idx, node) {
-          // find empty parents
-          var parent = node.parentNode;
-          if (point.node !== parent && dom.nodeLength(parent) === 1) {
-            emptyParents.push(parent);
-          }
-          dom.remove(node, false);
-        });
-
-        // remove empty parents
-        $.each(emptyParents, function (idx, node) {
-          dom.remove(node, false);
-        });
-
-        return new WrappedRange(
-          point.node,
-          point.offset,
-          point.node,
-          point.offset
-        ).normalize();
-      };
-      
-      /**
-       * makeIsOn: return isOn(pred) function
-       */
-      var makeIsOn = function (pred) {
-        return function () {
-          var ancestor = dom.ancestor(sc, pred);
-          return !!ancestor && (ancestor === dom.ancestor(ec, pred));
-        };
-      };
-  
-      // isOnEditable: judge whether range is on editable or not
-      this.isOnEditable = makeIsOn(dom.isEditable);
-      // isOnList: judge whether range is on list node or not
-      this.isOnList = makeIsOn(dom.isList);
-      // isOnAnchor: judge whether range is on anchor node or not
-      this.isOnAnchor = makeIsOn(dom.isAnchor);
-      // isOnCell: judge whether range is on cell node or not
-      this.isOnCell = makeIsOn(dom.isCell);
-      // isOnData: judge whether range is on data node or not
-      this.isOnData = makeIsOn(dom.isData);
-
-      /**
-       * @param {Function} pred
-       * @return {Boolean}
-       */
-      this.isLeftEdgeOf = function (pred) {
-        if (!dom.isLeftEdgePoint(this.getStartPoint())) {
-          return false;
-        }
-
-        var node = dom.ancestor(this.sc, pred);
-        return node && dom.isLeftEdgeOf(this.sc, node);
-      };
-
-      /**
-       * returns whether range was collapsed or not
-       */
-      this.isCollapsed = function () {
-        return sc === ec && so === eo;
-      };
-
-      /**
-       * wrap inline nodes which children of body with paragraph
-       *
-       * @return {WrappedRange}
-       */
-      this.wrapBodyInlineWithPara = function () {
-        if (dom.isBodyContainer(sc) && dom.isEmpty(sc)) {
-          sc.innerHTML = dom.emptyPara;
-          return new WrappedRange(sc.firstChild, 0, sc.firstChild, 0);
-        }
-
-        /**
-         * [workaround] firefox often create range on not visible point. so normalize here.
-         *  - firefox: |<p>text</p>|
-         *  - chrome: <p>|text|</p>
-         */
-        var rng = this.normalize();
-        if (dom.isParaInline(sc) || dom.isPara(sc)) {
-          return rng;
-        }
-
-        // find inline top ancestor
-        var topAncestor;
-        if (dom.isInline(rng.sc)) {
-          var ancestors = dom.listAncestor(rng.sc, func.not(dom.isInline));
-          topAncestor = list.last(ancestors);
-          if (!dom.isInline(topAncestor)) {
-            topAncestor = ancestors[ancestors.length - 2] || rng.sc.childNodes[rng.so];
-          }
-        } else {
-          topAncestor = rng.sc.childNodes[rng.so > 0 ? rng.so - 1 : 0];
-        }
-
-        // siblings not in paragraph
-        var inlineSiblings = dom.listPrev(topAncestor, dom.isParaInline).reverse();
-        inlineSiblings = inlineSiblings.concat(dom.listNext(topAncestor.nextSibling, dom.isParaInline));
-
-        // wrap with paragraph
-        if (inlineSiblings.length) {
-          var para = dom.wrap(list.head(inlineSiblings), 'p');
-          dom.appendChildNodes(para, list.tail(inlineSiblings));
-        }
-
-        return this.normalize();
-      };
-
-      /**
-       * insert node at current cursor
-       *
-       * @param {Node} node
-       * @return {Node}
-       */
-      this.insertNode = function (node) {
-        var rng = this.wrapBodyInlineWithPara().deleteContents();
-        var info = dom.splitPoint(rng.getStartPoint(), dom.isInline(node));
-
-        if (info.rightNode) {
-          info.rightNode.parentNode.insertBefore(node, info.rightNode);
-        } else {
-          info.container.appendChild(node);
-        }
-
-        return node;
-      };
-
-      /**
-       * insert html at current cursor
-       */
-      this.pasteHTML = function (markup) {
-        var contentsContainer = $('<div></div>').html(markup)[0];
-        var childNodes = list.from(contentsContainer.childNodes);
-
-        var rng = this.wrapBodyInlineWithPara().deleteContents();
-
-        return childNodes.reverse().map(function (childNode) {
-          return rng.insertNode(childNode);
-        }).reverse();
-      };
-  
-      /**
-       * returns text in range
-       *
-       * @return {String}
-       */
-      this.toString = function () {
-        var nativeRng = nativeRange();
-        return agent.isW3CRangeSupport ? nativeRng.toString() : nativeRng.text;
-      };
-
-      /**
-       * returns range for word before cursor
-       *
-       * @param {Boolean} [findAfter] - find after cursor, default: false
-       * @return {WrappedRange}
-       */
-      this.getWordRange = function (findAfter) {
-        var endPoint = this.getEndPoint();
-
-        if (!dom.isCharPoint(endPoint)) {
-          return this;
-        }
-
-        var startPoint = dom.prevPointUntil(endPoint, function (point) {
-          return !dom.isCharPoint(point);
-        });
-
-        if (findAfter) {
-          endPoint = dom.nextPointUntil(endPoint, function (point) {
-            return !dom.isCharPoint(point);
-          });
-        }
-
-        return new WrappedRange(
-          startPoint.node,
-          startPoint.offset,
-          endPoint.node,
-          endPoint.offset
-        );
-      };
-  
-      /**
-       * create offsetPath bookmark
-       *
-       * @param {Node} editable
-       */
-      this.bookmark = function (editable) {
-        return {
-          s: {
-            path: dom.makeOffsetPath(editable, sc),
-            offset: so
-          },
-          e: {
-            path: dom.makeOffsetPath(editable, ec),
-            offset: eo
-          }
-        };
-      };
-
-      /**
-       * create offsetPath bookmark base on paragraph
-       *
-       * @param {Node[]} paras
-       */
-      this.paraBookmark = function (paras) {
-        return {
-          s: {
-            path: list.tail(dom.makeOffsetPath(list.head(paras), sc)),
-            offset: so
-          },
-          e: {
-            path: list.tail(dom.makeOffsetPath(list.last(paras), ec)),
-            offset: eo
-          }
-        };
-      };
-
-      /**
-       * getClientRects
-       * @return {Rect[]}
-       */
-      this.getClientRects = function () {
-        var nativeRng = nativeRange();
-        return nativeRng.getClientRects();
-      };
-    };
-
-  /**
-   * @class core.range
-   *
-   * Data structure
-   *  * BoundaryPoint: a point of dom tree
-   *  * BoundaryPoints: two boundaryPoints corresponding to the start and the end of the Range
-   *
-   * See to http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
-   *
-   * @singleton
-   * @alternateClassName range
-   */
-    return {
-      /**
-       * create Range Object From arguments or Browser Selection
-       *
-       * @param {Node} sc - start container
-       * @param {Number} so - start offset
-       * @param {Node} ec - end container
-       * @param {Number} eo - end offset
-       * @return {WrappedRange}
-       */
-      create: function (sc, so, ec, eo) {
-        if (arguments.length === 4) {
-          return new WrappedRange(sc, so, ec, eo);
-        } else if (arguments.length === 2) { //collapsed
-          ec = sc;
-          eo = so;
-          return new WrappedRange(sc, so, ec, eo);
-        } else {
-          var wrappedRange = this.createFromSelection();
-          if (!wrappedRange && arguments.length === 1) {
-            wrappedRange = this.createFromNode(arguments[0]);
-            return wrappedRange.collapse(dom.emptyPara === arguments[0].innerHTML);
-          }
-          return wrappedRange;
-        }
-      },
-
-      createFromSelection: function () {
-        var sc, so, ec, eo;
-        if (agent.isW3CRangeSupport) {
-          var selection = document.getSelection();
-          if (!selection || selection.rangeCount === 0) {
-            return null;
-          } else if (dom.isBody(selection.anchorNode)) {
-            // Firefox: returns entire body as range on initialization.
-            // We won't never need it.
-            return null;
-          }
-
-          var nativeRng = selection.getRangeAt(0);
-          sc = nativeRng.startContainer;
-          so = nativeRng.startOffset;
-          ec = nativeRng.endContainer;
-          eo = nativeRng.endOffset;
-        } else { // IE8: TextRange
-          var textRange = document.selection.createRange();
-          var textRangeEnd = textRange.duplicate();
-          textRangeEnd.collapse(false);
-          var textRangeStart = textRange;
-          textRangeStart.collapse(true);
-
-          var startPoint = textRangeToPoint(textRangeStart, true),
-          endPoint = textRangeToPoint(textRangeEnd, false);
-
-          // same visible point case: range was collapsed.
-          if (dom.isText(startPoint.node) && dom.isLeftEdgePoint(startPoint) &&
-              dom.isTextNode(endPoint.node) && dom.isRightEdgePoint(endPoint) &&
-              endPoint.node.nextSibling === startPoint.node) {
-            startPoint = endPoint;
-          }
-
-          sc = startPoint.cont;
-          so = startPoint.offset;
-          ec = endPoint.cont;
-          eo = endPoint.offset;
-        }
-
-        return new WrappedRange(sc, so, ec, eo);
-      },
-
-      /**
-       * @method 
-       * 
-       * create WrappedRange from node
-       *
-       * @param {Node} node
-       * @return {WrappedRange}
-       */
-      createFromNode: function (node) {
-        var sc = node;
-        var so = 0;
-        var ec = node;
-        var eo = dom.nodeLength(ec);
-
-        // browsers can't target a picture or void node
-        if (dom.isVoid(sc)) {
-          so = dom.listPrev(sc).length - 1;
-          sc = sc.parentNode;
-        }
-        if (dom.isBR(ec)) {
-          eo = dom.listPrev(ec).length - 1;
-          ec = ec.parentNode;
-        } else if (dom.isVoid(ec)) {
-          eo = dom.listPrev(ec).length;
-          ec = ec.parentNode;
-        }
-
-        return this.create(sc, so, ec, eo);
-      },
-
-      /**
-       * create WrappedRange from node after position
-       *
-       * @param {Node} node
-       * @return {WrappedRange}
-       */
-      createFromNodeBefore: function (node) {
-        return this.createFromNode(node).collapse(true);
-      },
-
-      /**
-       * create WrappedRange from node after position
-       *
-       * @param {Node} node
-       * @return {WrappedRange}
-       */
-      createFromNodeAfter: function (node) {
-        return this.createFromNode(node).collapse();
-      },
-
-      /**
-       * @method 
-       * 
-       * create WrappedRange from bookmark
-       *
-       * @param {Node} editable
-       * @param {Object} bookmark
-       * @return {WrappedRange}
-       */
-      createFromBookmark: function (editable, bookmark) {
-        var sc = dom.fromOffsetPath(editable, bookmark.s.path);
-        var so = bookmark.s.offset;
-        var ec = dom.fromOffsetPath(editable, bookmark.e.path);
-        var eo = bookmark.e.offset;
-        return new WrappedRange(sc, so, ec, eo);
-      },
-
-      /**
-       * @method 
-       *
-       * create WrappedRange from paraBookmark
-       *
-       * @param {Object} bookmark
-       * @param {Node[]} paras
-       * @return {WrappedRange}
-       */
-      createFromParaBookmark: function (bookmark, paras) {
-        var so = bookmark.s.offset;
-        var eo = bookmark.e.offset;
-        var sc = dom.fromOffsetPath(list.head(paras), bookmark.s.path);
-        var ec = dom.fromOffsetPath(list.last(paras), bookmark.e.path);
-
-        return new WrappedRange(sc, so, ec, eo);
-      }
-    };
-  })();
-
-  /**
-   * @class core.async
-   *
-   * Async functions which returns `Promise`
-   *
-   * @singleton
-   * @alternateClassName async
-   */
-  var async = (function () {
-    /**
-     * @method readFileAsDataURL
-     *
-     * read contents of file as representing URL
-     *
-     * @param {File} file
-     * @return {Promise} - then: dataUrl
-     */
-    var readFileAsDataURL = function (file) {
-      return $.Deferred(function (deferred) {
-        $.extend(new FileReader(), {
-          onload: function (e) {
-            var dataURL = e.target.result;
-            deferred.resolve(dataURL);
-          },
-          onerror: function () {
-            deferred.reject(this);
-          }
-        }).readAsDataURL(file);
-      }).promise();
-    };
-  
-    /**
-     * @method createImage
-     *
-     * create `<image>` from url string
-     *
-     * @param {String} url
-     * @return {Promise} - then: $image
-     */
-    var createImage = function (url) {
-      return $.Deferred(function (deferred) {
-        var $img = $('<img>');
-
-        $img.one('load', function () {
-          $img.off('error abort');
-          deferred.resolve($img);
-        }).one('error abort', function () {
-          $img.off('load').detach();
-          deferred.reject($img);
-        }).css({
-          display: 'none'
-        }).appendTo(document.body).attr('src', url);
-      }).promise();
-    };
-
-    return {
-      readFileAsDataURL: readFileAsDataURL,
-      createImage: createImage
-    };
-  })();
-
-  /**
-   * @class editing.History
-   *
-   * Editor History
-   *
-   */
-  var History = function ($editable) {
-    var stack = [], stackOffset = -1;
-    var editable = $editable[0];
-
-    var makeSnapshot = function () {
-      var rng = range.create(editable);
-      var emptyBookmark = {s: {path: [], offset: 0}, e: {path: [], offset: 0}};
-
-      return {
-        contents: $editable.html(),
-        bookmark: (rng ? rng.bookmark(editable) : emptyBookmark)
-      };
-    };
-
-    var applySnapshot = function (snapshot) {
-      if (snapshot.contents !== null) {
-        $editable.html(snapshot.contents);
-      }
-      if (snapshot.bookmark !== null) {
-        range.createFromBookmark(editable, snapshot.bookmark).select();
-      }
-    };
-
-    /**
-    * @method rewind
-    * Rewinds the history stack back to the first snapshot taken.
-    * Leaves the stack intact, so that "Redo" can still be used.
-    */
-    this.rewind = function () {
-      // Create snap shot if not yet recorded
-      if ($editable.html() !== stack[stackOffset].contents) {
-        this.recordUndo();
-      }
-
-      // Return to the first available snapshot.
-      stackOffset = 0;
-
-      // Apply that snapshot.
-      applySnapshot(stack[stackOffset]);
-    };
-
-    /**
-    * @method reset
-    * Resets the history stack completely; reverting to an empty editor.
-    */
-    this.reset = function () {
-      // Clear the stack.
-      stack = [];
-
-      // Restore stackOffset to its original value.
-      stackOffset = -1;
-
-      // Clear the editable area.
-      $editable.html('');
-
-      // Record our first snapshot (of nothing).
-      this.recordUndo();
-    };
-
-    /**
-     * undo
-     */
-    this.undo = function () {
-      // Create snap shot if not yet recorded
-      if ($editable.html() !== stack[stackOffset].contents) {
-        this.recordUndo();
-      }
-
-      if (0 < stackOffset) {
-        stackOffset--;
-        applySnapshot(stack[stackOffset]);
-      }
-    };
-
-    /**
-     * redo
-     */
-    this.redo = function () {
-      if (stack.length - 1 > stackOffset) {
-        stackOffset++;
-        applySnapshot(stack[stackOffset]);
-      }
-    };
-
-    /**
-     * recorded undo
-     */
-    this.recordUndo = function () {
-      stackOffset++;
-
-      // Wash out stack after stackOffset
-      if (stack.length > stackOffset) {
-        stack = stack.slice(0, stackOffset);
-      }
-
-      // Create new snapshot and push it to the end
-      stack.push(makeSnapshot());
-    };
-  };
-
-  /**
-   * @class editing.Style
-   *
-   * Style
-   *
-   */
-  var Style = function () {
-    /**
-     * @method jQueryCSS
-     *
-     * [workaround] for old jQuery
-     * passing an array of style properties to .css()
-     * will result in an object of property-value pairs.
-     * (compability with version < 1.9)
-     *
-     * @private
-     * @param  {jQuery} $obj
-     * @param  {Array} propertyNames - An array of one or more CSS properties.
-     * @return {Object}
-     */
-    var jQueryCSS = function ($obj, propertyNames) {
-      if (agent.jqueryVersion < 1.9) {
-        var result = {};
-        $.each(propertyNames, function (idx, propertyName) {
-          result[propertyName] = $obj.css(propertyName);
-        });
-        return result;
-      }
-      return $obj.css.call($obj, propertyNames);
-    };
-
-    /**
-     * returns style object from node
-     *
-     * @param {jQuery} $node
-     * @return {Object}
-     */
-    this.fromNode = function ($node) {
-      var properties = ['font-family', 'font-size', 'text-align', 'list-style-type', 'line-height'];
-      var styleInfo = jQueryCSS($node, properties) || {};
-      styleInfo['font-size'] = parseInt(styleInfo['font-size'], 10);
-      return styleInfo;
-    };
-
-    /**
-     * paragraph level style
-     *
-     * @param {WrappedRange} rng
-     * @param {Object} styleInfo
-     */
-    this.stylePara = function (rng, styleInfo) {
-      $.each(rng.nodes(dom.isPara, {
-        includeAncestor: true
-      }), function (idx, para) {
-        $(para).css(styleInfo);
-      });
-    };
-
-    /**
-     * insert and returns styleNodes on range.
-     *
-     * @param {WrappedRange} rng
-     * @param {Object} [options] - options for styleNodes
-     * @param {String} [options.nodeName] - default: `SPAN`
-     * @param {Boolean} [options.expandClosestSibling] - default: `false`
-     * @param {Boolean} [options.onlyPartialContains] - default: `false`
-     * @return {Node[]}
-     */
-    this.styleNodes = function (rng, options) {
-      rng = rng.splitText();
-
-      var nodeName = options && options.nodeName || 'SPAN';
-      var expandClosestSibling = !!(options && options.expandClosestSibling);
-      var onlyPartialContains = !!(options && options.onlyPartialContains);
-
-      if (rng.isCollapsed()) {
-        return [rng.insertNode(dom.create(nodeName))];
-      }
-
-      var pred = dom.makePredByNodeName(nodeName);
-      var nodes = rng.nodes(dom.isText, {
-        fullyContains: true
-      }).map(function (text) {
-        return dom.singleChildAncestor(text, pred) || dom.wrap(text, nodeName);
-      });
-
-      if (expandClosestSibling) {
-        if (onlyPartialContains) {
-          var nodesInRange = rng.nodes();
-          // compose with partial contains predication
-          pred = func.and(pred, function (node) {
-            return list.contains(nodesInRange, node);
-          });
-        }
-
-        return nodes.map(function (node) {
-          var siblings = dom.withClosestSiblings(node, pred);
-          var head = list.head(siblings);
-          var tails = list.tail(siblings);
-          $.each(tails, function (idx, elem) {
-            dom.appendChildNodes(head, elem.childNodes);
-            dom.remove(elem);
-          });
-          return list.head(siblings);
-        });
-      } else {
-        return nodes;
-      }
-    };
-
-    /**
-     * get current style on cursor
-     *
-     * @param {WrappedRange} rng
-     * @return {Object} - object contains style properties.
-     */
-    this.current = function (rng) {
-      var $cont = $(!dom.isElement(rng.sc) ? rng.sc.parentNode : rng.sc);
-      var styleInfo = this.fromNode($cont);
-
-      // document.queryCommandState for toggle state
-      // [workaround] prevent Firefox nsresult: "0x80004005 (NS_ERROR_FAILURE)"
-      try {
-        styleInfo = $.extend(styleInfo, {
-          'font-bold': document.queryCommandState('bold') ? 'bold' : 'normal',
-          'font-italic': document.queryCommandState('italic') ? 'italic' : 'normal',
-          'font-underline': document.queryCommandState('underline') ? 'underline' : 'normal',
-          'font-subscript': document.queryCommandState('subscript') ? 'subscript' : 'normal',
-          'font-superscript': document.queryCommandState('superscript') ? 'superscript' : 'normal',
-          'font-strikethrough': document.queryCommandState('strikethrough') ? 'strikethrough' : 'normal',
-          'font-family': document.queryCommandValue('fontname') || styleInfo['font-family']
-        });
-      } catch (e) {}
-
-      // list-style-type to list-style(unordered, ordered)
-      if (!rng.isOnList()) {
-        styleInfo['list-style'] = 'none';
-      } else {
-        var orderedTypes = ['circle', 'disc', 'disc-leading-zero', 'square'];
-        var isUnordered = $.inArray(styleInfo['list-style-type'], orderedTypes) > -1;
-        styleInfo['list-style'] = isUnordered ? 'unordered' : 'ordered';
-      }
-
-      var para = dom.ancestor(rng.sc, dom.isPara);
-      if (para && para.style['line-height']) {
-        styleInfo['line-height'] = para.style.lineHeight;
-      } else {
-        var lineHeight = parseInt(styleInfo['line-height'], 10) / parseInt(styleInfo['font-size'], 10);
-        styleInfo['line-height'] = lineHeight.toFixed(1);
-      }
-
-      styleInfo.anchor = rng.isOnAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
-      styleInfo.ancestors = dom.listAncestor(rng.sc, dom.isEditable);
-      styleInfo.range = rng;
-
-      return styleInfo;
-    };
-  };
-
-
-  /**
-   * @class editing.Bullet
-   *
-   * @alternateClassName Bullet
-   */
-  var Bullet = function () {
-    var self = this;
-
-    /**
-     * toggle ordered list
-     */
-    this.insertOrderedList = function (editable) {
-      this.toggleList('OL', editable);
-    };
-
-    /**
-     * toggle unordered list
-     */
-    this.insertUnorderedList = function (editable) {
-      this.toggleList('UL', editable);
-    };
-
-    /**
-     * indent
-     */
-    this.indent = function (editable) {
-      var self = this;
-      var rng = range.create(editable).wrapBodyInlineWithPara();
-
-      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
-      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
-
-      $.each(clustereds, function (idx, paras) {
-        var head = list.head(paras);
-        if (dom.isLi(head)) {
-          self.wrapList(paras, head.parentNode.nodeName);
-        } else {
-          $.each(paras, function (idx, para) {
-            $(para).css('marginLeft', function (idx, val) {
-              return (parseInt(val, 10) || 0) + 25;
-            });
-          });
-        }
-      });
-
-      rng.select();
-    };
-
-    /**
-     * outdent
-     */
-    this.outdent = function (editable) {
-      var self = this;
-      var rng = range.create(editable).wrapBodyInlineWithPara();
-
-      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
-      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
-
-      $.each(clustereds, function (idx, paras) {
-        var head = list.head(paras);
-        if (dom.isLi(head)) {
-          self.releaseList([paras]);
-        } else {
-          $.each(paras, function (idx, para) {
-            $(para).css('marginLeft', function (idx, val) {
-              val = (parseInt(val, 10) || 0);
-              return val > 25 ? val - 25 : '';
-            });
-          });
-        }
-      });
-
-      rng.select();
-    };
-
-    /**
-     * toggle list
-     *
-     * @param {String} listName - OL or UL
-     */
-    this.toggleList = function (listName, editable) {
-      var rng = range.create(editable).wrapBodyInlineWithPara();
-
-      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
-      var bookmark = rng.paraBookmark(paras);
-      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
-
-      // paragraph to list
-      if (list.find(paras, dom.isPurePara)) {
-        var wrappedParas = [];
-        $.each(clustereds, function (idx, paras) {
-          wrappedParas = wrappedParas.concat(self.wrapList(paras, listName));
-        });
-        paras = wrappedParas;
-      // list to paragraph or change list style
-      } else {
-        var diffLists = rng.nodes(dom.isList, {
-          includeAncestor: true
-        }).filter(function (listNode) {
-          return !$.nodeName(listNode, listName);
-        });
-
-        if (diffLists.length) {
-          $.each(diffLists, function (idx, listNode) {
-            dom.replace(listNode, listName);
-          });
-        } else {
-          paras = this.releaseList(clustereds, true);
-        }
-      }
-
-      range.createFromParaBookmark(bookmark, paras).select();
-    };
-
-    /**
-     * @param {Node[]} paras
-     * @param {String} listName
-     * @return {Node[]}
-     */
-    this.wrapList = function (paras, listName) {
-      var head = list.head(paras);
-      var last = list.last(paras);
-
-      var prevList = dom.isList(head.previousSibling) && head.previousSibling;
-      var nextList = dom.isList(last.nextSibling) && last.nextSibling;
-
-      var listNode = prevList || dom.insertAfter(dom.create(listName || 'UL'), last);
-
-      // P to LI
-      paras = paras.map(function (para) {
-        return dom.isPurePara(para) ? dom.replace(para, 'LI') : para;
-      });
-
-      // append to list(<ul>, <ol>)
-      dom.appendChildNodes(listNode, paras);
-
-      if (nextList) {
-        dom.appendChildNodes(listNode, list.from(nextList.childNodes));
-        dom.remove(nextList);
-      }
-
-      return paras;
-    };
-
-    /**
-     * @method releaseList
-     *
-     * @param {Array[]} clustereds
-     * @param {Boolean} isEscapseToBody
-     * @return {Node[]}
-     */
-    this.releaseList = function (clustereds, isEscapseToBody) {
-      var releasedParas = [];
-
-      $.each(clustereds, function (idx, paras) {
-        var head = list.head(paras);
-        var last = list.last(paras);
-
-        var headList = isEscapseToBody ? dom.lastAncestor(head, dom.isList) :
-                                         head.parentNode;
-        var lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
-          node: last.parentNode,
-          offset: dom.position(last) + 1
-        }, {
-          isSkipPaddingBlankHTML: true
-        }) : null;
-
-        var middleList = dom.splitTree(headList, {
-          node: head.parentNode,
-          offset: dom.position(head)
-        }, {
-          isSkipPaddingBlankHTML: true
-        });
-
-        paras = isEscapseToBody ? dom.listDescendant(middleList, dom.isLi) :
-                                  list.from(middleList.childNodes).filter(dom.isLi);
-
-        // LI to P
-        if (isEscapseToBody || !dom.isList(headList.parentNode)) {
-          paras = paras.map(function (para) {
-            return dom.replace(para, 'P');
-          });
-        }
-
-        $.each(list.from(paras).reverse(), function (idx, para) {
-          dom.insertAfter(para, headList);
-        });
-
-        // remove empty lists
-        var rootLists = list.compact([headList, middleList, lastList]);
-        $.each(rootLists, function (idx, rootList) {
-          var listNodes = [rootList].concat(dom.listDescendant(rootList, dom.isList));
-          $.each(listNodes.reverse(), function (idx, listNode) {
-            if (!dom.nodeLength(listNode)) {
-              dom.remove(listNode, true);
-            }
-          });
-        });
-
-        releasedParas = releasedParas.concat(paras);
-      });
-
-      return releasedParas;
-    };
-  };
-
-
-  /**
-   * @class editing.Typing
-   *
-   * Typing
-   *
-   */
-  var Typing = function () {
-
-    // a Bullet instance to toggle lists off
-    var bullet = new Bullet();
-
-    /**
-     * insert tab
-     *
-     * @param {WrappedRange} rng
-     * @param {Number} tabsize
-     */
-    this.insertTab = function (rng, tabsize) {
-      var tab = dom.createText(new Array(tabsize + 1).join(dom.NBSP_CHAR));
-      rng = rng.deleteContents();
-      rng.insertNode(tab, true);
-
-      rng = range.create(tab, tabsize);
-      rng.select();
-    };
-
-    /**
-     * insert paragraph
-     */
-    this.insertParagraph = function (editable) {
-      var rng = range.create(editable);
-
-      // deleteContents on range.
-      rng = rng.deleteContents();
-
-      // Wrap range if it needs to be wrapped by paragraph
-      rng = rng.wrapBodyInlineWithPara();
-
-      // finding paragraph
-      var splitRoot = dom.ancestor(rng.sc, dom.isPara);
-
-      var nextPara;
-      // on paragraph: split paragraph
-      if (splitRoot) {
-        // if it is an empty line with li
-        if (dom.isEmpty(splitRoot) && dom.isLi(splitRoot)) {
-          // toogle UL/OL and escape
-          bullet.toggleList(splitRoot.parentNode.nodeName);
-          return;
-        // if it is an empty line with para on blockquote
-        } else if (dom.isEmpty(splitRoot) && dom.isPara(splitRoot) && dom.isBlockquote(splitRoot.parentNode)) {
-          // escape blockquote
-          dom.insertAfter(splitRoot, splitRoot.parentNode);
-          nextPara = splitRoot;
-        // if new line has content (not a line break)
-        } else {
-          nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
-
-          var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
-          emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
-
-          $.each(emptyAnchors, function (idx, anchor) {
-            dom.remove(anchor);
-          });
-
-          // replace empty heading, pre or custom-made styleTag with P tag
-          if ((dom.isHeading(nextPara) || dom.isPre(nextPara) || dom.isCustomStyleTag(nextPara)) && dom.isEmpty(nextPara)) {
-            nextPara = dom.replace(nextPara, 'p');
-          }
-        }
-      // no paragraph: insert empty paragraph
-      } else {
-        var next = rng.sc.childNodes[rng.so];
-        nextPara = $(dom.emptyPara)[0];
-        if (next) {
-          rng.sc.insertBefore(nextPara, next);
-        } else {
-          rng.sc.appendChild(nextPara);
-        }
-      }
-
-      range.create(nextPara, 0).normalize().select().scrollIntoView(editable);
-    };
-  };
-
-
-  /**
-   * @class Create a virtual table to create what actions to do in change.
-   * @param {object} startPoint Cell selected to apply change.
-   * @param {enum} where  Where change will be applied Row or Col. Use enum: TableResultAction.where
-   * @param {enum} action Action to be applied. Use enum: TableResultAction.requestAction
-   * @param {object} domTable Dom element of table to make changes.
-   */
-  var TableResultAction = function (startPoint, where, action, domTable) {
-    var _startPoint = { 'colPos': 0, 'rowPos': 0 };
-    var _virtualTable = [];
-    var _actionCellList = [];
-
-    //////////////////////////////////////////////
-    // Private functions
-    //////////////////////////////////////////////
-
-    /**
-     * Set the startPoint of action.
-     */
-    function setStartPoint() {
-      if (!startPoint || !startPoint.tagName || (startPoint.tagName.toLowerCase() !== 'td' && startPoint.tagName.toLowerCase() !== 'th')) {
-        console.error('Impossible to identify start Cell point.', startPoint);
-        return;
-      }
-      _startPoint.colPos = startPoint.cellIndex;
-      if (!startPoint.parentElement || !startPoint.parentElement.tagName || startPoint.parentElement.tagName.toLowerCase() !== 'tr') {
-        console.error('Impossible to identify start Row point.', startPoint);
-        return;
-      }
-      _startPoint.rowPos = startPoint.parentElement.rowIndex;
-    }
-
-    /**
-     * Define virtual table position info object.
-     * 
-     * @param {int} rowIndex Index position in line of virtual table.
-     * @param {int} cellIndex Index position in column of virtual table.
-     * @param {object} baseRow Row affected by this position.
-     * @param {object} baseCell Cell affected by this position.
-     * @param {bool} isSpan Inform if it is an span cell/row.
-     */
-    function setVirtualTablePosition(rowIndex, cellIndex, baseRow, baseCell, isRowSpan, isColSpan, isVirtualCell) {
-      var objPosition = {
-        'baseRow': baseRow,
-        'baseCell': baseCell,
-        'isRowSpan': isRowSpan,
-        'isColSpan': isColSpan,
-        'isVirtual': isVirtualCell
-      };
-      if (!_virtualTable[rowIndex]) {
-        _virtualTable[rowIndex] = [];
-      }
-      _virtualTable[rowIndex][cellIndex] = objPosition;
-    }
-
-    /**
-     * Create action cell object.
-     * 
-     * @param {object} virtualTableCellObj Object of specific position on virtual table.
-     * @param {enum} resultAction Action to be applied in that item.
-     */
-    function getActionCell(virtualTableCellObj, resultAction, virtualRowPosition, virtualColPosition) {
-      return {
-        'baseCell': virtualTableCellObj.baseCell,
-        'action': resultAction,
-        'virtualTable': {
-          'rowIndex': virtualRowPosition,
-          'cellIndex': virtualColPosition
-        }
-      };
-    }
-
-    /**
-     * Recover free index of row to append Cell.
-     * 
-     * @param {int} rowIndex Index of row to find free space.
-     * @param {int} cellIndex Index of cell to find free space in table.
-     */
-    function recoverCellIndex(rowIndex, cellIndex) {
-      if (!_virtualTable[rowIndex]) {
-        return cellIndex;
-      }
-      if (!_virtualTable[rowIndex][cellIndex]) {
-        return cellIndex;
-      }
-
-      var newCellIndex = cellIndex;
-      while (_virtualTable[rowIndex][newCellIndex]) {
-        newCellIndex++;
-        if (!_virtualTable[rowIndex][newCellIndex]) {
-          return newCellIndex;
-        }
-      }
-    }
-
-    /**
-     * Recover info about row and cell and add information to virtual table.
-     * 
-     * @param {object} row Row to recover information.
-     * @param {object} cell Cell to recover information.
-     */
-    function addCellInfoToVirtual(row, cell) {
-      var cellIndex = recoverCellIndex(row.rowIndex, cell.cellIndex);
-      var cellHasColspan = (cell.colSpan > 1);
-      var cellHasRowspan = (cell.rowSpan > 1);
-      var isThisSelectedCell = (row.rowIndex === _startPoint.rowPos && cell.cellIndex === _startPoint.colPos);
-      setVirtualTablePosition(row.rowIndex, cellIndex, row, cell, cellHasRowspan, cellHasColspan, false);
-
-      // Add span rows to virtual Table.
-      var rowspanNumber = cell.attributes.rowSpan ? parseInt(cell.attributes.rowSpan.value, 10) : 0;
-      if (rowspanNumber > 1) {
-        for (var rp = 1; rp < rowspanNumber; rp++) {
-          var rowspanIndex = row.rowIndex + rp;
-          adjustStartPoint(rowspanIndex, cellIndex, cell, isThisSelectedCell);
-          setVirtualTablePosition(rowspanIndex, cellIndex, row, cell, true, cellHasColspan, true);
-        }
-      }
-
-      // Add span cols to virtual table.
-      var colspanNumber = cell.attributes.colSpan ? parseInt(cell.attributes.colSpan.value, 10) : 0;
-      if (colspanNumber > 1) {
-        for (var cp = 1; cp < colspanNumber; cp++) {
-          var cellspanIndex = recoverCellIndex(row.rowIndex, (cellIndex + cp));
-          adjustStartPoint(row.rowIndex, cellspanIndex, cell, isThisSelectedCell);
-          setVirtualTablePosition(row.rowIndex, cellspanIndex, row, cell, cellHasRowspan, true, true);
-        }
-      }
-    }
-
-    /**
-     * Process validation and adjust of start point if needed
-     * 
-     * @param {int} rowIndex 
-     * @param {int} cellIndex 
-     * @param {object} cell 
-     * @param {bool} isSelectedCell 
-     */
-    function adjustStartPoint(rowIndex, cellIndex, cell, isSelectedCell) {
-      if (rowIndex === _startPoint.rowPos && _startPoint.colPos >= cell.cellIndex && cell.cellIndex <= cellIndex && !isSelectedCell) {
-        _startPoint.colPos++;
-      }
-    }
-
-    /**
-     * Create virtual table of cells with all cells, including span cells.
-     */
-    function createVirtualTable() {
-      var rows = domTable.rows;
-      for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-        var cells = rows[rowIndex].cells;
-        for (var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
-          addCellInfoToVirtual(rows[rowIndex], cells[cellIndex]);
-        }
-      }
-    }
-
-    /**
-     * Get action to be applied on the cell.
-     * 
-     * @param {object} cell virtual table cell to apply action
-     */
-    function getDeleteResultActionToCell(cell) {
-      switch (where) {
-        case TableResultAction.where.Column:
-          if (cell.isColSpan) {
-            return TableResultAction.resultAction.SubtractSpanCount;
-          }
-          break;
-        case TableResultAction.where.Row:
-          if (!cell.isVirtual && cell.isRowSpan) {
-            return TableResultAction.resultAction.AddCell;
-          }
-          else if (cell.isRowSpan) {
-            return TableResultAction.resultAction.SubtractSpanCount;
-          }
-          break;
-      }
-      return TableResultAction.resultAction.RemoveCell;
-    }
-
-    /**
-     * Get action to be applied on the cell.
-     * 
-     * @param {object} cell virtual table cell to apply action
-     */
-    function getAddResultActionToCell(cell) {
-      switch (where) {
-        case TableResultAction.where.Column:
-          if (cell.isColSpan) {
-            return TableResultAction.resultAction.SumSpanCount;
-          } else if (cell.isRowSpan && cell.isVirtual) {
-            return TableResultAction.resultAction.Ignore;
-          }
-          break;
-        case TableResultAction.where.Row:
-          if (cell.isRowSpan) {
-            return TableResultAction.resultAction.SumSpanCount;
-          } else if (cell.isColSpan && cell.isVirtual) {
-            return TableResultAction.resultAction.Ignore;
-          }
-          break;
-      }
-      return TableResultAction.resultAction.AddCell;
-    }
-
-    function init() {
-      setStartPoint();
-      createVirtualTable();
-    }
-
-    //////////////////////////////////////////////
-    // Public functions
-    //////////////////////////////////////////////
-
-    /**
-     * Recover array os what to do in table.
-     */
-    this.getActionList = function () {
-      var fixedRow = (where === TableResultAction.where.Row) ? _startPoint.rowPos : -1;
-      var fixedCol = (where === TableResultAction.where.Column) ? _startPoint.colPos : -1;
-
-      var actualPosition = 0;
-      var canContinue = true;
-      while (canContinue) {
-        var rowPosition = (fixedRow >= 0) ? fixedRow : actualPosition;
-        var colPosition = (fixedCol >= 0) ? fixedCol : actualPosition;
-        var row = _virtualTable[rowPosition];
-        if (!row) {
-          canContinue = false;
-          return _actionCellList;
-        }
-        var cell = row[colPosition];
-        if (!cell) {
-          canContinue = false;
-          return _actionCellList;
-        }
-
-        // Define action to be applied in this cell
-        var resultAction = TableResultAction.resultAction.Ignore;
-        switch (action) {
-          case TableResultAction.requestAction.Add:
-            resultAction = getAddResultActionToCell(cell);
-            break;
-          case TableResultAction.requestAction.Delete:
-            resultAction = getDeleteResultActionToCell(cell);
-            break;
-        }
-        _actionCellList.push(getActionCell(cell, resultAction, rowPosition, colPosition));
-        actualPosition++;
-      }
-
-      return _actionCellList;
-    };
-
-    init();
-  };
-  /**
-  * 
-  * Where action occours enum.
-  */
-  TableResultAction.where = { 'Row': 0, 'Column': 1 };
-  /**
-  * 
-  * Requested action to apply enum.
-  */
-  TableResultAction.requestAction = { 'Add': 0, 'Delete': 1 };
-  /**
-  * 
-  * Result action to be executed enum.
-  */
-  TableResultAction.resultAction = { 'Ignore': 0, 'SubtractSpanCount': 1, 'RemoveCell': 2, 'AddCell': 3, 'SumSpanCount': 4 };
-
-  /**
-   * 
-   * @class editing.Table
-   *
-   * Table
-   *
-   */
-  var Table = function () {
-    /**
-     * handle tab key
-     *
-     * @param {WrappedRange} rng
-     * @param {Boolean} isShift
-     */
-    this.tab = function (rng, isShift) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      var table = dom.ancestor(cell, dom.isTable);
-      var cells = dom.listDescendant(table, dom.isCell);
-
-      var nextCell = list[isShift ? 'prev' : 'next'](cells, cell);
-      if (nextCell) {
-        range.create(nextCell, 0).select();
-      }
-    };
-
-    /**
-     * Add a new row
-     *
-     * @param {WrappedRange} rng
-     * @param {String} position (top/bottom)
-     * @return {Node}
-     */
-    this.addRow = function (rng, position) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-
-      var currentTr = $(cell).closest('tr');
-      var trAttributes = this.recoverAttributes(currentTr);
-      var html = $('<tr' + trAttributes + '></tr>');
-
-      var vTable = new TableResultAction(cell, TableResultAction.where.Row,
-        TableResultAction.requestAction.Add, $(currentTr).closest('table')[0]);
-      var actions = vTable.getActionList();
-
-      for (var idCell = 0; idCell < actions.length; idCell++) {
-        var currentCell = actions[idCell];
-        var tdAttributes = this.recoverAttributes(currentCell.baseCell);
-        switch (currentCell.action) {
-          case TableResultAction.resultAction.AddCell:
-            html.append('<td' + tdAttributes + '>' + dom.blank + '</td>');
-            break;
-          case TableResultAction.resultAction.SumSpanCount:
-            if (position === 'top') {
-              var baseCellTr = currentCell.baseCell.parent;
-              var isTopFromRowSpan = (!baseCellTr ? 0 : currentCell.baseCell.closest('tr').rowIndex) <= currentTr[0].rowIndex;
-              if (isTopFromRowSpan) {
-                var newTd = $('<div></div>').append($('<td' + tdAttributes + '>' + dom.blank + '</td>').removeAttr('rowspan')).html();
-                html.append(newTd);
-                break;
-              }
-            }
-            var rowspanNumber = parseInt(currentCell.baseCell.rowSpan, 10);
-            rowspanNumber++;
-            currentCell.baseCell.setAttribute('rowSpan', rowspanNumber);
-            break;
-        }
-      }
-
-      if (position === 'top') {
-        currentTr.before(html);
-      }
-      else {
-        var cellHasRowspan = (cell.rowSpan > 1);
-        if (cellHasRowspan) {
-          var lastTrIndex = currentTr[0].rowIndex + (cell.rowSpan - 2);
-          $($(currentTr).parent().find('tr')[lastTrIndex]).after($(html));
-          return;
-        }
-        currentTr.after(html);
-      }
-    };
-
-    /**
-     * Add a new col
-     *
-     * @param {WrappedRange} rng
-     * @param {String} position (left/right)
-     * @return {Node}
-     */
-    this.addCol = function (rng, position) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      var row = $(cell).closest('tr');
-      var rowsGroup = $(row).siblings();
-      rowsGroup.push(row);
-
-      var vTable = new TableResultAction(cell, TableResultAction.where.Column,
-        TableResultAction.requestAction.Add, $(row).closest('table')[0]);
-      var actions = vTable.getActionList();
-
-      for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
-        var currentCell = actions[actionIndex];
-        var tdAttributes = this.recoverAttributes(currentCell.baseCell);
-        switch (currentCell.action) {
-          case TableResultAction.resultAction.AddCell:
-            if (position === 'right') {
-              $(currentCell.baseCell).after('<td' + tdAttributes + '>' + dom.blank + '</td>');
-            } else {
-              $(currentCell.baseCell).before('<td' + tdAttributes + '>' + dom.blank + '</td>');
-            }
-            break;
-          case TableResultAction.resultAction.SumSpanCount:
-            if (position === 'right') {
-              var colspanNumber = parseInt(currentCell.baseCell.colSpan, 10);
-              colspanNumber++;
-              currentCell.baseCell.setAttribute('colSpan', colspanNumber);
-            } else {
-              $(currentCell.baseCell).before('<td' + tdAttributes + '>' + dom.blank + '</td>');
-            }
-            break;
-        }
-      }
-    };
-
-    /*
-    * Copy attributes from element.
-    *
-    * @param {object} Element to recover attributes.
-    * @return {string} Copied string elements.
-    */
-    this.recoverAttributes = function (el) {
-      var resultStr = '';
-
-      if (!el) {
-        return resultStr;
-      }
-
-      var attrList = el.attributes || [];
-
-      for (var i = 0; i < attrList.length; i++) {
-        if (attrList[i].name.toLowerCase() === 'id') {
-          continue;
-        }
-
-        if (attrList[i].specified) {
-          resultStr += ' ' + attrList[i].name + '=\'' + attrList[i].value + '\'';
-        }
-      }
-
-      return resultStr;
-    };
-
-    /**
-     * Delete current row
-     *
-     * @param {WrappedRange} rng
-     * @return {Node}
-     */
-    this.deleteRow = function (rng) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      var row = $(cell).closest('tr');
-      var cellPos = row.children('td, th').index($(cell));
-      var rowPos = row[0].rowIndex;
-
-      var vTable = new TableResultAction(cell, TableResultAction.where.Row,
-        TableResultAction.requestAction.Delete, $(row).closest('table')[0]);
-      var actions = vTable.getActionList();
-
-      for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
-        if (!actions[actionIndex]) {
-          continue;
-        }
-
-        var baseCell = actions[actionIndex].baseCell;
-        var virtualPosition = actions[actionIndex].virtualTable;
-        var hasRowspan = (baseCell.rowSpan && baseCell.rowSpan > 1);
-        var rowspanNumber = (hasRowspan) ? parseInt(baseCell.rowSpan, 10) : 0;
-        switch (actions[actionIndex].action) {
-          case TableResultAction.resultAction.Ignore:
-            continue;
-          case TableResultAction.resultAction.AddCell:
-            var nextRow = row.next('tr')[0];
-            if (!nextRow) { continue; }
-            var cloneRow = row[0].cells[cellPos];
-            if (hasRowspan) {
-              if (rowspanNumber > 2) {
-                rowspanNumber--;
-                nextRow.insertBefore(cloneRow, nextRow.cells[cellPos]);
-                nextRow.cells[cellPos].setAttribute('rowSpan', rowspanNumber);
-                nextRow.cells[cellPos].innerHTML = '';
-              } else if (rowspanNumber === 2) {
-                nextRow.insertBefore(cloneRow, nextRow.cells[cellPos]);
-                nextRow.cells[cellPos].removeAttribute('rowSpan');
-                nextRow.cells[cellPos].innerHTML = '';
-              }
-            }
-            continue;
-          case TableResultAction.resultAction.SubtractSpanCount:
-            if (hasRowspan) {
-              if (rowspanNumber > 2) {
-                rowspanNumber--;
-                baseCell.setAttribute('rowSpan', rowspanNumber);
-                if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
-              } else if (rowspanNumber === 2) {
-                baseCell.removeAttribute('rowSpan');
-                if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
-              }
-            }
-            continue;
-          case TableResultAction.resultAction.RemoveCell:
-            // Do not need remove cell because row will be deleted.
-            continue;
-        }
-      }
-      row.remove();
-    };
-
-    /**
-     * Delete current col
-     *
-     * @param {WrappedRange} rng
-     * @return {Node}
-     */
-    this.deleteCol = function (rng) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      var row = $(cell).closest('tr');
-      var cellPos = row.children('td, th').index($(cell));
-
-      var vTable = new TableResultAction(cell, TableResultAction.where.Column,
-        TableResultAction.requestAction.Delete, $(row).closest('table')[0]);
-      var actions = vTable.getActionList();
-
-      for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
-        if (!actions[actionIndex]) {
-          continue;
-        }
-        switch (actions[actionIndex].action) {
-          case TableResultAction.resultAction.Ignore:
-            continue;
-          case TableResultAction.resultAction.SubtractSpanCount:
-            var baseCell = actions[actionIndex].baseCell;
-            var hasColspan = (baseCell.colSpan && baseCell.colSpan > 1);
-            if (hasColspan) {
-              var colspanNumber = (baseCell.colSpan) ? parseInt(baseCell.colSpan, 10) : 0;
-              if (colspanNumber > 2) {
-                colspanNumber--;
-                baseCell.setAttribute('colSpan', colspanNumber);
-                if (baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
-              } else if (colspanNumber === 2) {
-                baseCell.removeAttribute('colSpan');
-                if (baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
-              }
-            }
-            continue;
-          case TableResultAction.resultAction.RemoveCell:
-            dom.remove(actions[actionIndex].baseCell, true);
-            continue;
-        }
-      }
-    };
-
-    /**
-     * create empty table element
-     *
-     * @param {Number} rowCount
-     * @param {Number} colCount
-     * @return {Node}
-     */
-    this.createTable = function (colCount, rowCount, options) {
-      var tds = [], tdHTML;
-      for (var idxCol = 0; idxCol < colCount; idxCol++) {
-        tds.push('<td>' + dom.blank + '</td>');
-      }
-      tdHTML = tds.join('');
-
-      var trs = [], trHTML;
-      for (var idxRow = 0; idxRow < rowCount; idxRow++) {
-        trs.push('<tr>' + tdHTML + '</tr>');
-      }
-      trHTML = trs.join('');
-      var $table = $('<table>' + trHTML + '</table>');
-      if (options && options.tableClassName) {
-        $table.addClass(options.tableClassName);
-      }
-
-      return $table[0];
-    };
-
-    /**
-     * Delete current table
-     *
-     * @param {WrappedRange} rng
-     * @return {Node}
-     */
-    this.deleteTable = function (rng) {
-      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      $(cell).closest('table').remove();
-    };
-  };
-
-
-  var KEY_BOGUS = 'bogus';
-
-  /**
-   * @class Editor
-   */
-  var Editor = function (context) {
-    var self = this;
-
-    var $note = context.layoutInfo.note;
-    var $editor = context.layoutInfo.editor;
-    var $editable = context.layoutInfo.editable;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    var editable = $editable[0];
-    var lastRange = null;
-
-    var style = new Style();
-    var table = new Table();
-    var typing = new Typing();
-    var bullet = new Bullet();
-    var history = new History($editable);
-
-    this.initialize = function () {
-      // bind custom events
-      $editable.on('keydown', function (event) {
-        if (event.keyCode === key.code.ENTER) {
-          context.triggerEvent('enter', event);
-        }
-        context.triggerEvent('keydown', event);
-
-        if (!event.isDefaultPrevented()) {
-          if (options.shortcuts) {
-            self.handleKeyMap(event);
-          } else {
-            self.preventDefaultEditableShortCuts(event);
-          }
-        }
-      }).on('keyup', function (event) {
-        context.triggerEvent('keyup', event);
-      }).on('focus', function (event) {
-        context.triggerEvent('focus', event);
-      }).on('blur', function (event) {
-        context.triggerEvent('blur', event);
-      }).on('mousedown', function (event) {
-        context.triggerEvent('mousedown', event);
-      }).on('mouseup', function (event) {
-        context.triggerEvent('mouseup', event);
-      }).on('scroll', function (event) {
-        context.triggerEvent('scroll', event);
-      }).on('paste', function (event) {
-        context.triggerEvent('paste', event);
-      });
-
-      // init content before set event
-      $editable.html(dom.html($note) || dom.emptyPara);
-
-      // [workaround] IE doesn't have input events for contentEditable
-      // - see: https://goo.gl/4bfIvA
-      var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
-      $editable.on(changeEventName, func.debounce(function () {
-        context.triggerEvent('change', $editable.html());
-      }, 100));
-
-      $editor.on('focusin', function (event) {
-        context.triggerEvent('focusin', event);
-      }).on('focusout', function (event) {
-        context.triggerEvent('focusout', event);
-      });
-
-      if (!options.airMode) {
-        if (options.width) {
-          $editor.outerWidth(options.width);
-        }
-        if (options.height) {
-          $editable.outerHeight(options.height);
-        }
-        if (options.maxHeight) {
-          $editable.css('max-height', options.maxHeight);
-        }
-        if (options.minHeight) {
-          $editable.css('min-height', options.minHeight);
-        }
-      }
-
-      history.recordUndo();
-    };
-
-    this.destroy = function () {
-      $editable.off();
-    };
-
-    this.handleKeyMap = function (event) {
-      var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
-      var keys = [];
-
-      if (event.metaKey) { keys.push('CMD'); }
-      if (event.ctrlKey && !event.altKey) { keys.push('CTRL'); }
-      if (event.shiftKey) { keys.push('SHIFT'); }
-
-      var keyName = key.nameFromCode[event.keyCode];
-      if (keyName) {
-        keys.push(keyName);
-      }
-
-      var eventName = keyMap[keys.join('+')];
-      if (eventName) {
-        event.preventDefault();
-        context.invoke(eventName);
-      } else if (key.isEdit(event.keyCode)) {
-        this.afterCommand();
-      }
-    };
-
-    this.preventDefaultEditableShortCuts = function (event) {
-      // B(Bold, 66) / I(Italic, 73) / U(Underline, 85)
-      if ((event.ctrlKey || event.metaKey) &&
-        list.contains([66, 73, 85], event.keyCode)) {
-        event.preventDefault();
-      }
-    };
-
-    /**
-     * create range
-     * @return {WrappedRange}
-     */
-    this.createRange = function () {
-      this.focus();
-      return range.create(editable);
-    };
-
-    /**
-     * saveRange
-     *
-     * save current range
-     *
-     * @param {Boolean} [thenCollapse=false]
-     */
-    this.saveRange = function (thenCollapse) {
-      lastRange = this.createRange();
-      if (thenCollapse) {
-        lastRange.collapse().select();
-      }
-    };
-
-    /**
-     * restoreRange
-     *
-     * restore lately range
-     */
-    this.restoreRange = function () {
-      if (lastRange) {
-        lastRange.select();
-        this.focus();
-      }
-    };
-
-    this.saveTarget = function (node) {
-      $editable.data('target', node);
-    };
-
-    this.clearTarget = function () {
-      $editable.removeData('target');
-    };
-
-    this.restoreTarget = function () {
-      return $editable.data('target');
-    };
-
-    /**
-     * currentStyle
-     *
-     * current style
-     * @return {Object|Boolean} unfocus
-     */
-    this.currentStyle = function () {
-      var rng = range.create();
-      if (rng) {
-        rng = rng.normalize();
-      }
-      return rng ? style.current(rng) : style.fromNode($editable);
-    };
-
-    /**
-     * style from node
-     *
-     * @param {jQuery} $node
-     * @return {Object}
-     */
-    this.styleFromNode = function ($node) {
-      return style.fromNode($node);
-    };
-
-    /**
-     * undo
-     */
-    this.undo = function () {
-      context.triggerEvent('before.command', $editable.html());
-      history.undo();
-      context.triggerEvent('change', $editable.html());
-    };
-    context.memo('help.undo', lang.help.undo);
-
-    /**
-     * redo
-     */
-    this.redo = function () {
-      context.triggerEvent('before.command', $editable.html());
-      history.redo();
-      context.triggerEvent('change', $editable.html());
-    };
-    context.memo('help.redo', lang.help.redo);
-
-    /**
-     * before command
-     */
-    var beforeCommand = this.beforeCommand = function () {
-      context.triggerEvent('before.command', $editable.html());
-      // keep focus on editable before command execution
-      self.focus();
-    };
-
-    /**
-     * after command
-     * @param {Boolean} isPreventTrigger
-     */
-    var afterCommand = this.afterCommand = function (isPreventTrigger) {
-      history.recordUndo();
-      if (!isPreventTrigger) {
-        context.triggerEvent('change', $editable.html());
-      }
-    };
-
-    /* jshint ignore:start */
-    // native commands(with execCommand), generate function for execCommand
-    var commands = ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
-                    'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
-                    'formatBlock', 'removeFormat',
-                    'backColor', 'fontName'];
-
-    for (var idx = 0, len = commands.length; idx < len; idx ++) {
-      this[commands[idx]] = (function (sCmd) {
-        return function (value) {
-          beforeCommand();
-          document.execCommand(sCmd, false, value);
-          afterCommand(true);
-        };
-      })(commands[idx]);
-      context.memo('help.' + commands[idx], lang.help[commands[idx]]);
-    }
-    /* jshint ignore:end */
-
-    /**
-     * handle tab key
-     */
-    this.tab = function () {
-      var rng = this.createRange();
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        table.tab(rng);
-      } else {
-        beforeCommand();
-        typing.insertTab(rng, options.tabSize);
-        afterCommand();
-      }
-    };
-    context.memo('help.tab', lang.help.tab);
-
-    /**
-     * handle shift+tab key
-     */
-    this.untab = function () {
-      var rng = this.createRange();
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        table.tab(rng, true);
-      }
-    };
-    context.memo('help.untab', lang.help.untab);
-
-    /**
-     * run given function between beforeCommand and afterCommand
-     */
-    this.wrapCommand = function (fn) {
-      return function () {
-        beforeCommand();
-        fn.apply(self, arguments);
-        afterCommand();
-      };
-    };
-
-    /**
-     * insert paragraph
-     */
-    this.insertParagraph = this.wrapCommand(function () {
-      typing.insertParagraph(editable);
+      enumerable: true,
+      configurable: true,
+      writable: true
     });
-    context.memo('help.insertParagraph', lang.help.insertParagraph);
+  } else {
+    obj[key] = value;
+  }
 
-    this.insertOrderedList = this.wrapCommand(function () {
-      bullet.insertOrderedList(editable);
-    });
-    context.memo('help.insertOrderedList', lang.help.insertOrderedList);
+  return obj;
+};
 
-    this.insertUnorderedList = this.wrapCommand(function () {
-      bullet.insertUnorderedList(editable);
-    });
-    context.memo('help.insertUnorderedList', lang.help.insertUnorderedList);
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
 
-    this.indent = this.wrapCommand(function () {
-      bullet.indent(editable);
-    });
-    context.memo('help.indent', lang.help.indent);
-
-    this.outdent = this.wrapCommand(function () {
-      bullet.outdent(editable);
-    });
-    context.memo('help.outdent', lang.help.outdent);
-
-    /**
-     * insert image
-     *
-     * @param {String} src
-     * @param {String|Function} param
-     * @return {Promise}
-     */
-    this.insertImage = function (src, param) {
-      return async.createImage(src, param).then(function ($image) {
-        beforeCommand();
-
-        if (typeof param === 'function') {
-          param($image);
-        } else {
-          if (typeof param === 'string') {
-            $image.attr('data-filename', param);
-          }
-          $image.css('width', Math.min($editable.width(), $image.width()));
-        }
-
-        $image.show();
-        range.create(editable).insertNode($image[0]);
-        range.createFromNodeAfter($image[0]).select();
-        afterCommand();
-      }).fail(function (e) {
-        context.triggerEvent('image.upload.error', e);
-      });
-    };
-
-    /**
-     * insertImages
-     * @param {File[]} files
-     */
-    this.insertImages = function (files) {
-      $.each(files, function (idx, file) {
-        var filename = file.name;
-        if (options.maximumImageFileSize && options.maximumImageFileSize < file.size) {
-          context.triggerEvent('image.upload.error', lang.image.maximumFileSizeError);
-        } else {
-          async.readFileAsDataURL(file).then(function (dataURL) {
-            return self.insertImage(dataURL, filename);
-          }).fail(function () {
-            context.triggerEvent('image.upload.error');
-          });
-        }
-      });
-    };
-
-    /**
-     * insertImagesOrCallback
-     * @param {File[]} files
-     */
-    this.insertImagesOrCallback = function (files) {
-      var callbacks = options.callbacks;
-
-      // If onImageUpload options setted
-      if (callbacks.onImageUpload) {
-        context.triggerEvent('image.upload', files);
-      // else insert Image as dataURL
-      } else {
-        this.insertImages(files);
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
       }
-    };
-
-    /**
-     * insertNode
-     * insert node
-     * @param {Node} node
-     */
-    this.insertNode = this.wrapCommand(function (node) {
-      var rng = this.createRange();
-      rng.insertNode(node);
-      range.createFromNodeAfter(node).select();
-    });
-
-    /**
-     * insert text
-     * @param {String} text
-     */
-    this.insertText = this.wrapCommand(function (text) {
-      var rng = this.createRange();
-      var textNode = rng.insertNode(dom.createText(text));
-      range.create(textNode, dom.nodeLength(textNode)).select();
-    });
-
-    /**
-     * return selected plain text
-     * @return {String} text
-     */
-    this.getSelectedText = function () {
-      var rng = this.createRange();
-
-      // if range on anchor, expand range with anchor
-      if (rng.isOnAnchor()) {
-        rng = range.createFromNode(dom.ancestor(rng.sc, dom.isAnchor));
-      }
-
-      return rng.toString();
-    };
-
-    /**
-     * paste HTML
-     * @param {String} markup
-     */
-    this.pasteHTML = this.wrapCommand(function (markup) {
-      var contents = this.createRange().pasteHTML(markup);
-      range.createFromNodeAfter(list.last(contents)).select();
-    });
-
-    /**
-     * formatBlock
-     *
-     * @param {String} tagName
-     */
-    this.formatBlock = this.wrapCommand(function (tagName, $target) {
-      var onApplyCustomStyle = context.options.callbacks.onApplyCustomStyle;
-      if (onApplyCustomStyle) {
-        onApplyCustomStyle.call(this, $target, context, this.onFormatBlock);
-      } else {
-        this.onFormatBlock(tagName);
-      }
-    });
-
-    this.onFormatBlock = function (tagName) {
-      // [workaround] for MSIE, IE need `<`
-      tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
-      document.execCommand('FormatBlock', false, tagName);
-    };
-
-    this.formatPara = function () {
-      this.formatBlock('P');
-    };
-    context.memo('help.formatPara', lang.help.formatPara);
-
-    /* jshint ignore:start */
-    for (var idx = 1; idx <= 6; idx ++) {
-      this['formatH' + idx] = function (idx) {
-        return function () {
-          this.formatBlock('H' + idx);
-        };
-      }(idx);
-      context.memo('help.formatH'+idx, lang.help['formatH' + idx]);
-    };
-    /* jshint ignore:end */
-
-    /**
-     * fontSize
-     *
-     * @param {String} value - px
-     */
-    this.fontSize = function (value) {
-      var rng = this.createRange();
-
-      if (rng && rng.isCollapsed()) {
-        var spans = style.styleNodes(rng);
-        var firstSpan = list.head(spans);
-
-        $(spans).css({
-          'font-size': value + 'px'
-        });
-
-        // [workaround] added styled bogus span for style
-        //  - also bogus character needed for cursor position
-        if (firstSpan && !dom.nodeLength(firstSpan)) {
-          firstSpan.innerHTML = dom.ZERO_WIDTH_NBSP_CHAR;
-          range.createFromNodeAfter(firstSpan.firstChild).select();
-          $editable.data(KEY_BOGUS, firstSpan);
-        }
-      } else {
-        beforeCommand();
-        $(style.styleNodes(rng)).css({
-          'font-size': value + 'px'
-        });
-        afterCommand();
-      }
-    };
-
-    /**
-     * insert horizontal rule
-     */
-    this.insertHorizontalRule = this.wrapCommand(function () {
-      var hrNode = this.createRange().insertNode(dom.create('HR'));
-      if (hrNode.nextSibling) {
-        range.create(hrNode.nextSibling, 0).normalize().select();
-      }
-    });
-    context.memo('help.insertHorizontalRule', lang.help.insertHorizontalRule);
-
-    /**
-     * remove bogus node and character
-     */
-    this.removeBogus = function () {
-      var bogusNode = $editable.data(KEY_BOGUS);
-      if (!bogusNode) {
-        return;
-      }
-
-      var textNode = list.find(list.from(bogusNode.childNodes), dom.isText);
-
-      var bogusCharIdx = textNode.nodeValue.indexOf(dom.ZERO_WIDTH_NBSP_CHAR);
-      if (bogusCharIdx !== -1) {
-        textNode.deleteData(bogusCharIdx, 1);
-      }
-
-      if (dom.isEmpty(bogusNode)) {
-        dom.remove(bogusNode);
-      }
-
-      $editable.removeData(KEY_BOGUS);
-    };
-
-    /**
-     * lineHeight
-     * @param {String} value
-     */
-    this.lineHeight = this.wrapCommand(function (value) {
-      style.stylePara(this.createRange(), {
-        lineHeight: value
-      });
-    });
-
-    /**
-     * unlink
-     *
-     * @type command
-     */
-    this.unlink = function () {
-      var rng = this.createRange();
-      if (rng.isOnAnchor()) {
-        var anchor = dom.ancestor(rng.sc, dom.isAnchor);
-        rng = range.createFromNode(anchor);
-        rng.select();
-
-        beforeCommand();
-        document.execCommand('unlink');
-        afterCommand();
-      }
-    };
-
-    /**
-     * create link (command)
-     *
-     * @param {Object} linkInfo
-     */
-    this.createLink = this.wrapCommand(function (linkInfo) {
-      var linkUrl = linkInfo.url;
-      var linkText = linkInfo.text;
-      var isNewWindow = linkInfo.isNewWindow;
-      var rng = linkInfo.range || this.createRange();
-      var isTextChanged = rng.toString() !== linkText;
-
-      // handle spaced urls from input
-      if (typeof linkUrl === 'string') {
-        linkUrl = linkUrl.trim();
-      }
-
-      if (options.onCreateLink) {
-        linkUrl = options.onCreateLink(linkUrl);
-      } else {
-        // if url doesn't match an URL schema, set http:// as default
-        linkUrl = /^[A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?/.test(linkUrl) ?
-          linkUrl : 'http://' + linkUrl;
-      }
-
-      var anchors = [];
-      if (isTextChanged) {
-        rng = rng.deleteContents();
-        var anchor = rng.insertNode($('<A>' + linkText + '</A>')[0]);
-        anchors.push(anchor);
-      } else {
-        anchors = style.styleNodes(rng, {
-          nodeName: 'A',
-          expandClosestSibling: true,
-          onlyPartialContains: true
-        });
-      }
-
-      $.each(anchors, function (idx, anchor) {
-        $(anchor).attr('href', linkUrl);
-        if (isNewWindow) {
-          $(anchor).attr('target', '_blank');
-        } else {
-          $(anchor).removeAttr('target');
-        }
-      });
-
-      var startRange = range.createFromNodeBefore(list.head(anchors));
-      var startPoint = startRange.getStartPoint();
-      var endRange = range.createFromNodeAfter(list.last(anchors));
-      var endPoint = endRange.getEndPoint();
-
-      range.create(
-        startPoint.node,
-        startPoint.offset,
-        endPoint.node,
-        endPoint.offset
-      ).select();
-    });
-
-    /**
-     * returns link info
-     *
-     * @return {Object}
-     * @return {WrappedRange} return.range
-     * @return {String} return.text
-     * @return {Boolean} [return.isNewWindow=true]
-     * @return {String} [return.url=""]
-     */
-    this.getLinkInfo = function () {
-      var rng = this.createRange().expand(dom.isAnchor);
-
-      // Get the first anchor on range(for edit).
-      var $anchor = $(list.head(rng.nodes(dom.isAnchor)));
-      var linkInfo = {
-        range: rng,
-        text: rng.toString(),
-        url: $anchor.length ? $anchor.attr('href') : ''
-      };
-
-      // Define isNewWindow when anchor exists.
-      if ($anchor.length) {
-        linkInfo.isNewWindow = $anchor.attr('target') === '_blank';
-      }
-
-      return linkInfo;
-    };
-
-    /**
-     * setting color
-     *
-     * @param {Object} sObjColor  color code
-     * @param {String} sObjColor.foreColor foreground color
-     * @param {String} sObjColor.backColor background color
-     */
-    this.color = this.wrapCommand(function (colorInfo) {
-      var foreColor = colorInfo.foreColor;
-      var backColor = colorInfo.backColor;
-
-      if (foreColor) { document.execCommand('foreColor', false, foreColor); }
-      if (backColor) { document.execCommand('backColor', false, backColor); }
-    });
-
-    /**
-     * Set foreground color
-     *
-     * @param {String} colorCode foreground color code
-     */
-    this.foreColor = this.wrapCommand(function (colorInfo) {
-      document.execCommand('styleWithCSS', false, true);
-      document.execCommand('foreColor', false, colorInfo);
-    });
-
-    /**
-     * insert Table
-     *
-     * @param {String} dimension of table (ex : "5x5")
-     */
-    this.insertTable = this.wrapCommand(function (dim) {
-      var dimension = dim.split('x');
-
-      var rng = this.createRange().deleteContents();
-      rng.insertNode(table.createTable(dimension[0], dimension[1], options));
-    });
-
-     /**
-     * @method addRow
-     *
-     *
-     */
-    this.addRow = function (position) {
-      var rng = this.createRange($editable);
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        beforeCommand();
-        table.addRow(rng, position);
-        afterCommand();
-      }
-    };
-
-     /**
-     * @method addCol
-     *
-     *
-     */
-    this.addCol = function (position) {
-      var rng = this.createRange($editable);
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        beforeCommand();
-        table.addCol(rng, position);
-        afterCommand();
-      }
-    };
-
-    /**
-     * @method deleteRow
-     *
-     *
-     */
-    this.deleteRow = function () {
-      var rng = this.createRange($editable);
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        beforeCommand();
-        table.deleteRow(rng);
-        afterCommand();
-      }
-    };
-
-    /**
-     * @method deleteCol
-     *
-     *
-     */
-    this.deleteCol = function () {
-      var rng = this.createRange($editable);
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        beforeCommand();
-        table.deleteCol(rng);
-        afterCommand();
-      }
-    };
-
-    /**
-     * @method deleteTable
-     *
-     *
-     */
-    this.deleteTable = function () {
-      var rng = this.createRange($editable);
-      if (rng.isCollapsed() && rng.isOnCell()) {
-        beforeCommand();
-        table.deleteTable(rng);
-        afterCommand();
-      }
-    };
-
-    /**
-     * float me
-     *
-     * @param {String} value
-     */
-    this.floatMe = this.wrapCommand(function (value) {
-      var $target = $(this.restoreTarget());
-      $target.toggleClass('note-float-left', value === 'left');
-      $target.toggleClass('note-float-right', value === 'right');
-      $target.css('float', value);
-    });
-
-    /**
-     * resize overlay element
-     * @param {String} value
-     */
-    this.resize = this.wrapCommand(function (value) {
-      var $target = $(this.restoreTarget());
-      $target.css({
-        width: value * 100 + '%',
-        height: ''
-      });
-    });
-
-    /**
-     * @param {Position} pos
-     * @param {jQuery} $target - target element
-     * @param {Boolean} [bKeepRatio] - keep ratio
-     */
-    this.resizeTo = function (pos, $target, bKeepRatio) {
-      var imageSize;
-      if (bKeepRatio) {
-        var newRatio = pos.y / pos.x;
-        var ratio = $target.data('ratio');
-        imageSize = {
-          width: ratio > newRatio ? pos.x : pos.y / ratio,
-          height: ratio > newRatio ? pos.x * ratio : pos.y
-        };
-      } else {
-        imageSize = {
-          width: pos.x,
-          height: pos.y
-        };
-      }
-
-      $target.css(imageSize);
-    };
-
-    /**
-     * remove media object
-     */
-    this.removeMedia = this.wrapCommand(function () {
-      var $target = $(this.restoreTarget()).detach();
-      context.triggerEvent('media.delete', $target, $editable);
-    });
-
-    /**
-     * returns whether editable area has focus or not.
-     */
-    this.hasFocus = function () {
-      return $editable.is(':focus');
-    };
-
-    /**
-     * set focus
-     */
-    this.focus = function () {
-      // [workaround] Screen will move when page is scolled in IE.
-      //  - do focus when not focused
-      if (!this.hasFocus()) {
-        $editable.focus();
-      }
-    };
-
-    /**
-     * returns whether contents is empty or not.
-     * @return {Boolean}
-     */
-    this.isEmpty = function () {
-      return dom.isEmpty($editable[0]) || dom.emptyPara === $editable.html();
-    };
-
-    /**
-     * Removes all contents and restores the editable instance to an _emptyPara_.
-     */
-    this.empty = function () {
-      context.invoke('code', dom.emptyPara);
-    };
-  };
-
-  var Clipboard = function (context) {
-    var self = this;
-
-    var $editable = context.layoutInfo.editable;
-
-    this.events = {
-      'summernote.keydown': function (we, e) {
-        if (self.needKeydownHook()) {
-          if ((e.ctrlKey || e.metaKey) && e.keyCode === key.code.V) {
-            context.invoke('editor.saveRange');
-            self.$paste.focus();
-
-            setTimeout(function () {
-              self.pasteByHook();
-            }, 0);
-          }
-        }
-      }
-    };
-
-    this.needKeydownHook = function () {
-      return (agent.isMSIE && agent.browserVersion > 10) || agent.isFF;
-    };
-
-    this.initialize = function () {
-      // [workaround] getting image from clipboard
-      //  - IE11 and Firefox: CTRL+v hook
-      //  - Webkit: event.clipboardData
-      if (this.needKeydownHook()) {
-        this.$paste = $('<div tabindex="-1" />').attr('contenteditable', true).css({
-          position: 'absolute',
-          left: -100000,
-          opacity: 0
-        });
-        $editable.before(this.$paste);
-
-        this.$paste.on('paste', function (event) {
-          context.triggerEvent('paste', event);
-        });
-      } else {
-        $editable.on('paste', this.pasteByEvent);
-      }
-    };
-
-    this.destroy = function () {
-      if (this.needKeydownHook()) {
-        this.$paste.remove();
-        this.$paste = null;
-      }
-    };
-
-    this.pasteByHook = function () {
-      var node = this.$paste[0].firstChild;
-
-      var src = node && node.src;
-      if (dom.isImg(node) && src.indexOf('data:') === 0) {
-        var decodedData = atob(node.src.split(',')[1]);
-        var array = new Uint8Array(decodedData.length);
-        for (var i = 0; i < decodedData.length; i++) {
-          array[i] = decodedData.charCodeAt(i);
-        }
-
-        var blob = new Blob([array], { type: 'image/png' });
-        blob.name = 'clipboard.png';
-
-        context.invoke('editor.restoreRange');
-        context.invoke('editor.focus');
-        context.invoke('editor.insertImagesOrCallback', [blob]);
-      } else {
-        var pasteContent = $('<div />').html(this.$paste.html()).html();
-        context.invoke('editor.restoreRange');
-        context.invoke('editor.focus');
-
-        if (pasteContent) {
-          context.invoke('editor.pasteHTML', pasteContent);
-        }
-      }
-
-      this.$paste.empty();
-    };
-
-    /**
-     * paste by clipboard event
-     *
-     * @param {Event} event
-     */
-    this.pasteByEvent = function (event) {
-      var clipboardData = event.originalEvent.clipboardData;
-      if (clipboardData && clipboardData.items && clipboardData.items.length) {
-        var item = list.head(clipboardData.items);
-        if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-          context.invoke('editor.insertImagesOrCallback', [item.getAsFile()]);
-        }
-        context.invoke('editor.afterCommand');
-      }
-    };
-  };
-
-  var Dropzone = function (context) {
-    var $document = $(document);
-    var $editor = context.layoutInfo.editor;
-    var $editable = context.layoutInfo.editable;
-    var options = context.options;
-    var lang = options.langInfo;
-    var documentEventHandlers = {};
-
-    var $dropzone = $([
-      '<div class="note-dropzone">',
-      '  <div class="note-dropzone-message"/>',
-      '</div>'
-    ].join('')).prependTo($editor);
-
-    var detachDocumentEvent = function () {
-      Object.keys(documentEventHandlers).forEach(function (key) {
-        $document.off(key.substr(2).toLowerCase(), documentEventHandlers[key]);
-      });
-      documentEventHandlers = {};
-    };
-
-    /**
-     * attach Drag and Drop Events
-     */
-    this.initialize = function () {
-      if (options.disableDragAndDrop) {
-        // prevent default drop event
-        documentEventHandlers.onDrop = function (e) {
-          e.preventDefault();
-        };
-        $document.on('drop', documentEventHandlers.onDrop);
-      } else {
-        this.attachDragAndDropEvent();
-      }
-    };
-
-    /**
-     * attach Drag and Drop Events
-     */
-    this.attachDragAndDropEvent = function () {
-      var collection = $(),
-          $dropzoneMessage = $dropzone.find('.note-dropzone-message');
-
-      documentEventHandlers.onDragenter = function (e) {
-        var isCodeview = context.invoke('codeview.isActivated');
-        var hasEditorSize = $editor.width() > 0 && $editor.height() > 0;
-        if (!isCodeview && !collection.length && hasEditorSize) {
-          $editor.addClass('dragover');
-          $dropzone.width($editor.width());
-          $dropzone.height($editor.height());
-          $dropzoneMessage.text(lang.image.dragImageHere);
-        }
-        collection = collection.add(e.target);
-      };
-
-      documentEventHandlers.onDragleave = function (e) {
-        collection = collection.not(e.target);
-        if (!collection.length) {
-          $editor.removeClass('dragover');
-        }
-      };
-
-      documentEventHandlers.onDrop = function () {
-        collection = $();
-        $editor.removeClass('dragover');
-      };
-
-      // show dropzone on dragenter when dragging a object to document
-      // -but only if the editor is visible, i.e. has a positive width and height
-      $document.on('dragenter', documentEventHandlers.onDragenter)
-        .on('dragleave', documentEventHandlers.onDragleave)
-        .on('drop', documentEventHandlers.onDrop);
-
-      // change dropzone's message on hover.
-      $dropzone.on('dragenter', function () {
-        $dropzone.addClass('hover');
-        $dropzoneMessage.text(lang.image.dropImage);
-      }).on('dragleave', function () {
-        $dropzone.removeClass('hover');
-        $dropzoneMessage.text(lang.image.dragImageHere);
-      });
-
-      // attach dropImage
-      $dropzone.on('drop', function (event) {
-        var dataTransfer = event.originalEvent.dataTransfer;
-
-        if (dataTransfer && dataTransfer.files && dataTransfer.files.length) {
-          event.preventDefault();
-          $editable.focus();
-          context.invoke('editor.insertImagesOrCallback', dataTransfer.files);
-        } else {
-          $.each(dataTransfer.types, function (idx, type) {
-            var content = dataTransfer.getData(type);
-
-            if (type.toLowerCase().indexOf('text') > -1) {
-              context.invoke('editor.pasteHTML', content);
-            } else {
-              $(content).each(function () {
-                context.invoke('editor.insertNode', this);
-              });
-            }
-          });
-        }
-      }).on('dragover', false); // prevent default dragover event
-    };
-
-    this.destroy = function () {
-      detachDocumentEvent();
-    };
-  };
-
-
-  var CodeMirror;
-  if (agent.hasCodeMirror) {
-    if (agent.isSupportAmd) {
-      new Promise(function(resolve) { resolve(); }).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(3)]; (function (cm) {
-        CodeMirror = cm;
-      }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
-    } else {
-      CodeMirror = window.CodeMirror;
     }
   }
 
-  /**
-   * @class Codeview
-   */
-  var Codeview = function (context) {
-    var $editor = context.layoutInfo.editor;
-    var $editable = context.layoutInfo.editable;
-    var $codable = context.layoutInfo.codable;
-    var options = context.options;
+  return target;
+};
 
-    this.sync = function () {
-      var isCodeview = this.isActivated();
-      if (isCodeview && agent.hasCodeMirror) {
-        $codable.data('cmEditor').save();
-      }
-    };
+/**
+ * Given element offsets, generate an output similar to getBoundingClientRect
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} offsets
+ * @returns {Object} ClientRect like output
+ */
+function getClientRect(offsets) {
+  return _extends({}, offsets, {
+    right: offsets.left + offsets.width,
+    bottom: offsets.top + offsets.height
+  });
+}
 
-    /**
-     * @return {Boolean}
-     */
-    this.isActivated = function () {
-      return $editor.hasClass('codeview');
-    };
+/**
+ * Get bounding client rect of given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} element
+ * @return {Object} client rect
+ */
+function getBoundingClientRect(element) {
+  var rect = {};
 
-    /**
-     * toggle codeview
-     */
-    this.toggle = function () {
-      if (this.isActivated()) {
-        this.deactivate();
-      } else {
-        this.activate();
-      }
-      context.triggerEvent('codeview.toggled');
-    };
+  // IE10 10 FIX: Please, don't ask, the element isn't
+  // considered in DOM in some circumstances...
+  // This isn't reproducible in IE10 compatibility mode of IE11
+  if (isIE10$1()) {
+    try {
+      rect = element.getBoundingClientRect();
+      var scrollTop = getScroll(element, 'top');
+      var scrollLeft = getScroll(element, 'left');
+      rect.top += scrollTop;
+      rect.left += scrollLeft;
+      rect.bottom += scrollTop;
+      rect.right += scrollLeft;
+    } catch (err) {}
+  } else {
+    rect = element.getBoundingClientRect();
+  }
 
-    /**
-     * activate code view
-     */
-    this.activate = function () {
-      $codable.val(dom.html($editable, options.prettifyHtml));
-      $codable.height($editable.height());
-
-      context.invoke('toolbar.updateCodeview', true);
-      $editor.addClass('codeview');
-      $codable.focus();
-
-      // activate CodeMirror as codable
-      if (agent.hasCodeMirror) {
-        var cmEditor = CodeMirror.fromTextArea($codable[0], options.codemirror);
-
-        // CodeMirror TernServer
-        if (options.codemirror.tern) {
-          var server = new CodeMirror.TernServer(options.codemirror.tern);
-          cmEditor.ternServer = server;
-          cmEditor.on('cursorActivity', function (cm) {
-            server.updateArgHints(cm);
-          });
-        }
-
-        // CodeMirror hasn't Padding.
-        cmEditor.setSize(null, $editable.outerHeight());
-        $codable.data('cmEditor', cmEditor);
-      }
-    };
-
-    /**
-     * deactivate code view
-     */
-    this.deactivate = function () {
-      // deactivate CodeMirror as codable
-      if (agent.hasCodeMirror) {
-        var cmEditor = $codable.data('cmEditor');
-        $codable.val(cmEditor.getValue());
-        cmEditor.toTextArea();
-      }
-
-      var value = dom.value($codable, options.prettifyHtml) || dom.emptyPara;
-      var isChange = $editable.html() !== value;
-
-      $editable.html(value);
-      $editable.height(options.height ? $codable.height() : 'auto');
-      $editor.removeClass('codeview');
-
-      if (isChange) {
-        context.triggerEvent('change', $editable.html(), $editable);
-      }
-
-      $editable.focus();
-
-      context.invoke('toolbar.updateCodeview', false);
-    };
-
-    this.destroy = function () {
-      if (this.isActivated()) {
-        this.deactivate();
-      }
-    };
+  var result = {
+    left: rect.left,
+    top: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
   };
 
-  var EDITABLE_PADDING = 24;
+  // subtract scrollbar size from sizes
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes() : {};
+  var width = sizes.width || element.clientWidth || result.right - result.left;
+  var height = sizes.height || element.clientHeight || result.bottom - result.top;
 
-  var Statusbar = function (context) {
-    var $document = $(document);
-    var $statusbar = context.layoutInfo.statusbar;
-    var $editable = context.layoutInfo.editable;
-    var options = context.options;
+  var horizScrollbar = element.offsetWidth - width;
+  var vertScrollbar = element.offsetHeight - height;
 
-    this.initialize = function () {
-      if (options.airMode || options.disableResizeEditor) {
-        this.destroy();
-        return;
-      }
+  // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
+  // we make this check conditional for performance reasons
+  if (horizScrollbar || vertScrollbar) {
+    var styles = getStyleComputedProperty(element);
+    horizScrollbar -= getBordersSize(styles, 'x');
+    vertScrollbar -= getBordersSize(styles, 'y');
 
-      $statusbar.on('mousedown', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
+    result.width -= horizScrollbar;
+    result.height -= vertScrollbar;
+  }
 
-        var editableTop = $editable.offset().top - $document.scrollTop();
-        var onMouseMove = function (event) {
-          var height = event.clientY - (editableTop + EDITABLE_PADDING);
+  return getClientRect(result);
+}
 
-          height = (options.minheight > 0) ? Math.max(height, options.minheight) : height;
-          height = (options.maxHeight > 0) ? Math.min(height, options.maxHeight) : height;
+function getOffsetRectRelativeToArbitraryNode(children, parent) {
+  var isIE10 = isIE10$1();
+  var isHTML = parent.nodeName === 'HTML';
+  var childrenRect = getBoundingClientRect(children);
+  var parentRect = getBoundingClientRect(parent);
+  var scrollParent = getScrollParent(children);
 
-          $editable.height(height);
-        };
+  var styles = getStyleComputedProperty(parent);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
-        $document
-          .on('mousemove', onMouseMove)
-          .one('mouseup', function () {
-            $document.off('mousemove', onMouseMove);
-          });
-      });
-    };
+  var offsets = getClientRect({
+    top: childrenRect.top - parentRect.top - borderTopWidth,
+    left: childrenRect.left - parentRect.left - borderLeftWidth,
+    width: childrenRect.width,
+    height: childrenRect.height
+  });
+  offsets.marginTop = 0;
+  offsets.marginLeft = 0;
 
-    this.destroy = function () {
-      $statusbar.off();
-      $statusbar.remove();
-    };
+  // Subtract margins of documentElement in case it's being used as parent
+  // we do this only on HTML because it's the only element that behaves
+  // differently when margins are applied to it. The margins are included in
+  // the box of the documentElement, in the other cases not.
+  if (!isIE10 && isHTML) {
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
+
+    offsets.top -= borderTopWidth - marginTop;
+    offsets.bottom -= borderTopWidth - marginTop;
+    offsets.left -= borderLeftWidth - marginLeft;
+    offsets.right -= borderLeftWidth - marginLeft;
+
+    // Attach marginTop and marginLeft because in some circumstances we may need them
+    offsets.marginTop = marginTop;
+    offsets.marginLeft = marginLeft;
+  }
+
+  if (isIE10 ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
+    offsets = includeScroll(offsets, parent);
+  }
+
+  return offsets;
+}
+
+function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+  var html = element.ownerDocument.documentElement;
+  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
+  var width = Math.max(html.clientWidth, window.innerWidth || 0);
+  var height = Math.max(html.clientHeight, window.innerHeight || 0);
+
+  var scrollTop = getScroll(html);
+  var scrollLeft = getScroll(html, 'left');
+
+  var offset = {
+    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+    width: width,
+    height: height
   };
 
-  var Fullscreen = function (context) {
-    var self = this;
-    var $editor = context.layoutInfo.editor;
-    var $toolbar = context.layoutInfo.toolbar;
-    var $editable = context.layoutInfo.editable;
-    var $codable = context.layoutInfo.codable;
+  return getClientRect(offset);
+}
 
-    var $window = $(window);
-    var $scrollbar = $('html, body');
+/**
+ * Check if the given element is fixed or is inside a fixed parent
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {Element} customContainer
+ * @returns {Boolean} answer to "isFixed?"
+ */
+function isFixed(element) {
+  var nodeName = element.nodeName;
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    return false;
+  }
+  if (getStyleComputedProperty(element, 'position') === 'fixed') {
+    return true;
+  }
+  return isFixed(getParentNode(element));
+}
 
-    this.resizeTo = function (size) {
-      $editable.css('height', size.h);
-      $codable.css('height', size.h);
-      if ($codable.data('cmeditor')) {
-        $codable.data('cmeditor').setsize(null, size.h);
+/**
+ * Computed the boundaries limits and return them
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} popper
+ * @param {HTMLElement} reference
+ * @param {number} padding
+ * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @returns {Object} Coordinates of the boundaries
+ */
+function getBoundaries(popper, reference, padding, boundariesElement) {
+  // NOTE: 1 DOM access here
+  var boundaries = { top: 0, left: 0 };
+  var offsetParent = findCommonOffsetParent(popper, reference);
+
+  // Handle viewport case
+  if (boundariesElement === 'viewport') {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent);
+  } else {
+    // Handle other cases based on DOM element used as boundaries
+    var boundariesNode = void 0;
+    if (boundariesElement === 'scrollParent') {
+      boundariesNode = getScrollParent(getParentNode(reference));
+      if (boundariesNode.nodeName === 'BODY') {
+        boundariesNode = popper.ownerDocument.documentElement;
       }
-    };
+    } else if (boundariesElement === 'window') {
+      boundariesNode = popper.ownerDocument.documentElement;
+    } else {
+      boundariesNode = boundariesElement;
+    }
 
-    this.onResize = function () {
-      self.resizeTo({
-        h: $window.height() - $toolbar.outerHeight()
-      });
-    };
+    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent);
 
-    /**
-     * toggle fullscreen
-     */
-    this.toggle = function () {
-      $editor.toggleClass('fullscreen');
-      if (this.isFullscreen()) {
-        $editable.data('orgHeight', $editable.css('height'));
-        $window.on('resize', this.onResize).trigger('resize');
-        $scrollbar.css('overflow', 'hidden');
-      } else {
-        $window.off('resize', this.onResize);
-        this.resizeTo({ h: $editable.data('orgHeight') });
-        $scrollbar.css('overflow', 'visible');
-      }
+    // In case of HTML, we need a different computation
+    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+      var _getWindowSizes = getWindowSizes(),
+          height = _getWindowSizes.height,
+          width = _getWindowSizes.width;
 
-      context.invoke('toolbar.updateFullscreen', this.isFullscreen());
-    };
+      boundaries.top += offsets.top - offsets.marginTop;
+      boundaries.bottom = height + offsets.top;
+      boundaries.left += offsets.left - offsets.marginLeft;
+      boundaries.right = width + offsets.left;
+    } else {
+      // for all the other DOM elements, this one is good
+      boundaries = offsets;
+    }
+  }
 
-    this.isFullscreen = function () {
-      return $editor.hasClass('fullscreen');
-    };
+  // Add paddings
+  boundaries.left += padding;
+  boundaries.top += padding;
+  boundaries.right -= padding;
+  boundaries.bottom -= padding;
+
+  return boundaries;
+}
+
+function getArea(_ref) {
+  var width = _ref.width,
+      height = _ref.height;
+
+  return width * height;
+}
+
+/**
+ * Utility used to transform the `auto` placement to the placement with more
+ * available space.
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+
+  if (placement.indexOf('auto') === -1) {
+    return placement;
+  }
+
+  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+
+  var rects = {
+    top: {
+      width: boundaries.width,
+      height: refRect.top - boundaries.top
+    },
+    right: {
+      width: boundaries.right - refRect.right,
+      height: boundaries.height
+    },
+    bottom: {
+      width: boundaries.width,
+      height: boundaries.bottom - refRect.bottom
+    },
+    left: {
+      width: refRect.left - boundaries.left,
+      height: boundaries.height
+    }
   };
 
-  var Handle = function (context) {
-    var self = this;
+  var sortedAreas = Object.keys(rects).map(function (key) {
+    return _extends({
+      key: key
+    }, rects[key], {
+      area: getArea(rects[key])
+    });
+  }).sort(function (a, b) {
+    return b.area - a.area;
+  });
 
-    var $document = $(document);
-    var $editingArea = context.layoutInfo.editingArea;
-    var options = context.options;
+  var filteredAreas = sortedAreas.filter(function (_ref2) {
+    var width = _ref2.width,
+        height = _ref2.height;
+    return width >= popper.clientWidth && height >= popper.clientHeight;
+  });
 
-    this.events = {
-      'summernote.mousedown': function (we, e) {
-        if (self.update(e.target)) {
-          e.preventDefault();
-        }
-      },
-      'summernote.keyup summernote.scroll summernote.change summernote.dialog.shown': function () {
-        self.update();
-      },
-      'summernote.disable': function () {
-        self.hide();
-      },
-      'summernote.codeview.toggled': function () {
-        self.update();
-      }
-    };
+  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
 
-    this.initialize = function () {
-      this.$handle = $([
-        '<div class="note-handle">',
-        '<div class="note-control-selection">',
-        '<div class="note-control-selection-bg"></div>',
-        '<div class="note-control-holder note-control-nw"></div>',
-        '<div class="note-control-holder note-control-ne"></div>',
-        '<div class="note-control-holder note-control-sw"></div>',
-        '<div class="',
-        (options.disableResizeImage ? 'note-control-holder' : 'note-control-sizing'),
-        ' note-control-se"></div>',
-        (options.disableResizeImage ? '' : '<div class="note-control-selection-info"></div>'),
-        '</div>',
-        '</div>'
-      ].join('')).prependTo($editingArea);
+  var variation = placement.split('-')[1];
 
-      this.$handle.on('mousedown', function (event) {
-        if (dom.isControlSizing(event.target)) {
-          event.preventDefault();
-          event.stopPropagation();
+  return computedPlacement + (variation ? '-' + variation : '');
+}
 
-          var $target = self.$handle.find('.note-control-selection').data('target'),
-              posStart = $target.offset(),
-              scrollTop = $document.scrollTop();
+/**
+ * Get offsets to the reference element
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} state
+ * @param {Element} popper - the popper element
+ * @param {Element} reference - the reference element (the popper will be relative to this)
+ * @returns {Object} An object containing the offsets which will be applied to the popper
+ */
+function getReferenceOffsets(state, popper, reference) {
+  var commonOffsetParent = findCommonOffsetParent(popper, reference);
+  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent);
+}
 
-          var onMouseMove = function (event) {
-            context.invoke('editor.resizeTo', {
-              x: event.clientX - posStart.left,
-              y: event.clientY - (posStart.top - scrollTop)
-            }, $target, !event.shiftKey);
+/**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+function getOuterSizes(element) {
+  var styles = getComputedStyle(element);
+  var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+  var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+  var result = {
+    width: element.offsetWidth + y,
+    height: element.offsetHeight + x
+  };
+  return result;
+}
 
-            self.update($target[0]);
-          };
+/**
+ * Get the opposite placement of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement
+ * @returns {String} flipped placement
+ */
+function getOppositePlacement(placement) {
+  var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash[matched];
+  });
+}
 
-          $document
-            .on('mousemove', onMouseMove)
-            .one('mouseup', function (e) {
-              e.preventDefault();
-              $document.off('mousemove', onMouseMove);
-              context.invoke('editor.afterCommand');
-            });
+/**
+ * Get offsets to the popper
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} position - CSS position the Popper will get applied
+ * @param {HTMLElement} popper - the popper element
+ * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
+ * @param {String} placement - one of the valid placement options
+ * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
+ */
+function getPopperOffsets(popper, referenceOffsets, placement) {
+  placement = placement.split('-')[0];
 
-          if (!$target.data('ratio')) { // original ratio.
-            $target.data('ratio', $target.height() / $target.width());
-          }
-        }
-      });
+  // Get popper node sizes
+  var popperRect = getOuterSizes(popper);
 
-      // Listen for scrolling on the handle overlay.
-      this.$handle.on('wheel', function (e) {
-        e.preventDefault();
-        self.update();
-      });
-    };
-
-    this.destroy = function () {
-      this.$handle.remove();
-    };
-
-    this.update = function (target) {
-      if (context.isDisabled()) {
-        return false;
-      }
-
-      var isImage = dom.isImg(target);
-      var $selection = this.$handle.find('.note-control-selection');
-
-      context.invoke('imagePopover.update', target);
-
-      if (isImage) {
-        var $image = $(target);
-        var position = $image.position();
-        var pos = {
-          left: position.left + parseInt($image.css('marginLeft'), 10),
-          top: position.top + parseInt($image.css('marginTop'), 10)
-        };
-
-        // exclude margin
-        var imageSize = {
-          w: $image.outerWidth(false),
-          h: $image.outerHeight(false)
-        };
-
-        $selection.css({
-          display: 'block',
-          left: pos.left,
-          top: pos.top,
-          width: imageSize.w,
-          height: imageSize.h
-        }).data('target', $image); // save current image element.
-
-        var sizingText = imageSize.w + 'x' + imageSize.h;
-        $selection.find('.note-control-selection-info').text(sizingText);
-        context.invoke('editor.saveTarget', target);
-      } else {
-        this.hide();
-      }
-
-      return isImage;
-    };
-
-    /**
-     * hide
-     *
-     * @param {jQuery} $handle
-     */
-    this.hide = function () {
-      context.invoke('editor.clearTarget');
-      this.$handle.children().hide();
-    };
+  // Add position, width and height to our offsets object
+  var popperOffsets = {
+    width: popperRect.width,
+    height: popperRect.height
   };
 
-  var AutoLink = function (context) {
-    var self = this;
-    var defaultScheme = 'http://';
-    var linkPattern = /^([A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?|mailto:[A-Z0-9._%+-]+@)?(www\.)?(.+)$/i;
-
-    this.events = {
-      'summernote.keyup': function (we, e) {
-        if (!e.isDefaultPrevented()) {
-          self.handleKeyup(e);
-        }
-      },
-      'summernote.keydown': function (we, e) {
-        self.handleKeydown(e);
-      }
-    };
-
-    this.initialize = function () {
-      this.lastWordRange = null;
-    };
-
-    this.destroy = function () {
-      this.lastWordRange = null;
-    };
-
-    this.replace = function () {
-      if (!this.lastWordRange) {
-        return;
-      }
-
-      var keyword = this.lastWordRange.toString();
-      var match = keyword.match(linkPattern);
-
-      if (match && (match[1] || match[2])) {
-        var link = match[1] ? keyword : defaultScheme + keyword;
-        var node = $('<a />').html(keyword).attr('href', link)[0];
-
-        this.lastWordRange.insertNode(node);
-        this.lastWordRange = null;
-        context.invoke('editor.focus');
-      }
-
-    };
-
-    this.handleKeydown = function (e) {
-      if (list.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
-        var wordRange = context.invoke('editor.createRange').getWordRange();
-        this.lastWordRange = wordRange;
-      }
-    };
-
-    this.handleKeyup = function (e) {
-      if (list.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
-        this.replace();
-      }
-    };
-  };
-
-  /**
-   * textarea auto sync.
-   */
-  var AutoSync = function (context) {
-    var $note = context.layoutInfo.note;
-
-    this.events = {
-      'summernote.change': function () {
-        $note.val(context.invoke('code'));
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return dom.isTextarea($note[0]);
-    };
-  };
-
-  var Placeholder = function (context) {
-    var self = this;
-    var $editingArea = context.layoutInfo.editingArea;
-    var options = context.options;
-
-    this.events = {
-      'summernote.init summernote.change': function () {
-        self.update();
-      },
-      'summernote.codeview.toggled': function () {
-        self.update();
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return !!options.placeholder;
-    };
-
-    this.initialize = function () {
-      this.$placeholder = $('<div class="note-placeholder">');
-      this.$placeholder.on('click', function () {
-        context.invoke('focus');
-      }).text(options.placeholder).prependTo($editingArea);
-
-      this.update();
-    };
-
-    this.destroy = function () {
-      this.$placeholder.remove();
-    };
-
-    this.update = function () {
-      var isShow = !context.invoke('codeview.isActivated') && context.invoke('editor.isEmpty');
-      this.$placeholder.toggle(isShow);
-    };
-  };
-
-  var Buttons = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $toolbar = context.layoutInfo.toolbar;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    var invertedKeyMap = func.invertObject(options.keyMap[agent.isMac ? 'mac' : 'pc']);
-
-    var representShortcut = this.representShortcut = function (editorMethod) {
-      var shortcut = invertedKeyMap[editorMethod];
-      if (!options.shortcuts || !shortcut) {
-        return '';
-      }
-
-      if (agent.isMac) {
-        shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
-      }
-
-      shortcut = shortcut.replace('BACKSLASH', '\\')
-                         .replace('SLASH', '/')
-                         .replace('LEFTBRACKET', '[')
-                         .replace('RIGHTBRACKET', ']');
-
-      return ' (' + shortcut + ')';
-    };
-
-    this.initialize = function () {
-      this.addToolbarButtons();
-      this.addImagePopoverButtons();
-      this.addLinkPopoverButtons();
-      this.addTablePopoverButtons();
-      this.fontInstalledMap = {};
-    };
-
-    this.destroy = function () {
-      delete this.fontInstalledMap;
-    };
-
-    this.isFontInstalled = function (name) {
-      if (!self.fontInstalledMap.hasOwnProperty(name)) {
-        self.fontInstalledMap[name] = agent.isFontInstalled(name) ||
-          list.contains(options.fontNamesIgnoreCheck, name);
-      }
-
-      return self.fontInstalledMap[name];
-    };
-
-    this.addToolbarButtons = function () {
-      context.memo('button.style', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents(ui.icon(options.icons.magic), options),
-            tooltip: lang.style.style,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdown({
-            className: 'dropdown-style',
-            items: context.options.styleTags,
-            template: function (item) {
-
-              if (typeof item === 'string') {
-                item = { tag: item, title: (lang.style.hasOwnProperty(item) ? lang.style[item] : item) };
-              }
-
-              var tag = item.tag;
-              var title = item.title;
-              var style = item.style ? ' style="' + item.style + '" ' : '';
-              var className = item.className ? ' class="' + item.className + '"' : '';
-
-              return '<' + tag + style + className + '>' + title + '</' + tag +  '>';
-            },
-            click: context.createInvokeHandler('editor.formatBlock')
-          })
-        ]).render();
-      });
-
-      context.memo('button.bold', function () {
-        return ui.button({
-          className: 'note-btn-bold',
-          contents: ui.icon(options.icons.bold),
-          tooltip: lang.font.bold + representShortcut('bold'),
-          click: context.createInvokeHandlerAndUpdateState('editor.bold')
-        }).render();
-      });
-
-      context.memo('button.italic', function () {
-        return ui.button({
-          className: 'note-btn-italic',
-          contents: ui.icon(options.icons.italic),
-          tooltip: lang.font.italic + representShortcut('italic'),
-          click: context.createInvokeHandlerAndUpdateState('editor.italic')
-        }).render();
-      });
-
-      context.memo('button.underline', function () {
-        return ui.button({
-          className: 'note-btn-underline',
-          contents: ui.icon(options.icons.underline),
-          tooltip: lang.font.underline + representShortcut('underline'),
-          click: context.createInvokeHandlerAndUpdateState('editor.underline')
-        }).render();
-      });
-
-      context.memo('button.clear', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.eraser),
-          tooltip: lang.font.clear + representShortcut('removeFormat'),
-          click: context.createInvokeHandler('editor.removeFormat')
-        }).render();
-      });
-
-      context.memo('button.strikethrough', function () {
-        return ui.button({
-          className: 'note-btn-strikethrough',
-          contents: ui.icon(options.icons.strikethrough),
-          tooltip: lang.font.strikethrough + representShortcut('strikethrough'),
-          click: context.createInvokeHandlerAndUpdateState('editor.strikethrough')
-        }).render();
-      });
-
-      context.memo('button.superscript', function () {
-        return ui.button({
-          className: 'note-btn-superscript',
-          contents: ui.icon(options.icons.superscript),
-          tooltip: lang.font.superscript,
-          click: context.createInvokeHandlerAndUpdateState('editor.superscript')
-        }).render();
-      });
-
-      context.memo('button.subscript', function () {
-        return ui.button({
-          className: 'note-btn-subscript',
-          contents: ui.icon(options.icons.subscript),
-          tooltip: lang.font.subscript,
-          click: context.createInvokeHandlerAndUpdateState('editor.subscript')
-        }).render();
-      });
-
-      context.memo('button.fontname', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents('<span class="note-current-fontname"/>', options),
-            tooltip: lang.font.name,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdownCheck({
-            className: 'dropdown-fontname',
-            checkClassName: options.icons.menuCheck,
-            items: options.fontNames.filter(self.isFontInstalled),
-            template: function (item) {
-              return '<span style="font-family:' + item + '">' + item + '</span>';
-            },
-            click: context.createInvokeHandlerAndUpdateState('editor.fontName')
-          })
-        ]).render();
-      });
-
-      context.memo('button.fontsize', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents('<span class="note-current-fontsize"/>', options),
-            tooltip: lang.font.size,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdownCheck({
-            className: 'dropdown-fontsize',
-            checkClassName: options.icons.menuCheck,
-            items: options.fontSizes,
-            click: context.createInvokeHandlerAndUpdateState('editor.fontSize')
-          })
-        ]).render();
-      });
-
-      context.memo('button.color', function () {
-        return ui.buttonGroup({
-          className: 'note-color',
-          children: [
-            ui.button({
-              className: 'note-current-color-button',
-              contents: ui.icon(options.icons.font + ' note-recent-color'),
-              tooltip: lang.color.recent,
-              click: function (e) {
-                var $button = $(e.currentTarget);
-                context.invoke('editor.color', {
-                  backColor: $button.attr('data-backColor'),
-                  foreColor: $button.attr('data-foreColor')
-                });
-              },
-              callback: function ($button) {
-                var $recentColor = $button.find('.note-recent-color');
-                $recentColor.css('background-color', '#FFFF00');
-                $button.attr('data-backColor', '#FFFF00');
-              }
-            }),
-            ui.button({
-              className: 'dropdown-toggle',
-              contents: ui.dropdownButtonContents('', options),
-              tooltip: lang.color.more,
-              data: {
-                toggle: 'dropdown'
-              }
-            }),
-            ui.dropdown({
-              items: [
-                '<div class="note-palette">',
-                '  <div class="note-palette-title">' + lang.color.background + '</div>',
-                '  <div>',
-                '    <button type="button" class="note-color-reset btn btn-light" data-event="backColor" data-value="inherit">',
-                lang.color.transparent,
-                '    </button>',
-                '  </div>',
-                '  <div class="note-holder" data-event="backColor"/>',
-                '</div>',
-                '<div class="note-palette">',
-                '  <div class="note-palette-title">' + lang.color.foreground + '</div>',
-                '  <div>',
-                '    <button type="button" class="note-color-reset btn btn-light" data-event="removeFormat" data-value="foreColor">',
-                lang.color.resetToDefault,
-                '    </button>',
-                '  </div>',
-                '  <div class="note-holder" data-event="foreColor"/>',
-                '</div>'
-              ].join(''),
-              callback: function ($dropdown) {
-                $dropdown.find('.note-holder').each(function () {
-                  var $holder = $(this);
-                  $holder.append(ui.palette({
-                    colors: options.colors,
-                    eventName: $holder.data('event'),
-                    tooltip: options.tooltip
-                  }).render());
-                });
-              },
-              click: function (event) {
-                var $button = $(event.target);
-                var eventName = $button.data('event');
-                var value = $button.data('value');
-
-                if (eventName && value) {
-                  var key = eventName === 'backColor' ? 'background-color' : 'color';
-                  var $color = $button.closest('.note-color').find('.note-recent-color');
-                  var $currentButton = $button.closest('.note-color').find('.note-current-color-button');
-
-                  $color.css(key, value);
-                  $currentButton.attr('data-' + eventName, value);
-                  context.invoke('editor.' + eventName, value);
-                }
-              }
-            })
-          ]
-        }).render();
-      });
-
-      context.memo('button.ul',  function () {
-        return ui.button({
-          contents: ui.icon(options.icons.unorderedlist),
-          tooltip: lang.lists.unordered + representShortcut('insertUnorderedList'),
-          click: context.createInvokeHandler('editor.insertUnorderedList')
-        }).render();
-      });
-
-      context.memo('button.ol', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.orderedlist),
-          tooltip: lang.lists.ordered + representShortcut('insertOrderedList'),
-          click:  context.createInvokeHandler('editor.insertOrderedList')
-        }).render();
-      });
-
-      var justifyLeft = ui.button({
-        contents: ui.icon(options.icons.alignLeft),
-        tooltip: lang.paragraph.left + representShortcut('justifyLeft'),
-        click: context.createInvokeHandler('editor.justifyLeft')
-      });
-
-      var justifyCenter = ui.button({
-        contents: ui.icon(options.icons.alignCenter),
-        tooltip: lang.paragraph.center + representShortcut('justifyCenter'),
-        click: context.createInvokeHandler('editor.justifyCenter')
-      });
-
-      var justifyRight = ui.button({
-        contents: ui.icon(options.icons.alignRight),
-        tooltip: lang.paragraph.right + representShortcut('justifyRight'),
-        click: context.createInvokeHandler('editor.justifyRight')
-      });
-
-      var justifyFull = ui.button({
-        contents: ui.icon(options.icons.alignJustify),
-        tooltip: lang.paragraph.justify + representShortcut('justifyFull'),
-        click: context.createInvokeHandler('editor.justifyFull')
-      });
-
-      var outdent = ui.button({
-        contents: ui.icon(options.icons.outdent),
-        tooltip: lang.paragraph.outdent + representShortcut('outdent'),
-        click: context.createInvokeHandler('editor.outdent')
-      });
-
-      var indent = ui.button({
-        contents: ui.icon(options.icons.indent),
-        tooltip: lang.paragraph.indent + representShortcut('indent'),
-        click: context.createInvokeHandler('editor.indent')
-      });
-
-      context.memo('button.justifyLeft', func.invoke(justifyLeft, 'render'));
-      context.memo('button.justifyCenter', func.invoke(justifyCenter, 'render'));
-      context.memo('button.justifyRight', func.invoke(justifyRight, 'render'));
-      context.memo('button.justifyFull', func.invoke(justifyFull, 'render'));
-      context.memo('button.outdent', func.invoke(outdent, 'render'));
-      context.memo('button.indent', func.invoke(indent, 'render'));
-
-      context.memo('button.paragraph', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents(ui.icon(options.icons.alignLeft), options),
-            tooltip: lang.paragraph.paragraph,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdown([
-            ui.buttonGroup({
-              className: 'note-align',
-              children: [justifyLeft, justifyCenter, justifyRight, justifyFull]
-            }),
-            ui.buttonGroup({
-              className: 'note-list',
-              children: [outdent, indent]
-            })
-          ])
-        ]).render();
-      });
-
-      context.memo('button.height', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents(ui.icon(options.icons.textHeight), options),
-            tooltip: lang.font.height,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdownCheck({
-            items: options.lineHeights,
-            checkClassName: options.icons.menuCheck,
-            className: 'dropdown-line-height',
-            click: context.createInvokeHandler('editor.lineHeight')
-          })
-        ]).render();
-      });
-
-      context.memo('button.table', function () {
-        return ui.buttonGroup([
-          ui.button({
-            className: 'dropdown-toggle',
-            contents: ui.dropdownButtonContents(ui.icon(options.icons.table), options),
-            tooltip: lang.table.table,
-            data: {
-              toggle: 'dropdown'
-            }
-          }),
-          ui.dropdown({
-            className: 'note-table',
-            items: [
-              '<div class="note-dimension-picker">',
-              '  <div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"/>',
-              '  <div class="note-dimension-picker-highlighted"/>',
-              '  <div class="note-dimension-picker-unhighlighted"/>',
-              '</div>',
-              '<div class="note-dimension-display">1 x 1</div>'
-            ].join('')
-          })
-        ], {
-          callback: function ($node) {
-            var $catcher = $node.find('.note-dimension-picker-mousecatcher');
-            $catcher.css({
-              width: options.insertTableMaxSize.col + 'em',
-              height: options.insertTableMaxSize.row + 'em'
-            }).mousedown(context.createInvokeHandler('editor.insertTable'))
-              .on('mousemove', self.tableMoveHandler);
-          }
-        }).render();
-      });
-
-      context.memo('button.link', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.link),
-          tooltip: lang.link.link + representShortcut('linkDialog.show'),
-          click: context.createInvokeHandler('linkDialog.show')
-        }).render();
-      });
-
-      context.memo('button.picture', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.picture),
-          tooltip: lang.image.image,
-          click: context.createInvokeHandler('imageDialog.show')
-        }).render();
-      });
-
-      context.memo('button.video', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.video),
-          tooltip: lang.video.video,
-          click: context.createInvokeHandler('videoDialog.show')
-        }).render();
-      });
-
-      context.memo('button.hr', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.minus),
-          tooltip: lang.hr.insert + representShortcut('insertHorizontalRule'),
-          click: context.createInvokeHandler('editor.insertHorizontalRule')
-        }).render();
-      });
-
-      context.memo('button.fullscreen', function () {
-        return ui.button({
-          className: 'btn-fullscreen',
-          contents: ui.icon(options.icons.arrowsAlt),
-          tooltip: lang.options.fullscreen,
-          click: context.createInvokeHandler('fullscreen.toggle')
-        }).render();
-      });
-
-      context.memo('button.codeview', function () {
-        return ui.button({
-          className: 'btn-codeview',
-          contents: ui.icon(options.icons.code),
-          tooltip: lang.options.codeview,
-          click: context.createInvokeHandler('codeview.toggle')
-        }).render();
-      });
-
-      context.memo('button.redo', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.redo),
-          tooltip: lang.history.redo + representShortcut('redo'),
-          click: context.createInvokeHandler('editor.redo')
-        }).render();
-      });
-
-      context.memo('button.undo', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.undo),
-          tooltip: lang.history.undo + representShortcut('undo'),
-          click: context.createInvokeHandler('editor.undo')
-        }).render();
-      });
-
-      context.memo('button.help', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.question),
-          tooltip: lang.options.help,
-          click: context.createInvokeHandler('helpDialog.show')
-        }).render();
-      });
-    };
-
-    /**
-     * image : [
-     *   ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-     *   ['float', ['floatLeft', 'floatRight', 'floatNone' ]],
-     *   ['remove', ['removeMedia']]
-     * ],
-     */
-    this.addImagePopoverButtons = function () {
-      // Image Size Buttons
-      context.memo('button.imageSize100', function () {
-        return ui.button({
-          contents: '<span class="note-fontsize-10">100%</span>',
-          tooltip: lang.image.resizeFull,
-          click: context.createInvokeHandler('editor.resize', '1')
-        }).render();
-      });
-      context.memo('button.imageSize50', function () {
-        return  ui.button({
-          contents: '<span class="note-fontsize-10">50%</span>',
-          tooltip: lang.image.resizeHalf,
-          click: context.createInvokeHandler('editor.resize', '0.5')
-        }).render();
-      });
-      context.memo('button.imageSize25', function () {
-        return ui.button({
-          contents: '<span class="note-fontsize-10">25%</span>',
-          tooltip: lang.image.resizeQuarter,
-          click: context.createInvokeHandler('editor.resize', '0.25')
-        }).render();
-      });
-
-      // Float Buttons
-      context.memo('button.floatLeft', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.alignLeft),
-          tooltip: lang.image.floatLeft,
-          click: context.createInvokeHandler('editor.floatMe', 'left')
-        }).render();
-      });
-
-      context.memo('button.floatRight', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.alignRight),
-          tooltip: lang.image.floatRight,
-          click: context.createInvokeHandler('editor.floatMe', 'right')
-        }).render();
-      });
-
-      context.memo('button.floatNone', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.alignJustify),
-          tooltip: lang.image.floatNone,
-          click: context.createInvokeHandler('editor.floatMe', 'none')
-        }).render();
-      });
-
-      // Remove Buttons
-      context.memo('button.removeMedia', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.trash),
-          tooltip: lang.image.remove,
-          click: context.createInvokeHandler('editor.removeMedia')
-        }).render();
-      });
-    };
-
-    this.addLinkPopoverButtons = function () {
-      context.memo('button.linkDialogShow', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.link),
-          tooltip: lang.link.edit,
-          click: context.createInvokeHandler('linkDialog.show')
-        }).render();
-      });
-
-      context.memo('button.unlink', function () {
-        return ui.button({
-          contents: ui.icon(options.icons.unlink),
-          tooltip: lang.link.unlink,
-          click: context.createInvokeHandler('editor.unlink')
-        }).render();
-      });
-    };
-
-    /**
-     * table : [
-     *  ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-     *  ['delete', ['deleteRow', 'deleteCol', 'deleteTable']]
-     * ],
-     */
-    this.addTablePopoverButtons = function () {
-      context.memo('button.addRowUp', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.rowAbove),
-          tooltip: lang.table.addRowAbove,
-          click: context.createInvokeHandler('editor.addRow', 'top')
-        }).render();
-      });
-      context.memo('button.addRowDown', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.rowBelow),
-          tooltip: lang.table.addRowBelow,
-          click: context.createInvokeHandler('editor.addRow', 'bottom')
-        }).render();
-      });
-      context.memo('button.addColLeft', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.colBefore),
-          tooltip: lang.table.addColLeft,
-          click: context.createInvokeHandler('editor.addCol', 'left')
-        }).render();
-      });
-      context.memo('button.addColRight', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.colAfter),
-          tooltip: lang.table.addColRight,
-          click: context.createInvokeHandler('editor.addCol', 'right')
-        }).render();
-      });
-      context.memo('button.deleteRow', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.rowRemove),
-          tooltip: lang.table.delRow,
-          click: context.createInvokeHandler('editor.deleteRow')
-        }).render();
-      });
-      context.memo('button.deleteCol', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.colRemove),
-          tooltip: lang.table.delCol,
-          click: context.createInvokeHandler('editor.deleteCol')
-        }).render();
-      });
-      context.memo('button.deleteTable', function () {
-        return ui.button({
-          className: 'btn-md',
-          contents: ui.icon(options.icons.trash),
-          tooltip: lang.table.delTable,
-          click: context.createInvokeHandler('editor.deleteTable')
-        }).render();
-      });
-    };
-
-    this.build = function ($container, groups) {
-      for (var groupIdx = 0, groupLen = groups.length; groupIdx < groupLen; groupIdx++) {
-        var group = groups[groupIdx];
-        var groupName = group[0];
-        var buttons = group[1];
-
-        var $group = ui.buttonGroup({
-          className: 'note-' + groupName
-        }).render();
-
-        for (var idx = 0, len = buttons.length; idx < len; idx++) {
-          var button = context.memo('button.' + buttons[idx]);
-          if (button) {
-            $group.append(typeof button === 'function' ? button(context) : button);
-          }
-        }
-        $group.appendTo($container);
-      }
-    };
-
-    /**
-     * @param {jQuery} [$container]
-     */
-    this.updateCurrentStyle = function ($container) {
-      var $cont = $container || $toolbar;
-      
-      var styleInfo = context.invoke('editor.currentStyle');
-      this.updateBtnStates($cont, {
-        '.note-btn-bold': function () {
-          return styleInfo['font-bold'] === 'bold';
-        },
-        '.note-btn-italic': function () {
-          return styleInfo['font-italic'] === 'italic';
-        },
-        '.note-btn-underline': function () {
-          return styleInfo['font-underline'] === 'underline';
-        },
-        '.note-btn-subscript': function () {
-          return styleInfo['font-subscript'] === 'subscript';
-        },
-        '.note-btn-superscript': function () {
-          return styleInfo['font-superscript'] === 'superscript';
-        },
-        '.note-btn-strikethrough': function () {
-          return styleInfo['font-strikethrough'] === 'strikethrough';
-        }
-      });
-
-      if (styleInfo['font-family']) {
-        var fontNames = styleInfo['font-family'].split(',').map(function (name) {
-          return name.replace(/[\'\"]/g, '')
-            .replace(/\s+$/, '')
-            .replace(/^\s+/, '');
-        });
-        var fontName = list.find(fontNames, self.isFontInstalled);
-
-        $cont.find('.dropdown-fontname a').each(function () {
-          var $item = $(this);
-          // always compare string to avoid creating another func.
-          var isChecked = ($item.data('value') + '') === (fontName + '');
-          $item.toggleClass('checked', isChecked);
-        });
-        $cont.find('.note-current-fontname').text(fontName);
-      }
-
-      if (styleInfo['font-size']) {
-        var fontSize = styleInfo['font-size'];
-        $cont.find('.dropdown-fontsize a').each(function () {
-          var $item = $(this);
-          // always compare with string to avoid creating another func.
-          var isChecked = ($item.data('value') + '') === (fontSize + '');
-          $item.toggleClass('checked', isChecked);
-        });
-        $cont.find('.note-current-fontsize').text(fontSize);
-      }
-
-      if (styleInfo['line-height']) {
-        var lineHeight = styleInfo['line-height'];
-        $cont.find('.dropdown-line-height li a').each(function () {
-          // always compare with string to avoid creating another func.
-          var isChecked = ($(this).data('value') + '') === (lineHeight + '');
-          this.className = isChecked ? 'checked' : '';
-        });
-      }
-    };
-
-    this.updateBtnStates = function ($container, infos) {
-      $.each(infos, function (selector, pred) {
-        ui.toggleBtnActive($container.find(selector), pred());
-      });
-    };
-
-    this.tableMoveHandler = function (event) {
-      var PX_PER_EM = 18;
-      var $picker = $(event.target.parentNode); // target is mousecatcher
-      var $dimensionDisplay = $picker.next();
-      var $catcher = $picker.find('.note-dimension-picker-mousecatcher');
-      var $highlighted = $picker.find('.note-dimension-picker-highlighted');
-      var $unhighlighted = $picker.find('.note-dimension-picker-unhighlighted');
-
-      var posOffset;
-      // HTML5 with jQuery - e.offsetX is undefined in Firefox
-      if (event.offsetX === undefined) {
-        var posCatcher = $(event.target).offset();
-        posOffset = {
-          x: event.pageX - posCatcher.left,
-          y: event.pageY - posCatcher.top
-        };
-      } else {
-        posOffset = {
-          x: event.offsetX,
-          y: event.offsetY
-        };
-      }
-
-      var dim = {
-        c: Math.ceil(posOffset.x / PX_PER_EM) || 1,
-        r: Math.ceil(posOffset.y / PX_PER_EM) || 1
-      };
-
-      $highlighted.css({ width: dim.c + 'em', height: dim.r + 'em' });
-      $catcher.data('value', dim.c + 'x' + dim.r);
-
-      if (3 < dim.c && dim.c < options.insertTableMaxSize.col) {
-        $unhighlighted.css({ width: dim.c + 1 + 'em'});
-      }
-
-      if (3 < dim.r && dim.r < options.insertTableMaxSize.row) {
-        $unhighlighted.css({ height: dim.r + 1 + 'em'});
-      }
-
-      $dimensionDisplay.html(dim.c + ' x ' + dim.r);
-    };
-  };
-
-  var Toolbar = function (context) {
-    var ui = $.summernote.ui;
-
-    var $note = context.layoutInfo.note;
-    var $editor = context.layoutInfo.editor;
-    var $toolbar = context.layoutInfo.toolbar;
-    var options = context.options;
-
-    this.shouldInitialize = function () {
-      return !options.airMode;
-    };
-
-    this.initialize = function () {
-      options.toolbar = options.toolbar || [];
-
-      if (!options.toolbar.length) {
-        $toolbar.hide();
-      } else {
-        context.invoke('buttons.build', $toolbar, options.toolbar);
-      }
-
-      if (options.toolbarContainer) {
-        $toolbar.appendTo(options.toolbarContainer);
-      }
-
-      this.changeContainer(false);
-
-      $note.on('summernote.keyup summernote.mouseup summernote.change', function () {
-        context.invoke('buttons.updateCurrentStyle');
-      });
-
-      context.invoke('buttons.updateCurrentStyle');
-    };
-
-    this.destroy = function () {
-      $toolbar.children().remove();
-    };
-
-    this.changeContainer = function (isFullscreen) {
-      if (isFullscreen) {
-        $toolbar.prependTo($editor);
-      } else {
-        if (options.toolbarContainer) {
-          $toolbar.appendTo(options.toolbarContainer);
-        }
-      }
-    };
-
-    this.updateFullscreen = function (isFullscreen) {
-      ui.toggleBtnActive($toolbar.find('.btn-fullscreen'), isFullscreen);
-
-      this.changeContainer(isFullscreen);
-    };
-
-    this.updateCodeview = function (isCodeview) {
-      ui.toggleBtnActive($toolbar.find('.btn-codeview'), isCodeview);
-      if (isCodeview) {
-        this.deactivate();
-      } else {
-        this.activate();
-      }
-    };
-
-    this.activate = function (isIncludeCodeview) {
-      var $btn = $toolbar.find('button');
-      if (!isIncludeCodeview) {
-        $btn = $btn.not('.btn-codeview');
-      }
-      ui.toggleBtn($btn, true);
-    };
-
-    this.deactivate = function (isIncludeCodeview) {
-      var $btn = $toolbar.find('button');
-      if (!isIncludeCodeview) {
-        $btn = $btn.not('.btn-codeview');
-      }
-      ui.toggleBtn($btn, false);
-    };
-  };
-
-  var LinkDialog = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $editor = context.layoutInfo.editor;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    this.initialize = function () {
-      var $container = options.dialogsInBody ? $(document.body) : $editor;
-
-      var body = '<div class="form-group note-form-group">' +
-                   '<label class="note-form-label">' + lang.link.textToDisplay + '</label>' +
-                   '<input class="note-link-text form-control '+
-                   ' note-form-control  note-input" type="text" />' +
-                 '</div>' +
-                 '<div class="form-group note-form-group">' +
-                   '<label class="note-form-label">' + lang.link.url + '</label>' +
-                   '<input class="note-link-url form-control note-form-control ' +
-                   'note-input" type="text" value="http://" />' +
-                 '</div>' +
-      (!options.disableLinkTarget ?
-          $('<div/>').append(ui.checkbox({ id: 'sn-checkbox-open-in-new-window', text: lang.link.openInNewWindow, checked: true }).render())
-              .html()
-          : '');
-      var footer = '<button href="#" class="btn btn-primary note-btn note-btn-primary ' +
-      'note-link-btn disabled" disabled>' + lang.link.insert + '</button>';
-
-      this.$dialog = ui.dialog({
-        className: 'link-dialog',
-        title: lang.link.insert,
-        fade: options.dialogsFade,
-        body: body,
-        footer: footer
-      }).render().appendTo($container);
-    };
-
-    this.destroy = function () {
-      ui.hideDialog(this.$dialog);
-      this.$dialog.remove();
-    };
-
-    this.bindEnterKey = function ($input, $btn) {
-      $input.on('keypress', function (event) {
-        if (event.keyCode === key.code.ENTER) {
-          $btn.trigger('click');
-        }
-      });
-    };
-
-    /**
-     * toggle update button
-     */
-    this.toggleLinkBtn = function ($linkBtn, $linkText, $linkUrl) {
-      ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
-    };
-
-    /**
-     * Show link dialog and set event handlers on dialog controls.
-     *
-     * @param {Object} linkInfo
-     * @return {Promise}
-     */
-    this.showLinkDialog = function (linkInfo) {
-      return $.Deferred(function (deferred) {
-        var $linkText = self.$dialog.find('.note-link-text'),
-        $linkUrl = self.$dialog.find('.note-link-url'),
-        $linkBtn = self.$dialog.find('.note-link-btn'),
-        $openInNewWindow = self.$dialog.find('input[type=checkbox]');
-
-        ui.onDialogShown(self.$dialog, function () {
-          context.triggerEvent('dialog.shown');
-
-          // if no url was given, copy text to url
-          if (!linkInfo.url) {
-            linkInfo.url = linkInfo.text;
-          }
-
-          $linkText.val(linkInfo.text);
-
-          var handleLinkTextUpdate = function () {
-            self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-            // if linktext was modified by keyup,
-            // stop cloning text from linkUrl
-            linkInfo.text = $linkText.val();
-          };
-
-          $linkText.on('input', handleLinkTextUpdate).on('paste', function () {
-            setTimeout(handleLinkTextUpdate, 0);
-          });
-
-          var handleLinkUrlUpdate = function () {
-            self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-            // display same link on `Text to display` input
-            // when create a new link
-            if (!linkInfo.text) {
-              $linkText.val($linkUrl.val());
-            }
-          };
-
-          $linkUrl.on('input', handleLinkUrlUpdate).on('paste', function () {
-            setTimeout(handleLinkUrlUpdate, 0);
-          }).val(linkInfo.url).trigger('focus');
-
-          self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-          self.bindEnterKey($linkUrl, $linkBtn);
-          self.bindEnterKey($linkText, $linkBtn);
-
-          var isChecked = linkInfo.isNewWindow !== undefined ?
-            linkInfo.isNewWindow : context.options.linkTargetBlank;
-
-          $openInNewWindow.prop('checked', isChecked);
-
-          $linkBtn.one('click', function (event) {
-            event.preventDefault();
-
-            deferred.resolve({
-              range: linkInfo.range,
-              url: $linkUrl.val(),
-              text: $linkText.val(),
-              isNewWindow: $openInNewWindow.is(':checked')
-            });
-            ui.hideDialog(self.$dialog);
-          });
-        });
-
-        ui.onDialogHidden(self.$dialog, function () {
-          // detach events
-          $linkText.off('input paste keypress');
-          $linkUrl.off('input paste keypress');
-          $linkBtn.off('click');
-
-          if (deferred.state() === 'pending') {
-            deferred.reject();
-          }
-        });
-
-        ui.showDialog(self.$dialog);
-      }).promise();
-    };
-
-    /**
-     * @param {Object} layoutInfo
-     */
-    this.show = function () {
-      var linkInfo = context.invoke('editor.getLinkInfo');
-
-      context.invoke('editor.saveRange');
-      this.showLinkDialog(linkInfo).then(function (linkInfo) {
-        context.invoke('editor.restoreRange');
-        context.invoke('editor.createLink', linkInfo);
-      }).fail(function () {
-        context.invoke('editor.restoreRange');
-      });
-    };
-    context.memo('help.linkDialog.show', options.langInfo.help['linkDialog.show']);
-  };
-
-  var LinkPopover = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var options = context.options;
-
-    this.events = {
-      'summernote.keyup summernote.mouseup summernote.change summernote.scroll': function () {
-        self.update();
-      },
-      'summernote.disable summernote.dialog.shown': function () {
-        self.hide();
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return !list.isEmpty(options.popover.link);
-    };
-
-    this.initialize = function () {
-      this.$popover = ui.popover({
-        className: 'note-link-popover',
-        callback: function ($node) {
-          var $content = $node.find('.popover-content,.note-popover-content');
-          $content.prepend('<span><a target="_blank"></a>&nbsp;</span>');
-        }
-      }).render().appendTo('body');
-      var $content = this.$popover.find('.popover-content,.note-popover-content');
-
-      context.invoke('buttons.build', $content, options.popover.link);
-    };
-
-    this.destroy = function () {
-      this.$popover.remove();
-    };
-
-    this.update = function () {
-      // Prevent focusing on editable when invoke('code') is executed
-      if (!context.invoke('editor.hasFocus')) {
-        this.hide();
-        return;
-      }
-
-      var rng = context.invoke('editor.createRange');
-      if (rng.isCollapsed() && rng.isOnAnchor()) {
-        var anchor = dom.ancestor(rng.sc, dom.isAnchor);
-        var href = $(anchor).attr('href');
-        this.$popover.find('a').attr('href', href).html(href);
-
-        var pos = dom.posFromPlaceholder(anchor);
-        this.$popover.css({
-          display: 'block',
-          left: pos.left,
-          top: pos.top
-        });
-      } else {
-        this.hide();
-      }
-    };
-
-    this.hide = function () {
-      this.$popover.hide();
-    };
-  };
-
-  var ImageDialog = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $editor = context.layoutInfo.editor;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    this.initialize = function () {
-      var $container = options.dialogsInBody ? $(document.body) : $editor;
-
-      var imageLimitation = '';
-      if (options.maximumImageFileSize) {
-        var unit = Math.floor(Math.log(options.maximumImageFileSize) / Math.log(1024));
-        var readableSize = (options.maximumImageFileSize / Math.pow(1024, unit)).toFixed(2) * 1 +
-                           ' ' + ' KMGTP'[unit] + 'B';
-        imageLimitation = '<small>' + lang.image.maximumFileSize + ' : ' + readableSize + '</small>';
-      }
-
-      var body = '<div class="form-group note-form-group note-group-select-from-files">' +
-                   '<label class="note-form-label">' + lang.image.selectFromFiles + '</label>' +
-                   '<input class="note-image-input form-control note-form-control note-input" '+
-                   ' type="file" name="files" accept="image/*" multiple="multiple" />' +
-                   imageLimitation +
-                 '</div>' + 
-                 '<div class="form-group note-group-image-url" style="overflow:auto;">' +
-                   '<label class="note-form-label">' + lang.image.url + '</label>' +
-                   '<input class="note-image-url form-control note-form-control note-input ' +
-                   ' col-md-12" type="text" />' +
-                 '</div>';
-      var footer = '<button href="#" class="btn btn-primary note-btn note-btn-primary ' +
-      'note-image-btn disabled" disabled>' + lang.image.insert + '</button>';
-
-      this.$dialog = ui.dialog({
-        title: lang.image.insert,
-        fade: options.dialogsFade,
-        body: body,
-        footer: footer
-      }).render().appendTo($container);
-    };
-
-    this.destroy = function () {
-      ui.hideDialog(this.$dialog);
-      this.$dialog.remove();
-    };
-
-    this.bindEnterKey = function ($input, $btn) {
-      $input.on('keypress', function (event) {
-        if (event.keyCode === key.code.ENTER) {
-          $btn.trigger('click');
-        }
-      });
-    };
-
-    this.show = function () {
-      context.invoke('editor.saveRange');
-      this.showImageDialog().then(function (data) {
-        // [workaround] hide dialog before restore range for IE range focus
-        ui.hideDialog(self.$dialog);
-        context.invoke('editor.restoreRange');
-
-        if (typeof data === 'string') { // image url
-          context.invoke('editor.insertImage', data);
-        } else { // array of files
-          context.invoke('editor.insertImagesOrCallback', data);
-        }
-      }).fail(function () {
-        context.invoke('editor.restoreRange');
-      });
-    };
-
-    /**
-     * show image dialog
-     *
-     * @param {jQuery} $dialog
-     * @return {Promise}
-     */
-    this.showImageDialog = function () {
-      return $.Deferred(function (deferred) {
-        var $imageInput = self.$dialog.find('.note-image-input'),
-            $imageUrl = self.$dialog.find('.note-image-url'),
-            $imageBtn = self.$dialog.find('.note-image-btn');
-
-        ui.onDialogShown(self.$dialog, function () {
-          context.triggerEvent('dialog.shown');
-
-          // Cloning imageInput to clear element.
-          $imageInput.replaceWith($imageInput.clone()
-            .on('change', function () {
-              deferred.resolve(this.files || this.value);
-            })
-            .val('')
-          );
-
-          $imageBtn.click(function (event) {
-            event.preventDefault();
-
-            deferred.resolve($imageUrl.val());
-          });
-
-          $imageUrl.on('keyup paste', function () {
-            var url = $imageUrl.val();
-            ui.toggleBtn($imageBtn, url);
-          }).val('').trigger('focus');
-          self.bindEnterKey($imageUrl, $imageBtn);
-        });
-
-        ui.onDialogHidden(self.$dialog, function () {
-          $imageInput.off('change');
-          $imageUrl.off('keyup paste keypress');
-          $imageBtn.off('click');
-
-          if (deferred.state() === 'pending') {
-            deferred.reject();
-          }
-        });
-
-        ui.showDialog(self.$dialog);
-      });
-    };
-  };
-
-
-  /**
-   * Image popover module
-   *  mouse events that show/hide popover will be handled by Handle.js.
-   *  Handle.js will receive the events and invoke 'imagePopover.update'.
-   */
-  var ImagePopover = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $editable = context.layoutInfo.editable;
-    var editable = $editable[0];
-    var options = context.options;
-
-    this.events = {
-      'summernote.disable': function () {
-        self.hide();
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return !list.isEmpty(options.popover.image);
-    };
-
-    this.initialize = function () {
-      this.$popover = ui.popover({
-        className: 'note-image-popover'
-      }).render().appendTo('body');
-      var $content = this.$popover.find('.popover-content,.note-popover-content');
-
-      context.invoke('buttons.build', $content, options.popover.image);
-    };
-
-    this.destroy = function () {
-      this.$popover.remove();
-    };
-
-    this.update = function (target) {
-      if (dom.isImg(target)) {
-        var pos = dom.posFromPlaceholder(target);
-        var posEditor = dom.posFromPlaceholder(editable);
-
-        this.$popover.css({
-          display: 'block',
-          left: pos.left,
-          top: Math.min(pos.top, posEditor.top)
-        });
-      } else {
-        this.hide();
-      }
-    };
-
-    this.hide = function () {
-      this.$popover.hide();
-    };
-  };
-
-  var TablePopover = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var options = context.options;
-
-    this.events = {
-      'summernote.mousedown': function (we, e) {
-        self.update(e.target);
-      },
-      'summernote.keyup summernote.scroll summernote.change': function () {
-        self.update();
-      },
-      'summernote.disable': function () {
-        self.hide();
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return !list.isEmpty(options.popover.table);
-    };
-
-    this.initialize = function () {
-      this.$popover = ui.popover({
-        className: 'note-table-popover'
-      }).render().appendTo('body');
-      var $content = this.$popover.find('.popover-content,.note-popover-content');
-
-      context.invoke('buttons.build', $content, options.popover.table);
-
-      // [workaround] Disable Firefox's default table editor
-      if (agent.isFF) {
-        document.execCommand('enableInlineTableEditing', false, false);
-      }
-    };
-
-    this.destroy = function () {
-      this.$popover.remove();
-    };
-
-    this.update = function (target) {
-      if (context.isDisabled()) {
-        return false;
-      }
-
-      var isCell = dom.isCell(target);
-
-      if (isCell) {
-        var pos = dom.posFromPlaceholder(target);
-        this.$popover.css({
-          display: 'block',
-          left: pos.left,
-          top: pos.top
-        });
-      } else {
-        this.hide();
-      }
-
-      return isCell;
-    };
-
-    this.hide = function () {
-      this.$popover.hide();
-    };
-  };
-
-  var VideoDialog = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $editor = context.layoutInfo.editor;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    this.initialize = function () {
-      var $container = options.dialogsInBody ? $(document.body) : $editor;
-
-      var body = '<div class="form-group note-form-group row-fluid">' +
-          '<label class="note-form-label">' + lang.video.url + ' <small class="text-muted">' + lang.video.providers + '</small></label>' +
-          '<input class="note-video-url form-control  note-form-control note-input span12" ' + 
-          ' type="text" />' +
-          '</div>';
-      var footer = '<button href="#" class="btn btn-primary note-btn note-btn-primary ' + 
-      ' note-video-btn disabled" disabled>' + lang.video.insert + '</button>';
-
-      this.$dialog = ui.dialog({
-        title: lang.video.insert,
-        fade: options.dialogsFade,
-        body: body,
-        footer: footer
-      }).render().appendTo($container);
-    };
-
-    this.destroy = function () {
-      ui.hideDialog(this.$dialog);
-      this.$dialog.remove();
-    };
-
-    this.bindEnterKey = function ($input, $btn) {
-      $input.on('keypress', function (event) {
-        if (event.keyCode === key.code.ENTER) {
-          $btn.trigger('click');
-        }
-      });
-    };
-
-    this.createVideoNode = function (url) {
-      // video url patterns(youtube, instagram, vimeo, dailymotion, youku, mp4, ogg, webm)
-      var ytRegExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-      var ytMatch = url.match(ytRegExp);
-
-      var igRegExp = /(?:www\.|\/\/)instagram\.com\/p\/(.[a-zA-Z0-9_-]*)/;
-      var igMatch = url.match(igRegExp);
-
-      var vRegExp = /\/\/vine\.co\/v\/([a-zA-Z0-9]+)/;
-      var vMatch = url.match(vRegExp);
-
-      var vimRegExp = /\/\/(player\.)?vimeo\.com\/([a-z]*\/)*(\d+)[?]?.*/;
-      var vimMatch = url.match(vimRegExp);
-
-      var dmRegExp = /.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/;
-      var dmMatch = url.match(dmRegExp);
-
-      var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)=*\.html/;
-      var youkuMatch = url.match(youkuRegExp);
-
-      var qqRegExp = /\/\/v\.qq\.com.*?vid=(.+)/;
-      var qqMatch = url.match(qqRegExp);
-
-      var qqRegExp2 = /\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.html\??.*/;
-      var qqMatch2 = url.match(qqRegExp2);
-
-      var mp4RegExp = /^.+.(mp4|m4v)$/;
-      var mp4Match = url.match(mp4RegExp);
-
-      var oggRegExp = /^.+.(ogg|ogv)$/;
-      var oggMatch = url.match(oggRegExp);
-
-      var webmRegExp = /^.+.(webm)$/;
-      var webmMatch = url.match(webmRegExp);
-
-      var $video;
-      if (ytMatch && ytMatch[1].length === 11) {
-        var youtubeId = ytMatch[1];
-        $video = $('<iframe>')
-            .attr('frameborder', 0)
-            .attr('src', '//www.youtube.com/embed/' + youtubeId)
-            .attr('width', '640').attr('height', '360');
-      } else if (igMatch && igMatch[0].length) {
-        $video = $('<iframe>')
-            .attr('frameborder', 0)
-            .attr('src', 'https://instagram.com/p/' + igMatch[1] + '/embed/')
-            .attr('width', '612').attr('height', '710')
-            .attr('scrolling', 'no')
-            .attr('allowtransparency', 'true');
-      } else if (vMatch && vMatch[0].length) {
-        $video = $('<iframe>')
-            .attr('frameborder', 0)
-            .attr('src', vMatch[0] + '/embed/simple')
-            .attr('width', '600').attr('height', '600')
-            .attr('class', 'vine-embed');
-      } else if (vimMatch && vimMatch[3].length) {
-        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
-            .attr('frameborder', 0)
-            .attr('src', '//player.vimeo.com/video/' + vimMatch[3])
-            .attr('width', '640').attr('height', '360');
-      } else if (dmMatch && dmMatch[2].length) {
-        $video = $('<iframe>')
-            .attr('frameborder', 0)
-            .attr('src', '//www.dailymotion.com/embed/video/' + dmMatch[2])
-            .attr('width', '640').attr('height', '360');
-      } else if (youkuMatch && youkuMatch[1].length) {
-        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
-            .attr('frameborder', 0)
-            .attr('height', '498')
-            .attr('width', '510')
-            .attr('src', '//player.youku.com/embed/' + youkuMatch[1]);
-      } else if ((qqMatch && qqMatch[1].length) || (qqMatch2 && qqMatch2[2].length)) {
-        var vid = ((qqMatch && qqMatch[1].length) ? qqMatch[1]:qqMatch2[2]);
-        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
-            .attr('frameborder', 0)
-            .attr('height', '310')
-            .attr('width', '500')
-            .attr('src', 'http://v.qq.com/iframe/player.html?vid=' + vid + '&amp;auto=0');
-      } else if (mp4Match || oggMatch || webmMatch) {
-        $video = $('<video controls>')
-            .attr('src', url)
-            .attr('width', '640').attr('height', '360');
-      } else {
-        // this is not a known video link. Now what, Cat? Now what?
-        return false;
-      }
-
-      $video.addClass('note-video-clip');
-
-      return $video[0];
-    };
-
-    this.show = function () {
-      var text = context.invoke('editor.getSelectedText');
-      context.invoke('editor.saveRange');
-      this.showVideoDialog(text).then(function (url) {
-        // [workaround] hide dialog before restore range for IE range focus
-        ui.hideDialog(self.$dialog);
-        context.invoke('editor.restoreRange');
-
-        // build node
-        var $node = self.createVideoNode(url);
-
-        if ($node) {
-          // insert video node
-          context.invoke('editor.insertNode', $node);
-        }
-      }).fail(function () {
-        context.invoke('editor.restoreRange');
-      });
-    };
-
-    /**
-     * show image dialog
-     *
-     * @param {jQuery} $dialog
-     * @return {Promise}
-     */
-    this.showVideoDialog = function (text) {
-      return $.Deferred(function (deferred) {
-        var $videoUrl = self.$dialog.find('.note-video-url'),
-            $videoBtn = self.$dialog.find('.note-video-btn');
-
-        ui.onDialogShown(self.$dialog, function () {
-          context.triggerEvent('dialog.shown');
-
-          $videoUrl.val(text).on('input', function () {
-            ui.toggleBtn($videoBtn, $videoUrl.val());
-          }).trigger('focus');
-
-          $videoBtn.click(function (event) {
-            event.preventDefault();
-
-            deferred.resolve($videoUrl.val());
-          });
-
-          self.bindEnterKey($videoUrl, $videoBtn);
-        });
-
-        ui.onDialogHidden(self.$dialog, function () {
-          $videoUrl.off('input');
-          $videoBtn.off('click');
-
-          if (deferred.state() === 'pending') {
-            deferred.reject();
-          }
-        });
-
-        ui.showDialog(self.$dialog);
-      });
-    };
-  };
-
-  var HelpDialog = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var $editor = context.layoutInfo.editor;
-    var options = context.options;
-    var lang = options.langInfo;
-
-    this.createShortCutList = function () {
-      var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
-      return Object.keys(keyMap).map(function (key) {
-        var command = keyMap[key];
-        var $row = $('<div><div class="help-list-item"/></div>');
-        $row.append($('<label><kbd>' + key + '</kdb></label>').css({
-          'width': 180,
-          'margin-right': 10
-        })).append($('<span/>').html(context.memo('help.' + command) || command));
-        return $row.html();
-      }).join('');
-    };
-
-    this.initialize = function () {
-      var $container = options.dialogsInBody ? $(document.body) : $editor;
-
-      var body = [
-        '<p class="text-center">',
-        '<a href="http://summernote.org/" target="_blank">Summernote 0.8.8</a> · ',
-        '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ',
-        '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>',
-        '</p>'
-      ].join('');
-
-      this.$dialog = ui.dialog({
-        title: lang.options.help,
-        fade: options.dialogsFade,
-        body: this.createShortCutList(),
-        footer: body,
-        callback: function ($node) {
-          $node.find('.modal-body,.note-modal-body').css({
-            'max-height': 300,
-            'overflow': 'scroll'
-          });
-        }
-      }).render().appendTo($container);
-    };
-
-    this.destroy = function () {
-      ui.hideDialog(this.$dialog);
-      this.$dialog.remove();
-    };
-
-    /**
-     * show help dialog
-     *
-     * @return {Promise}
-     */
-    this.showHelpDialog = function () {
-      return $.Deferred(function (deferred) {
-        ui.onDialogShown(self.$dialog, function () {
-          context.triggerEvent('dialog.shown');
-          deferred.resolve();
-        });
-        ui.showDialog(self.$dialog);
-      }).promise();
-    };
-
-    this.show = function () {
-      context.invoke('editor.saveRange');
-      this.showHelpDialog().then(function () {
-        context.invoke('editor.restoreRange');
-      });
-    };
-  };
-
-  var AirPopover = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var options = context.options;
-
-    var AIR_MODE_POPOVER_X_OFFSET = 20;
-
-    this.events = {
-      'summernote.keyup summernote.mouseup summernote.scroll': function () {
-        self.update();
-      },
-      'summernote.disable summernote.change summernote.dialog.shown': function () {
-        self.hide();
-      },
-      'summernote.focusout': function (we, e) {
-        // [workaround] Firefox doesn't support relatedTarget on focusout
-        //  - Ignore hide action on focus out in FF.
-        if (agent.isFF) {
-          return;
-        }
-
-        if (!e.relatedTarget || !dom.ancestor(e.relatedTarget, func.eq(self.$popover[0]))) {
-          self.hide();
-        }
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return options.airMode && !list.isEmpty(options.popover.air);
-    };
-
-    this.initialize = function () {
-      this.$popover = ui.popover({
-        className: 'note-air-popover'
-      }).render().appendTo('body');
-      var $content = this.$popover.find('.popover-content');
-
-      context.invoke('buttons.build', $content, options.popover.air);
-    };
-
-    this.destroy = function () {
-      this.$popover.remove();
-    };
-
-    this.update = function () {
-      var styleInfo = context.invoke('editor.currentStyle');
-      if (styleInfo.range && !styleInfo.range.isCollapsed()) {
-        var rect = list.last(styleInfo.range.getClientRects());
-        if (rect) {
-          var bnd = func.rect2bnd(rect);
-          this.$popover.css({
-            display: 'block',
-            left: Math.max(bnd.left + bnd.width / 2, 0) - AIR_MODE_POPOVER_X_OFFSET,
-            top: bnd.top + bnd.height
-          });
-          context.invoke('buttons.updateCurrentStyle', this.$popover);
-        }
-      } else {
-        this.hide();
-      }
-    };
-
-    this.hide = function () {
-      this.$popover.hide();
-    };
-  };
-
-  var HintPopover = function (context) {
-    var self = this;
-    var ui = $.summernote.ui;
-
-    var POPOVER_DIST = 5;
-    var hint = context.options.hint || [];
-    var direction = context.options.hintDirection || 'bottom';
-    var hints = $.isArray(hint) ? hint : [hint];
-
-    this.events = {
-      'summernote.keyup': function (we, e) {
-        if (!e.isDefaultPrevented()) {
-          self.handleKeyup(e);
-        }
-      },
-      'summernote.keydown': function (we, e) {
-        self.handleKeydown(e);
-      },
-      'summernote.disable summernote.dialog.shown': function () {
-        self.hide();
-      }
-    };
-
-    this.shouldInitialize = function () {
-      return hints.length > 0;
-    };
-
-    this.initialize = function () {
-      this.lastWordRange = null;
-      this.$popover = ui.popover({
-        className: 'note-hint-popover',
-        hideArrow: true,
-        direction: ''
-      }).render().appendTo('body');
-
-      this.$popover.hide();
-
-      this.$content = this.$popover.find('.popover-content,.note-popover-content');
-
-      this.$content.on('click', '.note-hint-item', function () {
-        self.$content.find('.active').removeClass('active');
-        $(this).addClass('active');
-        self.replace();
-      });
-    };
-
-    this.destroy = function () {
-      this.$popover.remove();
-    };
-
-    this.selectItem = function ($item) {
-      this.$content.find('.active').removeClass('active');
-      $item.addClass('active');
-
-      this.$content[0].scrollTop = $item[0].offsetTop - (this.$content.innerHeight() / 2);
-    };
-
-    this.moveDown = function () {
-      var $current = this.$content.find('.note-hint-item.active');
-      var $next = $current.next();
-
-      if ($next.length) {
-        this.selectItem($next);
-      } else {
-        var $nextGroup = $current.parent().next();
-
-        if (!$nextGroup.length) {
-          $nextGroup = this.$content.find('.note-hint-group').first();
-        }
-
-        this.selectItem($nextGroup.find('.note-hint-item').first());
-      }
-    };
-
-    this.moveUp = function () {
-      var $current = this.$content.find('.note-hint-item.active');
-      var $prev = $current.prev();
-
-      if ($prev.length) {
-        this.selectItem($prev);
-      } else {
-        var $prevGroup = $current.parent().prev();
-
-        if (!$prevGroup.length) {
-          $prevGroup = this.$content.find('.note-hint-group').last();
-        }
-
-        this.selectItem($prevGroup.find('.note-hint-item').last());
-      }
-    };
-
-    this.replace = function () {
-      var $item = this.$content.find('.note-hint-item.active');
-
-      if ($item.length) {
-        var node = this.nodeFromItem($item);
-        // XXX: consider to move codes to editor for recording redo/undo.
-        this.lastWordRange.insertNode(node);
-        range.createFromNode(node).collapse().select();
-
-        this.lastWordRange = null;
-        this.hide();
-        context.triggerEvent('change', context.layoutInfo.editable.html(), context.layoutInfo.editable);
-        context.invoke('editor.focus');
-      }
-
-    };
-
-    this.nodeFromItem = function ($item) {
-      var hint = hints[$item.data('index')];
-      var item = $item.data('item');
-      var node = hint.content ? hint.content(item) : item;
-      if (typeof node === 'string') {
-        node = dom.createText(node);
-      }
-      return node;
-    };
-
-    this.createItemTemplates = function (hintIdx, items) {
-      var hint = hints[hintIdx];
-      return items.map(function (item, idx) {
-        var $item = $('<div class="note-hint-item"/>');
-        $item.append(hint.template ? hint.template(item) : item + '');
-        $item.data({
-          'index': hintIdx,
-          'item': item
-        });
-
-        if (hintIdx === 0 && idx === 0) {
-          $item.addClass('active');
-        }
-        return $item;
-      });
-    };
-
-    this.handleKeydown = function (e) {
-      if (!this.$popover.is(':visible')) {
-        return;
-      }
-
-      if (e.keyCode === key.code.ENTER) {
-        e.preventDefault();
-        this.replace();
-      } else if (e.keyCode === key.code.UP) {
-        e.preventDefault();
-        this.moveUp();
-      } else if (e.keyCode === key.code.DOWN) {
-        e.preventDefault();
-        this.moveDown();
-      }
-    };
-
-    this.searchKeyword = function (index, keyword, callback) {
-      var hint = hints[index];
-      if (hint && hint.match.test(keyword) && hint.search) {
-        var matches = hint.match.exec(keyword);
-        hint.search(matches[1], callback);
-      } else {
-        callback();
-      }
-    };
-
-    this.createGroup = function (idx, keyword) {
-      var $group = $('<div class="note-hint-group note-hint-group-' + idx + '"/>');
-      this.searchKeyword(idx, keyword, function (items) {
-        items = items || [];
-        if (items.length) {
-          $group.html(self.createItemTemplates(idx, items));
-          self.show();
-        }
-      });
-
-      return $group;
-    };
-
-    this.handleKeyup = function (e) {
-      if (list.contains([key.code.ENTER, key.code.UP, key.code.DOWN], e.keyCode)) {
-        if (e.keyCode === key.code.ENTER) {
-          if (this.$popover.is(':visible')) {
-            return;
-          }
-        }
-      } else {
-        var wordRange = context.invoke('editor.createRange').getWordRange();
-        var keyword = wordRange.toString();
-        if (hints.length && keyword) {
-          this.$content.empty();
-
-          var bnd = func.rect2bnd(list.last(wordRange.getClientRects()));
-          if (bnd) {
-
-            this.$popover.hide();
-
-            this.lastWordRange = wordRange;
-
-            hints.forEach(function (hint, idx) {
-              if (hint.match.test(keyword)) {
-                self.createGroup(idx, keyword).appendTo(self.$content);
-              }
-            });
-
-            // set position for popover after group is created
-            if (direction === 'top') {
-              this.$popover.css({
-                left: bnd.left,
-                top: bnd.top - this.$popover.outerHeight() - POPOVER_DIST
-              });
-            } else {
-              this.$popover.css({
-                left: bnd.left,
-                top: bnd.top + bnd.height + POPOVER_DIST
-              });
-            }
-
-          }
-        } else {
-          this.hide();
-        }
-      }
-    };
-
-    this.show = function () {
-      this.$popover.show();
-    };
-
-    this.hide = function () {
-      this.$popover.hide();
-    };
-  };
-
-
-  $.summernote = $.extend($.summernote, {
-    version: '0.8.8',
-    ui: ui,
-    dom: dom,
-
-    plugins: {},
-
-    options: {
-      modules: {
-        'editor': Editor,
-        'clipboard': Clipboard,
-        'dropzone': Dropzone,
-        'codeview': Codeview,
-        'statusbar': Statusbar,
-        'fullscreen': Fullscreen,
-        'handle': Handle,
-        // FIXME: HintPopover must be front of autolink
-        //  - Script error about range when Enter key is pressed on hint popover
-        'hintPopover': HintPopover,
-        'autoLink': AutoLink,
-        'autoSync': AutoSync,
-        'placeholder': Placeholder,
-        'buttons': Buttons,
-        'toolbar': Toolbar,
-        'linkDialog': LinkDialog,
-        'linkPopover': LinkPopover,
-        'imageDialog': ImageDialog,
-        'imagePopover': ImagePopover,
-        'tablePopover': TablePopover,
-        'videoDialog': VideoDialog,
-        'helpDialog': HelpDialog,
-        'airPopover': AirPopover
-      },
-
-      buttons: {},
-
-      lang: 'en-US',
-
-      // toolbar
-      toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['fontname', ['fontname']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']]
-      ],
-
-      // popover
-      popover: {
-        image: [
-          ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-          ['float', ['floatLeft', 'floatRight', 'floatNone']],
-          ['remove', ['removeMedia']]
-        ],
-        link: [
-          ['link', ['linkDialogShow', 'unlink']]
-        ],
-        table: [
-          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']]
-        ],
-        air: [
-          ['color', ['color']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['para', ['ul', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture']]
-        ]
-      },
-
-      // air mode: inline editor
-      airMode: false,
-
-      width: null,
-      height: null,
-      linkTargetBlank: true,
-
-      focus: false,
-      tabSize: 4,
-      styleWithSpan: true,
-      shortcuts: true,
-      textareaAutoSync: true,
-      direction: null,
-      tooltip: 'auto',
-
-      styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-
-      fontNames: [
-        'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
-        'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
-        'Tahoma', 'Times New Roman', 'Verdana'
-      ],
-
-      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
-
-      // pallete colors(n x n)
-      colors: [
-        ['#000000', '#424242', '#636363', '#9C9C94', '#CEC6CE', '#EFEFEF', '#F7F7F7', '#FFFFFF'],
-        ['#FF0000', '#FF9C00', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#9C00FF', '#FF00FF'],
-        ['#F7C6CE', '#FFE7CE', '#FFEFC6', '#D6EFD6', '#CEDEE7', '#CEE7F7', '#D6D6E7', '#E7D6DE'],
-        ['#E79C9C', '#FFC69C', '#FFE79C', '#B5D6A5', '#A5C6CE', '#9CC6EF', '#B5A5D6', '#D6A5BD'],
-        ['#E76363', '#F7AD6B', '#FFD663', '#94BD7B', '#73A5AD', '#6BADDE', '#8C7BC6', '#C67BA5'],
-        ['#CE0000', '#E79439', '#EFC631', '#6BA54A', '#4A7B8C', '#3984C6', '#634AA5', '#A54A7B'],
-        ['#9C0000', '#B56308', '#BD9400', '#397B21', '#104A5A', '#085294', '#311873', '#731842'],
-        ['#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031']
-      ],
-
-      lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
-
-      tableClassName: 'table table-bordered',
-
-      insertTableMaxSize: {
-        col: 10,
-        row: 10
-      },
-
-      dialogsInBody: false,
-      dialogsFade: false,
-
-      maximumImageFileSize: null,
-
-      callbacks: {
-        onInit: null,
-        onFocus: null,
-        onBlur: null,
-        onEnter: null,
-        onKeyup: null,
-        onKeydown: null,
-        onImageUpload: null,
-        onImageUploadError: null
-      },
-
-      codemirror: {
-        mode: 'text/html',
-        htmlMode: true,
-        lineNumbers: true
-      },
-
-      keyMap: {
-        pc: {
-          'ENTER': 'insertParagraph',
-          'CTRL+Z': 'undo',
-          'CTRL+Y': 'redo',
-          'TAB': 'tab',
-          'SHIFT+TAB': 'untab',
-          'CTRL+B': 'bold',
-          'CTRL+I': 'italic',
-          'CTRL+U': 'underline',
-          'CTRL+SHIFT+S': 'strikethrough',
-          'CTRL+BACKSLASH': 'removeFormat',
-          'CTRL+SHIFT+L': 'justifyLeft',
-          'CTRL+SHIFT+E': 'justifyCenter',
-          'CTRL+SHIFT+R': 'justifyRight',
-          'CTRL+SHIFT+J': 'justifyFull',
-          'CTRL+SHIFT+NUM7': 'insertUnorderedList',
-          'CTRL+SHIFT+NUM8': 'insertOrderedList',
-          'CTRL+LEFTBRACKET': 'outdent',
-          'CTRL+RIGHTBRACKET': 'indent',
-          'CTRL+NUM0': 'formatPara',
-          'CTRL+NUM1': 'formatH1',
-          'CTRL+NUM2': 'formatH2',
-          'CTRL+NUM3': 'formatH3',
-          'CTRL+NUM4': 'formatH4',
-          'CTRL+NUM5': 'formatH5',
-          'CTRL+NUM6': 'formatH6',
-          'CTRL+ENTER': 'insertHorizontalRule',
-          'CTRL+K': 'linkDialog.show'
-        },
-
-        mac: {
-          'ENTER': 'insertParagraph',
-          'CMD+Z': 'undo',
-          'CMD+SHIFT+Z': 'redo',
-          'TAB': 'tab',
-          'SHIFT+TAB': 'untab',
-          'CMD+B': 'bold',
-          'CMD+I': 'italic',
-          'CMD+U': 'underline',
-          'CMD+SHIFT+S': 'strikethrough',
-          'CMD+BACKSLASH': 'removeFormat',
-          'CMD+SHIFT+L': 'justifyLeft',
-          'CMD+SHIFT+E': 'justifyCenter',
-          'CMD+SHIFT+R': 'justifyRight',
-          'CMD+SHIFT+J': 'justifyFull',
-          'CMD+SHIFT+NUM7': 'insertUnorderedList',
-          'CMD+SHIFT+NUM8': 'insertOrderedList',
-          'CMD+LEFTBRACKET': 'outdent',
-          'CMD+RIGHTBRACKET': 'indent',
-          'CMD+NUM0': 'formatPara',
-          'CMD+NUM1': 'formatH1',
-          'CMD+NUM2': 'formatH2',
-          'CMD+NUM3': 'formatH3',
-          'CMD+NUM4': 'formatH4',
-          'CMD+NUM5': 'formatH5',
-          'CMD+NUM6': 'formatH6',
-          'CMD+ENTER': 'insertHorizontalRule',
-          'CMD+K': 'linkDialog.show'
-        }
-      },
-      icons: {
-        'align': 'note-icon-align',
-        'alignCenter': 'note-icon-align-center',
-        'alignJustify': 'note-icon-align-justify',
-        'alignLeft': 'note-icon-align-left',
-        'alignRight': 'note-icon-align-right',
-        'rowBelow': 'note-icon-row-below',
-        'colBefore': 'note-icon-col-before',
-        'colAfter': 'note-icon-col-after',
-        'rowAbove': 'note-icon-row-above',
-        'rowRemove': 'note-icon-row-remove',
-        'colRemove': 'note-icon-col-remove',
-        'indent': 'note-icon-align-indent',
-        'outdent': 'note-icon-align-outdent',
-        'arrowsAlt': 'note-icon-arrows-alt',
-        'bold': 'note-icon-bold',
-        'caret': 'note-icon-caret',
-        'circle': 'note-icon-circle',
-        'close': 'note-icon-close',
-        'code': 'note-icon-code',
-        'eraser': 'note-icon-eraser',
-        'font': 'note-icon-font',
-        'frame': 'note-icon-frame',
-        'italic': 'note-icon-italic',
-        'link': 'note-icon-link',
-        'unlink': 'note-icon-chain-broken',
-        'magic': 'note-icon-magic',
-        'menuCheck': 'note-icon-menu-check',
-        'minus': 'note-icon-minus',
-        'orderedlist': 'note-icon-orderedlist',
-        'pencil': 'note-icon-pencil',
-        'picture': 'note-icon-picture',
-        'question': 'note-icon-question',
-        'redo': 'note-icon-redo',
-        'square': 'note-icon-square',
-        'strikethrough': 'note-icon-strikethrough',
-        'subscript': 'note-icon-subscript',
-        'superscript': 'note-icon-superscript',
-        'table': 'note-icon-table',
-        'textHeight': 'note-icon-text-height',
-        'trash': 'note-icon-trash',
-        'underline': 'note-icon-underline',
-        'undo': 'note-icon-undo',
-        'unorderedlist': 'note-icon-unorderedlist',
-        'video': 'note-icon-video'
-      }
+  // depending by the popper placement we have to compute its offsets slightly differently
+  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
+  var mainSide = isHoriz ? 'top' : 'left';
+  var secondarySide = isHoriz ? 'left' : 'top';
+  var measurement = isHoriz ? 'height' : 'width';
+  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
+
+  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
+  if (placement === secondarySide) {
+    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
+  } else {
+    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
+  }
+
+  return popperOffsets;
+}
+
+/**
+ * Mimics the `find` method of Array
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function find(arr, check) {
+  // use native find if supported
+  if (Array.prototype.find) {
+    return arr.find(check);
+  }
+
+  // use `filter` to obtain the same behavior of `find`
+  return arr.filter(check)[0];
+}
+
+/**
+ * Return the index of the matching object
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function findIndex(arr, prop, value) {
+  // use native findIndex if supported
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(function (cur) {
+      return cur[prop] === value;
+    });
+  }
+
+  // use `find` + `indexOf` if `findIndex` isn't supported
+  var match = find(arr, function (obj) {
+    return obj[prop] === value;
+  });
+  return arr.indexOf(match);
+}
+
+/**
+ * Loop trough the list of modifiers and run them in order,
+ * each of them will then edit the data object.
+ * @method
+ * @memberof Popper.Utils
+ * @param {dataObject} data
+ * @param {Array} modifiers
+ * @param {String} ends - Optional modifier name used as stopper
+ * @returns {dataObject}
+ */
+function runModifiers(modifiers, data, ends) {
+  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+
+  modifiersToRun.forEach(function (modifier) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
+      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
+    }
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
+    if (modifier.enabled && isFunction(fn)) {
+      // Add properties to offsets to make them a complete clientRect object
+      // we do this before each modifier to make sure the previous one doesn't
+      // mess with these values
+      data.offsets.popper = getClientRect(data.offsets.popper);
+      data.offsets.reference = getClientRect(data.offsets.reference);
+
+      data = fn(data, modifier);
     }
   });
 
-}));
+  return data;
+}
 
+/**
+ * Updates the position of the popper, computing the new offsets and applying
+ * the new style.<br />
+ * Prefer `scheduleUpdate` over `update` because of performance reasons.
+ * @method
+ * @memberof Popper
+ */
+function update() {
+  // if popper is destroyed, don't perform any further update
+  if (this.state.isDestroyed) {
+    return;
+  }
+
+  var data = {
+    instance: this,
+    styles: {},
+    arrowStyles: {},
+    attributes: {},
+    flipped: false,
+    offsets: {}
+  };
+
+  // compute reference element offsets
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
+
+  // store the computed placement inside `originalPlacement`
+  data.originalPlacement = data.placement;
+
+  // compute the popper offsets
+  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
+  data.offsets.popper.position = 'absolute';
+
+  // run the modifiers
+  data = runModifiers(this.modifiers, data);
+
+  // the first `update` will call `onCreate` callback
+  // the other ones will call `onUpdate` callback
+  if (!this.state.isCreated) {
+    this.state.isCreated = true;
+    this.options.onCreate(data);
+  } else {
+    this.options.onUpdate(data);
+  }
+}
+
+/**
+ * Helper used to know if the given modifier is enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean}
+ */
+function isModifierEnabled(modifiers, modifierName) {
+  return modifiers.some(function (_ref) {
+    var name = _ref.name,
+        enabled = _ref.enabled;
+    return enabled && name === modifierName;
+  });
+}
+
+/**
+ * Get the prefixed supported property name
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} property (camelCase)
+ * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+ */
+function getSupportedPropertyName(property) {
+  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
+  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+
+  for (var i = 0; i < prefixes.length - 1; i++) {
+    var prefix = prefixes[i];
+    var toCheck = prefix ? '' + prefix + upperProp : property;
+    if (typeof document.body.style[toCheck] !== 'undefined') {
+      return toCheck;
+    }
+  }
+  return null;
+}
+
+/**
+ * Destroy the popper
+ * @method
+ * @memberof Popper
+ */
+function destroy() {
+  this.state.isDestroyed = true;
+
+  // touch DOM only if `applyStyle` modifier is enabled
+  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+    this.popper.removeAttribute('x-placement');
+    this.popper.style.left = '';
+    this.popper.style.position = '';
+    this.popper.style.top = '';
+    this.popper.style[getSupportedPropertyName('transform')] = '';
+  }
+
+  this.disableEventListeners();
+
+  // remove the popper if user explicity asked for the deletion on destroy
+  // do not use `remove` because IE11 doesn't support it
+  if (this.options.removeOnDestroy) {
+    this.popper.parentNode.removeChild(this.popper);
+  }
+  return this;
+}
+
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
+function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+  var isBody = scrollParent.nodeName === 'BODY';
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  target.addEventListener(event, callback, { passive: true });
+
+  if (!isBody) {
+    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
+  }
+  scrollParents.push(target);
+}
+
+/**
+ * Setup needed event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function setupEventListeners(reference, options, state, updateBound) {
+  // Resize event listener on window
+  state.updateBound = updateBound;
+  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
+
+  // Scroll event listener on scroll parents
+  var scrollElement = getScrollParent(reference);
+  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
+  state.scrollElement = scrollElement;
+  state.eventsEnabled = true;
+
+  return state;
+}
+
+/**
+ * It will add resize/scroll events and start recalculating
+ * position of the popper element when they are triggered.
+ * @method
+ * @memberof Popper
+ */
+function enableEventListeners() {
+  if (!this.state.eventsEnabled) {
+    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+  }
+}
+
+/**
+ * Remove event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function removeEventListeners(reference, state) {
+  // Remove resize event listener on window
+  getWindow(reference).removeEventListener('resize', state.updateBound);
+
+  // Remove scroll event listener on scroll parents
+  state.scrollParents.forEach(function (target) {
+    target.removeEventListener('scroll', state.updateBound);
+  });
+
+  // Reset state
+  state.updateBound = null;
+  state.scrollParents = [];
+  state.scrollElement = null;
+  state.eventsEnabled = false;
+  return state;
+}
+
+/**
+ * It will remove resize/scroll events and won't recalculate popper position
+ * when they are triggered. It also won't trigger onUpdate callback anymore,
+ * unless you call `update` method manually.
+ * @method
+ * @memberof Popper
+ */
+function disableEventListeners() {
+  if (this.state.eventsEnabled) {
+    cancelAnimationFrame(this.scheduleUpdate);
+    this.state = removeEventListeners(this.reference, this.state);
+  }
+}
+
+/**
+ * Tells if a given input is a number
+ * @method
+ * @memberof Popper.Utils
+ * @param {*} input to check
+ * @return {Boolean}
+ */
+function isNumeric(n) {
+  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Set the style to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setStyles(element, styles) {
+  Object.keys(styles).forEach(function (prop) {
+    var unit = '';
+    // add unit if the value is numeric and is one of the following
+    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+      unit = 'px';
+    }
+    element.style[prop] = styles[prop] + unit;
+  });
+}
+
+/**
+ * Set the attributes to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(function (prop) {
+    var value = attributes[prop];
+    if (value !== false) {
+      element.setAttribute(prop, attributes[prop]);
+    } else {
+      element.removeAttribute(prop);
+    }
+  });
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} data.styles - List of style properties - values to apply to popper element
+ * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The same data object
+ */
+function applyStyle(data) {
+  // any property present in `data.styles` will be applied to the popper,
+  // in this way we can make the 3rd party modifiers add custom styles to it
+  // Be aware, modifiers could override the properties defined in the previous
+  // lines of this modifier!
+  setStyles(data.instance.popper, data.styles);
+
+  // any property present in `data.attributes` will be applied to the popper,
+  // they will be set as HTML attributes of the element
+  setAttributes(data.instance.popper, data.attributes);
+
+  // if arrowElement is defined and arrowStyles has some properties
+  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+    setStyles(data.arrowElement, data.arrowStyles);
+  }
+
+  return data;
+}
+
+/**
+ * Set the x-placement attribute before everything else because it could be used
+ * to add margins to the popper margins needs to be calculated to get the
+ * correct popper offsets.
+ * @method
+ * @memberof Popper.modifiers
+ * @param {HTMLElement} reference - The reference element used to position the popper
+ * @param {HTMLElement} popper - The HTML element used as popper.
+ * @param {Object} options - Popper.js options
+ */
+function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+  // compute reference element offsets
+  var referenceOffsets = getReferenceOffsets(state, popper, reference);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
+
+  popper.setAttribute('x-placement', placement);
+
+  // Apply `position` to popper before anything else because
+  // without the position applied we can't guarantee correct computations
+  setStyles(popper, { position: 'absolute' });
+
+  return options;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeStyle(data, options) {
+  var x = options.x,
+      y = options.y;
+  var popper = data.offsets.popper;
+
+  // Remove this legacy support in Popper.js v2
+
+  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'applyStyle';
+  }).gpuAcceleration;
+  if (legacyGpuAccelerationOption !== undefined) {
+    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
+  }
+  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
+
+  var offsetParent = getOffsetParent(data.instance.popper);
+  var offsetParentRect = getBoundingClientRect(offsetParent);
+
+  // Styles
+  var styles = {
+    position: popper.position
+  };
+
+  // floor sides to avoid blurry text
+  var offsets = {
+    left: Math.floor(popper.left),
+    top: Math.floor(popper.top),
+    bottom: Math.floor(popper.bottom),
+    right: Math.floor(popper.right)
+  };
+
+  var sideA = x === 'bottom' ? 'top' : 'bottom';
+  var sideB = y === 'right' ? 'left' : 'right';
+
+  // if gpuAcceleration is set to `true` and transform is supported,
+  //  we use `translate3d` to apply the position to the popper we
+  // automatically use the supported prefixed version if needed
+  var prefixedProperty = getSupportedPropertyName('transform');
+
+  // now, let's make a step back and look at this code closely (wtf?)
+  // If the content of the popper grows once it's been positioned, it
+  // may happen that the popper gets misplaced because of the new content
+  // overflowing its reference element
+  // To avoid this problem, we provide two options (x and y), which allow
+  // the consumer to define the offset origin.
+  // If we position a popper on top of a reference element, we can set
+  // `x` to `top` to make the popper grow towards its top instead of
+  // its bottom.
+  var left = void 0,
+      top = void 0;
+  if (sideA === 'bottom') {
+    top = -offsetParentRect.height + offsets.bottom;
+  } else {
+    top = offsets.top;
+  }
+  if (sideB === 'right') {
+    left = -offsetParentRect.width + offsets.right;
+  } else {
+    left = offsets.left;
+  }
+  if (gpuAcceleration && prefixedProperty) {
+    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+    styles[sideA] = 0;
+    styles[sideB] = 0;
+    styles.willChange = 'transform';
+  } else {
+    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
+    var invertTop = sideA === 'bottom' ? -1 : 1;
+    var invertLeft = sideB === 'right' ? -1 : 1;
+    styles[sideA] = top * invertTop;
+    styles[sideB] = left * invertLeft;
+    styles.willChange = sideA + ', ' + sideB;
+  }
+
+  // Attributes
+  var attributes = {
+    'x-placement': data.placement
+  };
+
+  // Update `data` attributes, styles and arrowStyles
+  data.attributes = _extends({}, attributes, data.attributes);
+  data.styles = _extends({}, styles, data.styles);
+  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
+
+  return data;
+}
+
+/**
+ * Helper used to know if the given modifier depends from another one.<br />
+ * It checks if the needed modifier is listed and enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @param {Array} modifiers - list of modifiers
+ * @param {String} requestingName - name of requesting modifier
+ * @param {String} requestedName - name of requested modifier
+ * @returns {Boolean}
+ */
+function isModifierRequired(modifiers, requestingName, requestedName) {
+  var requesting = find(modifiers, function (_ref) {
+    var name = _ref.name;
+    return name === requestingName;
+  });
+
+  var isRequired = !!requesting && modifiers.some(function (modifier) {
+    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+  });
+
+  if (!isRequired) {
+    var _requesting = '`' + requestingName + '`';
+    var requested = '`' + requestedName + '`';
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+  }
+  return isRequired;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function arrow(data, options) {
+  var _data$offsets$arrow;
+
+  // arrow depends on keepTogether in order to work
+  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+    return data;
+  }
+
+  var arrowElement = options.element;
+
+  // if arrowElement is a string, suppose it's a CSS selector
+  if (typeof arrowElement === 'string') {
+    arrowElement = data.instance.popper.querySelector(arrowElement);
+
+    // if arrowElement is not found, don't run the modifier
+    if (!arrowElement) {
+      return data;
+    }
+  } else {
+    // if the arrowElement isn't a query selector we must check that the
+    // provided DOM node is child of its popper node
+    if (!data.instance.popper.contains(arrowElement)) {
+      console.warn('WARNING: `arrow.element` must be child of its popper element!');
+      return data;
+    }
+  }
+
+  var placement = data.placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
+
+  var len = isVertical ? 'height' : 'width';
+  var sideCapitalized = isVertical ? 'Top' : 'Left';
+  var side = sideCapitalized.toLowerCase();
+  var altSide = isVertical ? 'left' : 'top';
+  var opSide = isVertical ? 'bottom' : 'right';
+  var arrowElementSize = getOuterSizes(arrowElement)[len];
+
+  //
+  // extends keepTogether behavior making sure the popper and its
+  // reference have enough pixels in conjuction
+  //
+
+  // top/left side
+  if (reference[opSide] - arrowElementSize < popper[side]) {
+    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
+  }
+  // bottom/right side
+  if (reference[side] + arrowElementSize > popper[opSide]) {
+    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
+  }
+  data.offsets.popper = getClientRect(data.offsets.popper);
+
+  // compute center of the popper
+  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
+
+  // Compute the sideValue using the updated popper offsets
+  // take popper margin in account because we don't have this info available
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
+
+  // prevent arrowElement from being placed not contiguously to its popper
+  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
+
+  data.arrowElement = arrowElement;
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
+
+  return data;
+}
+
+/**
+ * Get the opposite placement variation of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement variation
+ * @returns {String} flipped placement variation
+ */
+function getOppositeVariation(variation) {
+  if (variation === 'end') {
+    return 'start';
+  } else if (variation === 'start') {
+    return 'end';
+  }
+  return variation;
+}
+
+/**
+ * List of accepted placements to use as values of the `placement` option.<br />
+ * Valid placements are:
+ * - `auto`
+ * - `top`
+ * - `right`
+ * - `bottom`
+ * - `left`
+ *
+ * Each placement can have a variation from this list:
+ * - `-start`
+ * - `-end`
+ *
+ * Variations are interpreted easily if you think of them as the left to right
+ * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
+ * is right.<br />
+ * Vertically (`left` and `right`), `start` is top and `end` is bottom.
+ *
+ * Some valid examples are:
+ * - `top-end` (on top of reference, right aligned)
+ * - `right-start` (on right of reference, top aligned)
+ * - `bottom` (on bottom, centered)
+ * - `auto-right` (on the side with more space available, alignment depends by placement)
+ *
+ * @static
+ * @type {Array}
+ * @enum {String}
+ * @readonly
+ * @method placements
+ * @memberof Popper
+ */
+var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
+
+// Get rid of `auto` `auto-start` and `auto-end`
+var validPlacements = placements.slice(3);
+
+/**
+ * Given an initial placement, returns all the subsequent placements
+ * clockwise (or counter-clockwise).
+ *
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement - A valid placement (it accepts variations)
+ * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+ * @returns {Array} placements including their variations
+ */
+function clockwise(placement) {
+  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var index = validPlacements.indexOf(placement);
+  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
+  return counter ? arr.reverse() : arr;
+}
+
+var BEHAVIORS = {
+  FLIP: 'flip',
+  CLOCKWISE: 'clockwise',
+  COUNTERCLOCKWISE: 'counterclockwise'
+};
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function flip(data, options) {
+  // if `inner` modifier is enabled, we can't use the `flip` modifier
+  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+    return data;
+  }
+
+  if (data.flipped && data.placement === data.originalPlacement) {
+    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
+    return data;
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement);
+
+  var placement = data.placement.split('-')[0];
+  var placementOpposite = getOppositePlacement(placement);
+  var variation = data.placement.split('-')[1] || '';
+
+  var flipOrder = [];
+
+  switch (options.behavior) {
+    case BEHAVIORS.FLIP:
+      flipOrder = [placement, placementOpposite];
+      break;
+    case BEHAVIORS.CLOCKWISE:
+      flipOrder = clockwise(placement);
+      break;
+    case BEHAVIORS.COUNTERCLOCKWISE:
+      flipOrder = clockwise(placement, true);
+      break;
+    default:
+      flipOrder = options.behavior;
+  }
+
+  flipOrder.forEach(function (step, index) {
+    if (placement !== step || flipOrder.length === index + 1) {
+      return data;
+    }
+
+    placement = data.placement.split('-')[0];
+    placementOpposite = getOppositePlacement(placement);
+
+    var popperOffsets = data.offsets.popper;
+    var refOffsets = data.offsets.reference;
+
+    // using floor because the reference offsets may contain decimals we are not going to consider here
+    var floor = Math.floor;
+    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
+
+    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
+    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
+    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
+    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
+
+    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom;
+
+    // flip the variation if required
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    if (overlapsRef || overflowsBoundaries || flippedVariation) {
+      // this boolean to detect any flip loop
+      data.flipped = true;
+
+      if (overlapsRef || overflowsBoundaries) {
+        placement = flipOrder[index + 1];
+      }
+
+      if (flippedVariation) {
+        variation = getOppositeVariation(variation);
+      }
+
+      data.placement = placement + (variation ? '-' + variation : '');
+
+      // this object contains `position`, we want to preserve it along with
+      // any additional property we may add in the future
+      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
+
+      data = runModifiers(data.instance.modifiers, data, 'flip');
+    }
+  });
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function keepTogether(data) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var placement = data.placement.split('-')[0];
+  var floor = Math.floor;
+  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+  var side = isVertical ? 'right' : 'bottom';
+  var opSide = isVertical ? 'left' : 'top';
+  var measurement = isVertical ? 'width' : 'height';
+
+  if (popper[side] < floor(reference[opSide])) {
+    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+  }
+  if (popper[opSide] > floor(reference[side])) {
+    data.offsets.popper[opSide] = floor(reference[side]);
+  }
+
+  return data;
+}
+
+/**
+ * Converts a string containing value + unit into a px value number
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} str - Value + unit string
+ * @argument {String} measurement - `height` or `width`
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @returns {Number|String}
+ * Value in pixels, or original string if no values were extracted
+ */
+function toValue(str, measurement, popperOffsets, referenceOffsets) {
+  // separate value from unit
+  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
+  var value = +split[1];
+  var unit = split[2];
+
+  // If it's not a number it's an operator, I guess
+  if (!value) {
+    return str;
+  }
+
+  if (unit.indexOf('%') === 0) {
+    var element = void 0;
+    switch (unit) {
+      case '%p':
+        element = popperOffsets;
+        break;
+      case '%':
+      case '%r':
+      default:
+        element = referenceOffsets;
+    }
+
+    var rect = getClientRect(element);
+    return rect[measurement] / 100 * value;
+  } else if (unit === 'vh' || unit === 'vw') {
+    // if is a vh or vw, we calculate the size based on the viewport
+    var size = void 0;
+    if (unit === 'vh') {
+      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    } else {
+      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+    return size / 100 * value;
+  } else {
+    // if is an explicit pixel unit, we get rid of the unit and keep the value
+    // if is an implicit unit, it's px, and we return just the value
+    return value;
+  }
+}
+
+/**
+ * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} offset
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @argument {String} basePlacement
+ * @returns {Array} a two cells array with x and y offsets in numbers
+ */
+function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
+  var offsets = [0, 0];
+
+  // Use height if placement is left or right and index is 0 otherwise use width
+  // in this way the first offset will use an axis and the second one
+  // will use the other one
+  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
+
+  // Split the offset string to obtain a list of values and operands
+  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
+  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
+    return frag.trim();
+  });
+
+  // Detect if the offset string contains a pair of values or a single one
+  // they could be separated by comma or space
+  var divider = fragments.indexOf(find(fragments, function (frag) {
+    return frag.search(/,|\s/) !== -1;
+  }));
+
+  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
+  }
+
+  // If divider is found, we divide the list of values and operands to divide
+  // them by ofset X and Y.
+  var splitRegex = /\s*,\s*|\s+/;
+  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
+
+  // Convert the values with units to absolute pixels to allow our computations
+  ops = ops.map(function (op, index) {
+    // Most of the units rely on the orientation of the popper
+    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
+    var mergeWithPrevious = false;
+    return op
+    // This aggregates any `+` or `-` sign that aren't considered operators
+    // e.g.: 10 + +5 => [10, +, +5]
+    .reduce(function (a, b) {
+      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+        a[a.length - 1] = b;
+        mergeWithPrevious = true;
+        return a;
+      } else if (mergeWithPrevious) {
+        a[a.length - 1] += b;
+        mergeWithPrevious = false;
+        return a;
+      } else {
+        return a.concat(b);
+      }
+    }, [])
+    // Here we convert the string values into number values (in px)
+    .map(function (str) {
+      return toValue(str, measurement, popperOffsets, referenceOffsets);
+    });
+  });
+
+  // Loop trough the offsets arrays and execute the operations
+  ops.forEach(function (op, index) {
+    op.forEach(function (frag, index2) {
+      if (isNumeric(frag)) {
+        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
+      }
+    });
+  });
+  return offsets;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @argument {Number|String} options.offset=0
+ * The offset value as described in the modifier description
+ * @returns {Object} The data object, properly modified
+ */
+function offset(data, _ref) {
+  var offset = _ref.offset;
+  var placement = data.placement,
+      _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var basePlacement = placement.split('-')[0];
+
+  var offsets = void 0;
+  if (isNumeric(+offset)) {
+    offsets = [+offset, 0];
+  } else {
+    offsets = parseOffset(offset, popper, reference, basePlacement);
+  }
+
+  if (basePlacement === 'left') {
+    popper.top += offsets[0];
+    popper.left -= offsets[1];
+  } else if (basePlacement === 'right') {
+    popper.top += offsets[0];
+    popper.left += offsets[1];
+  } else if (basePlacement === 'top') {
+    popper.left += offsets[0];
+    popper.top -= offsets[1];
+  } else if (basePlacement === 'bottom') {
+    popper.left += offsets[0];
+    popper.top += offsets[1];
+  }
+
+  data.popper = popper;
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function preventOverflow(data, options) {
+  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
+
+  // If offsetParent is the reference element, we really want to
+  // go one step up and use the next offsetParent as reference to
+  // avoid to make this modifier completely useless and look like broken
+  if (data.instance.reference === boundariesElement) {
+    boundariesElement = getOffsetParent(boundariesElement);
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement);
+  options.boundaries = boundaries;
+
+  var order = options.priority;
+  var popper = data.offsets.popper;
+
+  var check = {
+    primary: function primary(placement) {
+      var value = popper[placement];
+      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+        value = Math.max(popper[placement], boundaries[placement]);
+      }
+      return defineProperty({}, placement, value);
+    },
+    secondary: function secondary(placement) {
+      var mainSide = placement === 'right' ? 'left' : 'top';
+      var value = popper[mainSide];
+      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
+      }
+      return defineProperty({}, mainSide, value);
+    }
+  };
+
+  order.forEach(function (placement) {
+    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
+    popper = _extends({}, popper, check[side](placement));
+  });
+
+  data.offsets.popper = popper;
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function shift(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var shiftvariation = placement.split('-')[1];
+
+  // if shift shiftvariation is specified, run the modifier
+  if (shiftvariation) {
+    var _data$offsets = data.offsets,
+        reference = _data$offsets.reference,
+        popper = _data$offsets.popper;
+
+    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
+    var side = isVertical ? 'left' : 'top';
+    var measurement = isVertical ? 'width' : 'height';
+
+    var shiftOffsets = {
+      start: defineProperty({}, side, reference[side]),
+      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
+    };
+
+    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function hide(data) {
+  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+    return data;
+  }
+
+  var refRect = data.offsets.reference;
+  var bound = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'preventOverflow';
+  }).boundaries;
+
+  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === true) {
+      return data;
+    }
+
+    data.hide = true;
+    data.attributes['x-out-of-boundaries'] = '';
+  } else {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === false) {
+      return data;
+    }
+
+    data.hide = false;
+    data.attributes['x-out-of-boundaries'] = false;
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function inner(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
+
+  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
+
+  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
+
+  data.placement = getOppositePlacement(placement);
+  data.offsets.popper = getClientRect(popper);
+
+  return data;
+}
+
+/**
+ * Modifier function, each modifier can have a function of this type assigned
+ * to its `fn` property.<br />
+ * These functions will be called on each update, this means that you must
+ * make sure they are performant enough to avoid performance bottlenecks.
+ *
+ * @function ModifierFn
+ * @argument {dataObject} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {dataObject} The data object, properly modified
+ */
+
+/**
+ * Modifiers are plugins used to alter the behavior of your poppers.<br />
+ * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
+ * needed by the library.
+ *
+ * Usually you don't want to override the `order`, `fn` and `onLoad` props.
+ * All the other properties are configurations that could be tweaked.
+ * @namespace modifiers
+ */
+var modifiers = {
+  /**
+   * Modifier used to shift the popper on the start or end of its reference
+   * element.<br />
+   * It will read the variation of the `placement` property.<br />
+   * It can be one either `-end` or `-start`.
+   * @memberof modifiers
+   * @inner
+   */
+  shift: {
+    /** @prop {number} order=100 - Index used to define the order of execution */
+    order: 100,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: shift
+  },
+
+  /**
+   * The `offset` modifier can shift your popper on both its axis.
+   *
+   * It accepts the following units:
+   * - `px` or unitless, interpreted as pixels
+   * - `%` or `%r`, percentage relative to the length of the reference element
+   * - `%p`, percentage relative to the length of the popper element
+   * - `vw`, CSS viewport width unit
+   * - `vh`, CSS viewport height unit
+   *
+   * For length is intended the main axis relative to the placement of the popper.<br />
+   * This means that if the placement is `top` or `bottom`, the length will be the
+   * `width`. In case of `left` or `right`, it will be the height.
+   *
+   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * as `String` divided by a comma or one (or more) white spaces.<br />
+   * The latter is a deprecated method because it leads to confusion and will be
+   * removed in v2.<br />
+   * Additionally, it accepts additions and subtractions between different units.
+   * Note that multiplications and divisions aren't supported.
+   *
+   * Valid examples are:
+   * ```
+   * 10
+   * '10%'
+   * '10, 10'
+   * '10%, 10'
+   * '10 + 10%'
+   * '10 - 5vh + 3%'
+   * '-10px + 5vh, 5px - 6%'
+   * ```
+   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
+   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
+   * > More on this [reading this issue](https://github.com/FezVrasta/popper.js/issues/373)
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  offset: {
+    /** @prop {number} order=200 - Index used to define the order of execution */
+    order: 200,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: offset,
+    /** @prop {Number|String} offset=0
+     * The offset value as described in the modifier description
+     */
+    offset: 0
+  },
+
+  /**
+   * Modifier used to prevent the popper from being positioned outside the boundary.
+   *
+   * An scenario exists where the reference itself is not within the boundaries.<br />
+   * We can say it has "escaped the boundaries" — or just "escaped".<br />
+   * In this case we need to decide whether the popper should either:
+   *
+   * - detach from the reference and remain "trapped" in the boundaries, or
+   * - if it should ignore the boundary and "escape with its reference"
+   *
+   * When `escapeWithReference` is set to`true` and reference is completely
+   * outside its boundaries, the popper will overflow (or completely leave)
+   * the boundaries in order to remain attached to the edge of the reference.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  preventOverflow: {
+    /** @prop {number} order=300 - Index used to define the order of execution */
+    order: 300,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: preventOverflow,
+    /**
+     * @prop {Array} [priority=['left','right','top','bottom']]
+     * Popper will try to prevent overflow following these priorities by default,
+     * then, it could overflow on the left and on top of the `boundariesElement`
+     */
+    priority: ['left', 'right', 'top', 'bottom'],
+    /**
+     * @prop {number} padding=5
+     * Amount of pixel used to define a minimum distance between the boundaries
+     * and the popper this makes sure the popper has always a little padding
+     * between the edges of its container
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='scrollParent'
+     * Boundaries used by the modifier, can be `scrollParent`, `window`,
+     * `viewport` or any DOM element.
+     */
+    boundariesElement: 'scrollParent'
+  },
+
+  /**
+   * Modifier used to make sure the reference and its popper stay near eachothers
+   * without leaving any gap between the two. Expecially useful when the arrow is
+   * enabled and you want to assure it to point to its reference element.
+   * It cares only about the first axis, you can still have poppers with margin
+   * between the popper and its reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  keepTogether: {
+    /** @prop {number} order=400 - Index used to define the order of execution */
+    order: 400,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: keepTogether
+  },
+
+  /**
+   * This modifier is used to move the `arrowElement` of the popper to make
+   * sure it is positioned between the reference element and its popper element.
+   * It will read the outer size of the `arrowElement` node to detect how many
+   * pixels of conjuction are needed.
+   *
+   * It has no effect if no `arrowElement` is provided.
+   * @memberof modifiers
+   * @inner
+   */
+  arrow: {
+    /** @prop {number} order=500 - Index used to define the order of execution */
+    order: 500,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: arrow,
+    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+    element: '[x-arrow]'
+  },
+
+  /**
+   * Modifier used to flip the popper's placement when it starts to overlap its
+   * reference element.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   *
+   * **NOTE:** this modifier will interrupt the current update cycle and will
+   * restart it if it detects the need to flip the placement.
+   * @memberof modifiers
+   * @inner
+   */
+  flip: {
+    /** @prop {number} order=600 - Index used to define the order of execution */
+    order: 600,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: flip,
+    /**
+     * @prop {String|Array} behavior='flip'
+     * The behavior used to change the popper's placement. It can be one of
+     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
+     * placements (with optional variations).
+     */
+    behavior: 'flip',
+    /**
+     * @prop {number} padding=5
+     * The popper will flip if it hits the edges of the `boundariesElement`
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='viewport'
+     * The element which will define the boundaries of the popper position,
+     * the popper will never be placed outside of the defined boundaries
+     * (except if keepTogether is enabled)
+     */
+    boundariesElement: 'viewport'
+  },
+
+  /**
+   * Modifier used to make the popper flow toward the inner of the reference element.
+   * By default, when this modifier is disabled, the popper will be placed outside
+   * the reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  inner: {
+    /** @prop {number} order=700 - Index used to define the order of execution */
+    order: 700,
+    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+    enabled: false,
+    /** @prop {ModifierFn} */
+    fn: inner
+  },
+
+  /**
+   * Modifier used to hide the popper when its reference element is outside of the
+   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
+   * be used to hide with a CSS selector the popper when its reference is
+   * out of boundaries.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   * @memberof modifiers
+   * @inner
+   */
+  hide: {
+    /** @prop {number} order=800 - Index used to define the order of execution */
+    order: 800,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: hide
+  },
+
+  /**
+   * Computes the style that will be applied to the popper element to gets
+   * properly positioned.
+   *
+   * Note that this modifier will not touch the DOM, it just prepares the styles
+   * so that `applyStyle` modifier can apply it. This separation is useful
+   * in case you need to replace `applyStyle` with a custom implementation.
+   *
+   * This modifier has `850` as `order` value to maintain backward compatibility
+   * with previous versions of Popper.js. Expect the modifiers ordering method
+   * to change in future major versions of the library.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  computeStyle: {
+    /** @prop {number} order=850 - Index used to define the order of execution */
+    order: 850,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: computeStyle,
+    /**
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: true,
+    /**
+     * @prop {string} [x='bottom']
+     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
+     * Change this if your popper should grow in a direction different from `bottom`
+     */
+    x: 'bottom',
+    /**
+     * @prop {string} [x='left']
+     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
+     * Change this if your popper should grow in a direction different from `right`
+     */
+    y: 'right'
+  },
+
+  /**
+   * Applies the computed styles to the popper element.
+   *
+   * All the DOM manipulations are limited to this modifier. This is useful in case
+   * you want to integrate Popper.js inside a framework or view library and you
+   * want to delegate all the DOM manipulations to it.
+   *
+   * Note that if you disable this modifier, you must make sure the popper element
+   * has its position set to `absolute` before Popper.js can do its work!
+   *
+   * Just disable this modifier and define you own to achieve the desired effect.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  applyStyle: {
+    /** @prop {number} order=900 - Index used to define the order of execution */
+    order: 900,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: applyStyle,
+    /** @prop {Function} */
+    onLoad: applyStyleOnLoad,
+    /**
+     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: undefined
+  }
+};
+
+/**
+ * The `dataObject` is an object containing all the informations used by Popper.js
+ * this object get passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * @name dataObject
+ * @property {Object} data.instance The Popper.js instance
+ * @property {String} data.placement Placement applied to popper
+ * @property {String} data.originalPlacement Placement originally defined on init
+ * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper.
+ * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.boundaries Offsets of the popper boundaries
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements.
+ * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
+ */
+
+/**
+ * Default options provided to Popper.js constructor.<br />
+ * These can be overriden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass as 3rd argument an object with the same
+ * structure of this object, example:
+ * ```
+ * new Popper(ref, pop, {
+ *   modifiers: {
+ *     preventOverflow: { enabled: false }
+ *   }
+ * })
+ * ```
+ * @type {Object}
+ * @static
+ * @memberof Popper
+ */
+var Defaults = {
+  /**
+   * Popper's placement
+   * @prop {Popper.placements} placement='bottom'
+   */
+  placement: 'bottom',
+
+  /**
+   * Whether events (resize, scroll) are initially enabled
+   * @prop {Boolean} eventsEnabled=true
+   */
+  eventsEnabled: true,
+
+  /**
+   * Set to true if you want to automatically remove the popper when
+   * you call the `destroy` method.
+   * @prop {Boolean} removeOnDestroy=false
+   */
+  removeOnDestroy: false,
+
+  /**
+   * Callback called when the popper is created.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onCreate}
+   */
+  onCreate: function onCreate() {},
+
+  /**
+   * Callback called when the popper is updated, this callback is not called
+   * on the initialization/creation of the popper, but only on subsequent
+   * updates.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onUpdate}
+   */
+  onUpdate: function onUpdate() {},
+
+  /**
+   * List of modifiers used to modify the offsets before they are applied to the popper.
+   * They provide most of the functionalities of Popper.js
+   * @prop {modifiers}
+   */
+  modifiers: modifiers
+};
+
+/**
+ * @callback onCreate
+ * @param {dataObject} data
+ */
+
+/**
+ * @callback onUpdate
+ * @param {dataObject} data
+ */
+
+// Utils
+// Methods
+var Popper = function () {
+  /**
+   * Create a new Popper.js instance
+   * @class Popper
+   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
+   * @param {HTMLElement} popper - The HTML element used as popper.
+   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+   * @return {Object} instance - The generated Popper.js instance
+   */
+  function Popper(reference, popper) {
+    var _this = this;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    classCallCheck(this, Popper);
+
+    this.scheduleUpdate = function () {
+      return requestAnimationFrame(_this.update);
+    };
+
+    // make update() debounced, so that it only runs at most once-per-tick
+    this.update = debounce(this.update.bind(this));
+
+    // with {} we create a new object with the options inside it
+    this.options = _extends({}, Popper.Defaults, options);
+
+    // init state
+    this.state = {
+      isDestroyed: false,
+      isCreated: false,
+      scrollParents: []
+    };
+
+    // get reference and popper elements (allow jQuery wrappers)
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper;
+
+    // Deep merge modifiers options
+    this.options.modifiers = {};
+    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+    });
+
+    // Refactoring modifiers' list (Object => Array)
+    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      return _extends({
+        name: name
+      }, _this.options.modifiers[name]);
+    })
+    // sort the modifiers by order
+    .sort(function (a, b) {
+      return a.order - b.order;
+    });
+
+    // modifiers have the ability to execute arbitrary code when Popper.js get inited
+    // such code is executed in the same order of its modifier
+    // they could add new properties to their options configuration
+    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+    this.modifiers.forEach(function (modifierOptions) {
+      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+      }
+    });
+
+    // fire the first update to position the popper in the right place
+    this.update();
+
+    var eventsEnabled = this.options.eventsEnabled;
+    if (eventsEnabled) {
+      // setup event listeners, they will take care of update the position in specific situations
+      this.enableEventListeners();
+    }
+
+    this.state.eventsEnabled = eventsEnabled;
+  }
+
+  // We can't use class properties because they don't get listed in the
+  // class prototype and break stuff like Sinon stubs
+
+
+  createClass(Popper, [{
+    key: 'update',
+    value: function update$$1() {
+      return update.call(this);
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy$$1() {
+      return destroy.call(this);
+    }
+  }, {
+    key: 'enableEventListeners',
+    value: function enableEventListeners$$1() {
+      return enableEventListeners.call(this);
+    }
+  }, {
+    key: 'disableEventListeners',
+    value: function disableEventListeners$$1() {
+      return disableEventListeners.call(this);
+    }
+
+    /**
+     * Schedule an update, it will run on the next UI update available
+     * @method scheduleUpdate
+     * @memberof Popper
+     */
+
+
+    /**
+     * Collection of utilities useful when writing custom modifiers.
+     * Starting from version 1.7, this method is available only if you
+     * include `popper-utils.js` before `popper.js`.
+     *
+     * **DEPRECATION**: This way to access PopperUtils is deprecated
+     * and will be removed in v2! Use the PopperUtils module directly instead.
+     * Due to the high instability of the methods contained in Utils, we can't
+     * guarantee them to follow semver. Use them at your own risk!
+     * @static
+     * @private
+     * @type {Object}
+     * @deprecated since version 1.8
+     * @member Utils
+     * @memberof Popper
+     */
+
+  }]);
+  return Popper;
+}();
+
+/**
+ * The `referenceObject` is an object that provides an interface compatible with Popper.js
+ * and lets you use it as replacement of a real DOM node.<br />
+ * You can use this method to position a popper relatively to a set of coordinates
+ * in case you don't have a DOM node to use as reference.
+ *
+ * ```
+ * new Popper(referenceObject, popperNode);
+ * ```
+ *
+ * NB: This feature isn't supported in Internet Explorer 10
+ * @name referenceObject
+ * @property {Function} data.getBoundingClientRect
+ * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
+ * @property {number} data.clientWidth
+ * An ES6 getter that will return the width of the virtual reference element.
+ * @property {number} data.clientHeight
+ * An ES6 getter that will return the height of the virtual reference element.
+ */
+
+
+Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
+Popper.placements = placements;
+Popper.Defaults = Defaults;
+
+/* harmony default export */ __webpack_exports__["default"] = (Popper);
+//# sourceMappingURL=popper.js.map
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
+/* 16 */,
 /* 17 */
 /***/ (function(module, exports) {
 
@@ -48520,995 +44133,2247 @@ module.exports = __webpack_amd_options__;
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * bootbox.js [v4.4.0]
- *
- * http://bootboxjs.com/license.txt
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["feather"] = factory();
+	else
+		root["feather"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(36)('wks');
+var uid = __webpack_require__(15);
+var Symbol = __webpack_require__(1).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(1);
+var core = __webpack_require__(7);
+var hide = __webpack_require__(8);
+var redefine = __webpack_require__(10);
+var ctx = __webpack_require__(11);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] || (global[name] = {}) : (global[name] || {})[PROTOTYPE];
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE] || (exports[PROTOTYPE] = {});
+  var key, own, out, exp;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    // export native or passed
+    out = (own ? target : source)[key];
+    // bind timers to global for call from export context
+    exp = IS_BIND && own ? ctx(out, global) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // extend global
+    if (target) redefine(target, key, out, type & $export.U);
+    // export
+    if (exports[key] != out) hide(exports, key, exp);
+    if (IS_PROTO && expProto[key] != out) expProto[key] = out;
+  }
+};
+global.core = core;
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(9);
+var IE8_DOM_DEFINE = __webpack_require__(29);
+var toPrimitive = __webpack_require__(31);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(5) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(12)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.3' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(4);
+var createDesc = __webpack_require__(14);
+module.exports = __webpack_require__(5) ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(2);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(1);
+var hide = __webpack_require__(8);
+var has = __webpack_require__(6);
+var SRC = __webpack_require__(15)('src');
+var TO_STRING = 'toString';
+var $toString = Function[TO_STRING];
+var TPL = ('' + $toString).split(TO_STRING);
+
+__webpack_require__(7).inspectSource = function (it) {
+  return $toString.call(it);
+};
+
+(module.exports = function (O, key, val, safe) {
+  var isFunction = typeof val == 'function';
+  if (isFunction) has(val, 'name') || hide(val, 'name', key);
+  if (O[key] === val) return;
+  if (isFunction) has(val, SRC) || hide(val, SRC, O[key] ? '' + O[key] : TPL.join(String(key)));
+  if (O === global) {
+    O[key] = val;
+  } else if (!safe) {
+    delete O[key];
+    hide(O, key, val);
+  } else if (O[key]) {
+    O[key] = val;
+  } else {
+    hide(O, key, val);
+  }
+// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+})(Function.prototype, TO_STRING, function toString() {
+  return typeof this == 'function' && this[SRC] || $toString.call(this);
+});
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(32);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(34);
+var defined = __webpack_require__(19);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ctx = __webpack_require__(11);
+var call = __webpack_require__(38);
+var isArrayIter = __webpack_require__(39);
+var anObject = __webpack_require__(9);
+var toLength = __webpack_require__(22);
+var getIterFn = __webpack_require__(40);
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(52);
+var $export = __webpack_require__(3);
+var redefine = __webpack_require__(10);
+var hide = __webpack_require__(8);
+var has = __webpack_require__(6);
+var Iterators = __webpack_require__(13);
+var $iterCreate = __webpack_require__(53);
+var setToStringTag = __webpack_require__(24);
+var getPrototypeOf = __webpack_require__(59);
+var ITERATOR = __webpack_require__(0)('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = (!BUGGY && $native) || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(55);
+var enumBugKeys = __webpack_require__(37);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(18);
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(36)('keys');
+var uid = __webpack_require__(15);
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(4).f;
+var has = __webpack_require__(6);
+var TAG = __webpack_require__(0)('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(19);
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(35);
+var TAG = __webpack_require__(0)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _icon = __webpack_require__(86);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _icons = __webpack_require__(88);
+
+var _icons2 = _interopRequireDefault(_icons);
+
+var _tags = __webpack_require__(89);
+
+var _tags2 = _interopRequireDefault(_tags);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = Object.keys(_icons2.default).map(function (key) {
+  return new _icon2.default(key, _icons2.default[key], _tags2.default[key]);
+}).reduce(function (object, icon) {
+  object[icon.name] = icon;
+  return object;
+}, {});
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $at = __webpack_require__(51)(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__(20)(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(5) && !__webpack_require__(12)(function () {
+  return Object.defineProperty(__webpack_require__(30)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(2);
+var document = __webpack_require__(1).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(2);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__(9);
+var dPs = __webpack_require__(54);
+var enumBugKeys = __webpack_require__(37);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(30)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(58).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(35);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(1);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+module.exports = function (key) {
+  return store[key] || (store[key] = {});
+};
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__(9);
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__(13);
+var ITERATOR = __webpack_require__(0)('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(26);
+var ITERATOR = __webpack_require__(0)('iterator');
+var Iterators = __webpack_require__(13);
+module.exports = __webpack_require__(7).getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__(0)('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var redefine = __webpack_require__(10);
+module.exports = function (target, src, safe) {
+  for (var key in src) redefine(target, key, src[key], safe);
+  return target;
+};
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var META = __webpack_require__(15)('meta');
+var isObject = __webpack_require__(2);
+var has = __webpack_require__(6);
+var setDesc = __webpack_require__(4).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(12)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(2);
+module.exports = function (it, TYPE) {
+  if (!isObject(it) || it._t !== TYPE) throw TypeError('Incompatible receiver, ' + TYPE + ' required!');
+  return it;
+};
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var classNames = (function () {
+		// don't inherit from Object so we can skip hasOwnProperty check later
+		// http://stackoverflow.com/questions/15518328/creating-js-object-with-object-createnull#answer-21079232
+		function StorageObject() {}
+		StorageObject.prototype = Object.create(null);
+
+		function _parseArray (resultSet, array) {
+			var length = array.length;
+
+			for (var i = 0; i < length; ++i) {
+				_parse(resultSet, array[i]);
+			}
+		}
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function _parseNumber (resultSet, num) {
+			resultSet[num] = true;
+		}
+
+		function _parseObject (resultSet, object) {
+			for (var k in object) {
+				if (hasOwn.call(object, k)) {
+					// set value to false instead of deleting it to avoid changing object structure
+					// https://www.smashingmagazine.com/2012/11/writing-fast-memory-efficient-javascript/#de-referencing-misconceptions
+					resultSet[k] = !!object[k];
+				}
+			}
+		}
+
+		var SPACE = /\s+/;
+		function _parseString (resultSet, str) {
+			var array = str.split(SPACE);
+			var length = array.length;
+
+			for (var i = 0; i < length; ++i) {
+				resultSet[array[i]] = true;
+			}
+		}
+
+		function _parse (resultSet, arg) {
+			if (!arg) return;
+			var argType = typeof arg;
+
+			// 'foo bar'
+			if (argType === 'string') {
+				_parseString(resultSet, arg);
+
+			// ['foo', 'bar', ...]
+			} else if (Array.isArray(arg)) {
+				_parseArray(resultSet, arg);
+
+			// { 'foo': true, ... }
+			} else if (argType === 'object') {
+				_parseObject(resultSet, arg);
+
+			// '130'
+			} else if (argType === 'number') {
+				_parseNumber(resultSet, arg);
+			}
+		}
+
+		function _classNames () {
+			// don't leak arguments
+			// https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
+			var len = arguments.length;
+			var args = Array(len);
+			for (var i = 0; i < len; i++) {
+				args[i] = arguments[i];
+			}
+
+			var classSet = new StorageObject();
+			_parseArray(classSet, args);
+
+			var list = [];
+
+			for (var k in classSet) {
+				if (classSet[k]) {
+					list.push(k)
+				}
+			}
+
+			return list.join(' ');
+		}
+
+		return _classNames;
+	})();
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(50);
+__webpack_require__(62);
+__webpack_require__(66);
+module.exports = __webpack_require__(85);
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(28);
+__webpack_require__(60);
+module.exports = __webpack_require__(7).Array.from;
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(18);
+var defined = __webpack_require__(19);
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = false;
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create = __webpack_require__(33);
+var descriptor = __webpack_require__(14);
+var setToStringTag = __webpack_require__(24);
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__(8)(IteratorPrototype, __webpack_require__(0)('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(4);
+var anObject = __webpack_require__(9);
+var getKeys = __webpack_require__(21);
+
+module.exports = __webpack_require__(5) ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(6);
+var toIObject = __webpack_require__(16);
+var arrayIndexOf = __webpack_require__(56)(false);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(16);
+var toLength = __webpack_require__(22);
+var toAbsoluteIndex = __webpack_require__(57);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(18);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var document = __webpack_require__(1).document;
+module.exports = document && document.documentElement;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = __webpack_require__(6);
+var toObject = __webpack_require__(25);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ctx = __webpack_require__(11);
+var $export = __webpack_require__(3);
+var toObject = __webpack_require__(25);
+var call = __webpack_require__(38);
+var isArrayIter = __webpack_require__(39);
+var toLength = __webpack_require__(22);
+var createProperty = __webpack_require__(61);
+var getIterFn = __webpack_require__(40);
+
+$export($export.S + $export.F * !__webpack_require__(41)(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $defineProperty = __webpack_require__(4);
+var createDesc = __webpack_require__(14);
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(63);
+module.exports = __webpack_require__(7).Object.assign;
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(3);
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(64) });
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.2.1 Object.assign(target, source, ...)
+var getKeys = __webpack_require__(21);
+var gOPS = __webpack_require__(65);
+var pIE = __webpack_require__(42);
+var toObject = __webpack_require__(25);
+var IObject = __webpack_require__(34);
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = !$assign || __webpack_require__(12)(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = gOPS.f;
+  var isEnum = pIE.f;
+  while (aLen > index) {
+    var S = IObject(arguments[index++]);
+    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+  } return T;
+} : $assign;
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(67);
+__webpack_require__(28);
+__webpack_require__(68);
+__webpack_require__(71);
+__webpack_require__(78);
+__webpack_require__(81);
+__webpack_require__(83);
+module.exports = __webpack_require__(7).Set;
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.3.6 Object.prototype.toString()
+var classof = __webpack_require__(26);
+var test = {};
+test[__webpack_require__(0)('toStringTag')] = 'z';
+if (test + '' != '[object z]') {
+  __webpack_require__(10)(Object.prototype, 'toString', function toString() {
+    return '[object ' + classof(this) + ']';
+  }, true);
+}
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $iterators = __webpack_require__(69);
+var getKeys = __webpack_require__(21);
+var redefine = __webpack_require__(10);
+var global = __webpack_require__(1);
+var hide = __webpack_require__(8);
+var Iterators = __webpack_require__(13);
+var wks = __webpack_require__(0);
+var ITERATOR = wks('iterator');
+var TO_STRING_TAG = wks('toStringTag');
+var ArrayValues = Iterators.Array;
+
+var DOMIterables = {
+  CSSRuleList: true, // TODO: Not spec compliant, should be false.
+  CSSStyleDeclaration: false,
+  CSSValueList: false,
+  ClientRectList: false,
+  DOMRectList: false,
+  DOMStringList: false,
+  DOMTokenList: true,
+  DataTransferItemList: false,
+  FileList: false,
+  HTMLAllCollection: false,
+  HTMLCollection: false,
+  HTMLFormElement: false,
+  HTMLSelectElement: false,
+  MediaList: true, // TODO: Not spec compliant, should be false.
+  MimeTypeArray: false,
+  NamedNodeMap: false,
+  NodeList: true,
+  PaintRequestList: false,
+  Plugin: false,
+  PluginArray: false,
+  SVGLengthList: false,
+  SVGNumberList: false,
+  SVGPathSegList: false,
+  SVGPointList: false,
+  SVGStringList: false,
+  SVGTransformList: false,
+  SourceBufferList: false,
+  StyleSheetList: true, // TODO: Not spec compliant, should be false.
+  TextTrackCueList: false,
+  TextTrackList: false,
+  TouchList: false
+};
+
+for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
+  var NAME = collections[i];
+  var explicit = DOMIterables[NAME];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  var key;
+  if (proto) {
+    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
+    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+    Iterators[NAME] = ArrayValues;
+    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
+  }
+}
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var addToUnscopables = __webpack_require__(70);
+var step = __webpack_require__(43);
+var Iterators = __webpack_require__(13);
+var toIObject = __webpack_require__(16);
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = __webpack_require__(20)(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.3.31 Array.prototype[@@unscopables]
+var UNSCOPABLES = __webpack_require__(0)('unscopables');
+var ArrayProto = Array.prototype;
+if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(8)(ArrayProto, UNSCOPABLES, {});
+module.exports = function (key) {
+  ArrayProto[UNSCOPABLES][key] = true;
+};
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strong = __webpack_require__(72);
+var validate = __webpack_require__(47);
+var SET = 'Set';
+
+// 23.2 Set Objects
+module.exports = __webpack_require__(74)(SET, function (get) {
+  return function Set() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
+}, {
+  // 23.2.3.1 Set.prototype.add(value)
+  add: function add(value) {
+    return strong.def(validate(this, SET), value = value === 0 ? 0 : value, value);
+  }
+}, strong);
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var dP = __webpack_require__(4).f;
+var create = __webpack_require__(33);
+var redefineAll = __webpack_require__(44);
+var ctx = __webpack_require__(11);
+var anInstance = __webpack_require__(45);
+var forOf = __webpack_require__(17);
+var $iterDefine = __webpack_require__(20);
+var step = __webpack_require__(43);
+var setSpecies = __webpack_require__(73);
+var DESCRIPTORS = __webpack_require__(5);
+var fastKey = __webpack_require__(46).fastKey;
+var validate = __webpack_require__(47);
+var SIZE = DESCRIPTORS ? '_s' : 'size';
+
+var getEntry = function (that, key) {
+  // fast case
+  var index = fastKey(key);
+  var entry;
+  if (index !== 'F') return that._i[index];
+  // frozen object case
+  for (entry = that._f; entry; entry = entry.n) {
+    if (entry.k == key) return entry;
+  }
+};
+
+module.exports = {
+  getConstructor: function (wrapper, NAME, IS_MAP, ADDER) {
+    var C = wrapper(function (that, iterable) {
+      anInstance(that, C, NAME, '_i');
+      that._t = NAME;         // collection type
+      that._i = create(null); // index
+      that._f = undefined;    // first entry
+      that._l = undefined;    // last entry
+      that[SIZE] = 0;         // size
+      if (iterable != undefined) forOf(iterable, IS_MAP, that[ADDER], that);
+    });
+    redefineAll(C.prototype, {
+      // 23.1.3.1 Map.prototype.clear()
+      // 23.2.3.2 Set.prototype.clear()
+      clear: function clear() {
+        for (var that = validate(this, NAME), data = that._i, entry = that._f; entry; entry = entry.n) {
+          entry.r = true;
+          if (entry.p) entry.p = entry.p.n = undefined;
+          delete data[entry.i];
+        }
+        that._f = that._l = undefined;
+        that[SIZE] = 0;
+      },
+      // 23.1.3.3 Map.prototype.delete(key)
+      // 23.2.3.4 Set.prototype.delete(value)
+      'delete': function (key) {
+        var that = validate(this, NAME);
+        var entry = getEntry(that, key);
+        if (entry) {
+          var next = entry.n;
+          var prev = entry.p;
+          delete that._i[entry.i];
+          entry.r = true;
+          if (prev) prev.n = next;
+          if (next) next.p = prev;
+          if (that._f == entry) that._f = next;
+          if (that._l == entry) that._l = prev;
+          that[SIZE]--;
+        } return !!entry;
+      },
+      // 23.2.3.6 Set.prototype.forEach(callbackfn, thisArg = undefined)
+      // 23.1.3.5 Map.prototype.forEach(callbackfn, thisArg = undefined)
+      forEach: function forEach(callbackfn /* , that = undefined */) {
+        validate(this, NAME);
+        var f = ctx(callbackfn, arguments.length > 1 ? arguments[1] : undefined, 3);
+        var entry;
+        while (entry = entry ? entry.n : this._f) {
+          f(entry.v, entry.k, this);
+          // revert to the last existing entry
+          while (entry && entry.r) entry = entry.p;
+        }
+      },
+      // 23.1.3.7 Map.prototype.has(key)
+      // 23.2.3.7 Set.prototype.has(value)
+      has: function has(key) {
+        return !!getEntry(validate(this, NAME), key);
+      }
+    });
+    if (DESCRIPTORS) dP(C.prototype, 'size', {
+      get: function () {
+        return validate(this, NAME)[SIZE];
+      }
+    });
+    return C;
+  },
+  def: function (that, key, value) {
+    var entry = getEntry(that, key);
+    var prev, index;
+    // change existing entry
+    if (entry) {
+      entry.v = value;
+    // create new entry
+    } else {
+      that._l = entry = {
+        i: index = fastKey(key, true), // <- index
+        k: key,                        // <- key
+        v: value,                      // <- value
+        p: prev = that._l,             // <- previous entry
+        n: undefined,                  // <- next entry
+        r: false                       // <- removed
+      };
+      if (!that._f) that._f = entry;
+      if (prev) prev.n = entry;
+      that[SIZE]++;
+      // add to index
+      if (index !== 'F') that._i[index] = entry;
+    } return that;
+  },
+  getEntry: getEntry,
+  setStrong: function (C, NAME, IS_MAP) {
+    // add .keys, .values, .entries, [@@iterator]
+    // 23.1.3.4, 23.1.3.8, 23.1.3.11, 23.1.3.12, 23.2.3.5, 23.2.3.8, 23.2.3.10, 23.2.3.11
+    $iterDefine(C, NAME, function (iterated, kind) {
+      this._t = validate(iterated, NAME); // target
+      this._k = kind;                     // kind
+      this._l = undefined;                // previous
+    }, function () {
+      var that = this;
+      var kind = that._k;
+      var entry = that._l;
+      // revert to the last existing entry
+      while (entry && entry.r) entry = entry.p;
+      // get next entry
+      if (!that._t || !(that._l = entry = entry ? entry.n : that._t._f)) {
+        // or finish the iteration
+        that._t = undefined;
+        return step(1);
+      }
+      // return step by kind
+      if (kind == 'keys') return step(0, entry.k);
+      if (kind == 'values') return step(0, entry.v);
+      return step(0, [entry.k, entry.v]);
+    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true);
+
+    // add [@@species], 23.1.2.2, 23.2.2.2
+    setSpecies(NAME);
+  }
+};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(1);
+var dP = __webpack_require__(4);
+var DESCRIPTORS = __webpack_require__(5);
+var SPECIES = __webpack_require__(0)('species');
+
+module.exports = function (KEY) {
+  var C = global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(1);
+var $export = __webpack_require__(3);
+var redefine = __webpack_require__(10);
+var redefineAll = __webpack_require__(44);
+var meta = __webpack_require__(46);
+var forOf = __webpack_require__(17);
+var anInstance = __webpack_require__(45);
+var isObject = __webpack_require__(2);
+var fails = __webpack_require__(12);
+var $iterDetect = __webpack_require__(41);
+var setToStringTag = __webpack_require__(24);
+var inheritIfRequired = __webpack_require__(75);
+
+module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
+  var Base = global[NAME];
+  var C = Base;
+  var ADDER = IS_MAP ? 'set' : 'add';
+  var proto = C && C.prototype;
+  var O = {};
+  var fixMethod = function (KEY) {
+    var fn = proto[KEY];
+    redefine(proto, KEY,
+      KEY == 'delete' ? function (a) {
+        return IS_WEAK && !isObject(a) ? false : fn.call(this, a === 0 ? 0 : a);
+      } : KEY == 'has' ? function has(a) {
+        return IS_WEAK && !isObject(a) ? false : fn.call(this, a === 0 ? 0 : a);
+      } : KEY == 'get' ? function get(a) {
+        return IS_WEAK && !isObject(a) ? undefined : fn.call(this, a === 0 ? 0 : a);
+      } : KEY == 'add' ? function add(a) { fn.call(this, a === 0 ? 0 : a); return this; }
+        : function set(a, b) { fn.call(this, a === 0 ? 0 : a, b); return this; }
+    );
+  };
+  if (typeof C != 'function' || !(IS_WEAK || proto.forEach && !fails(function () {
+    new C().entries().next();
+  }))) {
+    // create collection constructor
+    C = common.getConstructor(wrapper, NAME, IS_MAP, ADDER);
+    redefineAll(C.prototype, methods);
+    meta.NEED = true;
+  } else {
+    var instance = new C();
+    // early implementations not supports chaining
+    var HASNT_CHAINING = instance[ADDER](IS_WEAK ? {} : -0, 1) != instance;
+    // V8 ~  Chromium 40- weak-collections throws on primitives, but should return false
+    var THROWS_ON_PRIMITIVES = fails(function () { instance.has(1); });
+    // most early implementations doesn't supports iterables, most modern - not close it correctly
+    var ACCEPT_ITERABLES = $iterDetect(function (iter) { new C(iter); }); // eslint-disable-line no-new
+    // for early implementations -0 and +0 not the same
+    var BUGGY_ZERO = !IS_WEAK && fails(function () {
+      // V8 ~ Chromium 42- fails only with 5+ elements
+      var $instance = new C();
+      var index = 5;
+      while (index--) $instance[ADDER](index, index);
+      return !$instance.has(-0);
+    });
+    if (!ACCEPT_ITERABLES) {
+      C = wrapper(function (target, iterable) {
+        anInstance(target, C, NAME);
+        var that = inheritIfRequired(new Base(), target, C);
+        if (iterable != undefined) forOf(iterable, IS_MAP, that[ADDER], that);
+        return that;
+      });
+      C.prototype = proto;
+      proto.constructor = C;
+    }
+    if (THROWS_ON_PRIMITIVES || BUGGY_ZERO) {
+      fixMethod('delete');
+      fixMethod('has');
+      IS_MAP && fixMethod('get');
+    }
+    if (BUGGY_ZERO || HASNT_CHAINING) fixMethod(ADDER);
+    // weak collections should not contains .clear method
+    if (IS_WEAK && proto.clear) delete proto.clear;
+  }
+
+  setToStringTag(C, NAME);
+
+  O[NAME] = C;
+  $export($export.G + $export.W + $export.F * (C != Base), O);
+
+  if (!IS_WEAK) common.setStrong(C, NAME, IS_MAP);
+
+  return C;
+};
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(2);
+var setPrototypeOf = __webpack_require__(76).set;
+module.exports = function (that, target, C) {
+  var S = target.constructor;
+  var P;
+  if (S !== C && typeof S == 'function' && (P = S.prototype) !== C.prototype && isObject(P) && setPrototypeOf) {
+    setPrototypeOf(that, P);
+  } return that;
+};
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+/* eslint-disable no-proto */
+var isObject = __webpack_require__(2);
+var anObject = __webpack_require__(9);
+var check = function (O, proto) {
+  anObject(O);
+  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
+};
+module.exports = {
+  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
+    function (test, buggy, set) {
+      try {
+        set = __webpack_require__(11)(Function.call, __webpack_require__(77).f(Object.prototype, '__proto__').set, 2);
+        set(test, []);
+        buggy = !(test instanceof Array);
+      } catch (e) { buggy = true; }
+      return function setPrototypeOf(O, proto) {
+        check(O, proto);
+        if (buggy) O.__proto__ = proto;
+        else set(O, proto);
+        return O;
+      };
+    }({}, false) : undefined),
+  check: check
+};
+
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pIE = __webpack_require__(42);
+var createDesc = __webpack_require__(14);
+var toIObject = __webpack_require__(16);
+var toPrimitive = __webpack_require__(31);
+var has = __webpack_require__(6);
+var IE8_DOM_DEFINE = __webpack_require__(29);
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = __webpack_require__(5) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var $export = __webpack_require__(3);
+
+$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(79)('Set') });
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var classof = __webpack_require__(26);
+var from = __webpack_require__(80);
+module.exports = function (NAME) {
+  return function toJSON() {
+    if (classof(this) != NAME) throw TypeError(NAME + "#toJSON isn't generic");
+    return from(this);
+  };
+};
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var forOf = __webpack_require__(17);
+
+module.exports = function (iter, ITERATOR) {
+  var result = [];
+  forOf(iter, false, result.push, result, ITERATOR);
+  return result;
+};
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
+__webpack_require__(82)('Set');
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-setmap-offrom/
+var $export = __webpack_require__(3);
+
+module.exports = function (COLLECTION) {
+  $export($export.S, COLLECTION, { of: function of() {
+    var length = arguments.length;
+    var A = new Array(length);
+    while (length--) A[length] = arguments[length];
+    return new this(A);
+  } });
+};
+
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
+__webpack_require__(84)('Set');
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-setmap-offrom/
+var $export = __webpack_require__(3);
+var aFunction = __webpack_require__(32);
+var ctx = __webpack_require__(11);
+var forOf = __webpack_require__(17);
+
+module.exports = function (COLLECTION) {
+  $export($export.S, COLLECTION, { from: function from(source /* , mapFn, thisArg */) {
+    var mapFn = arguments[1];
+    var mapping, A, n, cb;
+    aFunction(this);
+    mapping = mapFn !== undefined;
+    if (mapping) aFunction(mapFn);
+    if (source == undefined) return new this();
+    A = [];
+    if (mapping) {
+      n = 0;
+      cb = ctx(mapFn, arguments[2], 2);
+      forOf(source, false, function (nextItem) {
+        A.push(cb(nextItem, n++));
+      });
+    } else {
+      forOf(source, false, A.push, A);
+    }
+    return new this(A);
+  } });
+};
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _icons = __webpack_require__(27);
+
+var _icons2 = _interopRequireDefault(_icons);
+
+var _toSvg = __webpack_require__(90);
+
+var _toSvg2 = _interopRequireDefault(_toSvg);
+
+var _replace = __webpack_require__(91);
+
+var _replace2 = _interopRequireDefault(_replace);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = { icons: _icons2.default, toSvg: _toSvg2.default, replace: _replace2.default };
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dedupe = __webpack_require__(48);
+
+var _dedupe2 = _interopRequireDefault(_dedupe);
+
+var _defaultAttrs = __webpack_require__(87);
+
+var _defaultAttrs2 = _interopRequireDefault(_defaultAttrs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Icon = function () {
+  function Icon(name, contents) {
+    var tags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+    _classCallCheck(this, Icon);
+
+    this.name = name;
+    this.contents = contents;
+    this.tags = tags;
+    this.attrs = _extends({}, _defaultAttrs2.default, { class: 'feather feather-' + name });
+  }
+
+  /**
+   * Create an SVG string.
+   * @param {Object} attrs
+   * @returns {string}
+   */
+
+
+  _createClass(Icon, [{
+    key: 'toSvg',
+    value: function toSvg() {
+      var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var combinedAttrs = _extends({}, this.attrs, attrs, { class: (0, _dedupe2.default)(this.attrs.class, attrs.class) });
+
+      return '<svg ' + attrsToString(combinedAttrs) + '>' + this.contents + '</svg>';
+    }
+
+    /**
+     * Return string representation of an `Icon`.
+     *
+     * Added for backward compatibility. If old code expects `feather.icons.<name>`
+     * to be a string, `toString()` will get implicitly called.
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return this.contents;
+    }
+  }]);
+
+  return Icon;
+}();
+
+/**
+ * Convert attributes object to string of HTML attributes.
+ * @param {Object} attrs
+ * @returns {string}
  */
 
-// @see https://github.com/makeusabrew/bootbox/issues/180
-// @see https://github.com/makeusabrew/bootbox/issues/186
-(function (root, factory) {
 
-  "use strict";
-  if (true) {
-    // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if (typeof exports === "object") {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    module.exports = factory(require("jquery"));
-  } else {
-    // Browser globals (root is window)
-    root.bootbox = factory(root.jQuery);
+function attrsToString(attrs) {
+  return Object.keys(attrs).map(function (key) {
+    return key + '="' + attrs[key] + '"';
+  }).join(' ');
+}
+
+exports.default = Icon;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports) {
+
+module.exports = {"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"}
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+module.exports = {"activity":"<polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline>","airplay":"<path d=\"M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1\"></path><polygon points=\"12 15 17 21 7 21 12 15\"></polygon>","alert-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"></line><line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"16\"></line>","alert-octagon":"<polygon points=\"7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2\"></polygon><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"></line><line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"16\"></line>","alert-triangle":"<path d=\"M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\"></path><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"13\"></line><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"17\"></line>","align-center":"<line x1=\"18\" y1=\"10\" x2=\"6\" y2=\"10\"></line><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"></line><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"></line><line x1=\"18\" y1=\"18\" x2=\"6\" y2=\"18\"></line>","align-justify":"<line x1=\"21\" y1=\"10\" x2=\"3\" y2=\"10\"></line><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"></line><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"></line><line x1=\"21\" y1=\"18\" x2=\"3\" y2=\"18\"></line>","align-left":"<line x1=\"17\" y1=\"10\" x2=\"3\" y2=\"10\"></line><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"></line><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"></line><line x1=\"17\" y1=\"18\" x2=\"3\" y2=\"18\"></line>","align-right":"<line x1=\"21\" y1=\"10\" x2=\"7\" y2=\"10\"></line><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"></line><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"></line><line x1=\"21\" y1=\"18\" x2=\"7\" y2=\"18\"></line>","anchor":"<circle cx=\"12\" cy=\"5\" r=\"3\"></circle><line x1=\"12\" y1=\"22\" x2=\"12\" y2=\"8\"></line><path d=\"M5 12H2a10 10 0 0 0 20 0h-3\"></path>","aperture":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"14.31\" y1=\"8\" x2=\"20.05\" y2=\"17.94\"></line><line x1=\"9.69\" y1=\"8\" x2=\"21.17\" y2=\"8\"></line><line x1=\"7.38\" y1=\"12\" x2=\"13.12\" y2=\"2.06\"></line><line x1=\"9.69\" y1=\"16\" x2=\"3.95\" y2=\"6.06\"></line><line x1=\"14.31\" y1=\"16\" x2=\"2.83\" y2=\"16\"></line><line x1=\"16.62\" y1=\"12\" x2=\"10.88\" y2=\"21.94\"></line>","arrow-down-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"8 12 12 16 16 12\"></polyline><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"16\"></line>","arrow-down-left":"<line x1=\"17\" y1=\"7\" x2=\"7\" y2=\"17\"></line><polyline points=\"17 17 7 17 7 7\"></polyline>","arrow-down-right":"<line x1=\"7\" y1=\"7\" x2=\"17\" y2=\"17\"></line><polyline points=\"17 7 17 17 7 17\"></polyline>","arrow-down":"<line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><polyline points=\"19 12 12 19 5 12\"></polyline>","arrow-left-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 8 8 12 12 16\"></polyline><line x1=\"16\" y1=\"12\" x2=\"8\" y2=\"12\"></line>","arrow-left":"<line x1=\"19\" y1=\"12\" x2=\"5\" y2=\"12\"></line><polyline points=\"12 19 5 12 12 5\"></polyline>","arrow-right-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 16 16 12 12 8\"></polyline><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","arrow-right":"<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line><polyline points=\"12 5 19 12 12 19\"></polyline>","arrow-up-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"16 12 12 8 8 12\"></polyline><line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"8\"></line>","arrow-up-left":"<line x1=\"17\" y1=\"17\" x2=\"7\" y2=\"7\"></line><polyline points=\"7 17 7 7 17 7\"></polyline>","arrow-up-right":"<line x1=\"7\" y1=\"17\" x2=\"17\" y2=\"7\"></line><polyline points=\"7 7 17 7 17 17\"></polyline>","arrow-up":"<line x1=\"12\" y1=\"19\" x2=\"12\" y2=\"5\"></line><polyline points=\"5 12 12 5 19 12\"></polyline>","at-sign":"<circle cx=\"12\" cy=\"12\" r=\"4\"></circle><path d=\"M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94\"></path>","award":"<circle cx=\"12\" cy=\"8\" r=\"7\"></circle><polyline points=\"8.21 13.89 7 23 12 20 17 23 15.79 13.88\"></polyline>","bar-chart-2":"<line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\"></line><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\"></line><line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\"></line>","bar-chart":"<line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"10\"></line><line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"4\"></line><line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"16\"></line>","battery-charging":"<path d=\"M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.19\"></path><line x1=\"23\" y1=\"13\" x2=\"23\" y2=\"11\"></line><polyline points=\"11 6 7 12 13 12 9 18\"></polyline>","battery":"<rect x=\"1\" y=\"6\" width=\"18\" height=\"12\" rx=\"2\" ry=\"2\"></rect><line x1=\"23\" y1=\"13\" x2=\"23\" y2=\"11\"></line>","bell-off":"<path d=\"M8.56 2.9A7 7 0 0 1 19 9v4m-2 4H2a3 3 0 0 0 3-3V9a7 7 0 0 1 .78-3.22M13.73 21a2 2 0 0 1-3.46 0\"></path><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","bell":"<path d=\"M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0\"></path>","bluetooth":"<polyline points=\"6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5\"></polyline>","bold":"<path d=\"M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z\"></path><path d=\"M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z\"></path>","book-open":"<path d=\"M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z\"></path><path d=\"M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z\"></path>","book":"<path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"></path><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"></path>","bookmark":"<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"></path>","box":"<path d=\"M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.79 0l-8-4a2 2 0 0 1-1.1-1.8V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.78 0z\"></path><polyline points=\"2.32 6.16 12 11 21.68 6.16\"></polyline><line x1=\"12\" y1=\"22.76\" x2=\"12\" y2=\"11\"></line>","briefcase":"<rect x=\"2\" y=\"7\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"></rect><path d=\"M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"></path>","calendar":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"></line><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"></line><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"></line>","camera-off":"<line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line><path d=\"M21 21H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3m3-3h6l2 3h4a2 2 0 0 1 2 2v9.34m-7.72-2.06a4 4 0 1 1-5.56-5.56\"></path>","camera":"<path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle>","cast":"<path d=\"M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6\"></path><line x1=\"2\" y1=\"20\" x2=\"2\" y2=\"20\"></line>","check-circle":"<path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"></path><polyline points=\"22 4 12 14.01 9 11.01\"></polyline>","check-square":"<polyline points=\"9 11 12 14 22 4\"></polyline><path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\"></path>","check":"<polyline points=\"20 6 9 17 4 12\"></polyline>","chevron-down":"<polyline points=\"6 9 12 15 18 9\"></polyline>","chevron-left":"<polyline points=\"15 18 9 12 15 6\"></polyline>","chevron-right":"<polyline points=\"9 18 15 12 9 6\"></polyline>","chevron-up":"<polyline points=\"18 15 12 9 6 15\"></polyline>","chevrons-down":"<polyline points=\"7 13 12 18 17 13\"></polyline><polyline points=\"7 6 12 11 17 6\"></polyline>","chevrons-left":"<polyline points=\"11 17 6 12 11 7\"></polyline><polyline points=\"18 17 13 12 18 7\"></polyline>","chevrons-right":"<polyline points=\"13 17 18 12 13 7\"></polyline><polyline points=\"6 17 11 12 6 7\"></polyline>","chevrons-up":"<polyline points=\"17 11 12 6 7 11\"></polyline><polyline points=\"17 18 12 13 7 18\"></polyline>","chrome":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"12\" r=\"4\"></circle><line x1=\"21.17\" y1=\"8\" x2=\"12\" y2=\"8\"></line><line x1=\"3.95\" y1=\"6.06\" x2=\"8.54\" y2=\"14\"></line><line x1=\"10.88\" y1=\"21.94\" x2=\"15.46\" y2=\"14\"></line>","circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle>","clipboard":"<path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"></path><rect x=\"8\" y=\"2\" width=\"8\" height=\"4\" rx=\"1\" ry=\"1\"></rect>","clock":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline>","cloud-drizzle":"<line x1=\"8\" y1=\"19\" x2=\"8\" y2=\"21\"></line><line x1=\"8\" y1=\"13\" x2=\"8\" y2=\"15\"></line><line x1=\"16\" y1=\"19\" x2=\"16\" y2=\"21\"></line><line x1=\"16\" y1=\"13\" x2=\"16\" y2=\"15\"></line><line x1=\"12\" y1=\"21\" x2=\"12\" y2=\"23\"></line><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"17\"></line><path d=\"M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25\"></path>","cloud-lightning":"<path d=\"M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9\"></path><polyline points=\"13 11 9 17 15 17 11 23\"></polyline>","cloud-off":"<path d=\"M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6M5 5a8 8 0 0 0 4 15h9a5 5 0 0 0 1.7-.3\"></path><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","cloud-rain":"<line x1=\"16\" y1=\"13\" x2=\"16\" y2=\"21\"></line><line x1=\"8\" y1=\"13\" x2=\"8\" y2=\"21\"></line><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"23\"></line><path d=\"M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25\"></path>","cloud-snow":"<path d=\"M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25\"></path><line x1=\"8\" y1=\"16\" x2=\"8\" y2=\"16\"></line><line x1=\"8\" y1=\"20\" x2=\"8\" y2=\"20\"></line><line x1=\"12\" y1=\"18\" x2=\"12\" y2=\"18\"></line><line x1=\"12\" y1=\"22\" x2=\"12\" y2=\"22\"></line><line x1=\"16\" y1=\"16\" x2=\"16\" y2=\"16\"></line><line x1=\"16\" y1=\"20\" x2=\"16\" y2=\"20\"></line>","cloud":"<path d=\"M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z\"></path>","code":"<polyline points=\"16 18 22 12 16 6\"></polyline><polyline points=\"8 6 2 12 8 18\"></polyline>","codepen":"<polygon points=\"12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2\"></polygon><line x1=\"12\" y1=\"22\" x2=\"12\" y2=\"15.5\"></line><polyline points=\"22 8.5 12 15.5 2 8.5\"></polyline><polyline points=\"2 15.5 12 8.5 22 15.5\"></polyline><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"8.5\"></line>","command":"<path d=\"M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z\"></path>","compass":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polygon points=\"16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76\"></polygon>","copy":"<rect x=\"9\" y=\"9\" width=\"13\" height=\"13\" rx=\"2\" ry=\"2\"></rect><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"></path>","corner-down-left":"<polyline points=\"9 10 4 15 9 20\"></polyline><path d=\"M20 4v7a4 4 0 0 1-4 4H4\"></path>","corner-down-right":"<polyline points=\"15 10 20 15 15 20\"></polyline><path d=\"M4 4v7a4 4 0 0 0 4 4h12\"></path>","corner-left-down":"<polyline points=\"14 15 9 20 4 15\"></polyline><path d=\"M20 4h-7a4 4 0 0 0-4 4v12\"></path>","corner-left-up":"<polyline points=\"14 9 9 4 4 9\"></polyline><path d=\"M20 20h-7a4 4 0 0 1-4-4V4\"></path>","corner-right-down":"<polyline points=\"10 15 15 20 20 15\"></polyline><path d=\"M4 4h7a4 4 0 0 1 4 4v12\"></path>","corner-right-up":"<polyline points=\"10 9 15 4 20 9\"></polyline><path d=\"M4 20h7a4 4 0 0 0 4-4V4\"></path>","corner-up-left":"<polyline points=\"9 14 4 9 9 4\"></polyline><path d=\"M20 20v-7a4 4 0 0 0-4-4H4\"></path>","corner-up-right":"<polyline points=\"15 14 20 9 15 4\"></polyline><path d=\"M4 20v-7a4 4 0 0 1 4-4h12\"></path>","cpu":"<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\" ry=\"2\"></rect><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\"></rect><line x1=\"9\" y1=\"1\" x2=\"9\" y2=\"4\"></line><line x1=\"15\" y1=\"1\" x2=\"15\" y2=\"4\"></line><line x1=\"9\" y1=\"20\" x2=\"9\" y2=\"23\"></line><line x1=\"15\" y1=\"20\" x2=\"15\" y2=\"23\"></line><line x1=\"20\" y1=\"9\" x2=\"23\" y2=\"9\"></line><line x1=\"20\" y1=\"14\" x2=\"23\" y2=\"14\"></line><line x1=\"1\" y1=\"9\" x2=\"4\" y2=\"9\"></line><line x1=\"1\" y1=\"14\" x2=\"4\" y2=\"14\"></line>","credit-card":"<rect x=\"1\" y=\"4\" width=\"22\" height=\"16\" rx=\"2\" ry=\"2\"></rect><line x1=\"1\" y1=\"10\" x2=\"23\" y2=\"10\"></line>","crop":"<path d=\"M6.13 1L6 16a2 2 0 0 0 2 2h15\"></path><path d=\"M1 6.13L16 6a2 2 0 0 1 2 2v15\"></path>","crosshair":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"22\" y1=\"12\" x2=\"18\" y2=\"12\"></line><line x1=\"6\" y1=\"12\" x2=\"2\" y2=\"12\"></line><line x1=\"12\" y1=\"6\" x2=\"12\" y2=\"2\"></line><line x1=\"12\" y1=\"22\" x2=\"12\" y2=\"18\"></line>","database":"<ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\"></ellipse><path d=\"M21 12c0 1.66-4 3-9 3s-9-1.34-9-3\"></path><path d=\"M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5\"></path>","delete":"<path d=\"M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z\"></path><line x1=\"18\" y1=\"9\" x2=\"12\" y2=\"15\"></line><line x1=\"12\" y1=\"9\" x2=\"18\" y2=\"15\"></line>","disc":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"12\" r=\"3\"></circle>","dollar-sign":"<line x1=\"12\" y1=\"1\" x2=\"12\" y2=\"23\"></line><path d=\"M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"></path>","download-cloud":"<polyline points=\"8 17 12 21 16 17\"></polyline><line x1=\"12\" y1=\"12\" x2=\"12\" y2=\"21\"></line><path d=\"M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29\"></path>","download":"<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"7 10 12 15 17 10\"></polyline><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"></line>","droplet":"<path d=\"M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z\"></path>","edit-2":"<polygon points=\"16 3 21 8 8 21 3 21 3 16 16 3\"></polygon>","edit-3":"<polygon points=\"14 2 18 6 7 17 3 17 3 13 14 2\"></polygon><line x1=\"3\" y1=\"22\" x2=\"21\" y2=\"22\"></line>","edit":"<path d=\"M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34\"></path><polygon points=\"18 2 22 6 12 16 8 16 8 12 18 2\"></polygon>","external-link":"<path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\"></path><polyline points=\"15 3 21 3 21 9\"></polyline><line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\"></line>","eye-off":"<path d=\"M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24\"></path><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","eye":"<path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle>","facebook":"<path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"></path>","fast-forward":"<polygon points=\"13 19 22 12 13 5 13 19\"></polygon><polygon points=\"2 19 11 12 2 5 2 19\"></polygon>","feather":"<path d=\"M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z\"></path><line x1=\"16\" y1=\"8\" x2=\"2\" y2=\"22\"></line><line x1=\"17\" y1=\"15\" x2=\"9\" y2=\"15\"></line>","file-minus":"<path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"></path><polyline points=\"14 2 14 8 20 8\"></polyline><line x1=\"9\" y1=\"15\" x2=\"15\" y2=\"15\"></line>","file-plus":"<path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"></path><polyline points=\"14 2 14 8 20 8\"></polyline><line x1=\"12\" y1=\"18\" x2=\"12\" y2=\"12\"></line><line x1=\"9\" y1=\"15\" x2=\"15\" y2=\"15\"></line>","file-text":"<path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"></path><polyline points=\"14 2 14 8 20 8\"></polyline><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"></line><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"></line><polyline points=\"10 9 9 9 8 9\"></polyline>","file":"<path d=\"M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"></path><polyline points=\"13 2 13 9 20 9\"></polyline>","film":"<rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"2.18\" ry=\"2.18\"></rect><line x1=\"7\" y1=\"2\" x2=\"7\" y2=\"22\"></line><line x1=\"17\" y1=\"2\" x2=\"17\" y2=\"22\"></line><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"></line><line x1=\"2\" y1=\"7\" x2=\"7\" y2=\"7\"></line><line x1=\"2\" y1=\"17\" x2=\"7\" y2=\"17\"></line><line x1=\"17\" y1=\"17\" x2=\"22\" y2=\"17\"></line><line x1=\"17\" y1=\"7\" x2=\"22\" y2=\"7\"></line>","filter":"<polygon points=\"22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3\"></polygon>","flag":"<path d=\"M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z\"></path><line x1=\"4\" y1=\"22\" x2=\"4\" y2=\"15\"></line>","folder-minus":"<path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path><line x1=\"9\" y1=\"14\" x2=\"15\" y2=\"14\"></line>","folder-plus":"<path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path><line x1=\"12\" y1=\"11\" x2=\"12\" y2=\"17\"></line><line x1=\"9\" y1=\"14\" x2=\"15\" y2=\"14\"></line>","folder":"<path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>","git-branch":"<line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"15\"></line><circle cx=\"18\" cy=\"6\" r=\"3\"></circle><circle cx=\"6\" cy=\"18\" r=\"3\"></circle><path d=\"M18 9a9 9 0 0 1-9 9\"></path>","git-commit":"<circle cx=\"12\" cy=\"12\" r=\"4\"></circle><line x1=\"1.05\" y1=\"12\" x2=\"7\" y2=\"12\"></line><line x1=\"17.01\" y1=\"12\" x2=\"22.96\" y2=\"12\"></line>","git-merge":"<circle cx=\"18\" cy=\"18\" r=\"3\"></circle><circle cx=\"6\" cy=\"6\" r=\"3\"></circle><path d=\"M6 21V9a9 9 0 0 0 9 9\"></path>","git-pull-request":"<circle cx=\"18\" cy=\"18\" r=\"3\"></circle><circle cx=\"6\" cy=\"6\" r=\"3\"></circle><path d=\"M13 6h3a2 2 0 0 1 2 2v7\"></path><line x1=\"6\" y1=\"9\" x2=\"6\" y2=\"21\"></line>","github":"<path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path>","gitlab":"<path d=\"M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z\"></path>","globe":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"></line><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"></path>","grid":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"></rect><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"></rect>","hard-drive":"<line x1=\"22\" y1=\"12\" x2=\"2\" y2=\"12\"></line><path d=\"M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"></path><line x1=\"6\" y1=\"16\" x2=\"6\" y2=\"16\"></line><line x1=\"10\" y1=\"16\" x2=\"10\" y2=\"16\"></line>","hash":"<line x1=\"4\" y1=\"9\" x2=\"20\" y2=\"9\"></line><line x1=\"4\" y1=\"15\" x2=\"20\" y2=\"15\"></line><line x1=\"10\" y1=\"3\" x2=\"8\" y2=\"21\"></line><line x1=\"16\" y1=\"3\" x2=\"14\" y2=\"21\"></line>","headphones":"<path d=\"M3 18v-6a9 9 0 0 1 18 0v6\"></path><path d=\"M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z\"></path>","heart":"<path d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"></path>","help-circle":"<path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"></path><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"17\"></line>","home":"<path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"></path><polyline points=\"9 22 9 12 15 12 15 22\"></polyline>","image":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"></circle><polyline points=\"21 15 16 10 5 21\"></polyline>","inbox":"<polyline points=\"22 12 16 12 14 15 10 15 8 12 2 12\"></polyline><path d=\"M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"></path>","info":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"12\"></line><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"8\"></line>","instagram":"<rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\"></rect><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"></path><line x1=\"17.5\" y1=\"6.5\" x2=\"17.5\" y2=\"6.5\"></line>","italic":"<line x1=\"19\" y1=\"4\" x2=\"10\" y2=\"4\"></line><line x1=\"14\" y1=\"20\" x2=\"5\" y2=\"20\"></line><line x1=\"15\" y1=\"4\" x2=\"9\" y2=\"20\"></line>","layers":"<polygon points=\"12 2 2 7 12 12 22 7 12 2\"></polygon><polyline points=\"2 17 12 22 22 17\"></polyline><polyline points=\"2 12 12 17 22 12\"></polyline>","layout":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"></line><line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\"></line>","life-buoy":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"12\" r=\"4\"></circle><line x1=\"4.93\" y1=\"4.93\" x2=\"9.17\" y2=\"9.17\"></line><line x1=\"14.83\" y1=\"14.83\" x2=\"19.07\" y2=\"19.07\"></line><line x1=\"14.83\" y1=\"9.17\" x2=\"19.07\" y2=\"4.93\"></line><line x1=\"14.83\" y1=\"9.17\" x2=\"18.36\" y2=\"5.64\"></line><line x1=\"4.93\" y1=\"19.07\" x2=\"9.17\" y2=\"14.83\"></line>","link-2":"<path d=\"M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3\"></path><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","link":"<path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"></path><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"></path>","linkedin":"<path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle>","list":"<line x1=\"8\" y1=\"6\" x2=\"21\" y2=\"6\"></line><line x1=\"8\" y1=\"12\" x2=\"21\" y2=\"12\"></line><line x1=\"8\" y1=\"18\" x2=\"21\" y2=\"18\"></line><line x1=\"3\" y1=\"6\" x2=\"3\" y2=\"6\"></line><line x1=\"3\" y1=\"12\" x2=\"3\" y2=\"12\"></line><line x1=\"3\" y1=\"18\" x2=\"3\" y2=\"18\"></line>","loader":"<line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"6\"></line><line x1=\"12\" y1=\"18\" x2=\"12\" y2=\"22\"></line><line x1=\"4.93\" y1=\"4.93\" x2=\"7.76\" y2=\"7.76\"></line><line x1=\"16.24\" y1=\"16.24\" x2=\"19.07\" y2=\"19.07\"></line><line x1=\"2\" y1=\"12\" x2=\"6\" y2=\"12\"></line><line x1=\"18\" y1=\"12\" x2=\"22\" y2=\"12\"></line><line x1=\"4.93\" y1=\"19.07\" x2=\"7.76\" y2=\"16.24\"></line><line x1=\"16.24\" y1=\"7.76\" x2=\"19.07\" y2=\"4.93\"></line>","lock":"<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\" ry=\"2\"></rect><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"></path>","log-in":"<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"></path><polyline points=\"10 17 15 12 10 7\"></polyline><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"></line>","log-out":"<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"></path><polyline points=\"16 17 21 12 16 7\"></polyline><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"></line>","mail":"<path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"></path><polyline points=\"22,6 12,13 2,6\"></polyline>","map-pin":"<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\"></path><circle cx=\"12\" cy=\"10\" r=\"3\"></circle>","map":"<polygon points=\"1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6\"></polygon><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"18\"></line><line x1=\"16\" y1=\"6\" x2=\"16\" y2=\"22\"></line>","maximize-2":"<polyline points=\"15 3 21 3 21 9\"></polyline><polyline points=\"9 21 3 21 3 15\"></polyline><line x1=\"21\" y1=\"3\" x2=\"14\" y2=\"10\"></line><line x1=\"3\" y1=\"21\" x2=\"10\" y2=\"14\"></line>","maximize":"<path d=\"M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3\"></path>","menu":"<line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\"></line><line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\"></line><line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\"></line>","message-circle":"<path d=\"M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z\"></path>","message-square":"<path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"></path>","mic-off":"<line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line><path d=\"M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6\"></path><path d=\"M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23\"></path><line x1=\"12\" y1=\"19\" x2=\"12\" y2=\"23\"></line><line x1=\"8\" y1=\"23\" x2=\"16\" y2=\"23\"></line>","mic":"<path d=\"M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z\"></path><path d=\"M19 10v2a7 7 0 0 1-14 0v-2\"></path><line x1=\"12\" y1=\"19\" x2=\"12\" y2=\"23\"></line><line x1=\"8\" y1=\"23\" x2=\"16\" y2=\"23\"></line>","minimize-2":"<polyline points=\"4 14 10 14 10 20\"></polyline><polyline points=\"20 10 14 10 14 4\"></polyline><line x1=\"14\" y1=\"10\" x2=\"21\" y2=\"3\"></line><line x1=\"3\" y1=\"21\" x2=\"10\" y2=\"14\"></line>","minimize":"<path d=\"M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3\"></path>","minus-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","minus-square":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","minus":"<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>","monitor":"<rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"></rect><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"></line><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"></line>","moon":"<path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\"></path>","more-horizontal":"<circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"19\" cy=\"12\" r=\"1\"></circle><circle cx=\"5\" cy=\"12\" r=\"1\"></circle>","more-vertical":"<circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"12\" cy=\"5\" r=\"1\"></circle><circle cx=\"12\" cy=\"19\" r=\"1\"></circle>","move":"<polyline points=\"5 9 2 12 5 15\"></polyline><polyline points=\"9 5 12 2 15 5\"></polyline><polyline points=\"15 19 12 22 9 19\"></polyline><polyline points=\"19 9 22 12 19 15\"></polyline><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"></line><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"></line>","music":"<path d=\"M9 17H5a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm12-2h-4a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2z\"></path><polyline points=\"9 17 9 5 21 3 21 15\"></polyline>","navigation-2":"<polygon points=\"12 2 19 21 12 17 5 21 12 2\"></polygon>","navigation":"<polygon points=\"3 11 22 2 13 21 11 13 3 11\"></polygon>","octagon":"<polygon points=\"7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2\"></polygon>","package":"<path d=\"M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.79 0l-8-4a2 2 0 0 1-1.1-1.8V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.78 0z\"></path><polyline points=\"2.32 6.16 12 11 21.68 6.16\"></polyline><line x1=\"12\" y1=\"22.76\" x2=\"12\" y2=\"11\"></line><line x1=\"7\" y1=\"3.5\" x2=\"17\" y2=\"8.5\"></line>","paperclip":"<path d=\"M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48\"></path>","pause-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"10\" y1=\"15\" x2=\"10\" y2=\"9\"></line><line x1=\"14\" y1=\"15\" x2=\"14\" y2=\"9\"></line>","pause":"<rect x=\"6\" y=\"4\" width=\"4\" height=\"16\"></rect><rect x=\"14\" y=\"4\" width=\"4\" height=\"16\"></rect>","percent":"<line x1=\"19\" y1=\"5\" x2=\"5\" y2=\"19\"></line><circle cx=\"6.5\" cy=\"6.5\" r=\"2.5\"></circle><circle cx=\"17.5\" cy=\"17.5\" r=\"2.5\"></circle>","phone-call":"<path d=\"M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","phone-forwarded":"<polyline points=\"19 1 23 5 19 9\"></polyline><line x1=\"15\" y1=\"5\" x2=\"23\" y2=\"5\"></line><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","phone-incoming":"<polyline points=\"16 2 16 8 22 8\"></polyline><line x1=\"23\" y1=\"1\" x2=\"16\" y2=\"8\"></line><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","phone-missed":"<line x1=\"23\" y1=\"1\" x2=\"17\" y2=\"7\"></line><line x1=\"17\" y1=\"1\" x2=\"23\" y2=\"7\"></line><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","phone-off":"<path d=\"M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91\"></path><line x1=\"23\" y1=\"1\" x2=\"1\" y2=\"23\"></line>","phone-outgoing":"<polyline points=\"23 7 23 1 17 1\"></polyline><line x1=\"16\" y1=\"8\" x2=\"23\" y2=\"1\"></line><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","phone":"<path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path>","pie-chart":"<path d=\"M21.21 15.89A10 10 0 1 1 8 2.83\"></path><path d=\"M22 12A10 10 0 0 0 12 2v10z\"></path>","play-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polygon points=\"10 8 16 12 10 16 10 8\"></polygon>","play":"<polygon points=\"5 3 19 12 5 21 5 3\"></polygon>","plus-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"16\"></line><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","plus-square":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"16\"></line><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"></line>","plus":"<line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>","pocket":"<path d=\"M4 3h16a2 2 0 0 1 2 2v6a10 10 0 0 1-10 10A10 10 0 0 1 2 11V5a2 2 0 0 1 2-2z\"></path><polyline points=\"8 10 12 14 16 10\"></polyline>","power":"<path d=\"M18.36 6.64a9 9 0 1 1-12.73 0\"></path><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"12\"></line>","printer":"<polyline points=\"6 9 6 2 18 2 18 9\"></polyline><path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"></path><rect x=\"6\" y=\"14\" width=\"12\" height=\"8\"></rect>","radio":"<circle cx=\"12\" cy=\"12\" r=\"2\"></circle><path d=\"M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14\"></path>","refresh-ccw":"<polyline points=\"1 4 1 10 7 10\"></polyline><polyline points=\"23 20 23 14 17 14\"></polyline><path d=\"M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15\"></path>","refresh-cw":"<polyline points=\"23 4 23 10 17 10\"></polyline><polyline points=\"1 20 1 14 7 14\"></polyline><path d=\"M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15\"></path>","repeat":"<polyline points=\"17 1 21 5 17 9\"></polyline><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"></path><polyline points=\"7 23 3 19 7 15\"></polyline><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"></path>","rewind":"<polygon points=\"11 19 2 12 11 5 11 19\"></polygon><polygon points=\"22 19 13 12 22 5 22 19\"></polygon>","rotate-ccw":"<polyline points=\"1 4 1 10 7 10\"></polyline><path d=\"M3.51 15a9 9 0 1 0 2.13-9.36L1 10\"></path>","rotate-cw":"<polyline points=\"23 4 23 10 17 10\"></polyline><path d=\"M20.49 15a9 9 0 1 1-2.12-9.36L23 10\"></path>","rss":"<path d=\"M4 11a9 9 0 0 1 9 9\"></path><path d=\"M4 4a16 16 0 0 1 16 16\"></path><circle cx=\"5\" cy=\"19\" r=\"1\"></circle>","save":"<path d=\"M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z\"></path><polyline points=\"17 21 17 13 7 13 7 21\"></polyline><polyline points=\"7 3 7 8 15 8\"></polyline>","scissors":"<circle cx=\"6\" cy=\"6\" r=\"3\"></circle><circle cx=\"6\" cy=\"18\" r=\"3\"></circle><line x1=\"20\" y1=\"4\" x2=\"8.12\" y2=\"15.88\"></line><line x1=\"14.47\" y1=\"14.48\" x2=\"20\" y2=\"20\"></line><line x1=\"8.12\" y1=\"8.12\" x2=\"12\" y2=\"12\"></line>","search":"<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line>","send":"<line x1=\"22\" y1=\"2\" x2=\"11\" y2=\"13\"></line><polygon points=\"22 2 15 22 11 13 2 9 22 2\"></polygon>","server":"<rect x=\"2\" y=\"2\" width=\"20\" height=\"8\" rx=\"2\" ry=\"2\"></rect><rect x=\"2\" y=\"14\" width=\"20\" height=\"8\" rx=\"2\" ry=\"2\"></rect><line x1=\"6\" y1=\"6\" x2=\"6\" y2=\"6\"></line><line x1=\"6\" y1=\"18\" x2=\"6\" y2=\"18\"></line>","settings":"<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path>","share-2":"<circle cx=\"18\" cy=\"5\" r=\"3\"></circle><circle cx=\"6\" cy=\"12\" r=\"3\"></circle><circle cx=\"18\" cy=\"19\" r=\"3\"></circle><line x1=\"8.59\" y1=\"13.51\" x2=\"15.42\" y2=\"17.49\"></line><line x1=\"15.41\" y1=\"6.51\" x2=\"8.59\" y2=\"10.49\"></line>","share":"<path d=\"M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8\"></path><polyline points=\"16 6 12 2 8 6\"></polyline><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"15\"></line>","shield-off":"<path d=\"M19.69 14a6.9 6.9 0 0 0 .31-2V5l-8-3-3.16 1.18\"></path><path d=\"M4.73 4.73L4 5v7c0 6 8 10 8 10a20.29 20.29 0 0 0 5.62-4.38\"></path><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","shield":"<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"></path>","shopping-bag":"<path d=\"M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z\"></path><line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\"></line><path d=\"M16 10a4 4 0 0 1-8 0\"></path>","shopping-cart":"<circle cx=\"9\" cy=\"21\" r=\"1\"></circle><circle cx=\"20\" cy=\"21\" r=\"1\"></circle><path d=\"M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6\"></path>","shuffle":"<polyline points=\"16 3 21 3 21 8\"></polyline><line x1=\"4\" y1=\"20\" x2=\"21\" y2=\"3\"></line><polyline points=\"21 16 21 21 16 21\"></polyline><line x1=\"15\" y1=\"15\" x2=\"21\" y2=\"21\"></line><line x1=\"4\" y1=\"4\" x2=\"9\" y2=\"9\"></line>","sidebar":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"></line>","skip-back":"<polygon points=\"19 20 9 12 19 4 19 20\"></polygon><line x1=\"5\" y1=\"19\" x2=\"5\" y2=\"5\"></line>","skip-forward":"<polygon points=\"5 4 15 12 5 20 5 4\"></polygon><line x1=\"19\" y1=\"5\" x2=\"19\" y2=\"19\"></line>","slack":"<path d=\"M22.08 9C19.81 1.41 16.54-.35 9 1.92S-.35 7.46 1.92 15 7.46 24.35 15 22.08 24.35 16.54 22.08 9z\"></path><line x1=\"12.57\" y1=\"5.99\" x2=\"16.15\" y2=\"16.39\"></line><line x1=\"7.85\" y1=\"7.61\" x2=\"11.43\" y2=\"18.01\"></line><line x1=\"16.39\" y1=\"7.85\" x2=\"5.99\" y2=\"11.43\"></line><line x1=\"18.01\" y1=\"12.57\" x2=\"7.61\" y2=\"16.15\"></line>","slash":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"4.93\" y1=\"4.93\" x2=\"19.07\" y2=\"19.07\"></line>","sliders":"<line x1=\"4\" y1=\"21\" x2=\"4\" y2=\"14\"></line><line x1=\"4\" y1=\"10\" x2=\"4\" y2=\"3\"></line><line x1=\"12\" y1=\"21\" x2=\"12\" y2=\"12\"></line><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"3\"></line><line x1=\"20\" y1=\"21\" x2=\"20\" y2=\"16\"></line><line x1=\"20\" y1=\"12\" x2=\"20\" y2=\"3\"></line><line x1=\"1\" y1=\"14\" x2=\"7\" y2=\"14\"></line><line x1=\"9\" y1=\"8\" x2=\"15\" y2=\"8\"></line><line x1=\"17\" y1=\"16\" x2=\"23\" y2=\"16\"></line>","smartphone":"<rect x=\"5\" y=\"2\" width=\"14\" height=\"20\" rx=\"2\" ry=\"2\"></rect><line x1=\"12\" y1=\"18\" x2=\"12\" y2=\"18\"></line>","speaker":"<rect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"2\" ry=\"2\"></rect><circle cx=\"12\" cy=\"14\" r=\"4\"></circle><line x1=\"12\" y1=\"6\" x2=\"12\" y2=\"6\"></line>","square":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect>","star":"<polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"></polygon>","stop-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\"></rect>","sun":"<circle cx=\"12\" cy=\"12\" r=\"5\"></circle><line x1=\"12\" y1=\"1\" x2=\"12\" y2=\"3\"></line><line x1=\"12\" y1=\"21\" x2=\"12\" y2=\"23\"></line><line x1=\"4.22\" y1=\"4.22\" x2=\"5.64\" y2=\"5.64\"></line><line x1=\"18.36\" y1=\"18.36\" x2=\"19.78\" y2=\"19.78\"></line><line x1=\"1\" y1=\"12\" x2=\"3\" y2=\"12\"></line><line x1=\"21\" y1=\"12\" x2=\"23\" y2=\"12\"></line><line x1=\"4.22\" y1=\"19.78\" x2=\"5.64\" y2=\"18.36\"></line><line x1=\"18.36\" y1=\"5.64\" x2=\"19.78\" y2=\"4.22\"></line>","sunrise":"<path d=\"M17 18a5 5 0 0 0-10 0\"></path><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"9\"></line><line x1=\"4.22\" y1=\"10.22\" x2=\"5.64\" y2=\"11.64\"></line><line x1=\"1\" y1=\"18\" x2=\"3\" y2=\"18\"></line><line x1=\"21\" y1=\"18\" x2=\"23\" y2=\"18\"></line><line x1=\"18.36\" y1=\"11.64\" x2=\"19.78\" y2=\"10.22\"></line><line x1=\"23\" y1=\"22\" x2=\"1\" y2=\"22\"></line><polyline points=\"8 6 12 2 16 6\"></polyline>","sunset":"<path d=\"M17 18a5 5 0 0 0-10 0\"></path><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"2\"></line><line x1=\"4.22\" y1=\"10.22\" x2=\"5.64\" y2=\"11.64\"></line><line x1=\"1\" y1=\"18\" x2=\"3\" y2=\"18\"></line><line x1=\"21\" y1=\"18\" x2=\"23\" y2=\"18\"></line><line x1=\"18.36\" y1=\"11.64\" x2=\"19.78\" y2=\"10.22\"></line><line x1=\"23\" y1=\"22\" x2=\"1\" y2=\"22\"></line><polyline points=\"16 5 12 9 8 5\"></polyline>","tablet":"<rect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"2\" ry=\"2\" transform=\"rotate(180 12 12)\"></rect><line x1=\"12\" y1=\"18\" x2=\"12\" y2=\"18\"></line>","tag":"<path d=\"M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z\"></path><line x1=\"7\" y1=\"7\" x2=\"7\" y2=\"7\"></line>","target":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"12\" r=\"6\"></circle><circle cx=\"12\" cy=\"12\" r=\"2\"></circle>","terminal":"<polyline points=\"4 17 10 11 4 5\"></polyline><line x1=\"12\" y1=\"19\" x2=\"20\" y2=\"19\"></line>","thermometer":"<path d=\"M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z\"></path>","thumbs-down":"<path d=\"M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17\"></path>","thumbs-up":"<path d=\"M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3\"></path>","toggle-left":"<rect x=\"1\" y=\"5\" width=\"22\" height=\"14\" rx=\"7\" ry=\"7\"></rect><circle cx=\"8\" cy=\"12\" r=\"3\"></circle>","toggle-right":"<rect x=\"1\" y=\"5\" width=\"22\" height=\"14\" rx=\"7\" ry=\"7\"></rect><circle cx=\"16\" cy=\"12\" r=\"3\"></circle>","trash-2":"<polyline points=\"3 6 5 6 21 6\"></polyline><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"></path><line x1=\"10\" y1=\"11\" x2=\"10\" y2=\"17\"></line><line x1=\"14\" y1=\"11\" x2=\"14\" y2=\"17\"></line>","trash":"<polyline points=\"3 6 5 6 21 6\"></polyline><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"></path>","trending-down":"<polyline points=\"23 18 13.5 8.5 8.5 13.5 1 6\"></polyline><polyline points=\"17 18 23 18 23 12\"></polyline>","trending-up":"<polyline points=\"23 6 13.5 15.5 8.5 10.5 1 18\"></polyline><polyline points=\"17 6 23 6 23 12\"></polyline>","triangle":"<path d=\"M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\"></path>","truck":"<rect x=\"1\" y=\"3\" width=\"15\" height=\"13\"></rect><polygon points=\"16 8 20 8 23 11 23 16 16 16 16 8\"></polygon><circle cx=\"5.5\" cy=\"18.5\" r=\"2.5\"></circle><circle cx=\"18.5\" cy=\"18.5\" r=\"2.5\"></circle>","tv":"<rect x=\"2\" y=\"7\" width=\"20\" height=\"15\" rx=\"2\" ry=\"2\"></rect><polyline points=\"17 2 12 7 7 2\"></polyline>","twitter":"<path d=\"M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z\"></path>","type":"<polyline points=\"4 7 4 4 20 4 20 7\"></polyline><line x1=\"9\" y1=\"20\" x2=\"15\" y2=\"20\"></line><line x1=\"12\" y1=\"4\" x2=\"12\" y2=\"20\"></line>","umbrella":"<path d=\"M23 12a11.05 11.05 0 0 0-22 0zm-5 7a3 3 0 0 1-6 0v-7\"></path>","underline":"<path d=\"M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3\"></path><line x1=\"4\" y1=\"21\" x2=\"20\" y2=\"21\"></line>","unlock":"<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\" ry=\"2\"></rect><path d=\"M7 11V7a5 5 0 0 1 9.9-1\"></path>","upload-cloud":"<polyline points=\"16 16 12 12 8 16\"></polyline><line x1=\"12\" y1=\"12\" x2=\"12\" y2=\"21\"></line><path d=\"M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3\"></path><polyline points=\"16 16 12 12 8 16\"></polyline>","upload":"<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"17 8 12 3 7 8\"></polyline><line x1=\"12\" y1=\"3\" x2=\"12\" y2=\"15\"></line>","user-check":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><polyline points=\"17 11 19 13 23 9\"></polyline>","user-minus":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><line x1=\"23\" y1=\"11\" x2=\"17\" y2=\"11\"></line>","user-plus":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><line x1=\"20\" y1=\"8\" x2=\"20\" y2=\"14\"></line><line x1=\"23\" y1=\"11\" x2=\"17\" y2=\"11\"></line>","user-x":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><line x1=\"18\" y1=\"8\" x2=\"23\" y2=\"13\"></line><line x1=\"23\" y1=\"8\" x2=\"18\" y2=\"13\"></line>","user":"<path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle>","users":"<path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"9\" cy=\"7\" r=\"4\"></circle><path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path>","video-off":"<path d=\"M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10\"></path><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","video":"<polygon points=\"23 7 16 12 23 17 23 7\"></polygon><rect x=\"1\" y=\"5\" width=\"15\" height=\"14\" rx=\"2\" ry=\"2\"></rect>","voicemail":"<circle cx=\"5.5\" cy=\"11.5\" r=\"4.5\"></circle><circle cx=\"18.5\" cy=\"11.5\" r=\"4.5\"></circle><line x1=\"5.5\" y1=\"16\" x2=\"18.5\" y2=\"16\"></line>","volume-1":"<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"></path>","volume-2":"<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon><path d=\"M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07\"></path>","volume-x":"<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon><line x1=\"23\" y1=\"9\" x2=\"17\" y2=\"15\"></line><line x1=\"17\" y1=\"9\" x2=\"23\" y2=\"15\"></line>","volume":"<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon>","watch":"<circle cx=\"12\" cy=\"12\" r=\"7\"></circle><polyline points=\"12 9 12 12 13.5 13.5\"></polyline><path d=\"M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83\"></path>","wifi-off":"<line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line><path d=\"M16.72 11.06A10.94 10.94 0 0 1 19 12.55\"></path><path d=\"M5 12.55a10.94 10.94 0 0 1 5.17-2.39\"></path><path d=\"M10.71 5.05A16 16 0 0 1 22.58 9\"></path><path d=\"M1.42 9a15.91 15.91 0 0 1 4.7-2.88\"></path><path d=\"M8.53 16.11a6 6 0 0 1 6.95 0\"></path><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"20\"></line>","wifi":"<path d=\"M5 12.55a11 11 0 0 1 14.08 0\"></path><path d=\"M1.42 9a16 16 0 0 1 21.16 0\"></path><path d=\"M8.53 16.11a6 6 0 0 1 6.95 0\"></path><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"20\"></line>","wind":"<path d=\"M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2\"></path>","x-circle":"<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"15\" y1=\"9\" x2=\"9\" y2=\"15\"></line><line x1=\"9\" y1=\"9\" x2=\"15\" y2=\"15\"></line>","x-square":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"9\" x2=\"15\" y2=\"15\"></line><line x1=\"15\" y1=\"9\" x2=\"9\" y2=\"15\"></line>","x":"<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line>","zap-off":"<polyline points=\"12.41 6.75 13 2 10.57 4.92\"></polyline><polyline points=\"18.57 12.91 21 10 15.66 10\"></polyline><polyline points=\"8 8 3 14 12 14 11 22 16 16\"></polyline><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>","zap":"<polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"></polygon>","zoom-in":"<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line><line x1=\"11\" y1=\"8\" x2=\"11\" y2=\"14\"></line><line x1=\"8\" y1=\"11\" x2=\"14\" y2=\"11\"></line>","zoom-out":"<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line><line x1=\"8\" y1=\"11\" x2=\"14\" y2=\"11\"></line>"}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+module.exports = {"activity":["pulse","health","action","motion"],"airplay":["stream","cast","mirroring"],"alert-circle":["warning"],"alert-octagon":["warning"],"alert-triangle":["warning"],"at-sign":["mention"],"award":["achievement","badge"],"aperture":["camera","photo"],"bell":["alarm","notification"],"bell-off":["alarm","notification","silent"],"bluetooth":["wireless"],"book-open":["read"],"book":["read","dictionary","booklet","magazine"],"bookmark":["read","clip","marker","tag"],"briefcase":["work","bag","baggage","folder"],"clipboard":["copy"],"clock":["time","watch","alarm"],"cloud-drizzle":["weather","shower"],"cloud-lightning":["weather","bolt"],"cloud-rain":["weather"],"cloud-snow":["weather","blizzard"],"cloud":["weather"],"codepen":["logo"],"command":["keyboard","cmd"],"compass":["navigation","safari","travel"],"copy":["clone","duplicate"],"corner-down-left":["arrow"],"corner-down-right":["arrow"],"corner-left-down":["arrow"],"corner-left-up":["arrow"],"corner-right-down":["arrow"],"corner-right-up":["arrow"],"corner-up-left":["arrow"],"corner-up-right":["arrow"],"credit-card":["purchase","payment","cc"],"crop":["photo","image"],"crosshair":["aim","target"],"database":["storage"],"delete":["remove"],"disc":["album","cd","dvd","music"],"dollar-sign":["currency","money","payment"],"droplet":["water"],"edit":["pencil","change"],"edit-2":["pencil","change"],"edit-3":["pencil","change"],"eye":["view","watch"],"eye-off":["view","watch"],"external-link":["outbound"],"facebook":["logo"],"fast-forward":["music"],"film":["movie","video"],"folder-minus":["directory"],"folder-plus":["directory"],"folder":["directory"],"git-branch":["code","version control"],"git-commit":["code","version control"],"git-merge":["code","version control"],"git-pull-request":["code","version control"],"github":["logo","version control"],"gitlab":["logo","version control"],"global":["world","browser","language","translate"],"hard-drive":["computer","server"],"hash":["hashtag","number","pound"],"headphones":["music","audio"],"heart":["like","love"],"help-circle":["question mark"],"home":["house"],"image":["picture"],"inbox":["email"],"instagram":["logo","camera"],"life-bouy":["help","life ring","support"],"linkedin":["logo"],"lock":["security","password"],"log-in":["sign in","arrow"],"log-out":["sign out","arrow"],"mail":["email"],"map-pin":["location","navigation","travel","marker"],"map":["location","navigation","travel"],"maximize":["fullscreen"],"maximize-2":["fullscreen","arrows"],"menu":["bars","navigation","hamburger"],"message-circle":["comment","chat"],"message-square":["comment","chat"],"mic-off":["record"],"mic":["record"],"minimize":["exit fullscreen"],"minimize-2":["exit fullscreen","arrows"],"monitor":["tv"],"moon":["dark","night"],"more-horizontal":["ellipsis"],"more-vertical":["ellipsis"],"move":["arrows"],"navigation":["location","travel"],"navigation-2":["location","travel"],"octagon":["stop"],"package":["box"],"paperclip":["attachment"],"pause":["music","stop"],"pause-circle":["music","stop"],"play":["music","start"],"play-circle":["music","start"],"plus":["add","new"],"plus-circle":["add","new"],"plus-square":["add","new"],"pocket":["logo","save"],"power":["on","off"],"radio":["signal"],"rewind":["music"],"rss":["feed","subscribe"],"save":["floppy disk"],"send":["message","mail","paper airplane"],"settings":["cog","edit","gear","preferences"],"shield":["security"],"shield-off":["security"],"shopping-bag":["ecommerce","cart","purchase","store"],"shopping-cart":["ecommerce","cart","purchase","store"],"shuffle":["music"],"skip-back":["music"],"skip-forward":["music"],"slash":["ban","no"],"sliders":["settings","controls"],"speaker":["music"],"star":["bookmark","favorite","like"],"sun":["brightness","weather","light"],"sunrise":["weather"],"sunset":["weather"],"tag":["label"],"target":["bullseye"],"terminal":["code","command line"],"thumbs-down":["dislike","bad"],"thumbs-up":["like","good"],"toggle-left":["on","off","switch"],"toggle-right":["on","off","switch"],"trash":["garbage","delete","remove"],"trash-2":["garbage","delete","remove"],"triangle":["delta"],"truck":["delivery","van","shipping"],"twitter":["logo"],"umbrella":["rain","weather"],"video-off":["camera","movie","film"],"video":["camera","movie","film"],"voicemail":["phone"],"volume":["music","sound","mute"],"volume-1":["music","sound"],"volume-2":["music","sound"],"volume-x":["music","sound","mute"],"watch":["clock","time"],"wind":["weather","air"],"x-circle":["cancel","close","delete","remove","times"],"x-square":["cancel","close","delete","remove","times"],"x":["cancel","close","delete","remove","times"],"zap-off":["flash","camera","lightning"],"zap":["flash","camera","lightning"]}
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _icons = __webpack_require__(27);
+
+var _icons2 = _interopRequireDefault(_icons);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Create an SVG string.
+ * @deprecated
+ * @param {string} name
+ * @param {Object} attrs
+ * @returns {string}
+ */
+function toSvg(name) {
+  var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  console.warn('feather.toSvg() is deprecated. Please use feather.icons[name].toSvg() instead.');
+
+  if (!name) {
+    throw new Error('The required `key` (icon name) parameter is missing.');
   }
 
-}(this, function init($, undefined) {
-
-  "use strict";
-
-  // the base DOM structure needed to create a modal
-  var templates = {
-    dialog:
-      "<div class='bootbox modal' tabindex='-1' role='dialog'>" +
-        "<div class='modal-dialog'>" +
-          "<div class='modal-content'>" +
-            "<div class='modal-body'><div class='bootbox-body'></div></div>" +
-          "</div>" +
-        "</div>" +
-      "</div>",
-    header:
-      "<div class='modal-header'>" +
-        "<h4 class='modal-title'></h4>" +
-      "</div>",
-    footer:
-      "<div class='modal-footer'></div>",
-    closeButton:
-      "<button type='button' class='bootbox-close-button close' data-dismiss='modal' aria-hidden='true'>&times;</button>",
-    form:
-      "<form class='bootbox-form'></form>",
-    inputs: {
-      text:
-        "<input class='bootbox-input bootbox-input-text form-control' autocomplete=off type=text />",
-      textarea:
-        "<textarea class='bootbox-input bootbox-input-textarea form-control'></textarea>",
-      email:
-        "<input class='bootbox-input bootbox-input-email form-control' autocomplete='off' type='email' />",
-      select:
-        "<select class='bootbox-input bootbox-input-select form-control'></select>",
-      checkbox:
-        "<div class='checkbox'><label><input class='bootbox-input bootbox-input-checkbox' type='checkbox' /></label></div>",
-      date:
-        "<input class='bootbox-input bootbox-input-date form-control' autocomplete=off type='date' />",
-      time:
-        "<input class='bootbox-input bootbox-input-time form-control' autocomplete=off type='time' />",
-      number:
-        "<input class='bootbox-input bootbox-input-number form-control' autocomplete=off type='number' />",
-      password:
-        "<input class='bootbox-input bootbox-input-password form-control' autocomplete='off' type='password' />"
-    }
-  };
-
-  var defaults = {
-    // default language
-    locale: "en",
-    // show backdrop or not. Default to static so user has to interact with dialog
-    backdrop: "static",
-    // animate the modal in/out
-    animate: true,
-    // additional class string applied to the top level dialog
-    className: null,
-    // whether or not to include a close button
-    closeButton: true,
-    // show the dialog immediately by default
-    show: true,
-    // dialog container
-    container: "body"
-  };
-
-  // our public object; augmented after our private API
-  var exports = {};
-
-  /**
-   * @private
-   */
-  function _t(key) {
-    var locale = locales[defaults.locale];
-    return locale ? locale[key] : locales.en[key];
+  if (!_icons2.default[name]) {
+    throw new Error('No icon matching \'' + name + '\'. See the complete list of icons at https://feathericons.com');
   }
 
-  function processCallback(e, dialog, callback) {
-    e.stopPropagation();
-    e.preventDefault();
+  return _icons2.default[name].toSvg(attrs);
+}
 
-    // by default we assume a callback will get rid of the dialog,
-    // although it is given the opportunity to override this
+exports.default = toSvg;
 
-    // so, if the callback can be invoked and it *explicitly returns false*
-    // then we'll set a flag to keep the dialog active...
-    var preserveDialog = $.isFunction(callback) && callback.call(dialog, e) === false;
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
 
-    // ... otherwise we'll bin it
-    if (!preserveDialog) {
-      dialog.modal("hide");
-    }
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* eslint-env browser */
+
+
+var _dedupe = __webpack_require__(48);
+
+var _dedupe2 = _interopRequireDefault(_dedupe);
+
+var _icons = __webpack_require__(27);
+
+var _icons2 = _interopRequireDefault(_icons);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Replace all HTML elements that have a `data-feather` attribute with SVG markup
+ * corresponding to the element's `data-feather` attribute value.
+ * @param {Object} attrs
+ */
+function replace() {
+  var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  if (typeof document === 'undefined') {
+    throw new Error('`feather.replace()` only works in a browser environment.');
   }
 
-  function getKeyLength(obj) {
-    // @TODO defer to Object.keys(x).length if available?
-    var k, t = 0;
-    for (k in obj) {
-      t ++;
-    }
-    return t;
-  }
-
-  function each(collection, iterator) {
-    var index = 0;
-    $.each(collection, function(key, value) {
-      iterator(key, value, index++);
-    });
-  }
-
-  function sanitize(options) {
-    var buttons;
-    var total;
-
-    if (typeof options !== "object") {
-      throw new Error("Please supply an object of options");
-    }
-
-    if (!options.message) {
-      throw new Error("Please specify a message");
-    }
-
-    // make sure any supplied options take precedence over defaults
-    options = $.extend({}, defaults, options);
-
-    if (!options.buttons) {
-      options.buttons = {};
-    }
-
-    buttons = options.buttons;
-
-    total = getKeyLength(buttons);
-
-    each(buttons, function(key, button, index) {
-
-      if ($.isFunction(button)) {
-        // short form, assume value is our callback. Since button
-        // isn't an object it isn't a reference either so re-assign it
-        button = buttons[key] = {
-          callback: button
-        };
-      }
-
-      // before any further checks make sure by now button is the correct type
-      if ($.type(button) !== "object") {
-        throw new Error("button with key " + key + " must be an object");
-      }
-
-      if (!button.label) {
-        // the lack of an explicit label means we'll assume the key is good enough
-        button.label = key;
-      }
-
-      if (!button.className) {
-        if (total <= 2 && index === total-1) {
-          // always add a primary to the main option in a two-button dialog
-          button.className = "btn-primary";
-        } else {
-          button.className = "btn-default";
-        }
-      }
-    });
-
-    return options;
-  }
-
-  /**
-   * map a flexible set of arguments into a single returned object
-   * if args.length is already one just return it, otherwise
-   * use the properties argument to map the unnamed args to
-   * object properties
-   * so in the latter case:
-   * mapArguments(["foo", $.noop], ["message", "callback"])
-   * -> { message: "foo", callback: $.noop }
-   */
-  function mapArguments(args, properties) {
-    var argn = args.length;
-    var options = {};
-
-    if (argn < 1 || argn > 2) {
-      throw new Error("Invalid argument length");
-    }
-
-    if (argn === 2 || typeof args[0] === "string") {
-      options[properties[0]] = args[0];
-      options[properties[1]] = args[1];
-    } else {
-      options = args[0];
-    }
-
-    return options;
-  }
-
-  /**
-   * merge a set of default dialog options with user supplied arguments
-   */
-  function mergeArguments(defaults, args, properties) {
-    return $.extend(
-      // deep merge
-      true,
-      // ensure the target is an empty, unreferenced object
-      {},
-      // the base options object for this type of dialog (often just buttons)
-      defaults,
-      // args could be an object or array; if it's an array properties will
-      // map it to a proper options object
-      mapArguments(
-        args,
-        properties
-      )
-    );
-  }
-
-  /**
-   * this entry-level method makes heavy use of composition to take a simple
-   * range of inputs and return valid options suitable for passing to bootbox.dialog
-   */
-  function mergeDialogOptions(className, labels, properties, args) {
-    //  build up a base set of dialog properties
-    var baseOptions = {
-      className: "bootbox-" + className,
-      buttons: createLabels.apply(null, labels)
-    };
-
-    // ensure the buttons properties generated, *after* merging
-    // with user args are still valid against the supplied labels
-    return validateButtons(
-      // merge the generated base properties with user supplied arguments
-      mergeArguments(
-        baseOptions,
-        args,
-        // if args.length > 1, properties specify how each arg maps to an object key
-        properties
-      ),
-      labels
-    );
-  }
-
-  /**
-   * from a given list of arguments return a suitable object of button labels
-   * all this does is normalise the given labels and translate them where possible
-   * e.g. "ok", "confirm" -> { ok: "OK, cancel: "Annuleren" }
-   */
-  function createLabels() {
-    var buttons = {};
-
-    for (var i = 0, j = arguments.length; i < j; i++) {
-      var argument = arguments[i];
-      var key = argument.toLowerCase();
-      var value = argument.toUpperCase();
-
-      buttons[key] = {
-        label: _t(value)
-      };
-    }
-
-    return buttons;
-  }
-
-  function validateButtons(options, buttons) {
-    var allowedButtons = {};
-    each(buttons, function(key, value) {
-      allowedButtons[value] = true;
-    });
-
-    each(options.buttons, function(key) {
-      if (allowedButtons[key] === undefined) {
-        throw new Error("button key " + key + " is not allowed (options are " + buttons.join("\n") + ")");
-      }
-    });
-
-    return options;
-  }
-
-  exports.alert = function() {
-    var options;
-
-    options = mergeDialogOptions("alert", ["ok"], ["message", "callback"], arguments);
-
-    if (options.callback && !$.isFunction(options.callback)) {
-      throw new Error("alert requires callback property to be a function when provided");
-    }
-
-    /**
-     * overrides
-     */
-    options.buttons.ok.callback = options.onEscape = function() {
-      if ($.isFunction(options.callback)) {
-        return options.callback.call(this);
-      }
-      return true;
-    };
-
-    return exports.dialog(options);
-  };
-
-  exports.confirm = function() {
-    var options;
-
-    options = mergeDialogOptions("confirm", ["cancel", "confirm"], ["message", "callback"], arguments);
-
-    /**
-     * overrides; undo anything the user tried to set they shouldn't have
-     */
-    options.buttons.cancel.callback = options.onEscape = function() {
-      return options.callback.call(this, false);
-    };
-
-    options.buttons.confirm.callback = function() {
-      return options.callback.call(this, true);
-    };
-
-    // confirm specific validation
-    if (!$.isFunction(options.callback)) {
-      throw new Error("confirm requires a callback");
-    }
-
-    return exports.dialog(options);
-  };
-
-  exports.prompt = function() {
-    var options;
-    var defaults;
-    var dialog;
-    var form;
-    var input;
-    var shouldShow;
-    var inputOptions;
-
-    // we have to create our form first otherwise
-    // its value is undefined when gearing up our options
-    // @TODO this could be solved by allowing message to
-    // be a function instead...
-    form = $(templates.form);
-
-    // prompt defaults are more complex than others in that
-    // users can override more defaults
-    // @TODO I don't like that prompt has to do a lot of heavy
-    // lifting which mergeDialogOptions can *almost* support already
-    // just because of 'value' and 'inputType' - can we refactor?
-    defaults = {
-      className: "bootbox-prompt",
-      buttons: createLabels("cancel", "confirm"),
-      value: "",
-      inputType: "text"
-    };
-
-    options = validateButtons(
-      mergeArguments(defaults, arguments, ["title", "callback"]),
-      ["cancel", "confirm"]
-    );
-
-    // capture the user's show value; we always set this to false before
-    // spawning the dialog to give us a chance to attach some handlers to
-    // it, but we need to make sure we respect a preference not to show it
-    shouldShow = (options.show === undefined) ? true : options.show;
-
-    /**
-     * overrides; undo anything the user tried to set they shouldn't have
-     */
-    options.message = form;
-
-    options.buttons.cancel.callback = options.onEscape = function() {
-      return options.callback.call(this, null);
-    };
-
-    options.buttons.confirm.callback = function() {
-      var value;
-
-      switch (options.inputType) {
-        case "text":
-        case "textarea":
-        case "email":
-        case "select":
-        case "date":
-        case "time":
-        case "number":
-        case "password":
-          value = input.val();
-          break;
-
-        case "checkbox":
-          var checkedItems = input.find("input:checked");
-
-          // we assume that checkboxes are always multiple,
-          // hence we default to an empty array
-          value = [];
-
-          each(checkedItems, function(_, item) {
-            value.push($(item).val());
-          });
-          break;
-      }
-
-      return options.callback.call(this, value);
-    };
-
-    options.show = false;
-
-    // prompt specific validation
-    if (!options.title) {
-      throw new Error("prompt requires a title");
-    }
-
-    if (!$.isFunction(options.callback)) {
-      throw new Error("prompt requires a callback");
-    }
-
-    if (!templates.inputs[options.inputType]) {
-      throw new Error("invalid prompt type");
-    }
-
-    // create the input based on the supplied type
-    input = $(templates.inputs[options.inputType]);
-
-    switch (options.inputType) {
-      case "text":
-      case "textarea":
-      case "email":
-      case "date":
-      case "time":
-      case "number":
-      case "password":
-        input.val(options.value);
-        break;
-
-      case "select":
-        var groups = {};
-        inputOptions = options.inputOptions || [];
-
-        if (!$.isArray(inputOptions)) {
-          throw new Error("Please pass an array of input options");
-        }
-
-        if (!inputOptions.length) {
-          throw new Error("prompt with select requires options");
-        }
-
-        each(inputOptions, function(_, option) {
-
-          // assume the element to attach to is the input...
-          var elem = input;
-
-          if (option.value === undefined || option.text === undefined) {
-            throw new Error("given options in wrong format");
-          }
-
-          // ... but override that element if this option sits in a group
-
-          if (option.group) {
-            // initialise group if necessary
-            if (!groups[option.group]) {
-              groups[option.group] = $("<optgroup/>").attr("label", option.group);
-            }
-
-            elem = groups[option.group];
-          }
-
-          elem.append("<option value='" + option.value + "'>" + option.text + "</option>");
-        });
-
-        each(groups, function(_, group) {
-          input.append(group);
-        });
-
-        // safe to set a select's value as per a normal input
-        input.val(options.value);
-        break;
-
-      case "checkbox":
-        var values   = $.isArray(options.value) ? options.value : [options.value];
-        inputOptions = options.inputOptions || [];
-
-        if (!inputOptions.length) {
-          throw new Error("prompt with checkbox requires options");
-        }
-
-        if (!inputOptions[0].value || !inputOptions[0].text) {
-          throw new Error("given options in wrong format");
-        }
-
-        // checkboxes have to nest within a containing element, so
-        // they break the rules a bit and we end up re-assigning
-        // our 'input' element to this container instead
-        input = $("<div/>");
-
-        each(inputOptions, function(_, option) {
-          var checkbox = $(templates.inputs[options.inputType]);
-
-          checkbox.find("input").attr("value", option.value);
-          checkbox.find("label").append(option.text);
-
-          // we've ensured values is an array so we can always iterate over it
-          each(values, function(_, value) {
-            if (value === option.value) {
-              checkbox.find("input").prop("checked", true);
-            }
-          });
-
-          input.append(checkbox);
-        });
-        break;
-    }
-
-    // @TODO provide an attributes option instead
-    // and simply map that as keys: vals
-    if (options.placeholder) {
-      input.attr("placeholder", options.placeholder);
-    }
-
-    if (options.pattern) {
-      input.attr("pattern", options.pattern);
-    }
-
-    if (options.maxlength) {
-      input.attr("maxlength", options.maxlength);
-    }
-
-    // now place it in our form
-    form.append(input);
-
-    form.on("submit", function(e) {
-      e.preventDefault();
-      // Fix for SammyJS (or similar JS routing library) hijacking the form post.
-      e.stopPropagation();
-      // @TODO can we actually click *the* button object instead?
-      // e.g. buttons.confirm.click() or similar
-      dialog.find(".btn-primary").click();
-    });
-
-    dialog = exports.dialog(options);
-
-    // clear the existing handler focusing the submit button...
-    dialog.off("shown.bs.modal");
-
-    // ...and replace it with one focusing our input, if possible
-    dialog.on("shown.bs.modal", function() {
-      // need the closure here since input isn't
-      // an object otherwise
-      input.focus();
-    });
-
-    if (shouldShow === true) {
-      dialog.modal("show");
-    }
-
-    return dialog;
-  };
-
-  exports.dialog = function(options) {
-    options = sanitize(options);
-
-    var dialog = $(templates.dialog);
-    var innerDialog = dialog.find(".modal-dialog");
-    var body = dialog.find(".modal-body");
-    var buttons = options.buttons;
-    var buttonStr = "";
-    var callbacks = {
-      onEscape: options.onEscape
-    };
-
-    if ($.fn.modal === undefined) {
-      throw new Error(
-        "$.fn.modal is not defined; please double check you have included " +
-        "the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ " +
-        "for more details."
-      );
-    }
-
-    each(buttons, function(key, button) {
-
-      // @TODO I don't like this string appending to itself; bit dirty. Needs reworking
-      // can we just build up button elements instead? slower but neater. Then button
-      // can just become a template too
-      buttonStr += "<button data-bb-handler='" + key + "' type='button' class='btn " + button.className + "'>" + button.label + "</button>";
-      callbacks[key] = button.callback;
-    });
-
-    body.find(".bootbox-body").html(options.message);
-
-    if (options.animate === true) {
-      dialog.addClass("fade");
-    }
-
-    if (options.className) {
-      dialog.addClass(options.className);
-    }
-
-    if (options.size === "large") {
-      innerDialog.addClass("modal-lg");
-    } else if (options.size === "small") {
-      innerDialog.addClass("modal-sm");
-    }
-
-    if (options.title) {
-      body.before(templates.header);
-    }
-
-    if (options.closeButton) {
-      var closeButton = $(templates.closeButton);
-
-      if (options.title) {
-        dialog.find(".modal-header").prepend(closeButton);
-      } else {
-        closeButton.css("margin-top", "-10px").prependTo(body);
-      }
-    }
-
-    if (options.title) {
-      dialog.find(".modal-title").html(options.title);
-    }
-
-    if (buttonStr.length) {
-      body.after(templates.footer);
-      dialog.find(".modal-footer").html(buttonStr);
-    }
-
-
-    /**
-     * Bootstrap event listeners; used handle extra
-     * setup & teardown required after the underlying
-     * modal has performed certain actions
-     */
-
-    dialog.on("hidden.bs.modal", function(e) {
-      // ensure we don't accidentally intercept hidden events triggered
-      // by children of the current dialog. We shouldn't anymore now BS
-      // namespaces its events; but still worth doing
-      if (e.target === this) {
-        dialog.remove();
-      }
-    });
-
-    /*
-    dialog.on("show.bs.modal", function() {
-      // sadly this doesn't work; show is called *just* before
-      // the backdrop is added so we'd need a setTimeout hack or
-      // otherwise... leaving in as would be nice
-      if (options.backdrop) {
-        dialog.next(".modal-backdrop").addClass("bootbox-backdrop");
-      }
-    });
-    */
-
-    dialog.on("shown.bs.modal", function() {
-      dialog.find(".btn-primary:first").focus();
-    });
-
-    /**
-     * Bootbox event listeners; experimental and may not last
-     * just an attempt to decouple some behaviours from their
-     * respective triggers
-     */
-
-    if (options.backdrop !== "static") {
-      // A boolean true/false according to the Bootstrap docs
-      // should show a dialog the user can dismiss by clicking on
-      // the background.
-      // We always only ever pass static/false to the actual
-      // $.modal function because with `true` we can't trap
-      // this event (the .modal-backdrop swallows it)
-      // However, we still want to sort of respect true
-      // and invoke the escape mechanism instead
-      dialog.on("click.dismiss.bs.modal", function(e) {
-        // @NOTE: the target varies in >= 3.3.x releases since the modal backdrop
-        // moved *inside* the outer dialog rather than *alongside* it
-        if (dialog.children(".modal-backdrop").length) {
-          e.currentTarget = dialog.children(".modal-backdrop").get(0);
-        }
-
-        if (e.target !== e.currentTarget) {
-          return;
-        }
-
-        dialog.trigger("escape.close.bb");
-      });
-    }
-
-    dialog.on("escape.close.bb", function(e) {
-      if (callbacks.onEscape) {
-        processCallback(e, dialog, callbacks.onEscape);
-      }
-    });
-
-    /**
-     * Standard jQuery event listeners; used to handle user
-     * interaction with our dialog
-     */
-
-    dialog.on("click", ".modal-footer button", function(e) {
-      var callbackKey = $(this).data("bb-handler");
-
-      processCallback(e, dialog, callbacks[callbackKey]);
-    });
-
-    dialog.on("click", ".bootbox-close-button", function(e) {
-      // onEscape might be falsy but that's fine; the fact is
-      // if the user has managed to click the close button we
-      // have to close the dialog, callback or not
-      processCallback(e, dialog, callbacks.onEscape);
-    });
-
-    dialog.on("keyup", function(e) {
-      if (e.which === 27) {
-        dialog.trigger("escape.close.bb");
-      }
-    });
-
-    // the remainder of this method simply deals with adding our
-    // dialogent to the DOM, augmenting it with Bootstrap's modal
-    // functionality and then giving the resulting object back
-    // to our caller
-
-    $(options.container).append(dialog);
-
-    dialog.modal({
-      backdrop: options.backdrop ? "static": false,
-      keyboard: false,
-      show: false
-    });
-
-    if (options.show) {
-      dialog.modal("show");
-    }
-
-    // @TODO should we return the raw element here or should
-    // we wrap it in an object on which we can expose some neater
-    // methods, e.g. var d = bootbox.alert(); d.hide(); instead
-    // of d.modal("hide");
-
-   /*
-    function BBDialog(elem) {
-      this.elem = elem;
-    }
-
-    BBDialog.prototype = {
-      hide: function() {
-        return this.elem.modal("hide");
-      },
-      show: function() {
-        return this.elem.modal("show");
-      }
-    };
-    */
-
-    return dialog;
-
-  };
-
-  exports.setDefaults = function() {
-    var values = {};
-
-    if (arguments.length === 2) {
-      // allow passing of single key/value...
-      values[arguments[0]] = arguments[1];
-    } else {
-      // ... and as an object too
-      values = arguments[0];
-    }
-
-    $.extend(defaults, values);
-  };
-
-  exports.hideAll = function() {
-    $(".bootbox").modal("hide");
-
-    return exports;
-  };
-
-
-  /**
-   * standard locales. Please add more according to ISO 639-1 standard. Multiple language variants are
-   * unlikely to be required. If this gets too large it can be split out into separate JS files.
-   */
-  var locales = {
-    bg_BG : {
-      OK      : "Ок",
-      CANCEL  : "Отказ",
-      CONFIRM : "Потвърждавам"
-    },
-    br : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Sim"
-    },
-    cs : {
-      OK      : "OK",
-      CANCEL  : "Zrušit",
-      CONFIRM : "Potvrdit"
-    },
-    da : {
-      OK      : "OK",
-      CANCEL  : "Annuller",
-      CONFIRM : "Accepter"
-    },
-    de : {
-      OK      : "OK",
-      CANCEL  : "Abbrechen",
-      CONFIRM : "Akzeptieren"
-    },
-    el : {
-      OK      : "Εντάξει",
-      CANCEL  : "Ακύρωση",
-      CONFIRM : "Επιβεβαίωση"
-    },
-    en : {
-      OK      : "OK",
-      CANCEL  : "Cancel",
-      CONFIRM : "OK"
-    },
-    es : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Aceptar"
-    },
-    et : {
-      OK      : "OK",
-      CANCEL  : "Katkesta",
-      CONFIRM : "OK"
-    },
-    fa : {
-      OK      : "قبول",
-      CANCEL  : "لغو",
-      CONFIRM : "تایید"
-    },
-    fi : {
-      OK      : "OK",
-      CANCEL  : "Peruuta",
-      CONFIRM : "OK"
-    },
-    fr : {
-      OK      : "OK",
-      CANCEL  : "Annuler",
-      CONFIRM : "D'accord"
-    },
-    he : {
-      OK      : "אישור",
-      CANCEL  : "ביטול",
-      CONFIRM : "אישור"
-    },
-    hu : {
-      OK      : "OK",
-      CANCEL  : "Mégsem",
-      CONFIRM : "Megerősít"
-    },
-    hr : {
-      OK      : "OK",
-      CANCEL  : "Odustani",
-      CONFIRM : "Potvrdi"
-    },
-    id : {
-      OK      : "OK",
-      CANCEL  : "Batal",
-      CONFIRM : "OK"
-    },
-    it : {
-      OK      : "OK",
-      CANCEL  : "Annulla",
-      CONFIRM : "Conferma"
-    },
-    ja : {
-      OK      : "OK",
-      CANCEL  : "キャンセル",
-      CONFIRM : "確認"
-    },
-    lt : {
-      OK      : "Gerai",
-      CANCEL  : "Atšaukti",
-      CONFIRM : "Patvirtinti"
-    },
-    lv : {
-      OK      : "Labi",
-      CANCEL  : "Atcelt",
-      CONFIRM : "Apstiprināt"
-    },
-    nl : {
-      OK      : "OK",
-      CANCEL  : "Annuleren",
-      CONFIRM : "Accepteren"
-    },
-    no : {
-      OK      : "OK",
-      CANCEL  : "Avbryt",
-      CONFIRM : "OK"
-    },
-    pl : {
-      OK      : "OK",
-      CANCEL  : "Anuluj",
-      CONFIRM : "Potwierdź"
-    },
-    pt : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Confirmar"
-    },
-    ru : {
-      OK      : "OK",
-      CANCEL  : "Отмена",
-      CONFIRM : "Применить"
-    },
-    sq : {
-      OK : "OK",
-      CANCEL : "Anulo",
-      CONFIRM : "Prano"
-    },
-    sv : {
-      OK      : "OK",
-      CANCEL  : "Avbryt",
-      CONFIRM : "OK"
-    },
-    th : {
-      OK      : "ตกลง",
-      CANCEL  : "ยกเลิก",
-      CONFIRM : "ยืนยัน"
-    },
-    tr : {
-      OK      : "Tamam",
-      CANCEL  : "İptal",
-      CONFIRM : "Onayla"
-    },
-    zh_CN : {
-      OK      : "OK",
-      CANCEL  : "取消",
-      CONFIRM : "确认"
-    },
-    zh_TW : {
-      OK      : "OK",
-      CANCEL  : "取消",
-      CONFIRM : "確認"
-    }
-  };
-
-  exports.addLocale = function(name, values) {
-    $.each(["OK", "CANCEL", "CONFIRM"], function(_, v) {
-      if (!values[v]) {
-        throw new Error("Please supply a translation for '" + v + "'");
-      }
-    });
-
-    locales[name] = {
-      OK: values.OK,
-      CANCEL: values.CANCEL,
-      CONFIRM: values.CONFIRM
-    };
-
-    return exports;
-  };
-
-  exports.removeLocale = function(name) {
-    delete locales[name];
-
-    return exports;
-  };
-
-  exports.setLocale = function(name) {
-    return exports.setDefaults("locale", name);
-  };
-
-  exports.init = function(_$) {
-    return init(_$ || $);
-  };
-
-  return exports;
-}));
-
+  var elementsToReplace = document.querySelectorAll('[data-feather]');
+
+  Array.from(elementsToReplace).forEach(function (element) {
+    return replaceElement(element, attrs);
+  });
+}
+
+/**
+ * Replace a single HTML element with SVG markup
+ * corresponding to the element's `data-feather` attribute value.
+ * @param {HTMLElement} element
+ * @param {Object} attrs
+ */
+function replaceElement(element) {
+  var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var elementAttrs = getAttrs(element);
+  var name = elementAttrs['data-feather'];
+  delete elementAttrs['data-feather'];
+
+  var svgString = _icons2.default[name].toSvg(_extends({}, attrs, elementAttrs, { class: (0, _dedupe2.default)(attrs.class, elementAttrs.class) }));
+  var svgDocument = new DOMParser().parseFromString(svgString, 'image/svg+xml');
+  var svgElement = svgDocument.querySelector('svg');
+
+  element.parentNode.replaceChild(svgElement, element);
+}
+
+/**
+ * Get the attributes of an HTML element.
+ * @param {HTMLElement} element
+ * @returns {Object}
+ */
+function getAttrs(element) {
+  return Array.from(element.attributes).reduce(function (attrs, attr) {
+    attrs[attr.name] = attr.value;
+    return attrs;
+  }, {});
+}
+
+exports.default = replace;
+
+/***/ })
+/******/ ]);
+});
+//# sourceMappingURL=feather.js.map
 
 /***/ }),
 /* 19 */
@@ -49524,7 +46389,7 @@ module.exports = __webpack_require__(20);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(4);
+var bind = __webpack_require__(5);
 var Axios = __webpack_require__(22);
 var defaults = __webpack_require__(2);
 
@@ -49559,9 +46424,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
+axios.Cancel = __webpack_require__(9);
 axios.CancelToken = __webpack_require__(37);
-axios.isCancel = __webpack_require__(7);
+axios.isCancel = __webpack_require__(8);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -49613,8 +46478,6 @@ var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(32);
 var dispatchRequest = __webpack_require__(33);
-var isAbsoluteURL = __webpack_require__(35);
-var combineURLs = __webpack_require__(36);
 
 /**
  * Create a new instance of Axios
@@ -49643,13 +46506,8 @@ Axios.prototype.request = function request(config) {
     }, arguments[1]);
   }
 
-  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+  config = utils.merge(defaults, {method: 'get'}, this.defaults, config);
   config.method = config.method.toLowerCase();
-
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
 
   // Hook up interceptors middleware
   var chain = [dispatchRequest, undefined];
@@ -49911,7 +46769,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -50013,9 +46871,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
       if (utils.isArray(val)) {
         key = key + '[]';
-      }
-
-      if (!utils.isArray(val)) {
+      } else {
         val = [val];
       }
 
@@ -50049,6 +46905,15 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 var utils = __webpack_require__(0);
 
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
 /**
  * Parse headers into an object
  *
@@ -50076,7 +46941,14 @@ module.exports = function parseHeaders(headers) {
     val = utils.trim(line.substr(i + 1));
 
     if (key) {
-      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
     }
   });
 
@@ -50330,8 +47202,10 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(34);
-var isCancel = __webpack_require__(7);
+var isCancel = __webpack_require__(8);
 var defaults = __webpack_require__(2);
+var isAbsoluteURL = __webpack_require__(35);
+var combineURLs = __webpack_require__(36);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -50350,6 +47224,11 @@ function throwIfCancellationRequested(config) {
  */
 module.exports = function dispatchRequest(config) {
   throwIfCancellationRequested(config);
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
 
   // Ensure headers exist
   config.headers = config.headers || {};
@@ -50483,7 +47362,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -50579,6 +47458,7344 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Super simple wysiwyg editor v0.8.10
+ * https://summernote.org
+ *
+ * Copyright 2013- Alan Hong. and other contributors
+ * summernote may be freely distributed under the MIT license.
+ *
+ * Date: 2018-02-20T00:34Z
+ */
+(function (global, factory) {
+	 true ? factory(__webpack_require__(1)) :
+	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+	(factory(global.jQuery));
+}(this, (function ($$1) { 'use strict';
+
+$$1 = $$1 && $$1.hasOwnProperty('default') ? $$1['default'] : $$1;
+
+var Renderer = /** @class */ (function () {
+    function Renderer(markup, children, options, callback) {
+        this.markup = markup;
+        this.children = children;
+        this.options = options;
+        this.callback = callback;
+    }
+    Renderer.prototype.render = function ($parent) {
+        var $node = $$1(this.markup);
+        if (this.options && this.options.contents) {
+            $node.html(this.options.contents);
+        }
+        if (this.options && this.options.className) {
+            $node.addClass(this.options.className);
+        }
+        if (this.options && this.options.data) {
+            $$1.each(this.options.data, function (k, v) {
+                $node.attr('data-' + k, v);
+            });
+        }
+        if (this.options && this.options.click) {
+            $node.on('click', this.options.click);
+        }
+        if (this.children) {
+            var $container_1 = $node.find('.note-children-container');
+            this.children.forEach(function (child) {
+                child.render($container_1.length ? $container_1 : $node);
+            });
+        }
+        if (this.callback) {
+            this.callback($node, this.options);
+        }
+        if (this.options && this.options.callback) {
+            this.options.callback($node);
+        }
+        if ($parent) {
+            $parent.append($node);
+        }
+        return $node;
+    };
+    return Renderer;
+}());
+var renderer = {
+    create: function (markup, callback) {
+        return function () {
+            var options = typeof arguments[1] === 'object' ? arguments[1] : arguments[0];
+            var children = $$1.isArray(arguments[0]) ? arguments[0] : [];
+            if (options && options.children) {
+                children = options.children;
+            }
+            return new Renderer(markup, children, options, callback);
+        };
+    }
+};
+
+var editor = renderer.create('<div class="note-editor note-frame card"/>');
+var toolbar = renderer.create('<div class="note-toolbar-wrapper"><div class="note-toolbar card-header" role="toolbar"></div></div>');
+var editingArea = renderer.create('<div class="note-editing-area"/>');
+var codable = renderer.create('<textarea class="note-codable" role="textbox" aria-multiline="true"/>');
+var editable = renderer.create('<div class="note-editable card-block" contentEditable="true" role="textbox" aria-multiline="true"/>');
+var statusbar = renderer.create([
+    '<output class="note-status-output" aria-live="polite"/>',
+    '<div class="note-statusbar" role="status">',
+    '  <output class="note-status-output" aria-live="polite"></output>',
+    '  <div class="note-resizebar" role="seperator" aria-orientation="horizontal" aria-label="Resize">',
+    '    <div class="note-icon-bar"/>',
+    '    <div class="note-icon-bar"/>',
+    '    <div class="note-icon-bar"/>',
+    '  </div>',
+    '</div>'
+].join(''));
+var airEditor = renderer.create('<div class="note-editor"/>');
+var airEditable = renderer.create([
+    '<output class="note-status-output" aria-live="polite"/>',
+    '<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>'
+].join(''));
+var buttonGroup = renderer.create('<div class="note-btn-group btn-group">');
+var dropdown = renderer.create('<div class="dropdown-menu" role="list">', function ($node, options) {
+    var markup = $$1.isArray(options.items) ? options.items.map(function (item) {
+        var value = (typeof item === 'string') ? item : (item.value || '');
+        var content = options.template ? options.template(item) : item;
+        var option = (typeof item === 'object') ? item.option : undefined;
+        var dataValue = 'data-value="' + value + '"';
+        var dataOption = (option !== undefined) ? ' data-option="' + option + '"' : '';
+        return '<a class="dropdown-item" href="#" ' + (dataValue + dataOption) + ' role="listitem" aria-label="' + item + '">' + content + '</a>';
+    }).join('') : options.items;
+    $node.html(markup).attr({ 'aria-label': options.title });
+});
+var dropdownButtonContents = function (contents) {
+    return contents;
+};
+var dropdownCheck = renderer.create('<div class="dropdown-menu note-check" role="list">', function ($node, options) {
+    var markup = $$1.isArray(options.items) ? options.items.map(function (item) {
+        var value = (typeof item === 'string') ? item : (item.value || '');
+        var content = options.template ? options.template(item) : item;
+        return '<a class="dropdown-item" href="#" data-value="' + value + '" role="listitem" aria-label="' + item + '">' + icon(options.checkClassName) + ' ' + content + '</a>';
+    }).join('') : options.items;
+    $node.html(markup).attr({ 'aria-label': options.title });
+});
+var palette = renderer.create('<div class="note-color-palette"/>', function ($node, options) {
+    var contents = [];
+    for (var row = 0, rowSize = options.colors.length; row < rowSize; row++) {
+        var eventName = options.eventName;
+        var colors = options.colors[row];
+        var colorsName = options.colorsName[row];
+        var buttons = [];
+        for (var col = 0, colSize = colors.length; col < colSize; col++) {
+            var color = colors[col];
+            var colorName = colorsName[col];
+            buttons.push([
+                '<button type="button" class="note-color-btn"',
+                'style="background-color:', color, '" ',
+                'data-event="', eventName, '" ',
+                'data-value="', color, '" ',
+                'title="', colorName, '" ',
+                'aria-label="', colorName, '" ',
+                'data-toggle="button" tabindex="-1"></button>'
+            ].join(''));
+        }
+        contents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
+    }
+    $node.html(contents.join(''));
+    if (options.tooltip) {
+        $node.find('.note-color-btn').tooltip({
+            container: options.container,
+            trigger: 'hover',
+            placement: 'bottom'
+        });
+    }
+});
+var dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
+    if (options.fade) {
+        $node.addClass('fade');
+    }
+    $node.attr({
+        'aria-label': options.title
+    });
+    $node.html([
+        '<div class="modal-dialog">',
+        '  <div class="modal-content">',
+        (options.title
+            ? '    <div class="modal-header">' +
+                '      <h4 class="modal-title">' + options.title + '</h4>' +
+                '      <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' +
+                '    </div>' : ''),
+        '    <div class="modal-body">' + options.body + '</div>',
+        (options.footer
+            ? '    <div class="modal-footer">' + options.footer + '</div>' : ''),
+        '  </div>',
+        '</div>'
+    ].join(''));
+});
+var popover = renderer.create([
+    '<div class="note-popover popover in">',
+    '  <div class="arrow"/>',
+    '  <div class="popover-content note-children-container"/>',
+    '</div>'
+].join(''), function ($node, options) {
+    var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
+    $node.addClass(direction);
+    if (options.hideArrow) {
+        $node.find('.arrow').hide();
+    }
+});
+var checkbox = renderer.create('<label class="custom-control custom-checkbox"></label>', function ($node, options) {
+    if (options.id) {
+        $node.attr('for', options.id);
+    }
+    $node.html([
+        ' <input role="checkbox" type="checkbox" class="custom-control-input"' + (options.id ? ' id="' + options.id + '"' : ''),
+        (options.checked ? ' checked' : ''),
+        ' aria-checked="' + (options.checked ? 'true' : 'false') + '"/>',
+        ' <span class="custom-control-indicator"></span>',
+        ' <span class="custom-control-description">' + (options.text ? options.text : '') + '</span>',
+        '</label>'
+    ].join(''));
+});
+var icon = function (iconClassName, tagName) {
+    tagName = tagName || 'i';
+    return '<' + tagName + ' class="' + iconClassName + '"/>';
+};
+var ui = {
+    editor: editor,
+    toolbar: toolbar,
+    editingArea: editingArea,
+    codable: codable,
+    editable: editable,
+    statusbar: statusbar,
+    airEditor: airEditor,
+    airEditable: airEditable,
+    buttonGroup: buttonGroup,
+    dropdown: dropdown,
+    dropdownButtonContents: dropdownButtonContents,
+    dropdownCheck: dropdownCheck,
+    palette: palette,
+    dialog: dialog,
+    popover: popover,
+    icon: icon,
+    checkbox: checkbox,
+    options: {},
+    button: function ($node, options) {
+        return renderer.create('<button type="button" class="note-btn btn btn-light btn-sm" role="button" tabindex="-1">', function ($node, options) {
+            if (options && options.tooltip) {
+                $node.attr({
+                    title: options.tooltip,
+                    'aria-label': options.tooltip
+                }).tooltip({
+                    container: options.container,
+                    trigger: 'hover',
+                    placement: 'bottom'
+                });
+            }
+        })($node, options);
+    },
+    toggleBtn: function ($btn, isEnable) {
+        $btn.toggleClass('disabled', !isEnable);
+        $btn.attr('disabled', !isEnable);
+    },
+    toggleBtnActive: function ($btn, isActive) {
+        $btn.toggleClass('active', isActive);
+    },
+    onDialogShown: function ($dialog, handler) {
+        $dialog.one('shown.bs.modal', handler);
+    },
+    onDialogHidden: function ($dialog, handler) {
+        $dialog.one('hidden.bs.modal', handler);
+    },
+    showDialog: function ($dialog) {
+        $dialog.modal('show');
+    },
+    hideDialog: function ($dialog) {
+        $dialog.modal('hide');
+    },
+    createLayout: function ($note, options) {
+        var $editor = (options.airMode ? ui.airEditor([
+            ui.editingArea([
+                ui.airEditable()
+            ])
+        ]) : ui.editor([
+            ui.toolbar(),
+            ui.editingArea([
+                ui.codable(),
+                ui.editable()
+            ]),
+            ui.statusbar()
+        ])).render();
+        $editor.insertAfter($note);
+        return {
+            note: $note,
+            editor: $editor,
+            toolbar: $editor.find('.note-toolbar'),
+            editingArea: $editor.find('.note-editing-area'),
+            editable: $editor.find('.note-editable'),
+            codable: $editor.find('.note-codable'),
+            statusbar: $editor.find('.note-statusbar')
+        };
+    },
+    removeLayout: function ($note, layoutInfo) {
+        $note.html(layoutInfo.editable.html());
+        layoutInfo.editor.remove();
+        $note.show();
+    }
+};
+
+/**
+ * @class core.func
+ *
+ * func utils (for high-order func's arg)
+ *
+ * @singleton
+ * @alternateClassName func
+ */
+function eq(itemA) {
+    return function (itemB) {
+        return itemA === itemB;
+    };
+}
+function eq2(itemA, itemB) {
+    return itemA === itemB;
+}
+function peq2(propName) {
+    return function (itemA, itemB) {
+        return itemA[propName] === itemB[propName];
+    };
+}
+function ok() {
+    return true;
+}
+function fail() {
+    return false;
+}
+function not(f) {
+    return function () {
+        return !f.apply(f, arguments);
+    };
+}
+function and(fA, fB) {
+    return function (item) {
+        return fA(item) && fB(item);
+    };
+}
+function self(a) {
+    return a;
+}
+function invoke(obj, method) {
+    return function () {
+        return obj[method].apply(obj, arguments);
+    };
+}
+var idCounter = 0;
+/**
+ * generate a globally-unique id
+ *
+ * @param {String} [prefix]
+ */
+function uniqueId(prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
+}
+/**
+ * returns bnd (bounds) from rect
+ *
+ * - IE Compatibility Issue: http://goo.gl/sRLOAo
+ * - Scroll Issue: http://goo.gl/sNjUc
+ *
+ * @param {Rect} rect
+ * @return {Object} bounds
+ * @return {Number} bounds.top
+ * @return {Number} bounds.left
+ * @return {Number} bounds.width
+ * @return {Number} bounds.height
+ */
+function rect2bnd(rect) {
+    var $document = $(document);
+    return {
+        top: rect.top + $document.scrollTop(),
+        left: rect.left + $document.scrollLeft(),
+        width: rect.right - rect.left,
+        height: rect.bottom - rect.top
+    };
+}
+/**
+ * returns a copy of the object where the keys have become the values and the values the keys.
+ * @param {Object} obj
+ * @return {Object}
+ */
+function invertObject(obj) {
+    var inverted = {};
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            inverted[obj[key]] = key;
+        }
+    }
+    return inverted;
+}
+/**
+ * @param {String} namespace
+ * @param {String} [prefix]
+ * @return {String}
+ */
+function namespaceToCamel(namespace, prefix) {
+    prefix = prefix || '';
+    return prefix + namespace.split('.').map(function (name) {
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
+    }).join('');
+}
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing.
+ * @param {Function} func
+ * @param {Number} wait
+ * @param {Boolean} immediate
+ * @return {Function}
+ */
+function debounce(func, wait, immediate) {
+    var _this = this;
+    var timeout;
+    return function () {
+        var context = _this;
+        var args = arguments;
+        var later = function () {
+            timeout = null;
+            if (!immediate) {
+                func.apply(context, args);
+            }
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) {
+            func.apply(context, args);
+        }
+    };
+}
+var func = {
+    eq: eq,
+    eq2: eq2,
+    peq2: peq2,
+    ok: ok,
+    fail: fail,
+    self: self,
+    not: not,
+    and: and,
+    invoke: invoke,
+    uniqueId: uniqueId,
+    rect2bnd: rect2bnd,
+    invertObject: invertObject,
+    namespaceToCamel: namespaceToCamel,
+    debounce: debounce
+};
+
+/**
+ * returns the first item of an array.
+ *
+ * @param {Array} array
+ */
+function head(array) {
+    return array[0];
+}
+/**
+ * returns the last item of an array.
+ *
+ * @param {Array} array
+ */
+function last(array) {
+    return array[array.length - 1];
+}
+/**
+ * returns everything but the last entry of the array.
+ *
+ * @param {Array} array
+ */
+function initial(array) {
+    return array.slice(0, array.length - 1);
+}
+/**
+ * returns the rest of the items in an array.
+ *
+ * @param {Array} array
+ */
+function tail(array) {
+    return array.slice(1);
+}
+/**
+ * returns item of array
+ */
+function find(array, pred) {
+    for (var idx = 0, len = array.length; idx < len; idx++) {
+        var item = array[idx];
+        if (pred(item)) {
+            return item;
+        }
+    }
+}
+/**
+ * returns true if all of the values in the array pass the predicate truth test.
+ */
+function all(array, pred) {
+    for (var idx = 0, len = array.length; idx < len; idx++) {
+        if (!pred(array[idx])) {
+            return false;
+        }
+    }
+    return true;
+}
+/**
+ * returns index of item
+ */
+function indexOf(array, item) {
+    return $$1.inArray(item, array);
+}
+/**
+ * returns true if the value is present in the list.
+ */
+function contains(array, item) {
+    return indexOf(array, item) !== -1;
+}
+/**
+ * get sum from a list
+ *
+ * @param {Array} array - array
+ * @param {Function} fn - iterator
+ */
+function sum(array, fn) {
+    fn = fn || func.self;
+    return array.reduce(function (memo, v) {
+        return memo + fn(v);
+    }, 0);
+}
+/**
+ * returns a copy of the collection with array type.
+ * @param {Collection} collection - collection eg) node.childNodes, ...
+ */
+function from(collection) {
+    var result = [];
+    var length = collection.length;
+    var idx = -1;
+    while (++idx < length) {
+        result[idx] = collection[idx];
+    }
+    return result;
+}
+/**
+ * returns whether list is empty or not
+ */
+function isEmpty$1(array) {
+    return !array || !array.length;
+}
+/**
+ * cluster elements by predicate function.
+ *
+ * @param {Array} array - array
+ * @param {Function} fn - predicate function for cluster rule
+ * @param {Array[]}
+ */
+function clusterBy(array, fn) {
+    if (!array.length) {
+        return [];
+    }
+    var aTail = tail(array);
+    return aTail.reduce(function (memo, v) {
+        var aLast = last(memo);
+        if (fn(last(aLast), v)) {
+            aLast[aLast.length] = v;
+        }
+        else {
+            memo[memo.length] = [v];
+        }
+        return memo;
+    }, [[head(array)]]);
+}
+/**
+ * returns a copy of the array with all false values removed
+ *
+ * @param {Array} array - array
+ * @param {Function} fn - predicate function for cluster rule
+ */
+function compact(array) {
+    var aResult = [];
+    for (var idx = 0, len = array.length; idx < len; idx++) {
+        if (array[idx]) {
+            aResult.push(array[idx]);
+        }
+    }
+    return aResult;
+}
+/**
+ * produces a duplicate-free version of the array
+ *
+ * @param {Array} array
+ */
+function unique(array) {
+    var results = [];
+    for (var idx = 0, len = array.length; idx < len; idx++) {
+        if (!contains(results, array[idx])) {
+            results.push(array[idx]);
+        }
+    }
+    return results;
+}
+/**
+ * returns next item.
+ * @param {Array} array
+ */
+function next(array, item) {
+    var idx = indexOf(array, item);
+    if (idx === -1) {
+        return null;
+    }
+    return array[idx + 1];
+}
+/**
+ * returns prev item.
+ * @param {Array} array
+ */
+function prev(array, item) {
+    var idx = indexOf(array, item);
+    if (idx === -1) {
+        return null;
+    }
+    return array[idx - 1];
+}
+/**
+ * @class core.list
+ *
+ * list utils
+ *
+ * @singleton
+ * @alternateClassName list
+ */
+var lists = {
+    head: head,
+    last: last,
+    initial: initial,
+    tail: tail,
+    prev: prev,
+    next: next,
+    find: find,
+    contains: contains,
+    all: all,
+    sum: sum,
+    from: from,
+    isEmpty: isEmpty$1,
+    clusterBy: clusterBy,
+    compact: compact,
+    unique: unique
+};
+
+var isSupportAmd = "function" === 'function' && __webpack_require__(17); // eslint-disable-line
+/**
+ * returns whether font is installed or not.
+ *
+ * @param {String} fontName
+ * @return {Boolean}
+ */
+function isFontInstalled(fontName) {
+    var testFontName = fontName === 'Comic Sans MS' ? 'Courier New' : 'Comic Sans MS';
+    var $tester = $$1('<div>').css({
+        position: 'absolute',
+        left: '-9999px',
+        top: '-9999px',
+        fontSize: '200px'
+    }).text('mmmmmmmmmwwwwwww').appendTo(document.body);
+    var originalWidth = $tester.css('fontFamily', testFontName).width();
+    var width = $tester.css('fontFamily', fontName + ',' + testFontName).width();
+    $tester.remove();
+    return originalWidth !== width;
+}
+var userAgent = navigator.userAgent;
+var isMSIE = /MSIE|Trident/i.test(userAgent);
+var browserVersion;
+if (isMSIE) {
+    var matches = /MSIE (\d+[.]\d+)/.exec(userAgent);
+    if (matches) {
+        browserVersion = parseFloat(matches[1]);
+    }
+    matches = /Trident\/.*rv:([0-9]{1,}[.0-9]{0,})/.exec(userAgent);
+    if (matches) {
+        browserVersion = parseFloat(matches[1]);
+    }
+}
+var isEdge = /Edge\/\d+/.test(userAgent);
+var hasCodeMirror = !!window.CodeMirror;
+if (!hasCodeMirror && isSupportAmd) {
+    // Webpack
+    if (true) {
+        try {
+            // If CodeMirror can't be resolved, `require.resolve` will throw an
+            // exception and `hasCodeMirror` won't be set to `true`.
+            /*require.resolve*/(4);
+            hasCodeMirror = true;
+        }
+        catch (e) {
+            // do nothing
+        }
+    }
+    else if (typeof require !== 'undefined') {
+        // Browserify
+        if (typeof require.resolve !== 'undefined') {
+            try {
+                // If CodeMirror can't be resolved, `require.resolve` will throw an
+                // exception and `hasCodeMirror` won't be set to `true`.
+                require.resolve('codemirror');
+                hasCodeMirror = true;
+            }
+            catch (e) {
+                // do nothing
+            }
+            // Almond/Require
+        }
+        else if (typeof require.specified !== 'undefined') {
+            hasCodeMirror = require.specified('codemirror');
+        }
+    }
+}
+var isSupportTouch = (('ontouchstart' in window) ||
+    (navigator.MaxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0));
+// [workaround] IE doesn't have input events for contentEditable
+// - see: https://goo.gl/4bfIvA
+var inputEventName = (isMSIE || isEdge) ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
+/**
+ * @class core.env
+ *
+ * Object which check platform and agent
+ *
+ * @singleton
+ * @alternateClassName env
+ */
+var env = {
+    isMac: navigator.appVersion.indexOf('Mac') > -1,
+    isMSIE: isMSIE,
+    isEdge: isEdge,
+    isFF: !isEdge && /firefox/i.test(userAgent),
+    isPhantom: /PhantomJS/i.test(userAgent),
+    isWebkit: !isEdge && /webkit/i.test(userAgent),
+    isChrome: !isEdge && /chrome/i.test(userAgent),
+    isSafari: !isEdge && /safari/i.test(userAgent),
+    browserVersion: browserVersion,
+    jqueryVersion: parseFloat($$1.fn.jquery),
+    isSupportAmd: isSupportAmd,
+    isSupportTouch: isSupportTouch,
+    hasCodeMirror: hasCodeMirror,
+    isFontInstalled: isFontInstalled,
+    isW3CRangeSupport: !!document.createRange,
+    inputEventName: inputEventName
+};
+
+var NBSP_CHAR = String.fromCharCode(160);
+var ZERO_WIDTH_NBSP_CHAR = '\ufeff';
+/**
+ * @method isEditable
+ *
+ * returns whether node is `note-editable` or not.
+ *
+ * @param {Node} node
+ * @return {Boolean}
+ */
+function isEditable(node) {
+    return node && $$1(node).hasClass('note-editable');
+}
+/**
+ * @method isControlSizing
+ *
+ * returns whether node is `note-control-sizing` or not.
+ *
+ * @param {Node} node
+ * @return {Boolean}
+ */
+function isControlSizing(node) {
+    return node && $$1(node).hasClass('note-control-sizing');
+}
+/**
+ * @method makePredByNodeName
+ *
+ * returns predicate which judge whether nodeName is same
+ *
+ * @param {String} nodeName
+ * @return {Function}
+ */
+function makePredByNodeName(nodeName) {
+    nodeName = nodeName.toUpperCase();
+    return function (node) {
+        return node && node.nodeName.toUpperCase() === nodeName;
+    };
+}
+/**
+ * @method isText
+ *
+ *
+ *
+ * @param {Node} node
+ * @return {Boolean} true if node's type is text(3)
+ */
+function isText(node) {
+    return node && node.nodeType === 3;
+}
+/**
+ * @method isElement
+ *
+ *
+ *
+ * @param {Node} node
+ * @return {Boolean} true if node's type is element(1)
+ */
+function isElement(node) {
+    return node && node.nodeType === 1;
+}
+/**
+ * ex) br, col, embed, hr, img, input, ...
+ * @see http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
+ */
+function isVoid(node) {
+    return node && /^BR|^IMG|^HR|^IFRAME|^BUTTON|^INPUT/.test(node.nodeName.toUpperCase());
+}
+function isPara(node) {
+    if (isEditable(node)) {
+        return false;
+    }
+    // Chrome(v31.0), FF(v25.0.1) use DIV for paragraph
+    return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName.toUpperCase());
+}
+function isHeading(node) {
+    return node && /^H[1-7]/.test(node.nodeName.toUpperCase());
+}
+var isPre = makePredByNodeName('PRE');
+var isLi = makePredByNodeName('LI');
+function isPurePara(node) {
+    return isPara(node) && !isLi(node);
+}
+var isTable = makePredByNodeName('TABLE');
+var isData = makePredByNodeName('DATA');
+function isInline(node) {
+    return !isBodyContainer(node) &&
+        !isList(node) &&
+        !isHr(node) &&
+        !isPara(node) &&
+        !isTable(node) &&
+        !isBlockquote(node) &&
+        !isData(node);
+}
+function isList(node) {
+    return node && /^UL|^OL/.test(node.nodeName.toUpperCase());
+}
+var isHr = makePredByNodeName('HR');
+function isCell(node) {
+    return node && /^TD|^TH/.test(node.nodeName.toUpperCase());
+}
+var isBlockquote = makePredByNodeName('BLOCKQUOTE');
+function isBodyContainer(node) {
+    return isCell(node) || isBlockquote(node) || isEditable(node);
+}
+var isAnchor = makePredByNodeName('A');
+function isParaInline(node) {
+    return isInline(node) && !!ancestor(node, isPara);
+}
+function isBodyInline(node) {
+    return isInline(node) && !ancestor(node, isPara);
+}
+var isBody = makePredByNodeName('BODY');
+/**
+ * returns whether nodeB is closest sibling of nodeA
+ *
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @return {Boolean}
+ */
+function isClosestSibling(nodeA, nodeB) {
+    return nodeA.nextSibling === nodeB ||
+        nodeA.previousSibling === nodeB;
+}
+/**
+ * returns array of closest siblings with node
+ *
+ * @param {Node} node
+ * @param {function} [pred] - predicate function
+ * @return {Node[]}
+ */
+function withClosestSiblings(node, pred) {
+    pred = pred || func.ok;
+    var siblings = [];
+    if (node.previousSibling && pred(node.previousSibling)) {
+        siblings.push(node.previousSibling);
+    }
+    siblings.push(node);
+    if (node.nextSibling && pred(node.nextSibling)) {
+        siblings.push(node.nextSibling);
+    }
+    return siblings;
+}
+/**
+ * blank HTML for cursor position
+ * - [workaround] old IE only works with &nbsp;
+ * - [workaround] IE11 and other browser works with bogus br
+ */
+var blankHTML = env.isMSIE && env.browserVersion < 11 ? '&nbsp;' : '<br>';
+/**
+ * @method nodeLength
+ *
+ * returns #text's text size or element's childNodes size
+ *
+ * @param {Node} node
+ */
+function nodeLength(node) {
+    if (isText(node)) {
+        return node.nodeValue.length;
+    }
+    if (node) {
+        return node.childNodes.length;
+    }
+    return 0;
+}
+/**
+ * returns whether node is empty or not.
+ *
+ * @param {Node} node
+ * @return {Boolean}
+ */
+function isEmpty(node) {
+    var len = nodeLength(node);
+    if (len === 0) {
+        return true;
+    }
+    else if (!isText(node) && len === 1 && node.innerHTML === blankHTML) {
+        // ex) <p><br></p>, <span><br></span>
+        return true;
+    }
+    else if (lists.all(node.childNodes, isText) && node.innerHTML === '') {
+        // ex) <p></p>, <span></span>
+        return true;
+    }
+    return false;
+}
+/**
+ * padding blankHTML if node is empty (for cursor position)
+ */
+function paddingBlankHTML(node) {
+    if (!isVoid(node) && !nodeLength(node)) {
+        node.innerHTML = blankHTML;
+    }
+}
+/**
+ * find nearest ancestor predicate hit
+ *
+ * @param {Node} node
+ * @param {Function} pred - predicate function
+ */
+function ancestor(node, pred) {
+    while (node) {
+        if (pred(node)) {
+            return node;
+        }
+        if (isEditable(node)) {
+            break;
+        }
+        node = node.parentNode;
+    }
+    return null;
+}
+/**
+ * find nearest ancestor only single child blood line and predicate hit
+ *
+ * @param {Node} node
+ * @param {Function} pred - predicate function
+ */
+function singleChildAncestor(node, pred) {
+    node = node.parentNode;
+    while (node) {
+        if (nodeLength(node) !== 1) {
+            break;
+        }
+        if (pred(node)) {
+            return node;
+        }
+        if (isEditable(node)) {
+            break;
+        }
+        node = node.parentNode;
+    }
+    return null;
+}
+/**
+ * returns new array of ancestor nodes (until predicate hit).
+ *
+ * @param {Node} node
+ * @param {Function} [optional] pred - predicate function
+ */
+function listAncestor(node, pred) {
+    pred = pred || func.fail;
+    var ancestors = [];
+    ancestor(node, function (el) {
+        if (!isEditable(el)) {
+            ancestors.push(el);
+        }
+        return pred(el);
+    });
+    return ancestors;
+}
+/**
+ * find farthest ancestor predicate hit
+ */
+function lastAncestor(node, pred) {
+    var ancestors = listAncestor(node);
+    return lists.last(ancestors.filter(pred));
+}
+/**
+ * returns common ancestor node between two nodes.
+ *
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ */
+function commonAncestor(nodeA, nodeB) {
+    var ancestors = listAncestor(nodeA);
+    for (var n = nodeB; n; n = n.parentNode) {
+        if ($$1.inArray(n, ancestors) > -1) {
+            return n;
+        }
+    }
+    return null; // difference document area
+}
+/**
+ * listing all previous siblings (until predicate hit).
+ *
+ * @param {Node} node
+ * @param {Function} [optional] pred - predicate function
+ */
+function listPrev(node, pred) {
+    pred = pred || func.fail;
+    var nodes = [];
+    while (node) {
+        if (pred(node)) {
+            break;
+        }
+        nodes.push(node);
+        node = node.previousSibling;
+    }
+    return nodes;
+}
+/**
+ * listing next siblings (until predicate hit).
+ *
+ * @param {Node} node
+ * @param {Function} [pred] - predicate function
+ */
+function listNext(node, pred) {
+    pred = pred || func.fail;
+    var nodes = [];
+    while (node) {
+        if (pred(node)) {
+            break;
+        }
+        nodes.push(node);
+        node = node.nextSibling;
+    }
+    return nodes;
+}
+/**
+ * listing descendant nodes
+ *
+ * @param {Node} node
+ * @param {Function} [pred] - predicate function
+ */
+function listDescendant(node, pred) {
+    var descendants = [];
+    pred = pred || func.ok;
+    // start DFS(depth first search) with node
+    (function fnWalk(current) {
+        if (node !== current && pred(current)) {
+            descendants.push(current);
+        }
+        for (var idx = 0, len = current.childNodes.length; idx < len; idx++) {
+            fnWalk(current.childNodes[idx]);
+        }
+    })(node);
+    return descendants;
+}
+/**
+ * wrap node with new tag.
+ *
+ * @param {Node} node
+ * @param {Node} tagName of wrapper
+ * @return {Node} - wrapper
+ */
+function wrap(node, wrapperName) {
+    var parent = node.parentNode;
+    var wrapper = $$1('<' + wrapperName + '>')[0];
+    parent.insertBefore(wrapper, node);
+    wrapper.appendChild(node);
+    return wrapper;
+}
+/**
+ * insert node after preceding
+ *
+ * @param {Node} node
+ * @param {Node} preceding - predicate function
+ */
+function insertAfter(node, preceding) {
+    var next = preceding.nextSibling;
+    var parent = preceding.parentNode;
+    if (next) {
+        parent.insertBefore(node, next);
+    }
+    else {
+        parent.appendChild(node);
+    }
+    return node;
+}
+/**
+ * append elements.
+ *
+ * @param {Node} node
+ * @param {Collection} aChild
+ */
+function appendChildNodes(node, aChild) {
+    $$1.each(aChild, function (idx, child) {
+        node.appendChild(child);
+    });
+    return node;
+}
+/**
+ * returns whether boundaryPoint is left edge or not.
+ *
+ * @param {BoundaryPoint} point
+ * @return {Boolean}
+ */
+function isLeftEdgePoint(point) {
+    return point.offset === 0;
+}
+/**
+ * returns whether boundaryPoint is right edge or not.
+ *
+ * @param {BoundaryPoint} point
+ * @return {Boolean}
+ */
+function isRightEdgePoint(point) {
+    return point.offset === nodeLength(point.node);
+}
+/**
+ * returns whether boundaryPoint is edge or not.
+ *
+ * @param {BoundaryPoint} point
+ * @return {Boolean}
+ */
+function isEdgePoint(point) {
+    return isLeftEdgePoint(point) || isRightEdgePoint(point);
+}
+/**
+ * returns whether node is left edge of ancestor or not.
+ *
+ * @param {Node} node
+ * @param {Node} ancestor
+ * @return {Boolean}
+ */
+function isLeftEdgeOf(node, ancestor) {
+    while (node && node !== ancestor) {
+        if (position(node) !== 0) {
+            return false;
+        }
+        node = node.parentNode;
+    }
+    return true;
+}
+/**
+ * returns whether node is right edge of ancestor or not.
+ *
+ * @param {Node} node
+ * @param {Node} ancestor
+ * @return {Boolean}
+ */
+function isRightEdgeOf(node, ancestor) {
+    if (!ancestor) {
+        return false;
+    }
+    while (node && node !== ancestor) {
+        if (position(node) !== nodeLength(node.parentNode) - 1) {
+            return false;
+        }
+        node = node.parentNode;
+    }
+    return true;
+}
+/**
+ * returns whether point is left edge of ancestor or not.
+ * @param {BoundaryPoint} point
+ * @param {Node} ancestor
+ * @return {Boolean}
+ */
+function isLeftEdgePointOf(point, ancestor) {
+    return isLeftEdgePoint(point) && isLeftEdgeOf(point.node, ancestor);
+}
+/**
+ * returns whether point is right edge of ancestor or not.
+ * @param {BoundaryPoint} point
+ * @param {Node} ancestor
+ * @return {Boolean}
+ */
+function isRightEdgePointOf(point, ancestor) {
+    return isRightEdgePoint(point) && isRightEdgeOf(point.node, ancestor);
+}
+/**
+ * returns offset from parent.
+ *
+ * @param {Node} node
+ */
+function position(node) {
+    var offset = 0;
+    while ((node = node.previousSibling)) {
+        offset += 1;
+    }
+    return offset;
+}
+function hasChildren(node) {
+    return !!(node && node.childNodes && node.childNodes.length);
+}
+/**
+ * returns previous boundaryPoint
+ *
+ * @param {BoundaryPoint} point
+ * @param {Boolean} isSkipInnerOffset
+ * @return {BoundaryPoint}
+ */
+function prevPoint(point, isSkipInnerOffset) {
+    var node;
+    var offset;
+    if (point.offset === 0) {
+        if (isEditable(point.node)) {
+            return null;
+        }
+        node = point.node.parentNode;
+        offset = position(point.node);
+    }
+    else if (hasChildren(point.node)) {
+        node = point.node.childNodes[point.offset - 1];
+        offset = nodeLength(node);
+    }
+    else {
+        node = point.node;
+        offset = isSkipInnerOffset ? 0 : point.offset - 1;
+    }
+    return {
+        node: node,
+        offset: offset
+    };
+}
+/**
+ * returns next boundaryPoint
+ *
+ * @param {BoundaryPoint} point
+ * @param {Boolean} isSkipInnerOffset
+ * @return {BoundaryPoint}
+ */
+function nextPoint(point, isSkipInnerOffset) {
+    var node, offset;
+    if (nodeLength(point.node) === point.offset) {
+        if (isEditable(point.node)) {
+            return null;
+        }
+        node = point.node.parentNode;
+        offset = position(point.node) + 1;
+    }
+    else if (hasChildren(point.node)) {
+        node = point.node.childNodes[point.offset];
+        offset = 0;
+    }
+    else {
+        node = point.node;
+        offset = isSkipInnerOffset ? nodeLength(point.node) : point.offset + 1;
+    }
+    return {
+        node: node,
+        offset: offset
+    };
+}
+/**
+ * returns whether pointA and pointB is same or not.
+ *
+ * @param {BoundaryPoint} pointA
+ * @param {BoundaryPoint} pointB
+ * @return {Boolean}
+ */
+function isSamePoint(pointA, pointB) {
+    return pointA.node === pointB.node && pointA.offset === pointB.offset;
+}
+/**
+ * returns whether point is visible (can set cursor) or not.
+ *
+ * @param {BoundaryPoint} point
+ * @return {Boolean}
+ */
+function isVisiblePoint(point) {
+    if (isText(point.node) || !hasChildren(point.node) || isEmpty(point.node)) {
+        return true;
+    }
+    var leftNode = point.node.childNodes[point.offset - 1];
+    var rightNode = point.node.childNodes[point.offset];
+    if ((!leftNode || isVoid(leftNode)) && (!rightNode || isVoid(rightNode))) {
+        return true;
+    }
+    return false;
+}
+/**
+ * @method prevPointUtil
+ *
+ * @param {BoundaryPoint} point
+ * @param {Function} pred
+ * @return {BoundaryPoint}
+ */
+function prevPointUntil(point, pred) {
+    while (point) {
+        if (pred(point)) {
+            return point;
+        }
+        point = prevPoint(point);
+    }
+    return null;
+}
+/**
+ * @method nextPointUntil
+ *
+ * @param {BoundaryPoint} point
+ * @param {Function} pred
+ * @return {BoundaryPoint}
+ */
+function nextPointUntil(point, pred) {
+    while (point) {
+        if (pred(point)) {
+            return point;
+        }
+        point = nextPoint(point);
+    }
+    return null;
+}
+/**
+ * returns whether point has character or not.
+ *
+ * @param {Point} point
+ * @return {Boolean}
+ */
+function isCharPoint(point) {
+    if (!isText(point.node)) {
+        return false;
+    }
+    var ch = point.node.nodeValue.charAt(point.offset - 1);
+    return ch && (ch !== ' ' && ch !== NBSP_CHAR);
+}
+/**
+ * @method walkPoint
+ *
+ * @param {BoundaryPoint} startPoint
+ * @param {BoundaryPoint} endPoint
+ * @param {Function} handler
+ * @param {Boolean} isSkipInnerOffset
+ */
+function walkPoint(startPoint, endPoint, handler, isSkipInnerOffset) {
+    var point = startPoint;
+    while (point) {
+        handler(point);
+        if (isSamePoint(point, endPoint)) {
+            break;
+        }
+        var isSkipOffset = isSkipInnerOffset &&
+            startPoint.node !== point.node &&
+            endPoint.node !== point.node;
+        point = nextPoint(point, isSkipOffset);
+    }
+}
+/**
+ * @method makeOffsetPath
+ *
+ * return offsetPath(array of offset) from ancestor
+ *
+ * @param {Node} ancestor - ancestor node
+ * @param {Node} node
+ */
+function makeOffsetPath(ancestor, node) {
+    var ancestors = listAncestor(node, func.eq(ancestor));
+    return ancestors.map(position).reverse();
+}
+/**
+ * @method fromOffsetPath
+ *
+ * return element from offsetPath(array of offset)
+ *
+ * @param {Node} ancestor - ancestor node
+ * @param {array} offsets - offsetPath
+ */
+function fromOffsetPath(ancestor, offsets) {
+    var current = ancestor;
+    for (var i = 0, len = offsets.length; i < len; i++) {
+        if (current.childNodes.length <= offsets[i]) {
+            current = current.childNodes[current.childNodes.length - 1];
+        }
+        else {
+            current = current.childNodes[offsets[i]];
+        }
+    }
+    return current;
+}
+/**
+ * @method splitNode
+ *
+ * split element or #text
+ *
+ * @param {BoundaryPoint} point
+ * @param {Object} [options]
+ * @param {Boolean} [options.isSkipPaddingBlankHTML] - default: false
+ * @param {Boolean} [options.isNotSplitEdgePoint] - default: false
+ * @return {Node} right node of boundaryPoint
+ */
+function splitNode(point, options) {
+    var isSkipPaddingBlankHTML = options && options.isSkipPaddingBlankHTML;
+    var isNotSplitEdgePoint = options && options.isNotSplitEdgePoint;
+    // edge case
+    if (isEdgePoint(point) && (isText(point.node) || isNotSplitEdgePoint)) {
+        if (isLeftEdgePoint(point)) {
+            return point.node;
+        }
+        else if (isRightEdgePoint(point)) {
+            return point.node.nextSibling;
+        }
+    }
+    // split #text
+    if (isText(point.node)) {
+        return point.node.splitText(point.offset);
+    }
+    else {
+        var childNode = point.node.childNodes[point.offset];
+        var clone = insertAfter(point.node.cloneNode(false), point.node);
+        appendChildNodes(clone, listNext(childNode));
+        if (!isSkipPaddingBlankHTML) {
+            paddingBlankHTML(point.node);
+            paddingBlankHTML(clone);
+        }
+        return clone;
+    }
+}
+/**
+ * @method splitTree
+ *
+ * split tree by point
+ *
+ * @param {Node} root - split root
+ * @param {BoundaryPoint} point
+ * @param {Object} [options]
+ * @param {Boolean} [options.isSkipPaddingBlankHTML] - default: false
+ * @param {Boolean} [options.isNotSplitEdgePoint] - default: false
+ * @return {Node} right node of boundaryPoint
+ */
+function splitTree(root, point, options) {
+    // ex) [#text, <span>, <p>]
+    var ancestors = listAncestor(point.node, func.eq(root));
+    if (!ancestors.length) {
+        return null;
+    }
+    else if (ancestors.length === 1) {
+        return splitNode(point, options);
+    }
+    return ancestors.reduce(function (node, parent) {
+        if (node === point.node) {
+            node = splitNode(point, options);
+        }
+        return splitNode({
+            node: parent,
+            offset: node ? position(node) : nodeLength(parent)
+        }, options);
+    });
+}
+/**
+ * split point
+ *
+ * @param {Point} point
+ * @param {Boolean} isInline
+ * @return {Object}
+ */
+function splitPoint(point, isInline) {
+    // find splitRoot, container
+    //  - inline: splitRoot is a child of paragraph
+    //  - block: splitRoot is a child of bodyContainer
+    var pred = isInline ? isPara : isBodyContainer;
+    var ancestors = listAncestor(point.node, pred);
+    var topAncestor = lists.last(ancestors) || point.node;
+    var splitRoot, container;
+    if (pred(topAncestor)) {
+        splitRoot = ancestors[ancestors.length - 2];
+        container = topAncestor;
+    }
+    else {
+        splitRoot = topAncestor;
+        container = splitRoot.parentNode;
+    }
+    // if splitRoot is exists, split with splitTree
+    var pivot = splitRoot && splitTree(splitRoot, point, {
+        isSkipPaddingBlankHTML: isInline,
+        isNotSplitEdgePoint: isInline
+    });
+    // if container is point.node, find pivot with point.offset
+    if (!pivot && container === point.node) {
+        pivot = point.node.childNodes[point.offset];
+    }
+    return {
+        rightNode: pivot,
+        container: container
+    };
+}
+function create(nodeName) {
+    return document.createElement(nodeName);
+}
+function createText(text) {
+    return document.createTextNode(text);
+}
+/**
+ * @method remove
+ *
+ * remove node, (isRemoveChild: remove child or not)
+ *
+ * @param {Node} node
+ * @param {Boolean} isRemoveChild
+ */
+function remove(node, isRemoveChild) {
+    if (!node || !node.parentNode) {
+        return;
+    }
+    if (node.removeNode) {
+        return node.removeNode(isRemoveChild);
+    }
+    var parent = node.parentNode;
+    if (!isRemoveChild) {
+        var nodes = [];
+        for (var i = 0, len = node.childNodes.length; i < len; i++) {
+            nodes.push(node.childNodes[i]);
+        }
+        for (var i = 0, len = nodes.length; i < len; i++) {
+            parent.insertBefore(nodes[i], node);
+        }
+    }
+    parent.removeChild(node);
+}
+/**
+ * @method removeWhile
+ *
+ * @param {Node} node
+ * @param {Function} pred
+ */
+function removeWhile(node, pred) {
+    while (node) {
+        if (isEditable(node) || !pred(node)) {
+            break;
+        }
+        var parent = node.parentNode;
+        remove(node);
+        node = parent;
+    }
+}
+/**
+ * @method replace
+ *
+ * replace node with provided nodeName
+ *
+ * @param {Node} node
+ * @param {String} nodeName
+ * @return {Node} - new node
+ */
+function replace(node, nodeName) {
+    if (node.nodeName.toUpperCase() === nodeName.toUpperCase()) {
+        return node;
+    }
+    var newNode = create(nodeName);
+    if (node.style.cssText) {
+        newNode.style.cssText = node.style.cssText;
+    }
+    appendChildNodes(newNode, lists.from(node.childNodes));
+    insertAfter(newNode, node);
+    remove(node);
+    return newNode;
+}
+var isTextarea = makePredByNodeName('TEXTAREA');
+/**
+ * @param {jQuery} $node
+ * @param {Boolean} [stripLinebreaks] - default: false
+ */
+function value($node, stripLinebreaks) {
+    var val = isTextarea($node[0]) ? $node.val() : $node.html();
+    if (stripLinebreaks) {
+        return val.replace(/[\n\r]/g, '');
+    }
+    return val;
+}
+/**
+ * @method html
+ *
+ * get the HTML contents of node
+ *
+ * @param {jQuery} $node
+ * @param {Boolean} [isNewlineOnBlock]
+ */
+function html($node, isNewlineOnBlock) {
+    var markup = value($node);
+    if (isNewlineOnBlock) {
+        var regexTag = /<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g;
+        markup = markup.replace(regexTag, function (match, endSlash, name) {
+            name = name.toUpperCase();
+            var isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &&
+                !!endSlash;
+            var isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);
+            return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');
+        });
+        markup = $$1.trim(markup);
+    }
+    return markup;
+}
+function posFromPlaceholder(placeholder) {
+    var $placeholder = $$1(placeholder);
+    var pos = $placeholder.offset();
+    var height = $placeholder.outerHeight(true); // include margin
+    return {
+        left: pos.left,
+        top: pos.top + height
+    };
+}
+function attachEvents($node, events) {
+    Object.keys(events).forEach(function (key) {
+        $node.on(key, events[key]);
+    });
+}
+function detachEvents($node, events) {
+    Object.keys(events).forEach(function (key) {
+        $node.off(key, events[key]);
+    });
+}
+/**
+ * @method isCustomStyleTag
+ *
+ * assert if a node contains a "note-styletag" class,
+ * which implies that's a custom-made style tag node
+ *
+ * @param {Node} an HTML DOM node
+ */
+function isCustomStyleTag(node) {
+    return node && !isText(node) && lists.contains(node.classList, 'note-styletag');
+}
+var dom = {
+    /** @property {String} NBSP_CHAR */
+    NBSP_CHAR: NBSP_CHAR,
+    /** @property {String} ZERO_WIDTH_NBSP_CHAR */
+    ZERO_WIDTH_NBSP_CHAR: ZERO_WIDTH_NBSP_CHAR,
+    /** @property {String} blank */
+    blank: blankHTML,
+    /** @property {String} emptyPara */
+    emptyPara: "<p>" + blankHTML + "</p>",
+    makePredByNodeName: makePredByNodeName,
+    isEditable: isEditable,
+    isControlSizing: isControlSizing,
+    isText: isText,
+    isElement: isElement,
+    isVoid: isVoid,
+    isPara: isPara,
+    isPurePara: isPurePara,
+    isHeading: isHeading,
+    isInline: isInline,
+    isBlock: func.not(isInline),
+    isBodyInline: isBodyInline,
+    isBody: isBody,
+    isParaInline: isParaInline,
+    isPre: isPre,
+    isList: isList,
+    isTable: isTable,
+    isData: isData,
+    isCell: isCell,
+    isBlockquote: isBlockquote,
+    isBodyContainer: isBodyContainer,
+    isAnchor: isAnchor,
+    isDiv: makePredByNodeName('DIV'),
+    isLi: isLi,
+    isBR: makePredByNodeName('BR'),
+    isSpan: makePredByNodeName('SPAN'),
+    isB: makePredByNodeName('B'),
+    isU: makePredByNodeName('U'),
+    isS: makePredByNodeName('S'),
+    isI: makePredByNodeName('I'),
+    isImg: makePredByNodeName('IMG'),
+    isTextarea: isTextarea,
+    isEmpty: isEmpty,
+    isEmptyAnchor: func.and(isAnchor, isEmpty),
+    isClosestSibling: isClosestSibling,
+    withClosestSiblings: withClosestSiblings,
+    nodeLength: nodeLength,
+    isLeftEdgePoint: isLeftEdgePoint,
+    isRightEdgePoint: isRightEdgePoint,
+    isEdgePoint: isEdgePoint,
+    isLeftEdgeOf: isLeftEdgeOf,
+    isRightEdgeOf: isRightEdgeOf,
+    isLeftEdgePointOf: isLeftEdgePointOf,
+    isRightEdgePointOf: isRightEdgePointOf,
+    prevPoint: prevPoint,
+    nextPoint: nextPoint,
+    isSamePoint: isSamePoint,
+    isVisiblePoint: isVisiblePoint,
+    prevPointUntil: prevPointUntil,
+    nextPointUntil: nextPointUntil,
+    isCharPoint: isCharPoint,
+    walkPoint: walkPoint,
+    ancestor: ancestor,
+    singleChildAncestor: singleChildAncestor,
+    listAncestor: listAncestor,
+    lastAncestor: lastAncestor,
+    listNext: listNext,
+    listPrev: listPrev,
+    listDescendant: listDescendant,
+    commonAncestor: commonAncestor,
+    wrap: wrap,
+    insertAfter: insertAfter,
+    appendChildNodes: appendChildNodes,
+    position: position,
+    hasChildren: hasChildren,
+    makeOffsetPath: makeOffsetPath,
+    fromOffsetPath: fromOffsetPath,
+    splitTree: splitTree,
+    splitPoint: splitPoint,
+    create: create,
+    createText: createText,
+    remove: remove,
+    removeWhile: removeWhile,
+    replace: replace,
+    html: html,
+    value: value,
+    posFromPlaceholder: posFromPlaceholder,
+    attachEvents: attachEvents,
+    detachEvents: detachEvents,
+    isCustomStyleTag: isCustomStyleTag
+};
+
+$$1.summernote = $$1.summernote || {
+    lang: {}
+};
+$$1.extend($$1.summernote.lang, {
+    'en-US': {
+        font: {
+            bold: 'Bold',
+            italic: 'Italic',
+            underline: 'Underline',
+            clear: 'Remove Font Style',
+            height: 'Line Height',
+            name: 'Font Family',
+            strikethrough: 'Strikethrough',
+            subscript: 'Subscript',
+            superscript: 'Superscript',
+            size: 'Font Size'
+        },
+        image: {
+            image: 'Picture',
+            insert: 'Insert Image',
+            resizeFull: 'Resize Full',
+            resizeHalf: 'Resize Half',
+            resizeQuarter: 'Resize Quarter',
+            floatLeft: 'Float Left',
+            floatRight: 'Float Right',
+            floatNone: 'Float None',
+            shapeRounded: 'Shape: Rounded',
+            shapeCircle: 'Shape: Circle',
+            shapeThumbnail: 'Shape: Thumbnail',
+            shapeNone: 'Shape: None',
+            dragImageHere: 'Drag image or text here',
+            dropImage: 'Drop image or Text',
+            selectFromFiles: 'Select from files',
+            maximumFileSize: 'Maximum file size',
+            maximumFileSizeError: 'Maximum file size exceeded.',
+            url: 'Image URL',
+            remove: 'Remove Image',
+            original: 'Original'
+        },
+        video: {
+            video: 'Video',
+            videoLink: 'Video Link',
+            insert: 'Insert Video',
+            url: 'Video URL',
+            providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
+        },
+        link: {
+            link: 'Link',
+            insert: 'Insert Link',
+            unlink: 'Unlink',
+            edit: 'Edit',
+            textToDisplay: 'Text to display',
+            url: 'To what URL should this link go?',
+            openInNewWindow: 'Open in new window'
+        },
+        table: {
+            table: 'Table',
+            addRowAbove: 'Add row above',
+            addRowBelow: 'Add row below',
+            addColLeft: 'Add column left',
+            addColRight: 'Add column right',
+            delRow: 'Delete row',
+            delCol: 'Delete column',
+            delTable: 'Delete table'
+        },
+        hr: {
+            insert: 'Insert Horizontal Rule'
+        },
+        style: {
+            style: 'Style',
+            p: 'Normal',
+            blockquote: 'Quote',
+            pre: 'Code',
+            h1: 'Header 1',
+            h2: 'Header 2',
+            h3: 'Header 3',
+            h4: 'Header 4',
+            h5: 'Header 5',
+            h6: 'Header 6'
+        },
+        lists: {
+            unordered: 'Unordered list',
+            ordered: 'Ordered list'
+        },
+        options: {
+            help: 'Help',
+            fullscreen: 'Full Screen',
+            codeview: 'Code View'
+        },
+        paragraph: {
+            paragraph: 'Paragraph',
+            outdent: 'Outdent',
+            indent: 'Indent',
+            left: 'Align left',
+            center: 'Align center',
+            right: 'Align right',
+            justify: 'Justify full'
+        },
+        color: {
+            recent: 'Recent Color',
+            more: 'More Color',
+            background: 'Background Color',
+            foreground: 'Foreground Color',
+            transparent: 'Transparent',
+            setTransparent: 'Set transparent',
+            reset: 'Reset',
+            resetToDefault: 'Reset to default'
+        },
+        shortcut: {
+            shortcuts: 'Keyboard shortcuts',
+            close: 'Close',
+            textFormatting: 'Text formatting',
+            action: 'Action',
+            paragraphFormatting: 'Paragraph formatting',
+            documentStyle: 'Document Style',
+            extraKeys: 'Extra keys'
+        },
+        help: {
+            'insertParagraph': 'Insert Paragraph',
+            'undo': 'Undoes the last command',
+            'redo': 'Redoes the last command',
+            'tab': 'Tab',
+            'untab': 'Untab',
+            'bold': 'Set a bold style',
+            'italic': 'Set a italic style',
+            'underline': 'Set a underline style',
+            'strikethrough': 'Set a strikethrough style',
+            'removeFormat': 'Clean a style',
+            'justifyLeft': 'Set left align',
+            'justifyCenter': 'Set center align',
+            'justifyRight': 'Set right align',
+            'justifyFull': 'Set full align',
+            'insertUnorderedList': 'Toggle unordered list',
+            'insertOrderedList': 'Toggle ordered list',
+            'outdent': 'Outdent on current paragraph',
+            'indent': 'Indent on current paragraph',
+            'formatPara': 'Change current block\'s format as a paragraph(P tag)',
+            'formatH1': 'Change current block\'s format as H1',
+            'formatH2': 'Change current block\'s format as H2',
+            'formatH3': 'Change current block\'s format as H3',
+            'formatH4': 'Change current block\'s format as H4',
+            'formatH5': 'Change current block\'s format as H5',
+            'formatH6': 'Change current block\'s format as H6',
+            'insertHorizontalRule': 'Insert horizontal rule',
+            'linkDialog.show': 'Show Link Dialog'
+        },
+        history: {
+            undo: 'Undo',
+            redo: 'Redo'
+        },
+        specialChar: {
+            specialChar: 'SPECIAL CHARACTERS',
+            select: 'Select Special characters'
+        }
+    }
+});
+
+var KEY_MAP = {
+    'BACKSPACE': 8,
+    'TAB': 9,
+    'ENTER': 13,
+    'SPACE': 32,
+    'DELETE': 46,
+    // Arrow
+    'LEFT': 37,
+    'UP': 38,
+    'RIGHT': 39,
+    'DOWN': 40,
+    // Number: 0-9
+    'NUM0': 48,
+    'NUM1': 49,
+    'NUM2': 50,
+    'NUM3': 51,
+    'NUM4': 52,
+    'NUM5': 53,
+    'NUM6': 54,
+    'NUM7': 55,
+    'NUM8': 56,
+    // Alphabet: a-z
+    'B': 66,
+    'E': 69,
+    'I': 73,
+    'J': 74,
+    'K': 75,
+    'L': 76,
+    'R': 82,
+    'S': 83,
+    'U': 85,
+    'V': 86,
+    'Y': 89,
+    'Z': 90,
+    'SLASH': 191,
+    'LEFTBRACKET': 219,
+    'BACKSLASH': 220,
+    'RIGHTBRACKET': 221
+};
+/**
+ * @class core.key
+ *
+ * Object for keycodes.
+ *
+ * @singleton
+ * @alternateClassName key
+ */
+var key = {
+    /**
+     * @method isEdit
+     *
+     * @param {Number} keyCode
+     * @return {Boolean}
+     */
+    isEdit: function (keyCode) {
+        return lists.contains([
+            KEY_MAP.BACKSPACE,
+            KEY_MAP.TAB,
+            KEY_MAP.ENTER,
+            KEY_MAP.SPACE,
+            KEY_MAP.DELETE
+        ], keyCode);
+    },
+    /**
+     * @method isMove
+     *
+     * @param {Number} keyCode
+     * @return {Boolean}
+     */
+    isMove: function (keyCode) {
+        return lists.contains([
+            KEY_MAP.LEFT,
+            KEY_MAP.UP,
+            KEY_MAP.RIGHT,
+            KEY_MAP.DOWN
+        ], keyCode);
+    },
+    /**
+     * @property {Object} nameFromCode
+     * @property {String} nameFromCode.8 "BACKSPACE"
+     */
+    nameFromCode: func.invertObject(KEY_MAP),
+    code: KEY_MAP
+};
+
+/**
+ * return boundaryPoint from TextRange, inspired by Andy Na's HuskyRange.js
+ *
+ * @param {TextRange} textRange
+ * @param {Boolean} isStart
+ * @return {BoundaryPoint}
+ *
+ * @see http://msdn.microsoft.com/en-us/library/ie/ms535872(v=vs.85).aspx
+ */
+function textRangeToPoint(textRange, isStart) {
+    var container = textRange.parentElement();
+    var offset;
+    var tester = document.body.createTextRange();
+    var prevContainer;
+    var childNodes = lists.from(container.childNodes);
+    for (offset = 0; offset < childNodes.length; offset++) {
+        if (dom.isText(childNodes[offset])) {
+            continue;
+        }
+        tester.moveToElementText(childNodes[offset]);
+        if (tester.compareEndPoints('StartToStart', textRange) >= 0) {
+            break;
+        }
+        prevContainer = childNodes[offset];
+    }
+    if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
+        var textRangeStart = document.body.createTextRange();
+        var curTextNode = null;
+        textRangeStart.moveToElementText(prevContainer || container);
+        textRangeStart.collapse(!prevContainer);
+        curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
+        var pointTester = textRange.duplicate();
+        pointTester.setEndPoint('StartToStart', textRangeStart);
+        var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
+        while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
+            textCount -= curTextNode.nodeValue.length;
+            curTextNode = curTextNode.nextSibling;
+        }
+        // [workaround] enforce IE to re-reference curTextNode, hack
+        var dummy = curTextNode.nodeValue; // eslint-disable-line
+        if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
+            textCount === curTextNode.nodeValue.length) {
+            textCount -= curTextNode.nodeValue.length;
+            curTextNode = curTextNode.nextSibling;
+        }
+        container = curTextNode;
+        offset = textCount;
+    }
+    return {
+        cont: container,
+        offset: offset
+    };
+}
+/**
+ * return TextRange from boundary point (inspired by google closure-library)
+ * @param {BoundaryPoint} point
+ * @return {TextRange}
+ */
+function pointToTextRange(point) {
+    var textRangeInfo = function (container, offset) {
+        var node, isCollapseToStart;
+        if (dom.isText(container)) {
+            var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
+            var prevContainer = lists.last(prevTextNodes).previousSibling;
+            node = prevContainer || container.parentNode;
+            offset += lists.sum(lists.tail(prevTextNodes), dom.nodeLength);
+            isCollapseToStart = !prevContainer;
+        }
+        else {
+            node = container.childNodes[offset] || container;
+            if (dom.isText(node)) {
+                return textRangeInfo(node, 0);
+            }
+            offset = 0;
+            isCollapseToStart = false;
+        }
+        return {
+            node: node,
+            collapseToStart: isCollapseToStart,
+            offset: offset
+        };
+    };
+    var textRange = document.body.createTextRange();
+    var info = textRangeInfo(point.node, point.offset);
+    textRange.moveToElementText(info.node);
+    textRange.collapse(info.collapseToStart);
+    textRange.moveStart('character', info.offset);
+    return textRange;
+}
+/**
+   * Wrapped Range
+   *
+   * @constructor
+   * @param {Node} sc - start container
+   * @param {Number} so - start offset
+   * @param {Node} ec - end container
+   * @param {Number} eo - end offset
+   */
+var WrappedRange = /** @class */ (function () {
+    function WrappedRange(sc, so, ec, eo) {
+        this.sc = sc;
+        this.so = so;
+        this.ec = ec;
+        this.eo = eo;
+        // isOnEditable: judge whether range is on editable or not
+        this.isOnEditable = this.makeIsOn(dom.isEditable);
+        // isOnList: judge whether range is on list node or not
+        this.isOnList = this.makeIsOn(dom.isList);
+        // isOnAnchor: judge whether range is on anchor node or not
+        this.isOnAnchor = this.makeIsOn(dom.isAnchor);
+        // isOnCell: judge whether range is on cell node or not
+        this.isOnCell = this.makeIsOn(dom.isCell);
+        // isOnData: judge whether range is on data node or not
+        this.isOnData = this.makeIsOn(dom.isData);
+    }
+    // nativeRange: get nativeRange from sc, so, ec, eo
+    WrappedRange.prototype.nativeRange = function () {
+        if (env.isW3CRangeSupport) {
+            var w3cRange = document.createRange();
+            w3cRange.setStart(this.sc, this.so);
+            w3cRange.setEnd(this.ec, this.eo);
+            return w3cRange;
+        }
+        else {
+            var textRange = pointToTextRange({
+                node: this.sc,
+                offset: this.so
+            });
+            textRange.setEndPoint('EndToEnd', pointToTextRange({
+                node: this.ec,
+                offset: this.eo
+            }));
+            return textRange;
+        }
+    };
+    WrappedRange.prototype.getPoints = function () {
+        return {
+            sc: this.sc,
+            so: this.so,
+            ec: this.ec,
+            eo: this.eo
+        };
+    };
+    WrappedRange.prototype.getStartPoint = function () {
+        return {
+            node: this.sc,
+            offset: this.so
+        };
+    };
+    WrappedRange.prototype.getEndPoint = function () {
+        return {
+            node: this.ec,
+            offset: this.eo
+        };
+    };
+    /**
+     * select update visible range
+     */
+    WrappedRange.prototype.select = function () {
+        var nativeRng = this.nativeRange();
+        if (env.isW3CRangeSupport) {
+            var selection = document.getSelection();
+            if (selection.rangeCount > 0) {
+                selection.removeAllRanges();
+            }
+            selection.addRange(nativeRng);
+        }
+        else {
+            nativeRng.select();
+        }
+        return this;
+    };
+    /**
+     * Moves the scrollbar to start container(sc) of current range
+     *
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.scrollIntoView = function (container) {
+        var height = $$1(container).height();
+        if (container.scrollTop + height < this.sc.offsetTop) {
+            container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);
+        }
+        return this;
+    };
+    /**
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.normalize = function () {
+        /**
+         * @param {BoundaryPoint} point
+         * @param {Boolean} isLeftToRight
+         * @return {BoundaryPoint}
+         */
+        var getVisiblePoint = function (point, isLeftToRight) {
+            if ((dom.isVisiblePoint(point) && !dom.isEdgePoint(point)) ||
+                (dom.isVisiblePoint(point) && dom.isRightEdgePoint(point) && !isLeftToRight) ||
+                (dom.isVisiblePoint(point) && dom.isLeftEdgePoint(point) && isLeftToRight) ||
+                (dom.isVisiblePoint(point) && dom.isBlock(point.node) && dom.isEmpty(point.node))) {
+                return point;
+            }
+            // point on block's edge
+            var block = dom.ancestor(point.node, dom.isBlock);
+            if (((dom.isLeftEdgePointOf(point, block) || dom.isVoid(dom.prevPoint(point).node)) && !isLeftToRight) ||
+                ((dom.isRightEdgePointOf(point, block) || dom.isVoid(dom.nextPoint(point).node)) && isLeftToRight)) {
+                // returns point already on visible point
+                if (dom.isVisiblePoint(point)) {
+                    return point;
+                }
+                // reverse direction
+                isLeftToRight = !isLeftToRight;
+            }
+            var nextPoint = isLeftToRight ? dom.nextPointUntil(dom.nextPoint(point), dom.isVisiblePoint)
+                : dom.prevPointUntil(dom.prevPoint(point), dom.isVisiblePoint);
+            return nextPoint || point;
+        };
+        var endPoint = getVisiblePoint(this.getEndPoint(), false);
+        var startPoint = this.isCollapsed() ? endPoint : getVisiblePoint(this.getStartPoint(), true);
+        return new WrappedRange(startPoint.node, startPoint.offset, endPoint.node, endPoint.offset);
+    };
+    /**
+     * returns matched nodes on range
+     *
+     * @param {Function} [pred] - predicate function
+     * @param {Object} [options]
+     * @param {Boolean} [options.includeAncestor]
+     * @param {Boolean} [options.fullyContains]
+     * @return {Node[]}
+     */
+    WrappedRange.prototype.nodes = function (pred, options) {
+        pred = pred || func.ok;
+        var includeAncestor = options && options.includeAncestor;
+        var fullyContains = options && options.fullyContains;
+        // TODO compare points and sort
+        var startPoint = this.getStartPoint();
+        var endPoint = this.getEndPoint();
+        var nodes = [];
+        var leftEdgeNodes = [];
+        dom.walkPoint(startPoint, endPoint, function (point) {
+            if (dom.isEditable(point.node)) {
+                return;
+            }
+            var node;
+            if (fullyContains) {
+                if (dom.isLeftEdgePoint(point)) {
+                    leftEdgeNodes.push(point.node);
+                }
+                if (dom.isRightEdgePoint(point) && lists.contains(leftEdgeNodes, point.node)) {
+                    node = point.node;
+                }
+            }
+            else if (includeAncestor) {
+                node = dom.ancestor(point.node, pred);
+            }
+            else {
+                node = point.node;
+            }
+            if (node && pred(node)) {
+                nodes.push(node);
+            }
+        }, true);
+        return lists.unique(nodes);
+    };
+    /**
+     * returns commonAncestor of range
+     * @return {Element} - commonAncestor
+     */
+    WrappedRange.prototype.commonAncestor = function () {
+        return dom.commonAncestor(this.sc, this.ec);
+    };
+    /**
+     * returns expanded range by pred
+     *
+     * @param {Function} pred - predicate function
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.expand = function (pred) {
+        var startAncestor = dom.ancestor(this.sc, pred);
+        var endAncestor = dom.ancestor(this.ec, pred);
+        if (!startAncestor && !endAncestor) {
+            return new WrappedRange(this.sc, this.so, this.ec, this.eo);
+        }
+        var boundaryPoints = this.getPoints();
+        if (startAncestor) {
+            boundaryPoints.sc = startAncestor;
+            boundaryPoints.so = 0;
+        }
+        if (endAncestor) {
+            boundaryPoints.ec = endAncestor;
+            boundaryPoints.eo = dom.nodeLength(endAncestor);
+        }
+        return new WrappedRange(boundaryPoints.sc, boundaryPoints.so, boundaryPoints.ec, boundaryPoints.eo);
+    };
+    /**
+     * @param {Boolean} isCollapseToStart
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.collapse = function (isCollapseToStart) {
+        if (isCollapseToStart) {
+            return new WrappedRange(this.sc, this.so, this.sc, this.so);
+        }
+        else {
+            return new WrappedRange(this.ec, this.eo, this.ec, this.eo);
+        }
+    };
+    /**
+     * splitText on range
+     */
+    WrappedRange.prototype.splitText = function () {
+        var isSameContainer = this.sc === this.ec;
+        var boundaryPoints = this.getPoints();
+        if (dom.isText(this.ec) && !dom.isEdgePoint(this.getEndPoint())) {
+            this.ec.splitText(this.eo);
+        }
+        if (dom.isText(this.sc) && !dom.isEdgePoint(this.getStartPoint())) {
+            boundaryPoints.sc = this.sc.splitText(this.so);
+            boundaryPoints.so = 0;
+            if (isSameContainer) {
+                boundaryPoints.ec = boundaryPoints.sc;
+                boundaryPoints.eo = this.eo - this.so;
+            }
+        }
+        return new WrappedRange(boundaryPoints.sc, boundaryPoints.so, boundaryPoints.ec, boundaryPoints.eo);
+    };
+    /**
+     * delete contents on range
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.deleteContents = function () {
+        if (this.isCollapsed()) {
+            return this;
+        }
+        var rng = this.splitText();
+        var nodes = rng.nodes(null, {
+            fullyContains: true
+        });
+        // find new cursor point
+        var point = dom.prevPointUntil(rng.getStartPoint(), function (point) {
+            return !lists.contains(nodes, point.node);
+        });
+        var emptyParents = [];
+        $$1.each(nodes, function (idx, node) {
+            // find empty parents
+            var parent = node.parentNode;
+            if (point.node !== parent && dom.nodeLength(parent) === 1) {
+                emptyParents.push(parent);
+            }
+            dom.remove(node, false);
+        });
+        // remove empty parents
+        $$1.each(emptyParents, function (idx, node) {
+            dom.remove(node, false);
+        });
+        return new WrappedRange(point.node, point.offset, point.node, point.offset).normalize();
+    };
+    /**
+     * makeIsOn: return isOn(pred) function
+     */
+    WrappedRange.prototype.makeIsOn = function (pred) {
+        return function () {
+            var ancestor = dom.ancestor(this.sc, pred);
+            return !!ancestor && (ancestor === dom.ancestor(this.ec, pred));
+        };
+    };
+    /**
+     * @param {Function} pred
+     * @return {Boolean}
+     */
+    WrappedRange.prototype.isLeftEdgeOf = function (pred) {
+        if (!dom.isLeftEdgePoint(this.getStartPoint())) {
+            return false;
+        }
+        var node = dom.ancestor(this.sc, pred);
+        return node && dom.isLeftEdgeOf(this.sc, node);
+    };
+    /**
+     * returns whether range was collapsed or not
+     */
+    WrappedRange.prototype.isCollapsed = function () {
+        return this.sc === this.ec && this.so === this.eo;
+    };
+    /**
+     * wrap inline nodes which children of body with paragraph
+     *
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.wrapBodyInlineWithPara = function () {
+        if (dom.isBodyContainer(this.sc) && dom.isEmpty(this.sc)) {
+            this.sc.innerHTML = dom.emptyPara;
+            return new WrappedRange(this.sc.firstChild, 0, this.sc.firstChild, 0);
+        }
+        /**
+         * [workaround] firefox often create range on not visible point. so normalize here.
+         *  - firefox: |<p>text</p>|
+         *  - chrome: <p>|text|</p>
+         */
+        var rng = this.normalize();
+        if (dom.isParaInline(this.sc) || dom.isPara(this.sc)) {
+            return rng;
+        }
+        // find inline top ancestor
+        var topAncestor;
+        if (dom.isInline(rng.sc)) {
+            var ancestors = dom.listAncestor(rng.sc, func.not(dom.isInline));
+            topAncestor = lists.last(ancestors);
+            if (!dom.isInline(topAncestor)) {
+                topAncestor = ancestors[ancestors.length - 2] || rng.sc.childNodes[rng.so];
+            }
+        }
+        else {
+            topAncestor = rng.sc.childNodes[rng.so > 0 ? rng.so - 1 : 0];
+        }
+        // siblings not in paragraph
+        var inlineSiblings = dom.listPrev(topAncestor, dom.isParaInline).reverse();
+        inlineSiblings = inlineSiblings.concat(dom.listNext(topAncestor.nextSibling, dom.isParaInline));
+        // wrap with paragraph
+        if (inlineSiblings.length) {
+            var para = dom.wrap(lists.head(inlineSiblings), 'p');
+            dom.appendChildNodes(para, lists.tail(inlineSiblings));
+        }
+        return this.normalize();
+    };
+    /**
+     * insert node at current cursor
+     *
+     * @param {Node} node
+     * @return {Node}
+     */
+    WrappedRange.prototype.insertNode = function (node) {
+        var rng = this.wrapBodyInlineWithPara().deleteContents();
+        var info = dom.splitPoint(rng.getStartPoint(), dom.isInline(node));
+        if (info.rightNode) {
+            info.rightNode.parentNode.insertBefore(node, info.rightNode);
+        }
+        else {
+            info.container.appendChild(node);
+        }
+        return node;
+    };
+    /**
+     * insert html at current cursor
+     */
+    WrappedRange.prototype.pasteHTML = function (markup) {
+        var contentsContainer = $$1('<div></div>').html(markup)[0];
+        var childNodes = lists.from(contentsContainer.childNodes);
+        var rng = this.wrapBodyInlineWithPara().deleteContents();
+        return childNodes.reverse().map(function (childNode) {
+            return rng.insertNode(childNode);
+        }).reverse();
+    };
+    /**
+     * returns text in range
+     *
+     * @return {String}
+     */
+    WrappedRange.prototype.toString = function () {
+        var nativeRng = this.nativeRange();
+        return env.isW3CRangeSupport ? nativeRng.toString() : nativeRng.text;
+    };
+    /**
+     * returns range for word before cursor
+     *
+     * @param {Boolean} [findAfter] - find after cursor, default: false
+     * @return {WrappedRange}
+     */
+    WrappedRange.prototype.getWordRange = function (findAfter) {
+        var endPoint = this.getEndPoint();
+        if (!dom.isCharPoint(endPoint)) {
+            return this;
+        }
+        var startPoint = dom.prevPointUntil(endPoint, function (point) {
+            return !dom.isCharPoint(point);
+        });
+        if (findAfter) {
+            endPoint = dom.nextPointUntil(endPoint, function (point) {
+                return !dom.isCharPoint(point);
+            });
+        }
+        return new WrappedRange(startPoint.node, startPoint.offset, endPoint.node, endPoint.offset);
+    };
+    /**
+     * create offsetPath bookmark
+     *
+     * @param {Node} editable
+     */
+    WrappedRange.prototype.bookmark = function (editable) {
+        return {
+            s: {
+                path: dom.makeOffsetPath(editable, this.sc),
+                offset: this.so
+            },
+            e: {
+                path: dom.makeOffsetPath(editable, this.ec),
+                offset: this.eo
+            }
+        };
+    };
+    /**
+     * create offsetPath bookmark base on paragraph
+     *
+     * @param {Node[]} paras
+     */
+    WrappedRange.prototype.paraBookmark = function (paras) {
+        return {
+            s: {
+                path: lists.tail(dom.makeOffsetPath(lists.head(paras), this.sc)),
+                offset: this.so
+            },
+            e: {
+                path: lists.tail(dom.makeOffsetPath(lists.last(paras), this.ec)),
+                offset: this.eo
+            }
+        };
+    };
+    /**
+     * getClientRects
+     * @return {Rect[]}
+     */
+    WrappedRange.prototype.getClientRects = function () {
+        var nativeRng = this.nativeRange();
+        return nativeRng.getClientRects();
+    };
+    return WrappedRange;
+}());
+/**
+ * Data structure
+ *  * BoundaryPoint: a point of dom tree
+ *  * BoundaryPoints: two boundaryPoints corresponding to the start and the end of the Range
+ *
+ * See to http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
+ */
+var range = {
+    /**
+     * create Range Object From arguments or Browser Selection
+     *
+     * @param {Node} sc - start container
+     * @param {Number} so - start offset
+     * @param {Node} ec - end container
+     * @param {Number} eo - end offset
+     * @return {WrappedRange}
+     */
+    create: function (sc, so, ec, eo) {
+        if (arguments.length === 4) {
+            return new WrappedRange(sc, so, ec, eo);
+        }
+        else if (arguments.length === 2) {
+            ec = sc;
+            eo = so;
+            return new WrappedRange(sc, so, ec, eo);
+        }
+        else {
+            var wrappedRange = this.createFromSelection();
+            if (!wrappedRange && arguments.length === 1) {
+                wrappedRange = this.createFromNode(arguments[0]);
+                return wrappedRange.collapse(dom.emptyPara === arguments[0].innerHTML);
+            }
+            return wrappedRange;
+        }
+    },
+    createFromSelection: function () {
+        var sc, so, ec, eo;
+        if (env.isW3CRangeSupport) {
+            var selection = document.getSelection();
+            if (!selection || selection.rangeCount === 0) {
+                return null;
+            }
+            else if (dom.isBody(selection.anchorNode)) {
+                // Firefox: returns entire body as range on initialization.
+                // We won't never need it.
+                return null;
+            }
+            var nativeRng = selection.getRangeAt(0);
+            sc = nativeRng.startContainer;
+            so = nativeRng.startOffset;
+            ec = nativeRng.endContainer;
+            eo = nativeRng.endOffset;
+        }
+        else {
+            var textRange = document.selection.createRange();
+            var textRangeEnd = textRange.duplicate();
+            textRangeEnd.collapse(false);
+            var textRangeStart = textRange;
+            textRangeStart.collapse(true);
+            var startPoint = textRangeToPoint(textRangeStart, true);
+            var endPoint = textRangeToPoint(textRangeEnd, false);
+            // same visible point case: range was collapsed.
+            if (dom.isText(startPoint.node) && dom.isLeftEdgePoint(startPoint) &&
+                dom.isTextNode(endPoint.node) && dom.isRightEdgePoint(endPoint) &&
+                endPoint.node.nextSibling === startPoint.node) {
+                startPoint = endPoint;
+            }
+            sc = startPoint.cont;
+            so = startPoint.offset;
+            ec = endPoint.cont;
+            eo = endPoint.offset;
+        }
+        return new WrappedRange(sc, so, ec, eo);
+    },
+    /**
+     * @method
+     *
+     * create WrappedRange from node
+     *
+     * @param {Node} node
+     * @return {WrappedRange}
+     */
+    createFromNode: function (node) {
+        var sc = node;
+        var so = 0;
+        var ec = node;
+        var eo = dom.nodeLength(ec);
+        // browsers can't target a picture or void node
+        if (dom.isVoid(sc)) {
+            so = dom.listPrev(sc).length - 1;
+            sc = sc.parentNode;
+        }
+        if (dom.isBR(ec)) {
+            eo = dom.listPrev(ec).length - 1;
+            ec = ec.parentNode;
+        }
+        else if (dom.isVoid(ec)) {
+            eo = dom.listPrev(ec).length;
+            ec = ec.parentNode;
+        }
+        return this.create(sc, so, ec, eo);
+    },
+    /**
+     * create WrappedRange from node after position
+     *
+     * @param {Node} node
+     * @return {WrappedRange}
+     */
+    createFromNodeBefore: function (node) {
+        return this.createFromNode(node).collapse(true);
+    },
+    /**
+     * create WrappedRange from node after position
+     *
+     * @param {Node} node
+     * @return {WrappedRange}
+     */
+    createFromNodeAfter: function (node) {
+        return this.createFromNode(node).collapse();
+    },
+    /**
+     * @method
+     *
+     * create WrappedRange from bookmark
+     *
+     * @param {Node} editable
+     * @param {Object} bookmark
+     * @return {WrappedRange}
+     */
+    createFromBookmark: function (editable, bookmark) {
+        var sc = dom.fromOffsetPath(editable, bookmark.s.path);
+        var so = bookmark.s.offset;
+        var ec = dom.fromOffsetPath(editable, bookmark.e.path);
+        var eo = bookmark.e.offset;
+        return new WrappedRange(sc, so, ec, eo);
+    },
+    /**
+     * @method
+     *
+     * create WrappedRange from paraBookmark
+     *
+     * @param {Object} bookmark
+     * @param {Node[]} paras
+     * @return {WrappedRange}
+     */
+    createFromParaBookmark: function (bookmark, paras) {
+        var so = bookmark.s.offset;
+        var eo = bookmark.e.offset;
+        var sc = dom.fromOffsetPath(lists.head(paras), bookmark.s.path);
+        var ec = dom.fromOffsetPath(lists.last(paras), bookmark.e.path);
+        return new WrappedRange(sc, so, ec, eo);
+    }
+};
+
+/**
+ * @method readFileAsDataURL
+ *
+ * read contents of file as representing URL
+ *
+ * @param {File} file
+ * @return {Promise} - then: dataUrl
+ */
+function readFileAsDataURL(file) {
+    return $$1.Deferred(function (deferred) {
+        $$1.extend(new FileReader(), {
+            onload: function (e) {
+                var dataURL = e.target.result;
+                deferred.resolve(dataURL);
+            },
+            onerror: function (err) {
+                deferred.reject(err);
+            }
+        }).readAsDataURL(file);
+    }).promise();
+}
+/**
+ * @method createImage
+ *
+ * create `<image>` from url string
+ *
+ * @param {String} url
+ * @return {Promise} - then: $image
+ */
+function createImage(url) {
+    return $$1.Deferred(function (deferred) {
+        var $img = $$1('<img>');
+        $img.one('load', function () {
+            $img.off('error abort');
+            deferred.resolve($img);
+        }).one('error abort', function () {
+            $img.off('load').detach();
+            deferred.reject($img);
+        }).css({
+            display: 'none'
+        }).appendTo(document.body).attr('src', url);
+    }).promise();
+}
+
+var History = /** @class */ (function () {
+    function History($editable) {
+        this.stack = [];
+        this.stackOffset = -1;
+        this.$editable = $editable;
+        this.editable = $editable[0];
+    }
+    History.prototype.makeSnapshot = function () {
+        var rng = range.create(this.editable);
+        var emptyBookmark = { s: { path: [], offset: 0 }, e: { path: [], offset: 0 } };
+        return {
+            contents: this.$editable.html(),
+            bookmark: (rng ? rng.bookmark(this.editable) : emptyBookmark)
+        };
+    };
+    History.prototype.applySnapshot = function (snapshot) {
+        if (snapshot.contents !== null) {
+            this.$editable.html(snapshot.contents);
+        }
+        if (snapshot.bookmark !== null) {
+            range.createFromBookmark(this.editable, snapshot.bookmark).select();
+        }
+    };
+    /**
+    * @method rewind
+    * Rewinds the history stack back to the first snapshot taken.
+    * Leaves the stack intact, so that "Redo" can still be used.
+    */
+    History.prototype.rewind = function () {
+        // Create snap shot if not yet recorded
+        if (this.$editable.html() !== this.stack[this.stackOffset].contents) {
+            this.recordUndo();
+        }
+        // Return to the first available snapshot.
+        this.stackOffset = 0;
+        // Apply that snapshot.
+        this.applySnapshot(this.stack[this.stackOffset]);
+    };
+    /**
+    * @method reset
+    * Resets the history stack completely; reverting to an empty editor.
+    */
+    History.prototype.reset = function () {
+        // Clear the stack.
+        this.stack = [];
+        // Restore stackOffset to its original value.
+        this.stackOffset = -1;
+        // Clear the editable area.
+        this.$editable.html('');
+        // Record our first snapshot (of nothing).
+        this.recordUndo();
+    };
+    /**
+     * undo
+     */
+    History.prototype.undo = function () {
+        // Create snap shot if not yet recorded
+        if (this.$editable.html() !== this.stack[this.stackOffset].contents) {
+            this.recordUndo();
+        }
+        if (this.stackOffset > 0) {
+            this.stackOffset--;
+            this.applySnapshot(this.stack[this.stackOffset]);
+        }
+    };
+    /**
+     * redo
+     */
+    History.prototype.redo = function () {
+        if (this.stack.length - 1 > this.stackOffset) {
+            this.stackOffset++;
+            this.applySnapshot(this.stack[this.stackOffset]);
+        }
+    };
+    /**
+     * recorded undo
+     */
+    History.prototype.recordUndo = function () {
+        this.stackOffset++;
+        // Wash out stack after stackOffset
+        if (this.stack.length > this.stackOffset) {
+            this.stack = this.stack.slice(0, this.stackOffset);
+        }
+        // Create new snapshot and push it to the end
+        this.stack.push(this.makeSnapshot());
+    };
+    return History;
+}());
+
+var Style = /** @class */ (function () {
+    function Style() {
+    }
+    /**
+     * @method jQueryCSS
+     *
+     * [workaround] for old jQuery
+     * passing an array of style properties to .css()
+     * will result in an object of property-value pairs.
+     * (compability with version < 1.9)
+     *
+     * @private
+     * @param  {jQuery} $obj
+     * @param  {Array} propertyNames - An array of one or more CSS properties.
+     * @return {Object}
+     */
+    Style.prototype.jQueryCSS = function ($obj, propertyNames) {
+        if (env.jqueryVersion < 1.9) {
+            var result_1 = {};
+            $$1.each(propertyNames, function (idx, propertyName) {
+                result_1[propertyName] = $obj.css(propertyName);
+            });
+            return result_1;
+        }
+        return $obj.css(propertyNames);
+    };
+    /**
+     * returns style object from node
+     *
+     * @param {jQuery} $node
+     * @return {Object}
+     */
+    Style.prototype.fromNode = function ($node) {
+        var properties = ['font-family', 'font-size', 'text-align', 'list-style-type', 'line-height'];
+        var styleInfo = this.jQueryCSS($node, properties) || {};
+        styleInfo['font-size'] = parseInt(styleInfo['font-size'], 10);
+        return styleInfo;
+    };
+    /**
+     * paragraph level style
+     *
+     * @param {WrappedRange} rng
+     * @param {Object} styleInfo
+     */
+    Style.prototype.stylePara = function (rng, styleInfo) {
+        $$1.each(rng.nodes(dom.isPara, {
+            includeAncestor: true
+        }), function (idx, para) {
+            $$1(para).css(styleInfo);
+        });
+    };
+    /**
+     * insert and returns styleNodes on range.
+     *
+     * @param {WrappedRange} rng
+     * @param {Object} [options] - options for styleNodes
+     * @param {String} [options.nodeName] - default: `SPAN`
+     * @param {Boolean} [options.expandClosestSibling] - default: `false`
+     * @param {Boolean} [options.onlyPartialContains] - default: `false`
+     * @return {Node[]}
+     */
+    Style.prototype.styleNodes = function (rng, options) {
+        rng = rng.splitText();
+        var nodeName = (options && options.nodeName) || 'SPAN';
+        var expandClosestSibling = !!(options && options.expandClosestSibling);
+        var onlyPartialContains = !!(options && options.onlyPartialContains);
+        if (rng.isCollapsed()) {
+            return [rng.insertNode(dom.create(nodeName))];
+        }
+        var pred = dom.makePredByNodeName(nodeName);
+        var nodes = rng.nodes(dom.isText, {
+            fullyContains: true
+        }).map(function (text) {
+            return dom.singleChildAncestor(text, pred) || dom.wrap(text, nodeName);
+        });
+        if (expandClosestSibling) {
+            if (onlyPartialContains) {
+                var nodesInRange_1 = rng.nodes();
+                // compose with partial contains predication
+                pred = func.and(pred, function (node) {
+                    return lists.contains(nodesInRange_1, node);
+                });
+            }
+            return nodes.map(function (node) {
+                var siblings = dom.withClosestSiblings(node, pred);
+                var head = lists.head(siblings);
+                var tails = lists.tail(siblings);
+                $$1.each(tails, function (idx, elem) {
+                    dom.appendChildNodes(head, elem.childNodes);
+                    dom.remove(elem);
+                });
+                return lists.head(siblings);
+            });
+        }
+        else {
+            return nodes;
+        }
+    };
+    /**
+     * get current style on cursor
+     *
+     * @param {WrappedRange} rng
+     * @return {Object} - object contains style properties.
+     */
+    Style.prototype.current = function (rng) {
+        var $cont = $$1(!dom.isElement(rng.sc) ? rng.sc.parentNode : rng.sc);
+        var styleInfo = this.fromNode($cont);
+        // document.queryCommandState for toggle state
+        // [workaround] prevent Firefox nsresult: "0x80004005 (NS_ERROR_FAILURE)"
+        try {
+            styleInfo = $$1.extend(styleInfo, {
+                'font-bold': document.queryCommandState('bold') ? 'bold' : 'normal',
+                'font-italic': document.queryCommandState('italic') ? 'italic' : 'normal',
+                'font-underline': document.queryCommandState('underline') ? 'underline' : 'normal',
+                'font-subscript': document.queryCommandState('subscript') ? 'subscript' : 'normal',
+                'font-superscript': document.queryCommandState('superscript') ? 'superscript' : 'normal',
+                'font-strikethrough': document.queryCommandState('strikethrough') ? 'strikethrough' : 'normal',
+                'font-family': document.queryCommandValue('fontname') || styleInfo['font-family']
+            });
+        }
+        catch (e) { }
+        // list-style-type to list-style(unordered, ordered)
+        if (!rng.isOnList()) {
+            styleInfo['list-style'] = 'none';
+        }
+        else {
+            var orderedTypes = ['circle', 'disc', 'disc-leading-zero', 'square'];
+            var isUnordered = $$1.inArray(styleInfo['list-style-type'], orderedTypes) > -1;
+            styleInfo['list-style'] = isUnordered ? 'unordered' : 'ordered';
+        }
+        var para = dom.ancestor(rng.sc, dom.isPara);
+        if (para && para.style['line-height']) {
+            styleInfo['line-height'] = para.style.lineHeight;
+        }
+        else {
+            var lineHeight = parseInt(styleInfo['line-height'], 10) / parseInt(styleInfo['font-size'], 10);
+            styleInfo['line-height'] = lineHeight.toFixed(1);
+        }
+        styleInfo.anchor = rng.isOnAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
+        styleInfo.ancestors = dom.listAncestor(rng.sc, dom.isEditable);
+        styleInfo.range = rng;
+        return styleInfo;
+    };
+    return Style;
+}());
+
+var Bullet = /** @class */ (function () {
+    function Bullet() {
+    }
+    /**
+     * toggle ordered list
+     */
+    Bullet.prototype.insertOrderedList = function (editable) {
+        this.toggleList('OL', editable);
+    };
+    /**
+     * toggle unordered list
+     */
+    Bullet.prototype.insertUnorderedList = function (editable) {
+        this.toggleList('UL', editable);
+    };
+    /**
+     * indent
+     */
+    Bullet.prototype.indent = function (editable) {
+        var _this = this;
+        var rng = range.create(editable).wrapBodyInlineWithPara();
+        var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+        var clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
+        $$1.each(clustereds, function (idx, paras) {
+            var head = lists.head(paras);
+            if (dom.isLi(head)) {
+                _this.wrapList(paras, head.parentNode.nodeName);
+            }
+            else {
+                $$1.each(paras, function (idx, para) {
+                    $$1(para).css('marginLeft', function (idx, val) {
+                        return (parseInt(val, 10) || 0) + 25;
+                    });
+                });
+            }
+        });
+        rng.select();
+    };
+    /**
+     * outdent
+     */
+    Bullet.prototype.outdent = function (editable) {
+        var _this = this;
+        var rng = range.create(editable).wrapBodyInlineWithPara();
+        var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+        var clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
+        $$1.each(clustereds, function (idx, paras) {
+            var head = lists.head(paras);
+            if (dom.isLi(head)) {
+                _this.releaseList([paras]);
+            }
+            else {
+                $$1.each(paras, function (idx, para) {
+                    $$1(para).css('marginLeft', function (idx, val) {
+                        val = (parseInt(val, 10) || 0);
+                        return val > 25 ? val - 25 : '';
+                    });
+                });
+            }
+        });
+        rng.select();
+    };
+    /**
+     * toggle list
+     *
+     * @param {String} listName - OL or UL
+     */
+    Bullet.prototype.toggleList = function (listName, editable) {
+        var _this = this;
+        var rng = range.create(editable).wrapBodyInlineWithPara();
+        var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+        var bookmark = rng.paraBookmark(paras);
+        var clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
+        // paragraph to list
+        if (lists.find(paras, dom.isPurePara)) {
+            var wrappedParas_1 = [];
+            $$1.each(clustereds, function (idx, paras) {
+                wrappedParas_1 = wrappedParas_1.concat(_this.wrapList(paras, listName));
+            });
+            paras = wrappedParas_1;
+            // list to paragraph or change list style
+        }
+        else {
+            var diffLists = rng.nodes(dom.isList, {
+                includeAncestor: true
+            }).filter(function (listNode) {
+                return !$$1.nodeName(listNode, listName);
+            });
+            if (diffLists.length) {
+                $$1.each(diffLists, function (idx, listNode) {
+                    dom.replace(listNode, listName);
+                });
+            }
+            else {
+                paras = this.releaseList(clustereds, true);
+            }
+        }
+        range.createFromParaBookmark(bookmark, paras).select();
+    };
+    /**
+     * @param {Node[]} paras
+     * @param {String} listName
+     * @return {Node[]}
+     */
+    Bullet.prototype.wrapList = function (paras, listName) {
+        var head = lists.head(paras);
+        var last = lists.last(paras);
+        var prevList = dom.isList(head.previousSibling) && head.previousSibling;
+        var nextList = dom.isList(last.nextSibling) && last.nextSibling;
+        var listNode = prevList || dom.insertAfter(dom.create(listName || 'UL'), last);
+        // P to LI
+        paras = paras.map(function (para) {
+            return dom.isPurePara(para) ? dom.replace(para, 'LI') : para;
+        });
+        // append to list(<ul>, <ol>)
+        dom.appendChildNodes(listNode, paras);
+        if (nextList) {
+            dom.appendChildNodes(listNode, lists.from(nextList.childNodes));
+            dom.remove(nextList);
+        }
+        return paras;
+    };
+    /**
+     * @method releaseList
+     *
+     * @param {Array[]} clustereds
+     * @param {Boolean} isEscapseToBody
+     * @return {Node[]}
+     */
+    Bullet.prototype.releaseList = function (clustereds, isEscapseToBody) {
+        var releasedParas = [];
+        $$1.each(clustereds, function (idx, paras) {
+            var head = lists.head(paras);
+            var last = lists.last(paras);
+            var headList = isEscapseToBody ? dom.lastAncestor(head, dom.isList) : head.parentNode;
+            var lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
+                node: last.parentNode,
+                offset: dom.position(last) + 1
+            }, {
+                isSkipPaddingBlankHTML: true
+            }) : null;
+            var middleList = dom.splitTree(headList, {
+                node: head.parentNode,
+                offset: dom.position(head)
+            }, {
+                isSkipPaddingBlankHTML: true
+            });
+            paras = isEscapseToBody ? dom.listDescendant(middleList, dom.isLi)
+                : lists.from(middleList.childNodes).filter(dom.isLi);
+            // LI to P
+            if (isEscapseToBody || !dom.isList(headList.parentNode)) {
+                paras = paras.map(function (para) {
+                    return dom.replace(para, 'P');
+                });
+            }
+            $$1.each(lists.from(paras).reverse(), function (idx, para) {
+                dom.insertAfter(para, headList);
+            });
+            // remove empty lists
+            var rootLists = lists.compact([headList, middleList, lastList]);
+            $$1.each(rootLists, function (idx, rootList) {
+                var listNodes = [rootList].concat(dom.listDescendant(rootList, dom.isList));
+                $$1.each(listNodes.reverse(), function (idx, listNode) {
+                    if (!dom.nodeLength(listNode)) {
+                        dom.remove(listNode, true);
+                    }
+                });
+            });
+            releasedParas = releasedParas.concat(paras);
+        });
+        return releasedParas;
+    };
+    return Bullet;
+}());
+
+/**
+ * @class editing.Typing
+ *
+ * Typing
+ *
+ */
+var Typing = /** @class */ (function () {
+    function Typing() {
+        // a Bullet instance to toggle lists off
+        this.bullet = new Bullet();
+    }
+    /**
+     * insert tab
+     *
+     * @param {WrappedRange} rng
+     * @param {Number} tabsize
+     */
+    Typing.prototype.insertTab = function (rng, tabsize) {
+        var tab = dom.createText(new Array(tabsize + 1).join(dom.NBSP_CHAR));
+        rng = rng.deleteContents();
+        rng.insertNode(tab, true);
+        rng = range.create(tab, tabsize);
+        rng.select();
+    };
+    /**
+     * insert paragraph
+     */
+    Typing.prototype.insertParagraph = function (editable) {
+        var rng = range.create(editable);
+        // deleteContents on range.
+        rng = rng.deleteContents();
+        // Wrap range if it needs to be wrapped by paragraph
+        rng = rng.wrapBodyInlineWithPara();
+        // finding paragraph
+        var splitRoot = dom.ancestor(rng.sc, dom.isPara);
+        var nextPara;
+        // on paragraph: split paragraph
+        if (splitRoot) {
+            // if it is an empty line with li
+            if (dom.isEmpty(splitRoot) && dom.isLi(splitRoot)) {
+                // toogle UL/OL and escape
+                this.bullet.toggleList(splitRoot.parentNode.nodeName);
+                return;
+                // if it is an empty line with para on blockquote
+            }
+            else if (dom.isEmpty(splitRoot) && dom.isPara(splitRoot) && dom.isBlockquote(splitRoot.parentNode)) {
+                // escape blockquote
+                dom.insertAfter(splitRoot, splitRoot.parentNode);
+                nextPara = splitRoot;
+                // if new line has content (not a line break)
+            }
+            else {
+                nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
+                var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
+                emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
+                $$1.each(emptyAnchors, function (idx, anchor) {
+                    dom.remove(anchor);
+                });
+                // replace empty heading, pre or custom-made styleTag with P tag
+                if ((dom.isHeading(nextPara) || dom.isPre(nextPara) || dom.isCustomStyleTag(nextPara)) && dom.isEmpty(nextPara)) {
+                    nextPara = dom.replace(nextPara, 'p');
+                }
+            }
+            // no paragraph: insert empty paragraph
+        }
+        else {
+            var next = rng.sc.childNodes[rng.so];
+            nextPara = $$1(dom.emptyPara)[0];
+            if (next) {
+                rng.sc.insertBefore(nextPara, next);
+            }
+            else {
+                rng.sc.appendChild(nextPara);
+            }
+        }
+        range.create(nextPara, 0).normalize().select().scrollIntoView(editable);
+    };
+    return Typing;
+}());
+
+/**
+ * @class Create a virtual table to create what actions to do in change.
+ * @param {object} startPoint Cell selected to apply change.
+ * @param {enum} where  Where change will be applied Row or Col. Use enum: TableResultAction.where
+ * @param {enum} action Action to be applied. Use enum: TableResultAction.requestAction
+ * @param {object} domTable Dom element of table to make changes.
+ */
+var TableResultAction = function (startPoint, where, action, domTable) {
+    var _startPoint = { 'colPos': 0, 'rowPos': 0 };
+    var _virtualTable = [];
+    var _actionCellList = [];
+    /// ///////////////////////////////////////////
+    // Private functions
+    /// ///////////////////////////////////////////
+    /**
+     * Set the startPoint of action.
+     */
+    function setStartPoint() {
+        if (!startPoint || !startPoint.tagName || (startPoint.tagName.toLowerCase() !== 'td' && startPoint.tagName.toLowerCase() !== 'th')) {
+            console.error('Impossible to identify start Cell point.', startPoint);
+            return;
+        }
+        _startPoint.colPos = startPoint.cellIndex;
+        if (!startPoint.parentElement || !startPoint.parentElement.tagName || startPoint.parentElement.tagName.toLowerCase() !== 'tr') {
+            console.error('Impossible to identify start Row point.', startPoint);
+            return;
+        }
+        _startPoint.rowPos = startPoint.parentElement.rowIndex;
+    }
+    /**
+     * Define virtual table position info object.
+     *
+     * @param {int} rowIndex Index position in line of virtual table.
+     * @param {int} cellIndex Index position in column of virtual table.
+     * @param {object} baseRow Row affected by this position.
+     * @param {object} baseCell Cell affected by this position.
+     * @param {bool} isSpan Inform if it is an span cell/row.
+     */
+    function setVirtualTablePosition(rowIndex, cellIndex, baseRow, baseCell, isRowSpan, isColSpan, isVirtualCell) {
+        var objPosition = {
+            'baseRow': baseRow,
+            'baseCell': baseCell,
+            'isRowSpan': isRowSpan,
+            'isColSpan': isColSpan,
+            'isVirtual': isVirtualCell
+        };
+        if (!_virtualTable[rowIndex]) {
+            _virtualTable[rowIndex] = [];
+        }
+        _virtualTable[rowIndex][cellIndex] = objPosition;
+    }
+    /**
+     * Create action cell object.
+     *
+     * @param {object} virtualTableCellObj Object of specific position on virtual table.
+     * @param {enum} resultAction Action to be applied in that item.
+     */
+    function getActionCell(virtualTableCellObj, resultAction, virtualRowPosition, virtualColPosition) {
+        return {
+            'baseCell': virtualTableCellObj.baseCell,
+            'action': resultAction,
+            'virtualTable': {
+                'rowIndex': virtualRowPosition,
+                'cellIndex': virtualColPosition
+            }
+        };
+    }
+    /**
+     * Recover free index of row to append Cell.
+     *
+     * @param {int} rowIndex Index of row to find free space.
+     * @param {int} cellIndex Index of cell to find free space in table.
+     */
+    function recoverCellIndex(rowIndex, cellIndex) {
+        if (!_virtualTable[rowIndex]) {
+            return cellIndex;
+        }
+        if (!_virtualTable[rowIndex][cellIndex]) {
+            return cellIndex;
+        }
+        var newCellIndex = cellIndex;
+        while (_virtualTable[rowIndex][newCellIndex]) {
+            newCellIndex++;
+            if (!_virtualTable[rowIndex][newCellIndex]) {
+                return newCellIndex;
+            }
+        }
+    }
+    /**
+     * Recover info about row and cell and add information to virtual table.
+     *
+     * @param {object} row Row to recover information.
+     * @param {object} cell Cell to recover information.
+     */
+    function addCellInfoToVirtual(row, cell) {
+        var cellIndex = recoverCellIndex(row.rowIndex, cell.cellIndex);
+        var cellHasColspan = (cell.colSpan > 1);
+        var cellHasRowspan = (cell.rowSpan > 1);
+        var isThisSelectedCell = (row.rowIndex === _startPoint.rowPos && cell.cellIndex === _startPoint.colPos);
+        setVirtualTablePosition(row.rowIndex, cellIndex, row, cell, cellHasRowspan, cellHasColspan, false);
+        // Add span rows to virtual Table.
+        var rowspanNumber = cell.attributes.rowSpan ? parseInt(cell.attributes.rowSpan.value, 10) : 0;
+        if (rowspanNumber > 1) {
+            for (var rp = 1; rp < rowspanNumber; rp++) {
+                var rowspanIndex = row.rowIndex + rp;
+                adjustStartPoint(rowspanIndex, cellIndex, cell, isThisSelectedCell);
+                setVirtualTablePosition(rowspanIndex, cellIndex, row, cell, true, cellHasColspan, true);
+            }
+        }
+        // Add span cols to virtual table.
+        var colspanNumber = cell.attributes.colSpan ? parseInt(cell.attributes.colSpan.value, 10) : 0;
+        if (colspanNumber > 1) {
+            for (var cp = 1; cp < colspanNumber; cp++) {
+                var cellspanIndex = recoverCellIndex(row.rowIndex, (cellIndex + cp));
+                adjustStartPoint(row.rowIndex, cellspanIndex, cell, isThisSelectedCell);
+                setVirtualTablePosition(row.rowIndex, cellspanIndex, row, cell, cellHasRowspan, true, true);
+            }
+        }
+    }
+    /**
+     * Process validation and adjust of start point if needed
+     *
+     * @param {int} rowIndex
+     * @param {int} cellIndex
+     * @param {object} cell
+     * @param {bool} isSelectedCell
+     */
+    function adjustStartPoint(rowIndex, cellIndex, cell, isSelectedCell) {
+        if (rowIndex === _startPoint.rowPos && _startPoint.colPos >= cell.cellIndex && cell.cellIndex <= cellIndex && !isSelectedCell) {
+            _startPoint.colPos++;
+        }
+    }
+    /**
+     * Create virtual table of cells with all cells, including span cells.
+     */
+    function createVirtualTable() {
+        var rows = domTable.rows;
+        for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+            var cells = rows[rowIndex].cells;
+            for (var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
+                addCellInfoToVirtual(rows[rowIndex], cells[cellIndex]);
+            }
+        }
+    }
+    /**
+     * Get action to be applied on the cell.
+     *
+     * @param {object} cell virtual table cell to apply action
+     */
+    function getDeleteResultActionToCell(cell) {
+        switch (where) {
+            case TableResultAction.where.Column:
+                if (cell.isColSpan) {
+                    return TableResultAction.resultAction.SubtractSpanCount;
+                }
+                break;
+            case TableResultAction.where.Row:
+                if (!cell.isVirtual && cell.isRowSpan) {
+                    return TableResultAction.resultAction.AddCell;
+                }
+                else if (cell.isRowSpan) {
+                    return TableResultAction.resultAction.SubtractSpanCount;
+                }
+                break;
+        }
+        return TableResultAction.resultAction.RemoveCell;
+    }
+    /**
+     * Get action to be applied on the cell.
+     *
+     * @param {object} cell virtual table cell to apply action
+     */
+    function getAddResultActionToCell(cell) {
+        switch (where) {
+            case TableResultAction.where.Column:
+                if (cell.isColSpan) {
+                    return TableResultAction.resultAction.SumSpanCount;
+                }
+                else if (cell.isRowSpan && cell.isVirtual) {
+                    return TableResultAction.resultAction.Ignore;
+                }
+                break;
+            case TableResultAction.where.Row:
+                if (cell.isRowSpan) {
+                    return TableResultAction.resultAction.SumSpanCount;
+                }
+                else if (cell.isColSpan && cell.isVirtual) {
+                    return TableResultAction.resultAction.Ignore;
+                }
+                break;
+        }
+        return TableResultAction.resultAction.AddCell;
+    }
+    function init() {
+        setStartPoint();
+        createVirtualTable();
+    }
+    /// ///////////////////////////////////////////
+    // Public functions
+    /// ///////////////////////////////////////////
+    /**
+     * Recover array os what to do in table.
+     */
+    this.getActionList = function () {
+        var fixedRow = (where === TableResultAction.where.Row) ? _startPoint.rowPos : -1;
+        var fixedCol = (where === TableResultAction.where.Column) ? _startPoint.colPos : -1;
+        var actualPosition = 0;
+        var canContinue = true;
+        while (canContinue) {
+            var rowPosition = (fixedRow >= 0) ? fixedRow : actualPosition;
+            var colPosition = (fixedCol >= 0) ? fixedCol : actualPosition;
+            var row = _virtualTable[rowPosition];
+            if (!row) {
+                canContinue = false;
+                return _actionCellList;
+            }
+            var cell = row[colPosition];
+            if (!cell) {
+                canContinue = false;
+                return _actionCellList;
+            }
+            // Define action to be applied in this cell
+            var resultAction = TableResultAction.resultAction.Ignore;
+            switch (action) {
+                case TableResultAction.requestAction.Add:
+                    resultAction = getAddResultActionToCell(cell);
+                    break;
+                case TableResultAction.requestAction.Delete:
+                    resultAction = getDeleteResultActionToCell(cell);
+                    break;
+            }
+            _actionCellList.push(getActionCell(cell, resultAction, rowPosition, colPosition));
+            actualPosition++;
+        }
+        return _actionCellList;
+    };
+    init();
+};
+/**
+*
+* Where action occours enum.
+*/
+TableResultAction.where = { 'Row': 0, 'Column': 1 };
+/**
+*
+* Requested action to apply enum.
+*/
+TableResultAction.requestAction = { 'Add': 0, 'Delete': 1 };
+/**
+*
+* Result action to be executed enum.
+*/
+TableResultAction.resultAction = { 'Ignore': 0, 'SubtractSpanCount': 1, 'RemoveCell': 2, 'AddCell': 3, 'SumSpanCount': 4 };
+/**
+ *
+ * @class editing.Table
+ *
+ * Table
+ *
+ */
+var Table = /** @class */ (function () {
+    function Table() {
+    }
+    /**
+     * handle tab key
+     *
+     * @param {WrappedRange} rng
+     * @param {Boolean} isShift
+     */
+    Table.prototype.tab = function (rng, isShift) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        var table = dom.ancestor(cell, dom.isTable);
+        var cells = dom.listDescendant(table, dom.isCell);
+        var nextCell = lists[isShift ? 'prev' : 'next'](cells, cell);
+        if (nextCell) {
+            range.create(nextCell, 0).select();
+        }
+    };
+    /**
+     * Add a new row
+     *
+     * @param {WrappedRange} rng
+     * @param {String} position (top/bottom)
+     * @return {Node}
+     */
+    Table.prototype.addRow = function (rng, position) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        var currentTr = $$1(cell).closest('tr');
+        var trAttributes = this.recoverAttributes(currentTr);
+        var html = $$1('<tr' + trAttributes + '></tr>');
+        var vTable = new TableResultAction(cell, TableResultAction.where.Row, TableResultAction.requestAction.Add, $$1(currentTr).closest('table')[0]);
+        var actions = vTable.getActionList();
+        for (var idCell = 0; idCell < actions.length; idCell++) {
+            var currentCell = actions[idCell];
+            var tdAttributes = this.recoverAttributes(currentCell.baseCell);
+            switch (currentCell.action) {
+                case TableResultAction.resultAction.AddCell:
+                    html.append('<td' + tdAttributes + '>' + dom.blank + '</td>');
+                    break;
+                case TableResultAction.resultAction.SumSpanCount:
+                    if (position === 'top') {
+                        var baseCellTr = currentCell.baseCell.parent;
+                        var isTopFromRowSpan = (!baseCellTr ? 0 : currentCell.baseCell.closest('tr').rowIndex) <= currentTr[0].rowIndex;
+                        if (isTopFromRowSpan) {
+                            var newTd = $$1('<div></div>').append($$1('<td' + tdAttributes + '>' + dom.blank + '</td>').removeAttr('rowspan')).html();
+                            html.append(newTd);
+                            break;
+                        }
+                    }
+                    var rowspanNumber = parseInt(currentCell.baseCell.rowSpan, 10);
+                    rowspanNumber++;
+                    currentCell.baseCell.setAttribute('rowSpan', rowspanNumber);
+                    break;
+            }
+        }
+        if (position === 'top') {
+            currentTr.before(html);
+        }
+        else {
+            var cellHasRowspan = (cell.rowSpan > 1);
+            if (cellHasRowspan) {
+                var lastTrIndex = currentTr[0].rowIndex + (cell.rowSpan - 2);
+                $$1($$1(currentTr).parent().find('tr')[lastTrIndex]).after($$1(html));
+                return;
+            }
+            currentTr.after(html);
+        }
+    };
+    /**
+     * Add a new col
+     *
+     * @param {WrappedRange} rng
+     * @param {String} position (left/right)
+     * @return {Node}
+     */
+    Table.prototype.addCol = function (rng, position) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        var row = $$1(cell).closest('tr');
+        var rowsGroup = $$1(row).siblings();
+        rowsGroup.push(row);
+        var vTable = new TableResultAction(cell, TableResultAction.where.Column, TableResultAction.requestAction.Add, $$1(row).closest('table')[0]);
+        var actions = vTable.getActionList();
+        for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
+            var currentCell = actions[actionIndex];
+            var tdAttributes = this.recoverAttributes(currentCell.baseCell);
+            switch (currentCell.action) {
+                case TableResultAction.resultAction.AddCell:
+                    if (position === 'right') {
+                        $$1(currentCell.baseCell).after('<td' + tdAttributes + '>' + dom.blank + '</td>');
+                    }
+                    else {
+                        $$1(currentCell.baseCell).before('<td' + tdAttributes + '>' + dom.blank + '</td>');
+                    }
+                    break;
+                case TableResultAction.resultAction.SumSpanCount:
+                    if (position === 'right') {
+                        var colspanNumber = parseInt(currentCell.baseCell.colSpan, 10);
+                        colspanNumber++;
+                        currentCell.baseCell.setAttribute('colSpan', colspanNumber);
+                    }
+                    else {
+                        $$1(currentCell.baseCell).before('<td' + tdAttributes + '>' + dom.blank + '</td>');
+                    }
+                    break;
+            }
+        }
+    };
+    /*
+    * Copy attributes from element.
+    *
+    * @param {object} Element to recover attributes.
+    * @return {string} Copied string elements.
+    */
+    Table.prototype.recoverAttributes = function (el) {
+        var resultStr = '';
+        if (!el) {
+            return resultStr;
+        }
+        var attrList = el.attributes || [];
+        for (var i = 0; i < attrList.length; i++) {
+            if (attrList[i].name.toLowerCase() === 'id') {
+                continue;
+            }
+            if (attrList[i].specified) {
+                resultStr += ' ' + attrList[i].name + '=\'' + attrList[i].value + '\'';
+            }
+        }
+        return resultStr;
+    };
+    /**
+     * Delete current row
+     *
+     * @param {WrappedRange} rng
+     * @return {Node}
+     */
+    Table.prototype.deleteRow = function (rng) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        var row = $$1(cell).closest('tr');
+        var cellPos = row.children('td, th').index($$1(cell));
+        var rowPos = row[0].rowIndex;
+        var vTable = new TableResultAction(cell, TableResultAction.where.Row, TableResultAction.requestAction.Delete, $$1(row).closest('table')[0]);
+        var actions = vTable.getActionList();
+        for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
+            if (!actions[actionIndex]) {
+                continue;
+            }
+            var baseCell = actions[actionIndex].baseCell;
+            var virtualPosition = actions[actionIndex].virtualTable;
+            var hasRowspan = (baseCell.rowSpan && baseCell.rowSpan > 1);
+            var rowspanNumber = (hasRowspan) ? parseInt(baseCell.rowSpan, 10) : 0;
+            switch (actions[actionIndex].action) {
+                case TableResultAction.resultAction.Ignore:
+                    continue;
+                case TableResultAction.resultAction.AddCell:
+                    var nextRow = row.next('tr')[0];
+                    if (!nextRow) {
+                        continue;
+                    }
+                    var cloneRow = row[0].cells[cellPos];
+                    if (hasRowspan) {
+                        if (rowspanNumber > 2) {
+                            rowspanNumber--;
+                            nextRow.insertBefore(cloneRow, nextRow.cells[cellPos]);
+                            nextRow.cells[cellPos].setAttribute('rowSpan', rowspanNumber);
+                            nextRow.cells[cellPos].innerHTML = '';
+                        }
+                        else if (rowspanNumber === 2) {
+                            nextRow.insertBefore(cloneRow, nextRow.cells[cellPos]);
+                            nextRow.cells[cellPos].removeAttribute('rowSpan');
+                            nextRow.cells[cellPos].innerHTML = '';
+                        }
+                    }
+                    continue;
+                case TableResultAction.resultAction.SubtractSpanCount:
+                    if (hasRowspan) {
+                        if (rowspanNumber > 2) {
+                            rowspanNumber--;
+                            baseCell.setAttribute('rowSpan', rowspanNumber);
+                            if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) {
+                                baseCell.innerHTML = '';
+                            }
+                        }
+                        else if (rowspanNumber === 2) {
+                            baseCell.removeAttribute('rowSpan');
+                            if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) {
+                                baseCell.innerHTML = '';
+                            }
+                        }
+                    }
+                    continue;
+                case TableResultAction.resultAction.RemoveCell:
+                    // Do not need remove cell because row will be deleted.
+                    continue;
+            }
+        }
+        row.remove();
+    };
+    /**
+     * Delete current col
+     *
+     * @param {WrappedRange} rng
+     * @return {Node}
+     */
+    Table.prototype.deleteCol = function (rng) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        var row = $$1(cell).closest('tr');
+        var cellPos = row.children('td, th').index($$1(cell));
+        var vTable = new TableResultAction(cell, TableResultAction.where.Column, TableResultAction.requestAction.Delete, $$1(row).closest('table')[0]);
+        var actions = vTable.getActionList();
+        for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
+            if (!actions[actionIndex]) {
+                continue;
+            }
+            switch (actions[actionIndex].action) {
+                case TableResultAction.resultAction.Ignore:
+                    continue;
+                case TableResultAction.resultAction.SubtractSpanCount:
+                    var baseCell = actions[actionIndex].baseCell;
+                    var hasColspan = (baseCell.colSpan && baseCell.colSpan > 1);
+                    if (hasColspan) {
+                        var colspanNumber = (baseCell.colSpan) ? parseInt(baseCell.colSpan, 10) : 0;
+                        if (colspanNumber > 2) {
+                            colspanNumber--;
+                            baseCell.setAttribute('colSpan', colspanNumber);
+                            if (baseCell.cellIndex === cellPos) {
+                                baseCell.innerHTML = '';
+                            }
+                        }
+                        else if (colspanNumber === 2) {
+                            baseCell.removeAttribute('colSpan');
+                            if (baseCell.cellIndex === cellPos) {
+                                baseCell.innerHTML = '';
+                            }
+                        }
+                    }
+                    continue;
+                case TableResultAction.resultAction.RemoveCell:
+                    dom.remove(actions[actionIndex].baseCell, true);
+                    continue;
+            }
+        }
+    };
+    /**
+     * create empty table element
+     *
+     * @param {Number} rowCount
+     * @param {Number} colCount
+     * @return {Node}
+     */
+    Table.prototype.createTable = function (colCount, rowCount, options) {
+        var tds = [];
+        var tdHTML;
+        for (var idxCol = 0; idxCol < colCount; idxCol++) {
+            tds.push('<td>' + dom.blank + '</td>');
+        }
+        tdHTML = tds.join('');
+        var trs = [];
+        var trHTML;
+        for (var idxRow = 0; idxRow < rowCount; idxRow++) {
+            trs.push('<tr>' + tdHTML + '</tr>');
+        }
+        trHTML = trs.join('');
+        var $table = $$1('<table>' + trHTML + '</table>');
+        if (options && options.tableClassName) {
+            $table.addClass(options.tableClassName);
+        }
+        return $table[0];
+    };
+    /**
+     * Delete current table
+     *
+     * @param {WrappedRange} rng
+     * @return {Node}
+     */
+    Table.prototype.deleteTable = function (rng) {
+        var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+        $$1(cell).closest('table').remove();
+    };
+    return Table;
+}());
+
+var KEY_BOGUS = 'bogus';
+/**
+ * @class Editor
+ */
+var Editor = /** @class */ (function () {
+    function Editor(context) {
+        var _this = this;
+        this.context = context;
+        this.$note = context.layoutInfo.note;
+        this.$editor = context.layoutInfo.editor;
+        this.$editable = context.layoutInfo.editable;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+        this.editable = this.$editable[0];
+        this.lastRange = null;
+        this.style = new Style();
+        this.table = new Table();
+        this.typing = new Typing();
+        this.bullet = new Bullet();
+        this.history = new History(this.$editable);
+        this.context.memo('help.undo', this.lang.help.undo);
+        this.context.memo('help.redo', this.lang.help.redo);
+        this.context.memo('help.tab', this.lang.help.tab);
+        this.context.memo('help.untab', this.lang.help.untab);
+        this.context.memo('help.insertParagraph', this.lang.help.insertParagraph);
+        this.context.memo('help.insertOrderedList', this.lang.help.insertOrderedList);
+        this.context.memo('help.insertUnorderedList', this.lang.help.insertUnorderedList);
+        this.context.memo('help.indent', this.lang.help.indent);
+        this.context.memo('help.outdent', this.lang.help.outdent);
+        this.context.memo('help.formatPara', this.lang.help.formatPara);
+        this.context.memo('help.insertHorizontalRule', this.lang.help.insertHorizontalRule);
+        this.context.memo('help.fontName', this.lang.help.fontName);
+        // native commands(with execCommand), generate function for execCommand
+        var commands = [
+            'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
+            'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
+            'formatBlock', 'removeFormat', 'backColor'
+        ];
+        for (var idx = 0, len = commands.length; idx < len; idx++) {
+            this[commands[idx]] = (function (sCmd) {
+                return function (value) {
+                    _this.beforeCommand();
+                    document.execCommand(sCmd, false, value);
+                    _this.afterCommand(true);
+                };
+            })(commands[idx]);
+            this.context.memo('help.' + commands[idx], this.lang.help[commands[idx]]);
+        }
+        this.fontName = this.wrapCommand(function (value) {
+            return _this.fontStyling('font-family', "\'" + value + "\'");
+        });
+        this.fontSize = this.wrapCommand(function (value) {
+            return _this.fontStyling('font-size', value + 'px');
+        });
+        for (var idx = 1; idx <= 6; idx++) {
+            this['formatH' + idx] = (function (idx) {
+                return function () {
+                    _this.formatBlock('H' + idx);
+                };
+            })(idx);
+            this.context.memo('help.formatH' + idx, this.lang.help['formatH' + idx]);
+        }
+        
+        this.insertParagraph = this.wrapCommand(function () {
+            _this.typing.insertParagraph(_this.editable);
+        });
+        this.insertOrderedList = this.wrapCommand(function () {
+            _this.bullet.insertOrderedList(_this.editable);
+        });
+        this.insertUnorderedList = this.wrapCommand(function () {
+            _this.bullet.insertUnorderedList(_this.editable);
+        });
+        this.indent = this.wrapCommand(function () {
+            _this.bullet.indent(_this.editable);
+        });
+        this.outdent = this.wrapCommand(function () {
+            _this.bullet.outdent(_this.editable);
+        });
+        /**
+         * insertNode
+         * insert node
+         * @param {Node} node
+         */
+        this.insertNode = this.wrapCommand(function (node) {
+            if (_this.isLimited($$1(node).text().length)) {
+                return;
+            }
+            var rng = _this.createRange();
+            rng.insertNode(node);
+            range.createFromNodeAfter(node).select();
+        });
+        /**
+         * insert text
+         * @param {String} text
+         */
+        this.insertText = this.wrapCommand(function (text) {
+            if (_this.isLimited(text.length)) {
+                return;
+            }
+            var rng = _this.createRange();
+            var textNode = rng.insertNode(dom.createText(text));
+            range.create(textNode, dom.nodeLength(textNode)).select();
+        });
+        /**
+         * paste HTML
+         * @param {String} markup
+         */
+        this.pasteHTML = this.wrapCommand(function (markup) {
+            if (_this.isLimited(markup.length)) {
+                return;
+            }
+            var contents = _this.createRange().pasteHTML(markup);
+            range.createFromNodeAfter(lists.last(contents)).select();
+        });
+        /**
+         * formatBlock
+         *
+         * @param {String} tagName
+         */
+        this.formatBlock = this.wrapCommand(function (tagName, $target) {
+            var onApplyCustomStyle = _this.options.callbacks.onApplyCustomStyle;
+            if (onApplyCustomStyle) {
+                onApplyCustomStyle.call(_this, $target, _this.context, _this.onFormatBlock);
+            }
+            else {
+                _this.onFormatBlock(tagName, $target);
+            }
+        });
+        /**
+         * insert horizontal rule
+         */
+        this.insertHorizontalRule = this.wrapCommand(function () {
+            var hrNode = _this.createRange().insertNode(dom.create('HR'));
+            if (hrNode.nextSibling) {
+                range.create(hrNode.nextSibling, 0).normalize().select();
+            }
+        });
+        /**
+         * lineHeight
+         * @param {String} value
+         */
+        this.lineHeight = this.wrapCommand(function (value) {
+            _this.style.stylePara(_this.createRange(), {
+                lineHeight: value
+            });
+        });
+        /**
+         * create link (command)
+         *
+         * @param {Object} linkInfo
+         */
+        this.createLink = this.wrapCommand(function (linkInfo) {
+            var linkUrl = linkInfo.url;
+            var linkText = linkInfo.text;
+            var isNewWindow = linkInfo.isNewWindow;
+            var rng = linkInfo.range || _this.createRange();
+            var isTextChanged = rng.toString() !== linkText;
+            // handle spaced urls from input
+            if (typeof linkUrl === 'string') {
+                linkUrl = linkUrl.trim();
+            }
+            if (_this.options.onCreateLink) {
+                linkUrl = _this.options.onCreateLink(linkUrl);
+            }
+            else {
+                // if url doesn't match an URL schema, set http:// as default
+                linkUrl = /^[A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?/.test(linkUrl)
+                    ? linkUrl : 'http://' + linkUrl;
+            }
+            var anchors = [];
+            if (isTextChanged) {
+                rng = rng.deleteContents();
+                var anchor = rng.insertNode($$1('<A>' + linkText + '</A>')[0]);
+                anchors.push(anchor);
+            }
+            else {
+                anchors = _this.style.styleNodes(rng, {
+                    nodeName: 'A',
+                    expandClosestSibling: true,
+                    onlyPartialContains: true
+                });
+            }
+            $$1.each(anchors, function (idx, anchor) {
+                $$1(anchor).attr('href', linkUrl);
+                if (isNewWindow) {
+                    $$1(anchor).attr('target', '_blank');
+                }
+                else {
+                    $$1(anchor).removeAttr('target');
+                }
+            });
+            var startRange = range.createFromNodeBefore(lists.head(anchors));
+            var startPoint = startRange.getStartPoint();
+            var endRange = range.createFromNodeAfter(lists.last(anchors));
+            var endPoint = endRange.getEndPoint();
+            range.create(startPoint.node, startPoint.offset, endPoint.node, endPoint.offset).select();
+        });
+        /**
+         * setting color
+         *
+         * @param {Object} sObjColor  color code
+         * @param {String} sObjColor.foreColor foreground color
+         * @param {String} sObjColor.backColor background color
+         */
+        this.color = this.wrapCommand(function (colorInfo) {
+            var foreColor = colorInfo.foreColor;
+            var backColor = colorInfo.backColor;
+            if (foreColor) {
+                document.execCommand('foreColor', false, foreColor);
+            }
+            if (backColor) {
+                document.execCommand('backColor', false, backColor);
+            }
+        });
+        /**
+         * Set foreground color
+         *
+         * @param {String} colorCode foreground color code
+         */
+        this.foreColor = this.wrapCommand(function (colorInfo) {
+            document.execCommand('styleWithCSS', false, true);
+            document.execCommand('foreColor', false, colorInfo);
+        });
+        /**
+         * insert Table
+         *
+         * @param {String} dimension of table (ex : "5x5")
+         */
+        this.insertTable = this.wrapCommand(function (dim) {
+            var dimension = dim.split('x');
+            var rng = _this.createRange().deleteContents();
+            rng.insertNode(_this.table.createTable(dimension[0], dimension[1], _this.options));
+        });
+        /**
+         * remove media object and Figure Elements if media object is img with Figure.
+         */
+        this.removeMedia = this.wrapCommand(function () {
+            var $target = $$1(_this.restoreTarget()).parent();
+            if ($target.parent('figure').length) {
+                $target.parent('figure').remove();
+            }
+            else {
+                $target = $$1(_this.restoreTarget()).detach();
+            }
+            _this.context.triggerEvent('media.delete', $target, _this.$editable);
+        });
+        /**
+         * float me
+         *
+         * @param {String} value
+         */
+        this.floatMe = this.wrapCommand(function (value) {
+            var $target = $$1(_this.restoreTarget());
+            $target.toggleClass('note-float-left', value === 'left');
+            $target.toggleClass('note-float-right', value === 'right');
+            $target.css('float', value);
+        });
+        /**
+         * resize overlay element
+         * @param {String} value
+         */
+        this.resize = this.wrapCommand(function (value) {
+            var $target = $$1(_this.restoreTarget());
+            $target.css({
+                width: value * 100 + '%',
+                height: ''
+            });
+        });
+    }
+    Editor.prototype.initialize = function () {
+        var _this = this;
+        // bind custom events
+        this.$editable.on('keydown', function (event) {
+            if (event.keyCode === key.code.ENTER) {
+                _this.context.triggerEvent('enter', event);
+            }
+            _this.context.triggerEvent('keydown', event);
+            if (!event.isDefaultPrevented()) {
+                if (_this.options.shortcuts) {
+                    _this.handleKeyMap(event);
+                }
+                else {
+                    _this.preventDefaultEditableShortCuts(event);
+                }
+            }
+            if (_this.isLimited(1, event)) {
+                return false;
+            }
+        }).on('keyup', function (event) {
+            _this.context.triggerEvent('keyup', event);
+        }).on('focus', function (event) {
+            _this.context.triggerEvent('focus', event);
+        }).on('blur', function (event) {
+            _this.context.triggerEvent('blur', event);
+        }).on('mousedown', function (event) {
+            _this.context.triggerEvent('mousedown', event);
+        }).on('mouseup', function (event) {
+            _this.context.triggerEvent('mouseup', event);
+        }).on('scroll', function (event) {
+            _this.context.triggerEvent('scroll', event);
+        }).on('paste', function (event) {
+            _this.context.triggerEvent('paste', event);
+        });
+        // init content before set event
+        this.$editable.html(dom.html(this.$note) || dom.emptyPara);
+        this.$editable.on(env.inputEventName, func.debounce(function () {
+            _this.context.triggerEvent('change', _this.$editable.html());
+        }, 100));
+        this.$editor.on('focusin', function (event) {
+            _this.context.triggerEvent('focusin', event);
+        }).on('focusout', function (event) {
+            _this.context.triggerEvent('focusout', event);
+        });
+        if (!this.options.airMode) {
+            if (this.options.width) {
+                this.$editor.outerWidth(this.options.width);
+            }
+            if (this.options.height) {
+                this.$editable.outerHeight(this.options.height);
+            }
+            if (this.options.maxHeight) {
+                this.$editable.css('max-height', this.options.maxHeight);
+            }
+            if (this.options.minHeight) {
+                this.$editable.css('min-height', this.options.minHeight);
+            }
+        }
+        this.history.recordUndo();
+    };
+    Editor.prototype.destroy = function () {
+        this.$editable.off();
+    };
+    Editor.prototype.handleKeyMap = function (event) {
+        var keyMap = this.options.keyMap[env.isMac ? 'mac' : 'pc'];
+        var keys = [];
+        if (event.metaKey) {
+            keys.push('CMD');
+        }
+        if (event.ctrlKey && !event.altKey) {
+            keys.push('CTRL');
+        }
+        if (event.shiftKey) {
+            keys.push('SHIFT');
+        }
+        var keyName = key.nameFromCode[event.keyCode];
+        if (keyName) {
+            keys.push(keyName);
+        }
+        var eventName = keyMap[keys.join('+')];
+        if (eventName) {
+            if (this.context.invoke(eventName) !== false) {
+                event.preventDefault();
+            }
+        }
+        else if (key.isEdit(event.keyCode)) {
+            this.afterCommand();
+        }
+    };
+    Editor.prototype.preventDefaultEditableShortCuts = function (event) {
+        // B(Bold, 66) / I(Italic, 73) / U(Underline, 85)
+        if ((event.ctrlKey || event.metaKey) &&
+            lists.contains([66, 73, 85], event.keyCode)) {
+            event.preventDefault();
+        }
+    };
+    Editor.prototype.isLimited = function (pad, event) {
+        pad = pad || 0;
+        if (typeof event !== 'undefined') {
+            if (key.isMove(event.keyCode) ||
+                (event.ctrlKey || event.metaKey) ||
+                lists.contains([key.code.BACKSPACE, key.code.DELETE], event.keyCode)) {
+                return false;
+            }
+        }
+        if (this.options.maxTextLength > 0) {
+            if ((this.$editable.text().length + pad) >= this.options.maxTextLength) {
+                return true;
+            }
+        }
+        return false;
+    };
+    /**
+     * create range
+     * @return {WrappedRange}
+     */
+    Editor.prototype.createRange = function () {
+        this.focus();
+        return range.create(this.editable);
+    };
+    /**
+     * saveRange
+     *
+     * save current range
+     *
+     * @param {Boolean} [thenCollapse=false]
+     */
+    Editor.prototype.saveRange = function (thenCollapse) {
+        this.lastRange = this.createRange();
+        if (thenCollapse) {
+            this.lastRange.collapse().select();
+        }
+    };
+    /**
+     * restoreRange
+     *
+     * restore lately range
+     */
+    Editor.prototype.restoreRange = function () {
+        if (this.lastRange) {
+            this.lastRange.select();
+            this.focus();
+        }
+    };
+    Editor.prototype.saveTarget = function (node) {
+        this.$editable.data('target', node);
+    };
+    Editor.prototype.clearTarget = function () {
+        this.$editable.removeData('target');
+    };
+    Editor.prototype.restoreTarget = function () {
+        return this.$editable.data('target');
+    };
+    /**
+     * currentStyle
+     *
+     * current style
+     * @return {Object|Boolean} unfocus
+     */
+    Editor.prototype.currentStyle = function () {
+        var rng = range.create();
+        if (rng) {
+            rng = rng.normalize();
+        }
+        return rng ? this.style.current(rng) : this.style.fromNode(this.$editable);
+    };
+    /**
+     * style from node
+     *
+     * @param {jQuery} $node
+     * @return {Object}
+     */
+    Editor.prototype.styleFromNode = function ($node) {
+        return this.style.fromNode($node);
+    };
+    /**
+     * undo
+     */
+    Editor.prototype.undo = function () {
+        this.context.triggerEvent('before.command', this.$editable.html());
+        this.history.undo();
+        this.context.triggerEvent('change', this.$editable.html());
+    };
+    /**
+     * redo
+     */
+    Editor.prototype.redo = function () {
+        this.context.triggerEvent('before.command', this.$editable.html());
+        this.history.redo();
+        this.context.triggerEvent('change', this.$editable.html());
+    };
+    /**
+     * before command
+     */
+    Editor.prototype.beforeCommand = function () {
+        this.context.triggerEvent('before.command', this.$editable.html());
+        // keep focus on editable before command execution
+        this.focus();
+    };
+    /**
+     * after command
+     * @param {Boolean} isPreventTrigger
+     */
+    Editor.prototype.afterCommand = function (isPreventTrigger) {
+        this.normalizeContent();
+        this.history.recordUndo();
+        if (!isPreventTrigger) {
+            this.context.triggerEvent('change', this.$editable.html());
+        }
+    };
+    /**
+     * handle tab key
+     */
+    Editor.prototype.tab = function () {
+        var rng = this.createRange();
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.table.tab(rng);
+        }
+        else {
+            if (this.options.tabSize === 0) {
+                return false;
+            }
+            if (!this.isLimited(this.options.tabSize)) {
+                this.beforeCommand();
+                this.typing.insertTab(rng, this.options.tabSize);
+                this.afterCommand();
+            }
+        }
+    };
+    /**
+     * handle shift+tab key
+     */
+    Editor.prototype.untab = function () {
+        var rng = this.createRange();
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.table.tab(rng, true);
+        }
+        else {
+            if (this.options.tabSize === 0) {
+                return false;
+            }
+        }
+    };
+    /**
+     * run given function between beforeCommand and afterCommand
+     */
+    Editor.prototype.wrapCommand = function (fn) {
+        var _this = this;
+        return function () {
+            _this.beforeCommand();
+            fn.apply(_this, arguments);
+            _this.afterCommand();
+        };
+    };
+    /**
+     * insert image
+     *
+     * @param {String} src
+     * @param {String|Function} param
+     * @return {Promise}
+     */
+    Editor.prototype.insertImage = function (src, param) {
+        var _this = this;
+        return createImage(src, param).then(function ($image) {
+            _this.beforeCommand();
+            if (typeof param === 'function') {
+                param($image);
+            }
+            else {
+                if (typeof param === 'string') {
+                    $image.attr('data-filename', param);
+                }
+                $image.css('width', Math.min(_this.$editable.width(), $image.width()));
+            }
+            $image.show();
+            range.create(_this.editable).insertNode($image[0]);
+            range.createFromNodeAfter($image[0]).select();
+            _this.afterCommand();
+        }).fail(function (e) {
+            _this.context.triggerEvent('image.upload.error', e);
+        });
+    };
+    /**
+     * insertImages
+     * @param {File[]} files
+     */
+    Editor.prototype.insertImages = function (files) {
+        var _this = this;
+        $$1.each(files, function (idx, file) {
+            var filename = file.name;
+            if (_this.options.maximumImageFileSize && _this.options.maximumImageFileSize < file.size) {
+                _this.context.triggerEvent('image.upload.error', _this.lang.image.maximumFileSizeError);
+            }
+            else {
+                readFileAsDataURL(file).then(function (dataURL) {
+                    return _this.insertImage(dataURL, filename);
+                }).fail(function () {
+                    _this.context.triggerEvent('image.upload.error');
+                });
+            }
+        });
+    };
+    /**
+     * insertImagesOrCallback
+     * @param {File[]} files
+     */
+    Editor.prototype.insertImagesOrCallback = function (files) {
+        var callbacks = this.options.callbacks;
+        // If onImageUpload this.options setted
+        if (callbacks.onImageUpload) {
+            this.context.triggerEvent('image.upload', files);
+            // else insert Image as dataURL
+        }
+        else {
+            this.insertImages(files);
+        }
+    };
+    /**
+     * return selected plain text
+     * @return {String} text
+     */
+    Editor.prototype.getSelectedText = function () {
+        var rng = this.createRange();
+        // if range on anchor, expand range with anchor
+        if (rng.isOnAnchor()) {
+            rng = range.createFromNode(dom.ancestor(rng.sc, dom.isAnchor));
+        }
+        return rng.toString();
+    };
+    Editor.prototype.onFormatBlock = function (tagName, $target) {
+        // [workaround] for MSIE, IE need `<`
+        tagName = env.isMSIE ? '<' + tagName + '>' : tagName;
+        document.execCommand('FormatBlock', false, tagName);
+        // support custom class
+        if ($target && $target.length) {
+            var className = $target[0].className || '';
+            if (className) {
+                var currentRange = this.createRange();
+                var $parent = $$1([currentRange.sc, currentRange.ec]).closest(tagName);
+                $parent.addClass(className);
+            }
+        }
+    };
+    Editor.prototype.formatPara = function () {
+        this.formatBlock('P');
+    };
+    Editor.prototype.fontStyling = function (target, value) {
+        var rng = this.createRange();
+        if (rng) {
+            var spans = this.style.styleNodes(rng);
+            $$1(spans).css(target, value);
+            // [workaround] added styled bogus span for style
+            //  - also bogus character needed for cursor position
+            if (rng.isCollapsed()) {
+                var firstSpan = lists.head(spans);
+                if (firstSpan && !dom.nodeLength(firstSpan)) {
+                    firstSpan.innerHTML = dom.ZERO_WIDTH_NBSP_CHAR;
+                    range.createFromNodeAfter(firstSpan.firstChild).select();
+                    this.$editable.data(KEY_BOGUS, firstSpan);
+                }
+            }
+        }
+    };
+    /**
+     * unlink
+     *
+     * @type command
+     */
+    Editor.prototype.unlink = function () {
+        var rng = this.createRange();
+        if (rng.isOnAnchor()) {
+            var anchor = dom.ancestor(rng.sc, dom.isAnchor);
+            rng = range.createFromNode(anchor);
+            rng.select();
+            this.beforeCommand();
+            document.execCommand('unlink');
+            this.afterCommand();
+        }
+    };
+    /**
+     * returns link info
+     *
+     * @return {Object}
+     * @return {WrappedRange} return.range
+     * @return {String} return.text
+     * @return {Boolean} [return.isNewWindow=true]
+     * @return {String} [return.url=""]
+     */
+    Editor.prototype.getLinkInfo = function () {
+        var rng = this.createRange().expand(dom.isAnchor);
+        // Get the first anchor on range(for edit).
+        var $anchor = $$1(lists.head(rng.nodes(dom.isAnchor)));
+        var linkInfo = {
+            range: rng,
+            text: rng.toString(),
+            url: $anchor.length ? $anchor.attr('href') : ''
+        };
+        // Define isNewWindow when anchor exists.
+        if ($anchor.length) {
+            linkInfo.isNewWindow = $anchor.attr('target') === '_blank';
+        }
+        return linkInfo;
+    };
+    Editor.prototype.addRow = function (position) {
+        var rng = this.createRange(this.$editable);
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.beforeCommand();
+            this.table.addRow(rng, position);
+            this.afterCommand();
+        }
+    };
+    Editor.prototype.addCol = function (position) {
+        var rng = this.createRange(this.$editable);
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.beforeCommand();
+            this.table.addCol(rng, position);
+            this.afterCommand();
+        }
+    };
+    Editor.prototype.deleteRow = function () {
+        var rng = this.createRange(this.$editable);
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.beforeCommand();
+            this.table.deleteRow(rng);
+            this.afterCommand();
+        }
+    };
+    Editor.prototype.deleteCol = function () {
+        var rng = this.createRange(this.$editable);
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.beforeCommand();
+            this.table.deleteCol(rng);
+            this.afterCommand();
+        }
+    };
+    Editor.prototype.deleteTable = function () {
+        var rng = this.createRange(this.$editable);
+        if (rng.isCollapsed() && rng.isOnCell()) {
+            this.beforeCommand();
+            this.table.deleteTable(rng);
+            this.afterCommand();
+        }
+    };
+    /**
+     * @param {Position} pos
+     * @param {jQuery} $target - target element
+     * @param {Boolean} [bKeepRatio] - keep ratio
+     */
+    Editor.prototype.resizeTo = function (pos, $target, bKeepRatio) {
+        var imageSize;
+        if (bKeepRatio) {
+            var newRatio = pos.y / pos.x;
+            var ratio = $target.data('ratio');
+            imageSize = {
+                width: ratio > newRatio ? pos.x : pos.y / ratio,
+                height: ratio > newRatio ? pos.x * ratio : pos.y
+            };
+        }
+        else {
+            imageSize = {
+                width: pos.x,
+                height: pos.y
+            };
+        }
+        $target.css(imageSize);
+    };
+    /**
+     * returns whether editable area has focus or not.
+     */
+    Editor.prototype.hasFocus = function () {
+        return this.$editable.is(':focus');
+    };
+    /**
+     * set focus
+     */
+    Editor.prototype.focus = function () {
+        // [workaround] Screen will move when page is scolled in IE.
+        //  - do focus when not focused
+        if (!this.hasFocus()) {
+            this.$editable.focus();
+        }
+    };
+    /**
+     * returns whether contents is empty or not.
+     * @return {Boolean}
+     */
+    Editor.prototype.isEmpty = function () {
+        return dom.isEmpty(this.$editable[0]) || dom.emptyPara === this.$editable.html();
+    };
+    /**
+     * Removes all contents and restores the editable instance to an _emptyPara_.
+     */
+    Editor.prototype.empty = function () {
+        this.context.invoke('code', dom.emptyPara);
+    };
+    /**
+     * normalize content
+     */
+    Editor.prototype.normalizeContent = function () {
+        this.$editable[0].normalize();
+    };
+    return Editor;
+}());
+
+var Clipboard = /** @class */ (function () {
+    function Clipboard(context) {
+        this.context = context;
+        this.$editable = context.layoutInfo.editable;
+    }
+    Clipboard.prototype.initialize = function () {
+        this.$editable.on('paste', this.pasteByEvent.bind(this));
+    };
+    /**
+     * paste by clipboard event
+     *
+     * @param {Event} event
+     */
+    Clipboard.prototype.pasteByEvent = function (event) {
+        var clipboardData = event.originalEvent.clipboardData;
+        if (clipboardData && clipboardData.items && clipboardData.items.length) {
+            var item = lists.head(clipboardData.items);
+            if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                this.context.invoke('editor.insertImagesOrCallback', [item.getAsFile()]);
+            }
+            this.context.invoke('editor.afterCommand');
+        }
+    };
+    return Clipboard;
+}());
+
+var Dropzone = /** @class */ (function () {
+    function Dropzone(context) {
+        this.context = context;
+        this.$eventListener = $$1(document);
+        this.$editor = context.layoutInfo.editor;
+        this.$editable = context.layoutInfo.editable;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+        this.documentEventHandlers = {};
+        this.$dropzone = $$1([
+            '<div class="note-dropzone">',
+            '  <div class="note-dropzone-message"/>',
+            '</div>'
+        ].join('')).prependTo(this.$editor);
+    }
+    /**
+     * attach Drag and Drop Events
+     */
+    Dropzone.prototype.initialize = function () {
+        if (this.options.disableDragAndDrop) {
+            // prevent default drop event
+            this.documentEventHandlers.onDrop = function (e) {
+                e.preventDefault();
+            };
+            // do not consider outside of dropzone
+            this.$eventListener = this.$dropzone;
+            this.$eventListener.on('drop', this.documentEventHandlers.onDrop);
+        }
+        else {
+            this.attachDragAndDropEvent();
+        }
+    };
+    /**
+     * attach Drag and Drop Events
+     */
+    Dropzone.prototype.attachDragAndDropEvent = function () {
+        var _this = this;
+        var collection = $$1();
+        var $dropzoneMessage = this.$dropzone.find('.note-dropzone-message');
+        this.documentEventHandlers.onDragenter = function (e) {
+            var isCodeview = _this.context.invoke('codeview.isActivated');
+            var hasEditorSize = _this.$editor.width() > 0 && _this.$editor.height() > 0;
+            if (!isCodeview && !collection.length && hasEditorSize) {
+                _this.$editor.addClass('dragover');
+                _this.$dropzone.width(_this.$editor.width());
+                _this.$dropzone.height(_this.$editor.height());
+                $dropzoneMessage.text(_this.lang.image.dragImageHere);
+            }
+            collection = collection.add(e.target);
+        };
+        this.documentEventHandlers.onDragleave = function (e) {
+            collection = collection.not(e.target);
+            if (!collection.length) {
+                _this.$editor.removeClass('dragover');
+            }
+        };
+        this.documentEventHandlers.onDrop = function () {
+            collection = $$1();
+            _this.$editor.removeClass('dragover');
+        };
+        // show dropzone on dragenter when dragging a object to document
+        // -but only if the editor is visible, i.e. has a positive width and height
+        this.$eventListener.on('dragenter', this.documentEventHandlers.onDragenter)
+            .on('dragleave', this.documentEventHandlers.onDragleave)
+            .on('drop', this.documentEventHandlers.onDrop);
+        // change dropzone's message on hover.
+        this.$dropzone.on('dragenter', function () {
+            _this.$dropzone.addClass('hover');
+            $dropzoneMessage.text(_this.lang.image.dropImage);
+        }).on('dragleave', function () {
+            _this.$dropzone.removeClass('hover');
+            $dropzoneMessage.text(_this.lang.image.dragImageHere);
+        });
+        // attach dropImage
+        this.$dropzone.on('drop', function (event) {
+            var dataTransfer = event.originalEvent.dataTransfer;
+            // stop the browser from opening the dropped content
+            event.preventDefault();
+            if (dataTransfer && dataTransfer.files && dataTransfer.files.length) {
+                _this.$editable.focus();
+                _this.context.invoke('editor.insertImagesOrCallback', dataTransfer.files);
+            }
+            else {
+                $$1.each(dataTransfer.types, function (idx, type) {
+                    var content = dataTransfer.getData(type);
+                    if (type.toLowerCase().indexOf('text') > -1) {
+                        _this.context.invoke('editor.pasteHTML', content);
+                    }
+                    else {
+                        $$1(content).each(function (idx, item) {
+                            _this.context.invoke('editor.insertNode', item);
+                        });
+                    }
+                });
+            }
+        }).on('dragover', false); // prevent default dragover event
+    };
+    Dropzone.prototype.destroy = function () {
+        var _this = this;
+        Object.keys(this.documentEventHandlers).forEach(function (key) {
+            _this.$eventListener.off(key.substr(2).toLowerCase(), _this.documentEventHandlers[key]);
+        });
+        this.documentEventHandlers = {};
+    };
+    return Dropzone;
+}());
+
+var CodeMirror;
+if (env.hasCodeMirror) {
+    if (env.isSupportAmd) {
+        new Promise(function(resolve) { resolve(); }).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(4)]; ((function (cm) {
+            CodeMirror = cm;
+        }).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+    }
+    else {
+        CodeMirror = window.CodeMirror;
+    }
+}
+/**
+ * @class Codeview
+ */
+var CodeView = /** @class */ (function () {
+    function CodeView(context) {
+        this.context = context;
+        this.$editor = context.layoutInfo.editor;
+        this.$editable = context.layoutInfo.editable;
+        this.$codable = context.layoutInfo.codable;
+        this.options = context.options;
+    }
+    CodeView.prototype.sync = function () {
+        var isCodeview = this.isActivated();
+        if (isCodeview && env.hasCodeMirror) {
+            this.$codable.data('cmEditor').save();
+        }
+    };
+    /**
+     * @return {Boolean}
+     */
+    CodeView.prototype.isActivated = function () {
+        return this.$editor.hasClass('codeview');
+    };
+    /**
+     * toggle codeview
+     */
+    CodeView.prototype.toggle = function () {
+        if (this.isActivated()) {
+            this.deactivate();
+        }
+        else {
+            this.activate();
+        }
+        this.context.triggerEvent('codeview.toggled');
+    };
+    /**
+     * activate code view
+     */
+    CodeView.prototype.activate = function () {
+        var _this = this;
+        this.$codable.val(dom.html(this.$editable, this.options.prettifyHtml));
+        this.$codable.height(this.$editable.height());
+        this.context.invoke('toolbar.updateCodeview', true);
+        this.$editor.addClass('codeview');
+        this.$codable.focus();
+        // activate CodeMirror as codable
+        if (env.hasCodeMirror) {
+            var cmEditor_1 = CodeMirror.fromTextArea(this.$codable[0], this.options.codemirror);
+            // CodeMirror TernServer
+            if (this.options.codemirror.tern) {
+                var server_1 = new CodeMirror.TernServer(this.options.codemirror.tern);
+                cmEditor_1.ternServer = server_1;
+                cmEditor_1.on('cursorActivity', function (cm) {
+                    server_1.updateArgHints(cm);
+                });
+            }
+            cmEditor_1.on('blur', function (event) {
+                _this.context.triggerEvent('blur.codeview', cmEditor_1.getValue(), event);
+            });
+            // CodeMirror hasn't Padding.
+            cmEditor_1.setSize(null, this.$editable.outerHeight());
+            this.$codable.data('cmEditor', cmEditor_1);
+        }
+        else {
+            this.$codable.on('blur', function (event) {
+                _this.context.triggerEvent('blur.codeview', _this.$codable.val(), event);
+            });
+        }
+    };
+    /**
+     * deactivate code view
+     */
+    CodeView.prototype.deactivate = function () {
+        // deactivate CodeMirror as codable
+        if (env.hasCodeMirror) {
+            var cmEditor = this.$codable.data('cmEditor');
+            this.$codable.val(cmEditor.getValue());
+            cmEditor.toTextArea();
+        }
+        var value = dom.value(this.$codable, this.options.prettifyHtml) || dom.emptyPara;
+        var isChange = this.$editable.html() !== value;
+        this.$editable.html(value);
+        this.$editable.height(this.options.height ? this.$codable.height() : 'auto');
+        this.$editor.removeClass('codeview');
+        if (isChange) {
+            this.context.triggerEvent('change', this.$editable.html(), this.$editable);
+        }
+        this.$editable.focus();
+        this.context.invoke('toolbar.updateCodeview', false);
+    };
+    CodeView.prototype.destroy = function () {
+        if (this.isActivated()) {
+            this.deactivate();
+        }
+    };
+    return CodeView;
+}());
+
+var EDITABLE_PADDING = 24;
+var Statusbar = /** @class */ (function () {
+    function Statusbar(context) {
+        this.$document = $$1(document);
+        this.$statusbar = context.layoutInfo.statusbar;
+        this.$editable = context.layoutInfo.editable;
+        this.options = context.options;
+    }
+    Statusbar.prototype.initialize = function () {
+        var _this = this;
+        if (this.options.airMode || this.options.disableResizeEditor) {
+            this.destroy();
+            return;
+        }
+        this.$statusbar.on('mousedown', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var editableTop = _this.$editable.offset().top - _this.$document.scrollTop();
+            var onMouseMove = function (event) {
+                var height = event.clientY - (editableTop + EDITABLE_PADDING);
+                height = (_this.options.minheight > 0) ? Math.max(height, _this.options.minheight) : height;
+                height = (_this.options.maxHeight > 0) ? Math.min(height, _this.options.maxHeight) : height;
+                _this.$editable.height(height);
+            };
+            _this.$document.on('mousemove', onMouseMove).one('mouseup', function () {
+                _this.$document.off('mousemove', onMouseMove);
+            });
+        });
+    };
+    Statusbar.prototype.destroy = function () {
+        this.$statusbar.off();
+        this.$statusbar.addClass('locked');
+    };
+    return Statusbar;
+}());
+
+var Fullscreen = /** @class */ (function () {
+    function Fullscreen(context) {
+        var _this = this;
+        this.context = context;
+        this.$editor = context.layoutInfo.editor;
+        this.$toolbar = context.layoutInfo.toolbar;
+        this.$editable = context.layoutInfo.editable;
+        this.$codable = context.layoutInfo.codable;
+        this.$window = $$1(window);
+        this.$scrollbar = $$1('html, body');
+        this.onResize = function () {
+            _this.resizeTo({
+                h: _this.$window.height() - _this.$toolbar.outerHeight()
+            });
+        };
+    }
+    Fullscreen.prototype.resizeTo = function (size) {
+        this.$editable.css('height', size.h);
+        this.$codable.css('height', size.h);
+        if (this.$codable.data('cmeditor')) {
+            this.$codable.data('cmeditor').setsize(null, size.h);
+        }
+    };
+    /**
+     * toggle fullscreen
+     */
+    Fullscreen.prototype.toggle = function () {
+        this.$editor.toggleClass('fullscreen');
+        if (this.isFullscreen()) {
+            this.$editable.data('orgHeight', this.$editable.css('height'));
+            this.$window.on('resize', this.onResize).trigger('resize');
+            this.$scrollbar.css('overflow', 'hidden');
+        }
+        else {
+            this.$window.off('resize', this.onResize);
+            this.resizeTo({ h: this.$editable.data('orgHeight') });
+            this.$scrollbar.css('overflow', 'visible');
+        }
+        this.context.invoke('toolbar.updateFullscreen', this.isFullscreen());
+    };
+    Fullscreen.prototype.isFullscreen = function () {
+        return this.$editor.hasClass('fullscreen');
+    };
+    return Fullscreen;
+}());
+
+var Handle = /** @class */ (function () {
+    function Handle(context) {
+        var _this = this;
+        this.context = context;
+        this.$document = $$1(document);
+        this.$editingArea = context.layoutInfo.editingArea;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+        this.events = {
+            'summernote.mousedown': function (we, e) {
+                if (_this.update(e.target)) {
+                    e.preventDefault();
+                }
+            },
+            'summernote.keyup summernote.scroll summernote.change summernote.dialog.shown': function () {
+                _this.update();
+            },
+            'summernote.disable': function () {
+                _this.hide();
+            },
+            'summernote.codeview.toggled': function () {
+                _this.update();
+            }
+        };
+    }
+    Handle.prototype.initialize = function () {
+        var _this = this;
+        this.$handle = $$1([
+            '<div class="note-handle">',
+            '<div class="note-control-selection">',
+            '<div class="note-control-selection-bg"></div>',
+            '<div class="note-control-holder note-control-nw"></div>',
+            '<div class="note-control-holder note-control-ne"></div>',
+            '<div class="note-control-holder note-control-sw"></div>',
+            '<div class="',
+            (this.options.disableResizeImage ? 'note-control-holder' : 'note-control-sizing'),
+            ' note-control-se"></div>',
+            (this.options.disableResizeImage ? '' : '<div class="note-control-selection-info"></div>'),
+            '</div>',
+            '</div>'
+        ].join('')).prependTo(this.$editingArea);
+        this.$handle.on('mousedown', function (event) {
+            if (dom.isControlSizing(event.target)) {
+                event.preventDefault();
+                event.stopPropagation();
+                var $target_1 = _this.$handle.find('.note-control-selection').data('target');
+                var posStart_1 = $target_1.offset();
+                var scrollTop_1 = _this.$document.scrollTop();
+                var onMouseMove_1 = function (event) {
+                    _this.context.invoke('editor.resizeTo', {
+                        x: event.clientX - posStart_1.left,
+                        y: event.clientY - (posStart_1.top - scrollTop_1)
+                    }, $target_1, !event.shiftKey);
+                    _this.update($target_1[0]);
+                };
+                _this.$document
+                    .on('mousemove', onMouseMove_1)
+                    .one('mouseup', function (e) {
+                    e.preventDefault();
+                    _this.$document.off('mousemove', onMouseMove_1);
+                    _this.context.invoke('editor.afterCommand');
+                });
+                if (!$target_1.data('ratio')) {
+                    $target_1.data('ratio', $target_1.height() / $target_1.width());
+                }
+            }
+        });
+        // Listen for scrolling on the handle overlay.
+        this.$handle.on('wheel', function (e) {
+            e.preventDefault();
+            _this.update();
+        });
+    };
+    Handle.prototype.destroy = function () {
+        this.$handle.remove();
+    };
+    Handle.prototype.update = function (target) {
+        if (this.context.isDisabled()) {
+            return false;
+        }
+        var isImage = dom.isImg(target);
+        var $selection = this.$handle.find('.note-control-selection');
+        this.context.invoke('imagePopover.update', target);
+        if (isImage) {
+            var $image = $$1(target);
+            var position = $image.position();
+            var pos = {
+                left: position.left + parseInt($image.css('marginLeft'), 10),
+                top: position.top + parseInt($image.css('marginTop'), 10)
+            };
+            // exclude margin
+            var imageSize = {
+                w: $image.outerWidth(false),
+                h: $image.outerHeight(false)
+            };
+            $selection.css({
+                display: 'block',
+                left: pos.left,
+                top: pos.top,
+                width: imageSize.w,
+                height: imageSize.h
+            }).data('target', $image); // save current image element.
+            var origImageObj = new Image();
+            origImageObj.src = $image.attr('src');
+            var sizingText = imageSize.w + 'x' + imageSize.h + ' (' + this.lang.image.original + ': ' + origImageObj.width + 'x' + origImageObj.height + ')';
+            $selection.find('.note-control-selection-info').text(sizingText);
+            this.context.invoke('editor.saveTarget', target);
+        }
+        else {
+            this.hide();
+        }
+        return isImage;
+    };
+    /**
+     * hide
+     *
+     * @param {jQuery} $handle
+     */
+    Handle.prototype.hide = function () {
+        this.context.invoke('editor.clearTarget');
+        this.$handle.children().hide();
+    };
+    return Handle;
+}());
+
+var defaultScheme = 'http://';
+var linkPattern = /^([A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?|mailto:[A-Z0-9._%+-]+@)?(www\.)?(.+)$/i;
+var AutoLink = /** @class */ (function () {
+    function AutoLink(context) {
+        var _this = this;
+        this.context = context;
+        this.events = {
+            'summernote.keyup': function (we, e) {
+                if (!e.isDefaultPrevented()) {
+                    _this.handleKeyup(e);
+                }
+            },
+            'summernote.keydown': function (we, e) {
+                _this.handleKeydown(e);
+            }
+        };
+    }
+    AutoLink.prototype.initialize = function () {
+        this.lastWordRange = null;
+    };
+    AutoLink.prototype.destroy = function () {
+        this.lastWordRange = null;
+    };
+    AutoLink.prototype.replace = function () {
+        if (!this.lastWordRange) {
+            return;
+        }
+        var keyword = this.lastWordRange.toString();
+        var match = keyword.match(linkPattern);
+        if (match && (match[1] || match[2])) {
+            var link = match[1] ? keyword : defaultScheme + keyword;
+            var node = $$1('<a />').html(keyword).attr('href', link)[0];
+            this.lastWordRange.insertNode(node);
+            this.lastWordRange = null;
+            this.context.invoke('editor.focus');
+        }
+    };
+    AutoLink.prototype.handleKeydown = function (e) {
+        if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
+            var wordRange = this.context.invoke('editor.createRange').getWordRange();
+            this.lastWordRange = wordRange;
+        }
+    };
+    AutoLink.prototype.handleKeyup = function (e) {
+        if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
+            this.replace();
+        }
+    };
+    return AutoLink;
+}());
+
+/**
+ * textarea auto sync.
+ */
+var AutoSync = /** @class */ (function () {
+    function AutoSync(context) {
+        var _this = this;
+        this.$note = context.layoutInfo.note;
+        this.events = {
+            'summernote.change': function () {
+                _this.$note.val(context.invoke('code'));
+            }
+        };
+    }
+    AutoSync.prototype.shouldInitialize = function () {
+        return dom.isTextarea(this.$note[0]);
+    };
+    return AutoSync;
+}());
+
+var Placeholder = /** @class */ (function () {
+    function Placeholder(context) {
+        var _this = this;
+        this.context = context;
+        this.$editingArea = context.layoutInfo.editingArea;
+        this.options = context.options;
+        this.events = {
+            'summernote.init summernote.change': function () {
+                _this.update();
+            },
+            'summernote.codeview.toggled': function () {
+                _this.update();
+            }
+        };
+    }
+    Placeholder.prototype.shouldInitialize = function () {
+        return !!this.options.placeholder;
+    };
+    Placeholder.prototype.initialize = function () {
+        var _this = this;
+        this.$placeholder = $$1('<div class="note-placeholder">');
+        this.$placeholder.on('click', function () {
+            _this.context.invoke('focus');
+        }).text(this.options.placeholder).prependTo(this.$editingArea);
+        this.update();
+    };
+    Placeholder.prototype.destroy = function () {
+        this.$placeholder.remove();
+    };
+    Placeholder.prototype.update = function () {
+        var isShow = !this.context.invoke('codeview.isActivated') && this.context.invoke('editor.isEmpty');
+        this.$placeholder.toggle(isShow);
+    };
+    return Placeholder;
+}());
+
+var Buttons = /** @class */ (function () {
+    function Buttons(context) {
+        this.ui = $$1.summernote.ui;
+        this.context = context;
+        this.$toolbar = context.layoutInfo.toolbar;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+        this.invertedKeyMap = func.invertObject(this.options.keyMap[env.isMac ? 'mac' : 'pc']);
+    }
+    Buttons.prototype.representShortcut = function (editorMethod) {
+        var shortcut = this.invertedKeyMap[editorMethod];
+        if (!this.options.shortcuts || !shortcut) {
+            return '';
+        }
+        if (env.isMac) {
+            shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
+        }
+        shortcut = shortcut.replace('BACKSLASH', '\\')
+            .replace('SLASH', '/')
+            .replace('LEFTBRACKET', '[')
+            .replace('RIGHTBRACKET', ']');
+        return ' (' + shortcut + ')';
+    };
+    Buttons.prototype.button = function (o) {
+        if (!this.options.tooltip && o.tooltip) {
+            delete o.tooltip;
+        }
+        o.container = this.options.container;
+        return this.ui.button(o);
+    };
+    Buttons.prototype.initialize = function () {
+        this.addToolbarButtons();
+        this.addImagePopoverButtons();
+        this.addLinkPopoverButtons();
+        this.addTablePopoverButtons();
+        this.fontInstalledMap = {};
+    };
+    Buttons.prototype.destroy = function () {
+        delete this.fontInstalledMap;
+    };
+    Buttons.prototype.isFontInstalled = function (name) {
+        if (!this.fontInstalledMap.hasOwnProperty(name)) {
+            this.fontInstalledMap[name] = env.isFontInstalled(name) ||
+                lists.contains(this.options.fontNamesIgnoreCheck, name);
+        }
+        return this.fontInstalledMap[name];
+    };
+    Buttons.prototype.isFontDeservedToAdd = function (name) {
+        var genericFamilies = ['sans-serif', 'serif', 'monospace', 'cursive', 'fantasy'];
+        name = name.toLowerCase();
+        return ((name !== '') && this.isFontInstalled(name) && ($$1.inArray(name, genericFamilies) === -1));
+    };
+    Buttons.prototype.addToolbarButtons = function () {
+        var _this = this;
+        this.context.memo('button.style', function () {
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents(_this.ui.icon(_this.options.icons.magic), _this.options),
+                    tooltip: _this.lang.style.style,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdown({
+                    className: 'dropdown-style',
+                    items: _this.options.styleTags,
+                    title: _this.lang.style.style,
+                    template: function (item) {
+                        if (typeof item === 'string') {
+                            item = { tag: item, title: (_this.lang.style.hasOwnProperty(item) ? _this.lang.style[item] : item) };
+                        }
+                        var tag = item.tag;
+                        var title = item.title;
+                        var style = item.style ? ' style="' + item.style + '" ' : '';
+                        var className = item.className ? ' class="' + item.className + '"' : '';
+                        return '<' + tag + style + className + '>' + title + '</' + tag + '>';
+                    },
+                    click: _this.context.createInvokeHandler('editor.formatBlock')
+                })
+            ]).render();
+        });
+        var _loop_1 = function (styleIdx, styleLen) {
+            var item = this_1.options.styleTags[styleIdx];
+            this_1.context.memo('button.style.' + item, function () {
+                return _this.button({
+                    className: 'note-btn-style-' + item,
+                    contents: '<div data-value="' + item + '">' + item.toUpperCase() + '</div>',
+                    tooltip: _this.lang.style[item],
+                    click: _this.context.createInvokeHandler('editor.formatBlock')
+                }).render();
+            });
+        };
+        var this_1 = this;
+        for (var styleIdx = 0, styleLen = this.options.styleTags.length; styleIdx < styleLen; styleIdx++) {
+            _loop_1(styleIdx, styleLen);
+        }
+        this.context.memo('button.bold', function () {
+            return _this.button({
+                className: 'note-btn-bold',
+                contents: _this.ui.icon(_this.options.icons.bold),
+                tooltip: _this.lang.font.bold + _this.representShortcut('bold'),
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.bold')
+            }).render();
+        });
+        this.context.memo('button.italic', function () {
+            return _this.button({
+                className: 'note-btn-italic',
+                contents: _this.ui.icon(_this.options.icons.italic),
+                tooltip: _this.lang.font.italic + _this.representShortcut('italic'),
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.italic')
+            }).render();
+        });
+        this.context.memo('button.underline', function () {
+            return _this.button({
+                className: 'note-btn-underline',
+                contents: _this.ui.icon(_this.options.icons.underline),
+                tooltip: _this.lang.font.underline + _this.representShortcut('underline'),
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.underline')
+            }).render();
+        });
+        this.context.memo('button.clear', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.eraser),
+                tooltip: _this.lang.font.clear + _this.representShortcut('removeFormat'),
+                click: _this.context.createInvokeHandler('editor.removeFormat')
+            }).render();
+        });
+        this.context.memo('button.strikethrough', function () {
+            return _this.button({
+                className: 'note-btn-strikethrough',
+                contents: _this.ui.icon(_this.options.icons.strikethrough),
+                tooltip: _this.lang.font.strikethrough + _this.representShortcut('strikethrough'),
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.strikethrough')
+            }).render();
+        });
+        this.context.memo('button.superscript', function () {
+            return _this.button({
+                className: 'note-btn-superscript',
+                contents: _this.ui.icon(_this.options.icons.superscript),
+                tooltip: _this.lang.font.superscript,
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.superscript')
+            }).render();
+        });
+        this.context.memo('button.subscript', function () {
+            return _this.button({
+                className: 'note-btn-subscript',
+                contents: _this.ui.icon(_this.options.icons.subscript),
+                tooltip: _this.lang.font.subscript,
+                click: _this.context.createInvokeHandlerAndUpdateState('editor.subscript')
+            }).render();
+        });
+        this.context.memo('button.fontname', function () {
+            var styleInfo = _this.context.invoke('editor.currentStyle');
+            // Add 'default' fonts into the fontnames array if not exist
+            $$1.each(styleInfo['font-family'].split(','), function (idx, fontname) {
+                fontname = fontname.trim().replace(/['"]+/g, '');
+                if (_this.isFontDeservedToAdd(fontname)) {
+                    if ($$1.inArray(fontname, _this.options.fontNames) === -1) {
+                        _this.options.fontNames.push(fontname);
+                    }
+                }
+            });
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents('<span class="note-current-fontname"/>', _this.options),
+                    tooltip: _this.lang.font.name,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdownCheck({
+                    className: 'dropdown-fontname',
+                    checkClassName: _this.options.icons.menuCheck,
+                    items: _this.options.fontNames.filter(_this.isFontInstalled.bind(_this)),
+                    title: _this.lang.font.name,
+                    template: function (item) {
+                        return '<span style="font-family: \'' + item + '\'">' + item + '</span>';
+                    },
+                    click: _this.context.createInvokeHandlerAndUpdateState('editor.fontName')
+                })
+            ]).render();
+        });
+        this.context.memo('button.fontsize', function () {
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents('<span class="note-current-fontsize"/>', _this.options),
+                    tooltip: _this.lang.font.size,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdownCheck({
+                    className: 'dropdown-fontsize',
+                    checkClassName: _this.options.icons.menuCheck,
+                    items: _this.options.fontSizes,
+                    title: _this.lang.font.size,
+                    click: _this.context.createInvokeHandlerAndUpdateState('editor.fontSize')
+                })
+            ]).render();
+        });
+        this.context.memo('button.color', function () {
+            return _this.ui.buttonGroup({
+                className: 'note-color',
+                children: [
+                    _this.button({
+                        className: 'note-current-color-button',
+                        contents: _this.ui.icon(_this.options.icons.font + ' note-recent-color'),
+                        tooltip: _this.lang.color.recent,
+                        click: function (e) {
+                            var $button = $$1(e.currentTarget);
+                            _this.context.invoke('editor.color', {
+                                backColor: $button.attr('data-backColor'),
+                                foreColor: $button.attr('data-foreColor')
+                            });
+                        },
+                        callback: function ($button) {
+                            var $recentColor = $button.find('.note-recent-color');
+                            $recentColor.css('background-color', '#FFFF00');
+                            $button.attr('data-backColor', '#FFFF00');
+                        }
+                    }),
+                    _this.button({
+                        className: 'dropdown-toggle',
+                        contents: _this.ui.dropdownButtonContents('', _this.options),
+                        tooltip: _this.lang.color.more,
+                        data: {
+                            toggle: 'dropdown'
+                        }
+                    }),
+                    _this.ui.dropdown({
+                        items: [
+                            '<div class="note-palette">',
+                            '  <div class="note-palette-title">' + _this.lang.color.background + '</div>',
+                            '  <div>',
+                            '    <button type="button" class="note-color-reset btn btn-light" data-event="backColor" data-value="inherit">',
+                            _this.lang.color.transparent,
+                            '    </button>',
+                            '  </div>',
+                            '  <div class="note-holder" data-event="backColor"/>',
+                            '</div>',
+                            '<div class="note-palette">',
+                            '  <div class="note-palette-title">' + _this.lang.color.foreground + '</div>',
+                            '  <div>',
+                            '    <button type="button" class="note-color-reset btn btn-light" data-event="removeFormat" data-value="foreColor">',
+                            _this.lang.color.resetToDefault,
+                            '    </button>',
+                            '  </div>',
+                            '  <div class="note-holder" data-event="foreColor"/>',
+                            '</div>'
+                        ].join(''),
+                        callback: function ($dropdown) {
+                            $dropdown.find('.note-holder').each(function (idx, item) {
+                                var $holder = $$1(item);
+                                $holder.append(_this.ui.palette({
+                                    colors: _this.options.colors,
+                                    colorsName: _this.options.colorsName,
+                                    eventName: $holder.data('event'),
+                                    container: _this.options.container,
+                                    tooltip: _this.options.tooltip
+                                }).render());
+                            });
+                        },
+                        click: function (event) {
+                            var $button = $$1(event.target);
+                            var eventName = $button.data('event');
+                            var value = $button.data('value');
+                            if (eventName && value) {
+                                var key = eventName === 'backColor' ? 'background-color' : 'color';
+                                var $color = $button.closest('.note-color').find('.note-recent-color');
+                                var $currentButton = $button.closest('.note-color').find('.note-current-color-button');
+                                $color.css(key, value);
+                                $currentButton.attr('data-' + eventName, value);
+                                _this.context.invoke('editor.' + eventName, value);
+                            }
+                        }
+                    })
+                ]
+            }).render();
+        });
+        this.context.memo('button.ul', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.unorderedlist),
+                tooltip: _this.lang.lists.unordered + _this.representShortcut('insertUnorderedList'),
+                click: _this.context.createInvokeHandler('editor.insertUnorderedList')
+            }).render();
+        });
+        this.context.memo('button.ol', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.orderedlist),
+                tooltip: _this.lang.lists.ordered + _this.representShortcut('insertOrderedList'),
+                click: _this.context.createInvokeHandler('editor.insertOrderedList')
+            }).render();
+        });
+        var justifyLeft = this.button({
+            contents: this.ui.icon(this.options.icons.alignLeft),
+            tooltip: this.lang.paragraph.left + this.representShortcut('justifyLeft'),
+            click: this.context.createInvokeHandler('editor.justifyLeft')
+        });
+        var justifyCenter = this.button({
+            contents: this.ui.icon(this.options.icons.alignCenter),
+            tooltip: this.lang.paragraph.center + this.representShortcut('justifyCenter'),
+            click: this.context.createInvokeHandler('editor.justifyCenter')
+        });
+        var justifyRight = this.button({
+            contents: this.ui.icon(this.options.icons.alignRight),
+            tooltip: this.lang.paragraph.right + this.representShortcut('justifyRight'),
+            click: this.context.createInvokeHandler('editor.justifyRight')
+        });
+        var justifyFull = this.button({
+            contents: this.ui.icon(this.options.icons.alignJustify),
+            tooltip: this.lang.paragraph.justify + this.representShortcut('justifyFull'),
+            click: this.context.createInvokeHandler('editor.justifyFull')
+        });
+        var outdent = this.button({
+            contents: this.ui.icon(this.options.icons.outdent),
+            tooltip: this.lang.paragraph.outdent + this.representShortcut('outdent'),
+            click: this.context.createInvokeHandler('editor.outdent')
+        });
+        var indent = this.button({
+            contents: this.ui.icon(this.options.icons.indent),
+            tooltip: this.lang.paragraph.indent + this.representShortcut('indent'),
+            click: this.context.createInvokeHandler('editor.indent')
+        });
+        this.context.memo('button.justifyLeft', func.invoke(justifyLeft, 'render'));
+        this.context.memo('button.justifyCenter', func.invoke(justifyCenter, 'render'));
+        this.context.memo('button.justifyRight', func.invoke(justifyRight, 'render'));
+        this.context.memo('button.justifyFull', func.invoke(justifyFull, 'render'));
+        this.context.memo('button.outdent', func.invoke(outdent, 'render'));
+        this.context.memo('button.indent', func.invoke(indent, 'render'));
+        this.context.memo('button.paragraph', function () {
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents(_this.ui.icon(_this.options.icons.alignLeft), _this.options),
+                    tooltip: _this.lang.paragraph.paragraph,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdown([
+                    _this.ui.buttonGroup({
+                        className: 'note-align',
+                        children: [justifyLeft, justifyCenter, justifyRight, justifyFull]
+                    }),
+                    _this.ui.buttonGroup({
+                        className: 'note-list',
+                        children: [outdent, indent]
+                    })
+                ])
+            ]).render();
+        });
+        this.context.memo('button.height', function () {
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents(_this.ui.icon(_this.options.icons.textHeight), _this.options),
+                    tooltip: _this.lang.font.height,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdownCheck({
+                    items: _this.options.lineHeights,
+                    checkClassName: _this.options.icons.menuCheck,
+                    className: 'dropdown-line-height',
+                    title: _this.lang.font.height,
+                    click: _this.context.createInvokeHandler('editor.lineHeight')
+                })
+            ]).render();
+        });
+        this.context.memo('button.table', function () {
+            return _this.ui.buttonGroup([
+                _this.button({
+                    className: 'dropdown-toggle',
+                    contents: _this.ui.dropdownButtonContents(_this.ui.icon(_this.options.icons.table), _this.options),
+                    tooltip: _this.lang.table.table,
+                    data: {
+                        toggle: 'dropdown'
+                    }
+                }),
+                _this.ui.dropdown({
+                    title: _this.lang.table.table,
+                    className: 'note-table',
+                    items: [
+                        '<div class="note-dimension-picker">',
+                        '  <div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"/>',
+                        '  <div class="note-dimension-picker-highlighted"/>',
+                        '  <div class="note-dimension-picker-unhighlighted"/>',
+                        '</div>',
+                        '<div class="note-dimension-display">1 x 1</div>'
+                    ].join('')
+                })
+            ], {
+                callback: function ($node) {
+                    var $catcher = $node.find('.note-dimension-picker-mousecatcher');
+                    $catcher.css({
+                        width: _this.options.insertTableMaxSize.col + 'em',
+                        height: _this.options.insertTableMaxSize.row + 'em'
+                    }).mousedown(_this.context.createInvokeHandler('editor.insertTable'))
+                        .on('mousemove', _this.tableMoveHandler.bind(_this));
+                }
+            }).render();
+        });
+        this.context.memo('button.link', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.link),
+                tooltip: _this.lang.link.link + _this.representShortcut('linkDialog.show'),
+                click: _this.context.createInvokeHandler('linkDialog.show')
+            }).render();
+        });
+        this.context.memo('button.picture', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.picture),
+                tooltip: _this.lang.image.image,
+                click: _this.context.createInvokeHandler('imageDialog.show')
+            }).render();
+        });
+        this.context.memo('button.video', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.video),
+                tooltip: _this.lang.video.video,
+                click: _this.context.createInvokeHandler('videoDialog.show')
+            }).render();
+        });
+        this.context.memo('button.hr', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.minus),
+                tooltip: _this.lang.hr.insert + _this.representShortcut('insertHorizontalRule'),
+                click: _this.context.createInvokeHandler('editor.insertHorizontalRule')
+            }).render();
+        });
+        this.context.memo('button.fullscreen', function () {
+            return _this.button({
+                className: 'btn-fullscreen',
+                contents: _this.ui.icon(_this.options.icons.arrowsAlt),
+                tooltip: _this.lang.options.fullscreen,
+                click: _this.context.createInvokeHandler('fullscreen.toggle')
+            }).render();
+        });
+        this.context.memo('button.codeview', function () {
+            return _this.button({
+                className: 'btn-codeview',
+                contents: _this.ui.icon(_this.options.icons.code),
+                tooltip: _this.lang.options.codeview,
+                click: _this.context.createInvokeHandler('codeview.toggle')
+            }).render();
+        });
+        this.context.memo('button.redo', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.redo),
+                tooltip: _this.lang.history.redo + _this.representShortcut('redo'),
+                click: _this.context.createInvokeHandler('editor.redo')
+            }).render();
+        });
+        this.context.memo('button.undo', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.undo),
+                tooltip: _this.lang.history.undo + _this.representShortcut('undo'),
+                click: _this.context.createInvokeHandler('editor.undo')
+            }).render();
+        });
+        this.context.memo('button.help', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.question),
+                tooltip: _this.lang.options.help,
+                click: _this.context.createInvokeHandler('helpDialog.show')
+            }).render();
+        });
+    };
+    /**
+     * image : [
+     *   ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+     *   ['float', ['floatLeft', 'floatRight', 'floatNone' ]],
+     *   ['remove', ['removeMedia']]
+     * ],
+     */
+    Buttons.prototype.addImagePopoverButtons = function () {
+        var _this = this;
+        // Image Size Buttons
+        this.context.memo('button.imageSize100', function () {
+            return _this.button({
+                contents: '<span class="note-fontsize-10">100%</span>',
+                tooltip: _this.lang.image.resizeFull,
+                click: _this.context.createInvokeHandler('editor.resize', '1')
+            }).render();
+        });
+        this.context.memo('button.imageSize50', function () {
+            return _this.button({
+                contents: '<span class="note-fontsize-10">50%</span>',
+                tooltip: _this.lang.image.resizeHalf,
+                click: _this.context.createInvokeHandler('editor.resize', '0.5')
+            }).render();
+        });
+        this.context.memo('button.imageSize25', function () {
+            return _this.button({
+                contents: '<span class="note-fontsize-10">25%</span>',
+                tooltip: _this.lang.image.resizeQuarter,
+                click: _this.context.createInvokeHandler('editor.resize', '0.25')
+            }).render();
+        });
+        // Float Buttons
+        this.context.memo('button.floatLeft', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.alignLeft),
+                tooltip: _this.lang.image.floatLeft,
+                click: _this.context.createInvokeHandler('editor.floatMe', 'left')
+            }).render();
+        });
+        this.context.memo('button.floatRight', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.alignRight),
+                tooltip: _this.lang.image.floatRight,
+                click: _this.context.createInvokeHandler('editor.floatMe', 'right')
+            }).render();
+        });
+        this.context.memo('button.floatNone', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.alignJustify),
+                tooltip: _this.lang.image.floatNone,
+                click: _this.context.createInvokeHandler('editor.floatMe', 'none')
+            }).render();
+        });
+        // Remove Buttons
+        this.context.memo('button.removeMedia', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.trash),
+                tooltip: _this.lang.image.remove,
+                click: _this.context.createInvokeHandler('editor.removeMedia')
+            }).render();
+        });
+    };
+    Buttons.prototype.addLinkPopoverButtons = function () {
+        var _this = this;
+        this.context.memo('button.linkDialogShow', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.link),
+                tooltip: _this.lang.link.edit,
+                click: _this.context.createInvokeHandler('linkDialog.show')
+            }).render();
+        });
+        this.context.memo('button.unlink', function () {
+            return _this.button({
+                contents: _this.ui.icon(_this.options.icons.unlink),
+                tooltip: _this.lang.link.unlink,
+                click: _this.context.createInvokeHandler('editor.unlink')
+            }).render();
+        });
+    };
+    /**
+     * table : [
+     *  ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+     *  ['delete', ['deleteRow', 'deleteCol', 'deleteTable']]
+     * ],
+     */
+    Buttons.prototype.addTablePopoverButtons = function () {
+        var _this = this;
+        this.context.memo('button.addRowUp', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.rowAbove),
+                tooltip: _this.lang.table.addRowAbove,
+                click: _this.context.createInvokeHandler('editor.addRow', 'top')
+            }).render();
+        });
+        this.context.memo('button.addRowDown', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.rowBelow),
+                tooltip: _this.lang.table.addRowBelow,
+                click: _this.context.createInvokeHandler('editor.addRow', 'bottom')
+            }).render();
+        });
+        this.context.memo('button.addColLeft', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.colBefore),
+                tooltip: _this.lang.table.addColLeft,
+                click: _this.context.createInvokeHandler('editor.addCol', 'left')
+            }).render();
+        });
+        this.context.memo('button.addColRight', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.colAfter),
+                tooltip: _this.lang.table.addColRight,
+                click: _this.context.createInvokeHandler('editor.addCol', 'right')
+            }).render();
+        });
+        this.context.memo('button.deleteRow', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.rowRemove),
+                tooltip: _this.lang.table.delRow,
+                click: _this.context.createInvokeHandler('editor.deleteRow')
+            }).render();
+        });
+        this.context.memo('button.deleteCol', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.colRemove),
+                tooltip: _this.lang.table.delCol,
+                click: _this.context.createInvokeHandler('editor.deleteCol')
+            }).render();
+        });
+        this.context.memo('button.deleteTable', function () {
+            return _this.button({
+                className: 'btn-md',
+                contents: _this.ui.icon(_this.options.icons.trash),
+                tooltip: _this.lang.table.delTable,
+                click: _this.context.createInvokeHandler('editor.deleteTable')
+            }).render();
+        });
+    };
+    Buttons.prototype.build = function ($container, groups) {
+        for (var groupIdx = 0, groupLen = groups.length; groupIdx < groupLen; groupIdx++) {
+            var group = groups[groupIdx];
+            var groupName = $$1.isArray(group) ? group[0] : group;
+            var buttons = $$1.isArray(group) ? ((group.length === 1) ? [group[0]] : group[1]) : [group];
+            var $group = this.ui.buttonGroup({
+                className: 'note-' + groupName
+            }).render();
+            for (var idx = 0, len = buttons.length; idx < len; idx++) {
+                var btn = this.context.memo('button.' + buttons[idx]);
+                if (btn) {
+                    $group.append(typeof btn === 'function' ? btn(this.context) : btn);
+                }
+            }
+            $group.appendTo($container);
+        }
+    };
+    /**
+     * @param {jQuery} [$container]
+     */
+    Buttons.prototype.updateCurrentStyle = function ($container) {
+        var _this = this;
+        var $cont = $container || this.$toolbar;
+        var styleInfo = this.context.invoke('editor.currentStyle');
+        this.updateBtnStates($cont, {
+            '.note-btn-bold': function () {
+                return styleInfo['font-bold'] === 'bold';
+            },
+            '.note-btn-italic': function () {
+                return styleInfo['font-italic'] === 'italic';
+            },
+            '.note-btn-underline': function () {
+                return styleInfo['font-underline'] === 'underline';
+            },
+            '.note-btn-subscript': function () {
+                return styleInfo['font-subscript'] === 'subscript';
+            },
+            '.note-btn-superscript': function () {
+                return styleInfo['font-superscript'] === 'superscript';
+            },
+            '.note-btn-strikethrough': function () {
+                return styleInfo['font-strikethrough'] === 'strikethrough';
+            }
+        });
+        if (styleInfo['font-family']) {
+            var fontNames = styleInfo['font-family'].split(',').map(function (name) {
+                return name.replace(/[\'\"]/g, '')
+                    .replace(/\s+$/, '')
+                    .replace(/^\s+/, '');
+            });
+            var fontName_1 = lists.find(fontNames, this.isFontInstalled.bind(this));
+            $cont.find('.dropdown-fontname a').each(function (idx, item) {
+                var $item = $$1(item);
+                // always compare string to avoid creating another func.
+                var isChecked = ($item.data('value') + '') === (fontName_1 + '');
+                $item.toggleClass('checked', isChecked);
+            });
+            $cont.find('.note-current-fontname').text(fontName_1).css('font-family', fontName_1);
+        }
+        if (styleInfo['font-size']) {
+            var fontSize_1 = styleInfo['font-size'];
+            $cont.find('.dropdown-fontsize a').each(function (idx, item) {
+                var $item = $$1(item);
+                // always compare with string to avoid creating another func.
+                var isChecked = ($item.data('value') + '') === (fontSize_1 + '');
+                $item.toggleClass('checked', isChecked);
+            });
+            $cont.find('.note-current-fontsize').text(fontSize_1);
+        }
+        if (styleInfo['line-height']) {
+            var lineHeight_1 = styleInfo['line-height'];
+            $cont.find('.dropdown-line-height li a').each(function (idx, item) {
+                // always compare with string to avoid creating another func.
+                var isChecked = ($$1(item).data('value') + '') === (lineHeight_1 + '');
+                _this.className = isChecked ? 'checked' : '';
+            });
+        }
+    };
+    Buttons.prototype.updateBtnStates = function ($container, infos) {
+        var _this = this;
+        $$1.each(infos, function (selector, pred) {
+            _this.ui.toggleBtnActive($container.find(selector), pred());
+        });
+    };
+    Buttons.prototype.tableMoveHandler = function (event) {
+        var PX_PER_EM = 18;
+        var $picker = $$1(event.target.parentNode); // target is mousecatcher
+        var $dimensionDisplay = $picker.next();
+        var $catcher = $picker.find('.note-dimension-picker-mousecatcher');
+        var $highlighted = $picker.find('.note-dimension-picker-highlighted');
+        var $unhighlighted = $picker.find('.note-dimension-picker-unhighlighted');
+        var posOffset;
+        // HTML5 with jQuery - e.offsetX is undefined in Firefox
+        if (event.offsetX === undefined) {
+            var posCatcher = $$1(event.target).offset();
+            posOffset = {
+                x: event.pageX - posCatcher.left,
+                y: event.pageY - posCatcher.top
+            };
+        }
+        else {
+            posOffset = {
+                x: event.offsetX,
+                y: event.offsetY
+            };
+        }
+        var dim = {
+            c: Math.ceil(posOffset.x / PX_PER_EM) || 1,
+            r: Math.ceil(posOffset.y / PX_PER_EM) || 1
+        };
+        $highlighted.css({ width: dim.c + 'em', height: dim.r + 'em' });
+        $catcher.data('value', dim.c + 'x' + dim.r);
+        if (dim.c > 3 && dim.c < this.options.insertTableMaxSize.col) {
+            $unhighlighted.css({ width: dim.c + 1 + 'em' });
+        }
+        if (dim.r > 3 && dim.r < this.options.insertTableMaxSize.row) {
+            $unhighlighted.css({ height: dim.r + 1 + 'em' });
+        }
+        $dimensionDisplay.html(dim.c + ' x ' + dim.r);
+    };
+    return Buttons;
+}());
+
+var Toolbar = /** @class */ (function () {
+    function Toolbar(context) {
+        this.context = context;
+        this.$window = $$1(window);
+        this.$document = $$1(document);
+        this.ui = $$1.summernote.ui;
+        this.$note = context.layoutInfo.note;
+        this.$editor = context.layoutInfo.editor;
+        this.$toolbar = context.layoutInfo.toolbar;
+        this.options = context.options;
+        this.followScroll = this.followScroll.bind(this);
+    }
+    Toolbar.prototype.shouldInitialize = function () {
+        return !this.options.airMode;
+    };
+    Toolbar.prototype.initialize = function () {
+        var _this = this;
+        this.options.toolbar = this.options.toolbar || [];
+        if (!this.options.toolbar.length) {
+            this.$toolbar.hide();
+        }
+        else {
+            this.context.invoke('buttons.build', this.$toolbar, this.options.toolbar);
+        }
+        if (this.options.toolbarContainer) {
+            this.$toolbar.appendTo(this.options.toolbarContainer);
+        }
+        this.changeContainer(false);
+        this.$note.on('summernote.keyup summernote.mouseup summernote.change', function () {
+            _this.context.invoke('buttons.updateCurrentStyle');
+        });
+        this.context.invoke('buttons.updateCurrentStyle');
+        if (this.options.followingToolbar) {
+            this.$window.on('scroll resize', this.followScroll);
+        }
+    };
+    Toolbar.prototype.destroy = function () {
+        this.$toolbar.children().remove();
+        if (this.options.followingToolbar) {
+            this.$window.off('scroll resize', this.followScroll);
+        }
+    };
+    Toolbar.prototype.followScroll = function () {
+        if (this.$editor.hasClass('fullscreen')) {
+            return false;
+        }
+        var $toolbarWrapper = this.$toolbar.parent('.note-toolbar-wrapper');
+        var editorHeight = this.$editor.outerHeight();
+        var editorWidth = this.$editor.width();
+        var toolbarHeight = this.$toolbar.height();
+        $toolbarWrapper.css({
+            height: toolbarHeight
+        });
+        // check if the web app is currently using another static bar
+        var otherBarHeight = 0;
+        if (this.options.otherStaticBar) {
+            otherBarHeight = $$1(this.options.otherStaticBar).outerHeight();
+        }
+        var currentOffset = this.$document.scrollTop();
+        var editorOffsetTop = this.$editor.offset().top;
+        var editorOffsetBottom = editorOffsetTop + editorHeight;
+        var activateOffset = editorOffsetTop - otherBarHeight;
+        var deactivateOffsetBottom = editorOffsetBottom - otherBarHeight - toolbarHeight;
+        if ((currentOffset > activateOffset) && (currentOffset < deactivateOffsetBottom)) {
+            this.$toolbar.css({
+                position: 'fixed',
+                top: otherBarHeight,
+                width: editorWidth
+            });
+        }
+        else {
+            this.$toolbar.css({
+                position: 'relative',
+                top: 0,
+                width: '100%'
+            });
+        }
+    };
+    Toolbar.prototype.changeContainer = function (isFullscreen) {
+        if (isFullscreen) {
+            this.$toolbar.prependTo(this.$editor);
+        }
+        else {
+            if (this.options.toolbarContainer) {
+                this.$toolbar.appendTo(this.options.toolbarContainer);
+            }
+        }
+    };
+    Toolbar.prototype.updateFullscreen = function (isFullscreen) {
+        this.ui.toggleBtnActive(this.$toolbar.find('.btn-fullscreen'), isFullscreen);
+        this.changeContainer(isFullscreen);
+    };
+    Toolbar.prototype.updateCodeview = function (isCodeview) {
+        this.ui.toggleBtnActive(this.$toolbar.find('.btn-codeview'), isCodeview);
+        if (isCodeview) {
+            this.deactivate();
+        }
+        else {
+            this.activate();
+        }
+    };
+    Toolbar.prototype.activate = function (isIncludeCodeview) {
+        var $btn = this.$toolbar.find('button');
+        if (!isIncludeCodeview) {
+            $btn = $btn.not('.btn-codeview');
+        }
+        this.ui.toggleBtn($btn, true);
+    };
+    Toolbar.prototype.deactivate = function (isIncludeCodeview) {
+        var $btn = this.$toolbar.find('button');
+        if (!isIncludeCodeview) {
+            $btn = $btn.not('.btn-codeview');
+        }
+        this.ui.toggleBtn($btn, false);
+    };
+    return Toolbar;
+}());
+
+var LinkDialog = /** @class */ (function () {
+    function LinkDialog(context) {
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.$body = $$1(document.body);
+        this.$editor = context.layoutInfo.editor;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+        context.memo('help.linkDialog.show', this.options.langInfo.help['linkDialog.show']);
+    }
+    LinkDialog.prototype.initialize = function () {
+        var $container = this.options.dialogsInBody ? this.$body : this.$editor;
+        var body = [
+            '<div class="form-group note-form-group">',
+            "<label class=\"note-form-label\">" + this.lang.link.textToDisplay + "</label>",
+            '<input class="note-link-text form-control note-form-control  note-input" type="text" />',
+            '</div>',
+            '<div class="form-group note-form-group">',
+            "<label class=\"note-form-label\">" + this.lang.link.url + "</label>",
+            '<input class="note-link-url form-control note-form-control note-input" type="text" value="http://" />',
+            '</div>',
+            !this.options.disableLinkTarget
+                ? $$1('<div/>').append(this.ui.checkbox({
+                    id: 'sn-checkbox-open-in-new-window',
+                    text: this.lang.link.openInNewWindow,
+                    checked: true
+                }).render()).html()
+                : ''
+        ].join('');
+        var buttonClass = 'btn btn-primary note-btn note-btn-primary note-link-btn';
+        var footer = "<button type=\"submit\" href=\"#\" class=\"" + buttonClass + "\" disabled>" + this.lang.link.insert + "</button>";
+        this.$dialog = this.ui.dialog({
+            className: 'link-dialog',
+            title: this.lang.link.insert,
+            fade: this.options.dialogsFade,
+            body: body,
+            footer: footer
+        }).render().appendTo($container);
+    };
+    LinkDialog.prototype.destroy = function () {
+        this.ui.hideDialog(this.$dialog);
+        this.$dialog.remove();
+    };
+    LinkDialog.prototype.bindEnterKey = function ($input, $btn) {
+        $input.on('keypress', function (event) {
+            if (event.keyCode === key.code.ENTER) {
+                event.preventDefault();
+                $btn.trigger('click');
+            }
+        });
+    };
+    /**
+     * toggle update button
+     */
+    LinkDialog.prototype.toggleLinkBtn = function ($linkBtn, $linkText, $linkUrl) {
+        this.ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+    };
+    /**
+     * Show link dialog and set event handlers on dialog controls.
+     *
+     * @param {Object} linkInfo
+     * @return {Promise}
+     */
+    LinkDialog.prototype.showLinkDialog = function (linkInfo) {
+        var _this = this;
+        return $$1.Deferred(function (deferred) {
+            var $linkText = _this.$dialog.find('.note-link-text');
+            var $linkUrl = _this.$dialog.find('.note-link-url');
+            var $linkBtn = _this.$dialog.find('.note-link-btn');
+            var $openInNewWindow = _this.$dialog.find('input[type=checkbox]');
+            _this.ui.onDialogShown(_this.$dialog, function () {
+                _this.context.triggerEvent('dialog.shown');
+                // if no url was given, copy text to url
+                if (!linkInfo.url) {
+                    linkInfo.url = linkInfo.text;
+                }
+                $linkText.val(linkInfo.text);
+                var handleLinkTextUpdate = function () {
+                    _this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+                    // if linktext was modified by keyup,
+                    // stop cloning text from linkUrl
+                    linkInfo.text = $linkText.val();
+                };
+                $linkText.on('input', handleLinkTextUpdate).on('paste', function () {
+                    setTimeout(handleLinkTextUpdate, 0);
+                });
+                var handleLinkUrlUpdate = function () {
+                    _this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+                    // display same link on `Text to display` input
+                    // when create a new link
+                    if (!linkInfo.text) {
+                        $linkText.val($linkUrl.val());
+                    }
+                };
+                $linkUrl.on('input', handleLinkUrlUpdate).on('paste', function () {
+                    setTimeout(handleLinkUrlUpdate, 0);
+                }).val(linkInfo.url);
+                if (!env.isSupportTouch) {
+                    $linkUrl.trigger('focus');
+                }
+                _this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+                _this.bindEnterKey($linkUrl, $linkBtn);
+                _this.bindEnterKey($linkText, $linkBtn);
+                var isChecked = linkInfo.isNewWindow !== undefined
+                    ? linkInfo.isNewWindow : _this.context.options.linkTargetBlank;
+                $openInNewWindow.prop('checked', isChecked);
+                $linkBtn.one('click', function (event) {
+                    event.preventDefault();
+                    deferred.resolve({
+                        range: linkInfo.range,
+                        url: $linkUrl.val(),
+                        text: $linkText.val(),
+                        isNewWindow: $openInNewWindow.is(':checked')
+                    });
+                    _this.ui.hideDialog(_this.$dialog);
+                });
+            });
+            _this.ui.onDialogHidden(_this.$dialog, function () {
+                // detach events
+                $linkText.off('input paste keypress');
+                $linkUrl.off('input paste keypress');
+                $linkBtn.off('click');
+                if (deferred.state() === 'pending') {
+                    deferred.reject();
+                }
+            });
+            _this.ui.showDialog(_this.$dialog);
+        }).promise();
+    };
+    /**
+     * @param {Object} layoutInfo
+     */
+    LinkDialog.prototype.show = function () {
+        var _this = this;
+        var linkInfo = this.context.invoke('editor.getLinkInfo');
+        this.context.invoke('editor.saveRange');
+        this.showLinkDialog(linkInfo).then(function (linkInfo) {
+            _this.context.invoke('editor.restoreRange');
+            _this.context.invoke('editor.createLink', linkInfo);
+        }).fail(function () {
+            _this.context.invoke('editor.restoreRange');
+        });
+    };
+    return LinkDialog;
+}());
+
+var LinkPopover = /** @class */ (function () {
+    function LinkPopover(context) {
+        var _this = this;
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.options = context.options;
+        this.events = {
+            'summernote.keyup summernote.mouseup summernote.change summernote.scroll': function () {
+                _this.update();
+            },
+            'summernote.disable summernote.dialog.shown': function () {
+                _this.hide();
+            }
+        };
+    }
+    LinkPopover.prototype.shouldInitialize = function () {
+        return !lists.isEmpty(this.options.popover.link);
+    };
+    LinkPopover.prototype.initialize = function () {
+        this.$popover = this.ui.popover({
+            className: 'note-link-popover',
+            callback: function ($node) {
+                var $content = $node.find('.popover-content,.note-popover-content');
+                $content.prepend('<span><a target="_blank"></a>&nbsp;</span>');
+            }
+        }).render().appendTo(this.options.container);
+        var $content = this.$popover.find('.popover-content,.note-popover-content');
+        this.context.invoke('buttons.build', $content, this.options.popover.link);
+    };
+    LinkPopover.prototype.destroy = function () {
+        this.$popover.remove();
+    };
+    LinkPopover.prototype.update = function () {
+        // Prevent focusing on editable when invoke('code') is executed
+        if (!this.context.invoke('editor.hasFocus')) {
+            this.hide();
+            return;
+        }
+        var rng = this.context.invoke('editor.createRange');
+        if (rng.isCollapsed() && rng.isOnAnchor()) {
+            var anchor = dom.ancestor(rng.sc, dom.isAnchor);
+            var href = $$1(anchor).attr('href');
+            this.$popover.find('a').attr('href', href).html(href);
+            var pos = dom.posFromPlaceholder(anchor);
+            this.$popover.css({
+                display: 'block',
+                left: pos.left,
+                top: pos.top
+            });
+        }
+        else {
+            this.hide();
+        }
+    };
+    LinkPopover.prototype.hide = function () {
+        this.$popover.hide();
+    };
+    return LinkPopover;
+}());
+
+var ImageDialog = /** @class */ (function () {
+    function ImageDialog(context) {
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.$body = $$1(document.body);
+        this.$editor = context.layoutInfo.editor;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+    }
+    ImageDialog.prototype.initialize = function () {
+        var $container = this.options.dialogsInBody ? this.$body : this.$editor;
+        var imageLimitation = '';
+        if (this.options.maximumImageFileSize) {
+            var unit = Math.floor(Math.log(this.options.maximumImageFileSize) / Math.log(1024));
+            var readableSize = (this.options.maximumImageFileSize / Math.pow(1024, unit)).toFixed(2) * 1 +
+                ' ' + ' KMGTP'[unit] + 'B';
+            imageLimitation = "<small>" + (this.lang.image.maximumFileSize + ' : ' + readableSize) + "</small>";
+        }
+        var body = [
+            '<div class="form-group note-form-group note-group-select-from-files">',
+            '<label class="note-form-label">' + this.lang.image.selectFromFiles + '</label>',
+            '<input class="note-image-input note-form-control note-input" ',
+            ' type="file" name="files" accept="image/*" multiple="multiple" />',
+            imageLimitation,
+            '</div>',
+            '<div class="form-group note-group-image-url" style="overflow:auto;">',
+            '<label class="note-form-label">' + this.lang.image.url + '</label>',
+            '<input class="note-image-url form-control note-form-control note-input ',
+            ' col-md-12" type="text" />',
+            '</div>'
+        ].join('');
+        var buttonClass = 'btn btn-primary note-btn note-btn-primary note-image-btn';
+        var footer = "<button type=\"submit\" href=\"#\" class=\"" + buttonClass + "\" disabled>" + this.lang.image.insert + "</button>";
+        this.$dialog = this.ui.dialog({
+            title: this.lang.image.insert,
+            fade: this.options.dialogsFade,
+            body: body,
+            footer: footer
+        }).render().appendTo($container);
+    };
+    ImageDialog.prototype.destroy = function () {
+        this.ui.hideDialog(this.$dialog);
+        this.$dialog.remove();
+    };
+    ImageDialog.prototype.bindEnterKey = function ($input, $btn) {
+        $input.on('keypress', function (event) {
+            if (event.keyCode === key.code.ENTER) {
+                event.preventDefault();
+                $btn.trigger('click');
+            }
+        });
+    };
+    ImageDialog.prototype.show = function () {
+        var _this = this;
+        this.context.invoke('editor.saveRange');
+        this.showImageDialog().then(function (data) {
+            // [workaround] hide dialog before restore range for IE range focus
+            _this.ui.hideDialog(_this.$dialog);
+            _this.context.invoke('editor.restoreRange');
+            if (typeof data === 'string') {
+                _this.context.invoke('editor.insertImage', data);
+            }
+            else {
+                _this.context.invoke('editor.insertImagesOrCallback', data);
+            }
+        }).fail(function () {
+            _this.context.invoke('editor.restoreRange');
+        });
+    };
+    /**
+     * show image dialog
+     *
+     * @param {jQuery} $dialog
+     * @return {Promise}
+     */
+    ImageDialog.prototype.showImageDialog = function () {
+        var _this = this;
+        return $$1.Deferred(function (deferred) {
+            var $imageInput = _this.$dialog.find('.note-image-input');
+            var $imageUrl = _this.$dialog.find('.note-image-url');
+            var $imageBtn = _this.$dialog.find('.note-image-btn');
+            _this.ui.onDialogShown(_this.$dialog, function () {
+                _this.context.triggerEvent('dialog.shown');
+                // Cloning imageInput to clear element.
+                $imageInput.replaceWith($imageInput.clone().on('change', function (event) {
+                    deferred.resolve(event.target.files || event.target.value);
+                }).val(''));
+                $imageBtn.click(function (event) {
+                    event.preventDefault();
+                    deferred.resolve($imageUrl.val());
+                });
+                $imageUrl.on('keyup paste', function () {
+                    var url = $imageUrl.val();
+                    _this.ui.toggleBtn($imageBtn, url);
+                }).val('');
+                if (!env.isSupportTouch) {
+                    $imageUrl.trigger('focus');
+                }
+                _this.bindEnterKey($imageUrl, $imageBtn);
+            });
+            _this.ui.onDialogHidden(_this.$dialog, function () {
+                $imageInput.off('change');
+                $imageUrl.off('keyup paste keypress');
+                $imageBtn.off('click');
+                if (deferred.state() === 'pending') {
+                    deferred.reject();
+                }
+            });
+            _this.ui.showDialog(_this.$dialog);
+        });
+    };
+    return ImageDialog;
+}());
+
+/**
+ * Image popover module
+ *  mouse events that show/hide popover will be handled by Handle.js.
+ *  Handle.js will receive the events and invoke 'imagePopover.update'.
+ */
+var ImagePopover = /** @class */ (function () {
+    function ImagePopover(context) {
+        var _this = this;
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.editable = context.layoutInfo.editable[0];
+        this.options = context.options;
+        this.events = {
+            'summernote.disable': function () {
+                _this.hide();
+            }
+        };
+    }
+    ImagePopover.prototype.shouldInitialize = function () {
+        return !lists.isEmpty(this.options.popover.image);
+    };
+    ImagePopover.prototype.initialize = function () {
+        this.$popover = this.ui.popover({
+            className: 'note-image-popover'
+        }).render().appendTo(this.options.container);
+        var $content = this.$popover.find('.popover-content,.note-popover-content');
+        this.context.invoke('buttons.build', $content, this.options.popover.image);
+    };
+    ImagePopover.prototype.destroy = function () {
+        this.$popover.remove();
+    };
+    ImagePopover.prototype.update = function (target) {
+        if (dom.isImg(target)) {
+            var pos = dom.posFromPlaceholder(target);
+            var posEditor = dom.posFromPlaceholder(this.editable);
+            this.$popover.css({
+                display: 'block',
+                left: this.options.popatmouse ? event.pageX - 20 : pos.left,
+                top: this.options.popatmouse ? event.pageY : Math.min(pos.top, posEditor.top)
+            });
+        }
+        else {
+            this.hide();
+        }
+    };
+    ImagePopover.prototype.hide = function () {
+        this.$popover.hide();
+    };
+    return ImagePopover;
+}());
+
+var TablePopover = /** @class */ (function () {
+    function TablePopover(context) {
+        var _this = this;
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.options = context.options;
+        this.events = {
+            'summernote.mousedown': function (we, e) {
+                _this.update(e.target);
+            },
+            'summernote.keyup summernote.scroll summernote.change': function () {
+                _this.update();
+            },
+            'summernote.disable': function () {
+                _this.hide();
+            }
+        };
+    }
+    TablePopover.prototype.shouldInitialize = function () {
+        return !lists.isEmpty(this.options.popover.table);
+    };
+    TablePopover.prototype.initialize = function () {
+        this.$popover = this.ui.popover({
+            className: 'note-table-popover'
+        }).render().appendTo(this.options.container);
+        var $content = this.$popover.find('.popover-content,.note-popover-content');
+        this.context.invoke('buttons.build', $content, this.options.popover.table);
+        // [workaround] Disable Firefox's default table editor
+        if (env.isFF) {
+            document.execCommand('enableInlineTableEditing', false, false);
+        }
+    };
+    TablePopover.prototype.destroy = function () {
+        this.$popover.remove();
+    };
+    TablePopover.prototype.update = function (target) {
+        if (this.context.isDisabled()) {
+            return false;
+        }
+        var isCell = dom.isCell(target);
+        if (isCell) {
+            var pos = dom.posFromPlaceholder(target);
+            this.$popover.css({
+                display: 'block',
+                left: pos.left,
+                top: pos.top
+            });
+        }
+        else {
+            this.hide();
+        }
+        return isCell;
+    };
+    TablePopover.prototype.hide = function () {
+        this.$popover.hide();
+    };
+    return TablePopover;
+}());
+
+var VideoDialog = /** @class */ (function () {
+    function VideoDialog(context) {
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.$body = $$1(document.body);
+        this.$editor = context.layoutInfo.editor;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+    }
+    VideoDialog.prototype.initialize = function () {
+        var $container = this.options.dialogsInBody ? this.$body : this.$editor;
+        var body = [
+            '<div class="form-group note-form-group row-fluid">',
+            "<label class=\"note-form-label\">" + this.lang.video.url + " <small class=\"text-muted\">" + this.lang.video.providers + "</small></label>",
+            '<input class="note-video-url form-control note-form-control note-input" type="text" />',
+            '</div>'
+        ].join('');
+        var buttonClass = 'btn btn-primary note-btn note-btn-primary note-video-btn';
+        var footer = "<button type=\"submit\" href=\"#\" class=\"" + buttonClass + "\" disabled>" + this.lang.video.insert + "</button>";
+        this.$dialog = this.ui.dialog({
+            title: this.lang.video.insert,
+            fade: this.options.dialogsFade,
+            body: body,
+            footer: footer
+        }).render().appendTo($container);
+    };
+    VideoDialog.prototype.destroy = function () {
+        this.ui.hideDialog(this.$dialog);
+        this.$dialog.remove();
+    };
+    VideoDialog.prototype.bindEnterKey = function ($input, $btn) {
+        $input.on('keypress', function (event) {
+            if (event.keyCode === key.code.ENTER) {
+                event.preventDefault();
+                $btn.trigger('click');
+            }
+        });
+    };
+    VideoDialog.prototype.createVideoNode = function (url) {
+        // video url patterns(youtube, instagram, vimeo, dailymotion, youku, mp4, ogg, webm)
+        var ytRegExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        var ytMatch = url.match(ytRegExp);
+        var igRegExp = /(?:www\.|\/\/)instagram\.com\/p\/(.[a-zA-Z0-9_-]*)/;
+        var igMatch = url.match(igRegExp);
+        var vRegExp = /\/\/vine\.co\/v\/([a-zA-Z0-9]+)/;
+        var vMatch = url.match(vRegExp);
+        var vimRegExp = /\/\/(player\.)?vimeo\.com\/([a-z]*\/)*(\d+)[?]?.*/;
+        var vimMatch = url.match(vimRegExp);
+        var dmRegExp = /.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/;
+        var dmMatch = url.match(dmRegExp);
+        var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)=*\.html/;
+        var youkuMatch = url.match(youkuRegExp);
+        var qqRegExp = /\/\/v\.qq\.com.*?vid=(.+)/;
+        var qqMatch = url.match(qqRegExp);
+        var qqRegExp2 = /\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.html\??.*/;
+        var qqMatch2 = url.match(qqRegExp2);
+        var mp4RegExp = /^.+.(mp4|m4v)$/;
+        var mp4Match = url.match(mp4RegExp);
+        var oggRegExp = /^.+.(ogg|ogv)$/;
+        var oggMatch = url.match(oggRegExp);
+        var webmRegExp = /^.+.(webm)$/;
+        var webmMatch = url.match(webmRegExp);
+        var $video;
+        if (ytMatch && ytMatch[1].length === 11) {
+            var youtubeId = ytMatch[1];
+            $video = $$1('<iframe>')
+                .attr('frameborder', 0)
+                .attr('src', '//www.youtube.com/embed/' + youtubeId)
+                .attr('width', '640').attr('height', '360');
+        }
+        else if (igMatch && igMatch[0].length) {
+            $video = $$1('<iframe>')
+                .attr('frameborder', 0)
+                .attr('src', 'https://instagram.com/p/' + igMatch[1] + '/embed/')
+                .attr('width', '612').attr('height', '710')
+                .attr('scrolling', 'no')
+                .attr('allowtransparency', 'true');
+        }
+        else if (vMatch && vMatch[0].length) {
+            $video = $$1('<iframe>')
+                .attr('frameborder', 0)
+                .attr('src', vMatch[0] + '/embed/simple')
+                .attr('width', '600').attr('height', '600')
+                .attr('class', 'vine-embed');
+        }
+        else if (vimMatch && vimMatch[3].length) {
+            $video = $$1('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
+                .attr('frameborder', 0)
+                .attr('src', '//player.vimeo.com/video/' + vimMatch[3])
+                .attr('width', '640').attr('height', '360');
+        }
+        else if (dmMatch && dmMatch[2].length) {
+            $video = $$1('<iframe>')
+                .attr('frameborder', 0)
+                .attr('src', '//www.dailymotion.com/embed/video/' + dmMatch[2])
+                .attr('width', '640').attr('height', '360');
+        }
+        else if (youkuMatch && youkuMatch[1].length) {
+            $video = $$1('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
+                .attr('frameborder', 0)
+                .attr('height', '498')
+                .attr('width', '510')
+                .attr('src', '//player.youku.com/embed/' + youkuMatch[1]);
+        }
+        else if ((qqMatch && qqMatch[1].length) || (qqMatch2 && qqMatch2[2].length)) {
+            var vid = ((qqMatch && qqMatch[1].length) ? qqMatch[1] : qqMatch2[2]);
+            $video = $$1('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
+                .attr('frameborder', 0)
+                .attr('height', '310')
+                .attr('width', '500')
+                .attr('src', 'http://v.qq.com/iframe/player.html?vid=' + vid + '&amp;auto=0');
+        }
+        else if (mp4Match || oggMatch || webmMatch) {
+            $video = $$1('<video controls>')
+                .attr('src', url)
+                .attr('width', '640').attr('height', '360');
+        }
+        else {
+            // this is not a known video link. Now what, Cat? Now what?
+            return false;
+        }
+        $video.addClass('note-video-clip');
+        return $video[0];
+    };
+    VideoDialog.prototype.show = function () {
+        var _this = this;
+        var text = this.context.invoke('editor.getSelectedText');
+        this.context.invoke('editor.saveRange');
+        this.showVideoDialog(text).then(function (url) {
+            // [workaround] hide dialog before restore range for IE range focus
+            _this.ui.hideDialog(_this.$dialog);
+            _this.context.invoke('editor.restoreRange');
+            // build node
+            var $node = _this.createVideoNode(url);
+            if ($node) {
+                // insert video node
+                _this.context.invoke('editor.insertNode', $node);
+            }
+        }).fail(function () {
+            _this.context.invoke('editor.restoreRange');
+        });
+    };
+    /**
+     * show image dialog
+     *
+     * @param {jQuery} $dialog
+     * @return {Promise}
+     */
+    VideoDialog.prototype.showVideoDialog = function (text) {
+        var _this = this;
+        return $$1.Deferred(function (deferred) {
+            var $videoUrl = _this.$dialog.find('.note-video-url');
+            var $videoBtn = _this.$dialog.find('.note-video-btn');
+            _this.ui.onDialogShown(_this.$dialog, function () {
+                _this.context.triggerEvent('dialog.shown');
+                $videoUrl.val(text).on('input', function () {
+                    _this.ui.toggleBtn($videoBtn, $videoUrl.val());
+                });
+                if (!env.isSupportTouch) {
+                    $videoUrl.trigger('focus');
+                }
+                $videoBtn.click(function (event) {
+                    event.preventDefault();
+                    deferred.resolve($videoUrl.val());
+                });
+                _this.bindEnterKey($videoUrl, $videoBtn);
+            });
+            _this.ui.onDialogHidden(_this.$dialog, function () {
+                $videoUrl.off('input');
+                $videoBtn.off('click');
+                if (deferred.state() === 'pending') {
+                    deferred.reject();
+                }
+            });
+            _this.ui.showDialog(_this.$dialog);
+        });
+    };
+    return VideoDialog;
+}());
+
+var HelpDialog = /** @class */ (function () {
+    function HelpDialog(context) {
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.$body = $$1(document.body);
+        this.$editor = context.layoutInfo.editor;
+        this.options = context.options;
+        this.lang = this.options.langInfo;
+    }
+    HelpDialog.prototype.initialize = function () {
+        var $container = this.options.dialogsInBody ? this.$body : this.$editor;
+        var body = [
+            '<p class="text-center">',
+            '<a href="http://summernote.org/" target="_blank">Summernote 0.8.10</a> · ',
+            '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ',
+            '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>',
+            '</p>'
+        ].join('');
+        this.$dialog = this.ui.dialog({
+            title: this.lang.options.help,
+            fade: this.options.dialogsFade,
+            body: this.createShortcutList(),
+            footer: body,
+            callback: function ($node) {
+                $node.find('.modal-body,.note-modal-body').css({
+                    'max-height': 300,
+                    'overflow': 'scroll'
+                });
+            }
+        }).render().appendTo($container);
+    };
+    HelpDialog.prototype.destroy = function () {
+        this.ui.hideDialog(this.$dialog);
+        this.$dialog.remove();
+    };
+    HelpDialog.prototype.createShortcutList = function () {
+        var _this = this;
+        var keyMap = this.options.keyMap[env.isMac ? 'mac' : 'pc'];
+        return Object.keys(keyMap).map(function (key) {
+            var command = keyMap[key];
+            var $row = $$1('<div><div class="help-list-item"/></div>');
+            $row.append($$1('<label><kbd>' + key + '</kdb></label>').css({
+                'width': 180,
+                'margin-right': 10
+            })).append($$1('<span/>').html(_this.context.memo('help.' + command) || command));
+            return $row.html();
+        }).join('');
+    };
+    /**
+     * show help dialog
+     *
+     * @return {Promise}
+     */
+    HelpDialog.prototype.showHelpDialog = function () {
+        var _this = this;
+        return $$1.Deferred(function (deferred) {
+            _this.ui.onDialogShown(_this.$dialog, function () {
+                _this.context.triggerEvent('dialog.shown');
+                deferred.resolve();
+            });
+            _this.ui.showDialog(_this.$dialog);
+        }).promise();
+    };
+    HelpDialog.prototype.show = function () {
+        var _this = this;
+        this.context.invoke('editor.saveRange');
+        this.showHelpDialog().then(function () {
+            _this.context.invoke('editor.restoreRange');
+        });
+    };
+    return HelpDialog;
+}());
+
+var AIR_MODE_POPOVER_X_OFFSET = 20;
+var AirPopover = /** @class */ (function () {
+    function AirPopover(context) {
+        var _this = this;
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.options = context.options;
+        this.events = {
+            'summernote.keyup summernote.mouseup summernote.scroll': function () {
+                _this.update();
+            },
+            'summernote.disable summernote.change summernote.dialog.shown': function () {
+                _this.hide();
+            },
+            'summernote.focusout': function (we, e) {
+                // [workaround] Firefox doesn't support relatedTarget on focusout
+                //  - Ignore hide action on focus out in FF.
+                if (env.isFF) {
+                    return;
+                }
+                if (!e.relatedTarget || !dom.ancestor(e.relatedTarget, func.eq(_this.$popover[0]))) {
+                    _this.hide();
+                }
+            }
+        };
+    }
+    AirPopover.prototype.shouldInitialize = function () {
+        return this.options.airMode && !lists.isEmpty(this.options.popover.air);
+    };
+    AirPopover.prototype.initialize = function () {
+        this.$popover = this.ui.popover({
+            className: 'note-air-popover'
+        }).render().appendTo(this.options.container);
+        var $content = this.$popover.find('.popover-content');
+        this.context.invoke('buttons.build', $content, this.options.popover.air);
+    };
+    AirPopover.prototype.destroy = function () {
+        this.$popover.remove();
+    };
+    AirPopover.prototype.update = function () {
+        var styleInfo = this.context.invoke('editor.currentStyle');
+        if (styleInfo.range && !styleInfo.range.isCollapsed()) {
+            var rect = lists.last(styleInfo.range.getClientRects());
+            if (rect) {
+                var bnd = func.rect2bnd(rect);
+                this.$popover.css({
+                    display: 'block',
+                    left: Math.max(bnd.left + bnd.width / 2, 0) - AIR_MODE_POPOVER_X_OFFSET,
+                    top: bnd.top + bnd.height
+                });
+                this.context.invoke('buttons.updateCurrentStyle', this.$popover);
+            }
+        }
+        else {
+            this.hide();
+        }
+    };
+    AirPopover.prototype.hide = function () {
+        this.$popover.hide();
+    };
+    return AirPopover;
+}());
+
+var POPOVER_DIST = 5;
+var HintPopover = /** @class */ (function () {
+    function HintPopover(context) {
+        var _this = this;
+        this.context = context;
+        this.ui = $$1.summernote.ui;
+        this.$editable = context.layoutInfo.editable;
+        this.options = context.options;
+        this.hint = this.options.hint || [];
+        this.direction = this.options.hintDirection || 'bottom';
+        this.hints = $$1.isArray(this.hint) ? this.hint : [this.hint];
+        this.events = {
+            'summernote.keyup': function (we, e) {
+                if (!e.isDefaultPrevented()) {
+                    _this.handleKeyup(e);
+                }
+            },
+            'summernote.keydown': function (we, e) {
+                _this.handleKeydown(e);
+            },
+            'summernote.disable summernote.dialog.shown': function () {
+                _this.hide();
+            }
+        };
+    }
+    HintPopover.prototype.shouldInitialize = function () {
+        return this.hints.length > 0;
+    };
+    HintPopover.prototype.initialize = function () {
+        var _this = this;
+        this.lastWordRange = null;
+        this.$popover = this.ui.popover({
+            className: 'note-hint-popover',
+            hideArrow: true,
+            direction: ''
+        }).render().appendTo(this.options.container);
+        this.$popover.hide();
+        this.$content = this.$popover.find('.popover-content,.note-popover-content');
+        this.$content.on('click', '.note-hint-item', function () {
+            _this.$content.find('.active').removeClass('active');
+            $$1(_this).addClass('active');
+            _this.replace();
+        });
+    };
+    HintPopover.prototype.destroy = function () {
+        this.$popover.remove();
+    };
+    HintPopover.prototype.selectItem = function ($item) {
+        this.$content.find('.active').removeClass('active');
+        $item.addClass('active');
+        this.$content[0].scrollTop = $item[0].offsetTop - (this.$content.innerHeight() / 2);
+    };
+    HintPopover.prototype.moveDown = function () {
+        var $current = this.$content.find('.note-hint-item.active');
+        var $next = $current.next();
+        if ($next.length) {
+            this.selectItem($next);
+        }
+        else {
+            var $nextGroup = $current.parent().next();
+            if (!$nextGroup.length) {
+                $nextGroup = this.$content.find('.note-hint-group').first();
+            }
+            this.selectItem($nextGroup.find('.note-hint-item').first());
+        }
+    };
+    HintPopover.prototype.moveUp = function () {
+        var $current = this.$content.find('.note-hint-item.active');
+        var $prev = $current.prev();
+        if ($prev.length) {
+            this.selectItem($prev);
+        }
+        else {
+            var $prevGroup = $current.parent().prev();
+            if (!$prevGroup.length) {
+                $prevGroup = this.$content.find('.note-hint-group').last();
+            }
+            this.selectItem($prevGroup.find('.note-hint-item').last());
+        }
+    };
+    HintPopover.prototype.replace = function () {
+        var $item = this.$content.find('.note-hint-item.active');
+        if ($item.length) {
+            var node = this.nodeFromItem($item);
+            // XXX: consider to move codes to editor for recording redo/undo.
+            this.lastWordRange.insertNode(node);
+            range.createFromNode(node).collapse().select();
+            this.lastWordRange = null;
+            this.hide();
+            this.context.triggerEvent('change', this.$editable.html(), this.$editable[0]);
+            this.context.invoke('editor.focus');
+        }
+    };
+    HintPopover.prototype.nodeFromItem = function ($item) {
+        var hint = this.hints[$item.data('index')];
+        var item = $item.data('item');
+        var node = hint.content ? hint.content(item) : item;
+        if (typeof node === 'string') {
+            node = dom.createText(node);
+        }
+        return node;
+    };
+    HintPopover.prototype.createItemTemplates = function (hintIdx, items) {
+        var hint = this.hints[hintIdx];
+        return items.map(function (item, idx) {
+            var $item = $$1('<div class="note-hint-item"/>');
+            $item.append(hint.template ? hint.template(item) : item + '');
+            $item.data({
+                'index': hintIdx,
+                'item': item
+            });
+            return $item;
+        });
+    };
+    HintPopover.prototype.handleKeydown = function (e) {
+        if (!this.$popover.is(':visible')) {
+            return;
+        }
+        if (e.keyCode === key.code.ENTER) {
+            e.preventDefault();
+            this.replace();
+        }
+        else if (e.keyCode === key.code.UP) {
+            e.preventDefault();
+            this.moveUp();
+        }
+        else if (e.keyCode === key.code.DOWN) {
+            e.preventDefault();
+            this.moveDown();
+        }
+    };
+    HintPopover.prototype.searchKeyword = function (index, keyword, callback) {
+        var hint = this.hints[index];
+        if (hint && hint.match.test(keyword) && hint.search) {
+            var matches = hint.match.exec(keyword);
+            hint.search(matches[1], callback);
+        }
+        else {
+            callback();
+        }
+    };
+    HintPopover.prototype.createGroup = function (idx, keyword) {
+        var _this = this;
+        var $group = $$1('<div class="note-hint-group note-hint-group-' + idx + '"/>');
+        this.searchKeyword(idx, keyword, function (items) {
+            items = items || [];
+            if (items.length) {
+                $group.html(_this.createItemTemplates(idx, items));
+                _this.show();
+            }
+        });
+        return $group;
+    };
+    HintPopover.prototype.handleKeyup = function (e) {
+        var _this = this;
+        if (!lists.contains([key.code.ENTER, key.code.UP, key.code.DOWN], e.keyCode)) {
+            var wordRange = this.context.invoke('editor.createRange').getWordRange();
+            var keyword_1 = wordRange.toString();
+            if (this.hints.length && keyword_1) {
+                this.$content.empty();
+                var bnd = func.rect2bnd(lists.last(wordRange.getClientRects()));
+                if (bnd) {
+                    this.$popover.hide();
+                    this.lastWordRange = wordRange;
+                    this.hints.forEach(function (hint, idx) {
+                        if (hint.match.test(keyword_1)) {
+                            _this.createGroup(idx, keyword_1).appendTo(_this.$content);
+                        }
+                    });
+                    // select first .note-hint-item
+                    this.$content.find('.note-hint-item:first').addClass('active');
+                    // set position for popover after group is created
+                    if (this.direction === 'top') {
+                        this.$popover.css({
+                            left: bnd.left,
+                            top: bnd.top - this.$popover.outerHeight() - POPOVER_DIST
+                        });
+                    }
+                    else {
+                        this.$popover.css({
+                            left: bnd.left,
+                            top: bnd.top + bnd.height + POPOVER_DIST
+                        });
+                    }
+                }
+            }
+            else {
+                this.hide();
+            }
+        }
+    };
+    HintPopover.prototype.show = function () {
+        this.$popover.show();
+    };
+    HintPopover.prototype.hide = function () {
+        this.$popover.hide();
+    };
+    return HintPopover;
+}());
+
+var Context = /** @class */ (function () {
+    /**
+     * @param {jQuery} $note
+     * @param {Object} options
+     */
+    function Context($note, options) {
+        this.ui = $$1.summernote.ui;
+        this.$note = $note;
+        this.memos = {};
+        this.modules = {};
+        this.layoutInfo = {};
+        this.options = options;
+        this.initialize();
+    }
+    /**
+     * create layout and initialize modules and other resources
+     */
+    Context.prototype.initialize = function () {
+        this.layoutInfo = this.ui.createLayout(this.$note, this.options);
+        this._initialize();
+        this.$note.hide();
+        return this;
+    };
+    /**
+     * destroy modules and other resources and remove layout
+     */
+    Context.prototype.destroy = function () {
+        this._destroy();
+        this.$note.removeData('summernote');
+        this.ui.removeLayout(this.$note, this.layoutInfo);
+    };
+    /**
+     * destory modules and other resources and initialize it again
+     */
+    Context.prototype.reset = function () {
+        var disabled = this.isDisabled();
+        this.code(dom.emptyPara);
+        this._destroy();
+        this._initialize();
+        if (disabled) {
+            this.disable();
+        }
+    };
+    Context.prototype._initialize = function () {
+        var _this = this;
+        // add optional buttons
+        var buttons = $$1.extend({}, this.options.buttons);
+        Object.keys(buttons).forEach(function (key) {
+            _this.memo('button.' + key, buttons[key]);
+        });
+        var modules = $$1.extend({}, this.options.modules, $$1.summernote.plugins || {});
+        // add and initialize modules
+        Object.keys(modules).forEach(function (key) {
+            _this.module(key, modules[key], true);
+        });
+        Object.keys(this.modules).forEach(function (key) {
+            _this.initializeModule(key);
+        });
+    };
+    Context.prototype._destroy = function () {
+        var _this = this;
+        // destroy modules with reversed order
+        Object.keys(this.modules).reverse().forEach(function (key) {
+            _this.removeModule(key);
+        });
+        Object.keys(this.memos).forEach(function (key) {
+            _this.removeMemo(key);
+        });
+        // trigger custom onDestroy callback
+        this.triggerEvent('destroy', this);
+    };
+    Context.prototype.code = function (html) {
+        var isActivated = this.invoke('codeview.isActivated');
+        if (html === undefined) {
+            this.invoke('codeview.sync');
+            return isActivated ? this.layoutInfo.codable.val() : this.layoutInfo.editable.html();
+        }
+        else {
+            if (isActivated) {
+                this.layoutInfo.codable.val(html);
+            }
+            else {
+                this.layoutInfo.editable.html(html);
+            }
+            this.$note.val(html);
+            this.triggerEvent('change', html);
+        }
+    };
+    Context.prototype.isDisabled = function () {
+        return this.layoutInfo.editable.attr('contenteditable') === 'false';
+    };
+    Context.prototype.enable = function () {
+        this.layoutInfo.editable.attr('contenteditable', true);
+        this.invoke('toolbar.activate', true);
+        this.triggerEvent('disable', false);
+    };
+    Context.prototype.disable = function () {
+        // close codeview if codeview is opend
+        if (this.invoke('codeview.isActivated')) {
+            this.invoke('codeview.deactivate');
+        }
+        this.layoutInfo.editable.attr('contenteditable', false);
+        this.invoke('toolbar.deactivate', true);
+        this.triggerEvent('disable', true);
+    };
+    Context.prototype.triggerEvent = function () {
+        var namespace = lists.head(arguments);
+        var args = lists.tail(lists.from(arguments));
+        var callback = this.options.callbacks[func.namespaceToCamel(namespace, 'on')];
+        if (callback) {
+            callback.apply(this.$note[0], args);
+        }
+        this.$note.trigger('summernote.' + namespace, args);
+    };
+    Context.prototype.initializeModule = function (key) {
+        var module = this.modules[key];
+        module.shouldInitialize = module.shouldInitialize || func.ok;
+        if (!module.shouldInitialize()) {
+            return;
+        }
+        // initialize module
+        if (module.initialize) {
+            module.initialize();
+        }
+        // attach events
+        if (module.events) {
+            dom.attachEvents(this.$note, module.events);
+        }
+    };
+    Context.prototype.module = function (key, ModuleClass, withoutIntialize) {
+        if (arguments.length === 1) {
+            return this.modules[key];
+        }
+        this.modules[key] = new ModuleClass(this);
+        if (!withoutIntialize) {
+            this.initializeModule(key);
+        }
+    };
+    Context.prototype.removeModule = function (key) {
+        var module = this.modules[key];
+        if (module.shouldInitialize()) {
+            if (module.events) {
+                dom.detachEvents(this.$note, module.events);
+            }
+            if (module.destroy) {
+                module.destroy();
+            }
+        }
+        delete this.modules[key];
+    };
+    Context.prototype.memo = function (key, obj) {
+        if (arguments.length === 1) {
+            return this.memos[key];
+        }
+        this.memos[key] = obj;
+    };
+    Context.prototype.removeMemo = function (key) {
+        if (this.memos[key] && this.memos[key].destroy) {
+            this.memos[key].destroy();
+        }
+        delete this.memos[key];
+    };
+    /**
+     * Some buttons need to change their visual style immediately once they get pressed
+     */
+    Context.prototype.createInvokeHandlerAndUpdateState = function (namespace, value) {
+        var _this = this;
+        return function (event) {
+            _this.createInvokeHandler(namespace, value)(event);
+            _this.invoke('buttons.updateCurrentStyle');
+        };
+    };
+    Context.prototype.createInvokeHandler = function (namespace, value) {
+        var _this = this;
+        return function (event) {
+            event.preventDefault();
+            var $target = $$1(event.target);
+            _this.invoke(namespace, value || $target.closest('[data-value]').data('value'), $target);
+        };
+    };
+    Context.prototype.invoke = function () {
+        var namespace = lists.head(arguments);
+        var args = lists.tail(lists.from(arguments));
+        var splits = namespace.split('.');
+        var hasSeparator = splits.length > 1;
+        var moduleName = hasSeparator && lists.head(splits);
+        var methodName = hasSeparator ? lists.last(splits) : lists.head(splits);
+        var module = this.modules[moduleName || 'editor'];
+        if (!moduleName && this[methodName]) {
+            return this[methodName].apply(this, args);
+        }
+        else if (module && module[methodName] && module.shouldInitialize()) {
+            return module[methodName].apply(module, args);
+        }
+    };
+    return Context;
+}());
+
+$$1.fn.extend({
+    /**
+     * Summernote API
+     *
+     * @param {Object|String}
+     * @return {this}
+     */
+    summernote: function () {
+        var type = $$1.type(lists.head(arguments));
+        var isExternalAPICalled = type === 'string';
+        var hasInitOptions = type === 'object';
+        var options = $$1.extend({}, $$1.summernote.options, hasInitOptions ? lists.head(arguments) : {});
+        // Update options
+        options.langInfo = $$1.extend(true, {}, $$1.summernote.lang['en-US'], $$1.summernote.lang[options.lang]);
+        options.icons = $$1.extend(true, {}, $$1.summernote.options.icons, options.icons);
+        options.tooltip = options.tooltip === 'auto' ? !env.isSupportTouch : options.tooltip;
+        this.each(function (idx, note) {
+            var $note = $$1(note);
+            if (!$note.data('summernote')) {
+                var context = new Context($note, options);
+                $note.data('summernote', context);
+                $note.data('summernote').triggerEvent('init', context.layoutInfo);
+            }
+        });
+        var $note = this.first();
+        if ($note.length) {
+            var context = $note.data('summernote');
+            if (isExternalAPICalled) {
+                return context.invoke.apply(context, lists.from(arguments));
+            }
+            else if (options.focus) {
+                context.invoke('editor.focus');
+            }
+        }
+        return this;
+    }
+});
+
+$$1.summernote = $$1.extend($$1.summernote, {
+    version: '0.8.10',
+    ui: ui,
+    dom: dom,
+    plugins: {},
+    options: {
+        modules: {
+            'editor': Editor,
+            'clipboard': Clipboard,
+            'dropzone': Dropzone,
+            'codeview': CodeView,
+            'statusbar': Statusbar,
+            'fullscreen': Fullscreen,
+            'handle': Handle,
+            // FIXME: HintPopover must be front of autolink
+            //  - Script error about range when Enter key is pressed on hint popover
+            'hintPopover': HintPopover,
+            'autoLink': AutoLink,
+            'autoSync': AutoSync,
+            'placeholder': Placeholder,
+            'buttons': Buttons,
+            'toolbar': Toolbar,
+            'linkDialog': LinkDialog,
+            'linkPopover': LinkPopover,
+            'imageDialog': ImageDialog,
+            'imagePopover': ImagePopover,
+            'tablePopover': TablePopover,
+            'videoDialog': VideoDialog,
+            'helpDialog': HelpDialog,
+            'airPopover': AirPopover
+        },
+        buttons: {},
+        lang: 'en-US',
+        followingToolbar: true,
+        otherStaticBar: '',
+        // toolbar
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        // popover
+        popatmouse: true,
+        popover: {
+            image: [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+            ],
+            link: [
+                ['link', ['linkDialogShow', 'unlink']]
+            ],
+            table: [
+                ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                ['delete', ['deleteRow', 'deleteCol', 'deleteTable']]
+            ],
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+            ]
+        },
+        // air mode: inline editor
+        airMode: false,
+        width: null,
+        height: null,
+        linkTargetBlank: true,
+        focus: false,
+        tabSize: 4,
+        styleWithSpan: true,
+        shortcuts: true,
+        textareaAutoSync: true,
+        hintDirection: 'bottom',
+        tooltip: 'auto',
+        container: 'body',
+        maxTextLength: 0,
+        styleTags: [
+            'p',
+            { title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+            'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+        ],
+        fontNames: [
+            'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+            'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
+            'Tahoma', 'Times New Roman', 'Verdana'
+        ],
+        fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
+        // pallete colors(n x n)
+        colors: [
+            ['#000000', '#424242', '#636363', '#9C9C94', '#CEC6CE', '#EFEFEF', '#F7F7F7', '#FFFFFF'],
+            ['#FF0000', '#FF9C00', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#9C00FF', '#FF00FF'],
+            ['#F7C6CE', '#FFE7CE', '#FFEFC6', '#D6EFD6', '#CEDEE7', '#CEE7F7', '#D6D6E7', '#E7D6DE'],
+            ['#E79C9C', '#FFC69C', '#FFE79C', '#B5D6A5', '#A5C6CE', '#9CC6EF', '#B5A5D6', '#D6A5BD'],
+            ['#E76363', '#F7AD6B', '#FFD663', '#94BD7B', '#73A5AD', '#6BADDE', '#8C7BC6', '#C67BA5'],
+            ['#CE0000', '#E79439', '#EFC631', '#6BA54A', '#4A7B8C', '#3984C6', '#634AA5', '#A54A7B'],
+            ['#9C0000', '#B56308', '#BD9400', '#397B21', '#104A5A', '#085294', '#311873', '#731842'],
+            ['#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031']
+        ],
+        // http://chir.ag/projects/name-that-color/
+        colorsName: [
+            ['Black', 'Tundora', 'Dove Gray', 'Star Dust', 'Pale Slate', 'Gallery', 'Alabaster', 'White'],
+            ['Red', 'Orange Peel', 'Yellow', 'Green', 'Cyan', 'Blue', 'Electric Violet', 'Magenta'],
+            ['Azalea', 'Karry', 'Egg White', 'Zanah', 'Botticelli', 'Tropical Blue', 'Mischka', 'Twilight'],
+            ['Tonys Pink', 'Peach Orange', 'Cream Brulee', 'Sprout', 'Casper', 'Perano', 'Cold Purple', 'Careys Pink'],
+            ['Mandy', 'Rajah', 'Dandelion', 'Olivine', 'Gulf Stream', 'Viking', 'Blue Marguerite', 'Puce'],
+            ['Guardsman Red', 'Fire Bush', 'Golden Dream', 'Chelsea Cucumber', 'Smalt Blue', 'Boston Blue', 'Butterfly Bush', 'Cadillac'],
+            ['Sangria', 'Mai Tai', 'Buddha Gold', 'Forest Green', 'Eden', 'Venice Blue', 'Meteorite', 'Claret'],
+            ['Rosewood', 'Cinnamon', 'Olive', 'Parsley', 'Tiber', 'Midnight Blue', 'Valentino', 'Loulou']
+        ],
+        lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
+        tableClassName: 'table table-bordered',
+        insertTableMaxSize: {
+            col: 10,
+            row: 10
+        },
+        dialogsInBody: false,
+        dialogsFade: false,
+        maximumImageFileSize: null,
+        callbacks: {
+            onInit: null,
+            onFocus: null,
+            onBlur: null,
+            onBlurCodeview: null,
+            onEnter: null,
+            onKeyup: null,
+            onKeydown: null,
+            onImageUpload: null,
+            onImageUploadError: null
+        },
+        codemirror: {
+            mode: 'text/html',
+            htmlMode: true,
+            lineNumbers: true
+        },
+        keyMap: {
+            pc: {
+                'ENTER': 'insertParagraph',
+                'CTRL+Z': 'undo',
+                'CTRL+Y': 'redo',
+                'TAB': 'tab',
+                'SHIFT+TAB': 'untab',
+                'CTRL+B': 'bold',
+                'CTRL+I': 'italic',
+                'CTRL+U': 'underline',
+                'CTRL+SHIFT+S': 'strikethrough',
+                'CTRL+BACKSLASH': 'removeFormat',
+                'CTRL+SHIFT+L': 'justifyLeft',
+                'CTRL+SHIFT+E': 'justifyCenter',
+                'CTRL+SHIFT+R': 'justifyRight',
+                'CTRL+SHIFT+J': 'justifyFull',
+                'CTRL+SHIFT+NUM7': 'insertUnorderedList',
+                'CTRL+SHIFT+NUM8': 'insertOrderedList',
+                'CTRL+LEFTBRACKET': 'outdent',
+                'CTRL+RIGHTBRACKET': 'indent',
+                'CTRL+NUM0': 'formatPara',
+                'CTRL+NUM1': 'formatH1',
+                'CTRL+NUM2': 'formatH2',
+                'CTRL+NUM3': 'formatH3',
+                'CTRL+NUM4': 'formatH4',
+                'CTRL+NUM5': 'formatH5',
+                'CTRL+NUM6': 'formatH6',
+                'CTRL+ENTER': 'insertHorizontalRule',
+                'CTRL+K': 'linkDialog.show'
+            },
+            mac: {
+                'ENTER': 'insertParagraph',
+                'CMD+Z': 'undo',
+                'CMD+SHIFT+Z': 'redo',
+                'TAB': 'tab',
+                'SHIFT+TAB': 'untab',
+                'CMD+B': 'bold',
+                'CMD+I': 'italic',
+                'CMD+U': 'underline',
+                'CMD+SHIFT+S': 'strikethrough',
+                'CMD+BACKSLASH': 'removeFormat',
+                'CMD+SHIFT+L': 'justifyLeft',
+                'CMD+SHIFT+E': 'justifyCenter',
+                'CMD+SHIFT+R': 'justifyRight',
+                'CMD+SHIFT+J': 'justifyFull',
+                'CMD+SHIFT+NUM7': 'insertUnorderedList',
+                'CMD+SHIFT+NUM8': 'insertOrderedList',
+                'CMD+LEFTBRACKET': 'outdent',
+                'CMD+RIGHTBRACKET': 'indent',
+                'CMD+NUM0': 'formatPara',
+                'CMD+NUM1': 'formatH1',
+                'CMD+NUM2': 'formatH2',
+                'CMD+NUM3': 'formatH3',
+                'CMD+NUM4': 'formatH4',
+                'CMD+NUM5': 'formatH5',
+                'CMD+NUM6': 'formatH6',
+                'CMD+ENTER': 'insertHorizontalRule',
+                'CMD+K': 'linkDialog.show'
+            }
+        },
+        icons: {
+            'align': 'note-icon-align',
+            'alignCenter': 'note-icon-align-center',
+            'alignJustify': 'note-icon-align-justify',
+            'alignLeft': 'note-icon-align-left',
+            'alignRight': 'note-icon-align-right',
+            'rowBelow': 'note-icon-row-below',
+            'colBefore': 'note-icon-col-before',
+            'colAfter': 'note-icon-col-after',
+            'rowAbove': 'note-icon-row-above',
+            'rowRemove': 'note-icon-row-remove',
+            'colRemove': 'note-icon-col-remove',
+            'indent': 'note-icon-align-indent',
+            'outdent': 'note-icon-align-outdent',
+            'arrowsAlt': 'note-icon-arrows-alt',
+            'bold': 'note-icon-bold',
+            'caret': 'note-icon-caret',
+            'circle': 'note-icon-circle',
+            'close': 'note-icon-close',
+            'code': 'note-icon-code',
+            'eraser': 'note-icon-eraser',
+            'font': 'note-icon-font',
+            'frame': 'note-icon-frame',
+            'italic': 'note-icon-italic',
+            'link': 'note-icon-link',
+            'unlink': 'note-icon-chain-broken',
+            'magic': 'note-icon-magic',
+            'menuCheck': 'note-icon-menu-check',
+            'minus': 'note-icon-minus',
+            'orderedlist': 'note-icon-orderedlist',
+            'pencil': 'note-icon-pencil',
+            'picture': 'note-icon-picture',
+            'question': 'note-icon-question',
+            'redo': 'note-icon-redo',
+            'square': 'note-icon-square',
+            'strikethrough': 'note-icon-strikethrough',
+            'subscript': 'note-icon-subscript',
+            'superscript': 'note-icon-superscript',
+            'table': 'note-icon-table',
+            'textHeight': 'note-icon-text-height',
+            'trash': 'note-icon-trash',
+            'underline': 'note-icon-underline',
+            'undo': 'note-icon-undo',
+            'unorderedlist': 'note-icon-unorderedlist',
+            'video': 'note-icon-video'
+        }
+    }
+});
+
+})));
+//# sourceMappingURL=summernote-bs4.js.map
+
 
 /***/ })
 /******/ ]);

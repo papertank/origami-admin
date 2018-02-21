@@ -6,4 +6,6 @@ interface User {
 
 	public function isAdmin();
 
+	public function avatarUrl($size = null);
+
 }

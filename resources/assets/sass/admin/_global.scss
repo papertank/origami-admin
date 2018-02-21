@@ -1,0 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.no-content {
+  padding: 40px 0;
+  text-align: center;
+  i, p {
+    color: $text-muted
+  }
+  > p {
+    font-size: $font-size-lg;
+    margin: 20px 0;
+  }
+}
+
+.page-header {
+  @extend .d-flex;
+  margin: 10px 0 25px 0;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid $border-color;
+  .page-title {
+    font-size: $h3-font-size;
+  }
+  .page-actions {
+    @extend .d-flex;
+    @extend .ml-auto;
+  }
+}

@@ -1,6 +1,7 @@
 let mix = require('laravel-mix');
 
 mix.options({ publicPath: 'public/assets' });
+mix.setResourceRoot('/assets/');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,3 +16,11 @@ mix.options({ publicPath: 'public/assets' });
 
 mix.sass('resources/assets/sass/admin.scss', 'public/assets/css')
     .js('resources/assets/js/admin.js', 'public/assets/js');
+
+mix.browserSync({
+    proxy: 'basics.test',
+    files: [
+        'public/**/*.js',
+        'public/**/*.css'
+    ]
+});

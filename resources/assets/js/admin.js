@@ -3,10 +3,10 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap-sass');
-    require('metismenu');
-    require('summernote');
-    require('bootbox');
+    require('bootstrap');
+    require('summernote/dist/summernote-bs4');
+    require('feather-icons').replace();
+    console.log(feather);
 } catch (e) {}
 
 window.axios = require('axios');
@@ -15,6 +15,7 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.csrfToken = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -22,6 +23,32 @@ if (token) {
 (function() {
 
     $(function(){
+
+        $('[data-toggle="sidebar"]').on('click', function () {
+            $('#sidebar').toggleClass('open');
+            $('.sidebar-backdrop').toggleClass('show');
+        });
+
+        $('.sidebar-backdrop').on('click', function() {
+            $('#sidebar').toggleClass('open');
+            $('.sidebar-backdrop').toggleClass('show');
+        });
+
+        $('a[data-method]').on('click', function(e) {
+            e.preventDefault();
+            var link = $(this);
+            var csrf = $('<input>', {
+                'name': '_token',
+                'value': window.csrfToken,
+                'type': 'hidden'
+            })
+            var form = $('<form>', {
+                'action': link.attr('href'),
+                'method': link.data('method'),
+                'target': '_top'
+            }).append(csrf);
+            form.appendTo(document.body).submit();
+        });
 
         $('.input-editor').summernote({
             height: 300,
@@ -34,7 +61,7 @@ if (token) {
             ]
         });
 
-        $('table').on('click', 'tr[data-href] td', function()
+        $('table').on('click', 'tr[data-href] td, tr[data-href] th', function()
         {
             if ( ! $(this).hasClass('links') ) {
                 var url = $(this).closest('tr').data('href');
@@ -68,11 +95,9 @@ if (token) {
             var title = button.data('confirmAction');
 
             e.preventDefault();
-            bootbox.confirm('Are you sure you want to '+title+'?', function(result){
-                if ( result ) {
-                    form.submit();
-                }
-            });
+            if ( confirm('Are you sure you want to '+title+'?') ) {
+                form[0].submit();
+            }
 
             return false;
         });
@@ -84,42 +109,12 @@ if (token) {
             var title = button.data('confirmDelete');
 
             e.preventDefault();
-            bootbox.confirm('Are you sure you want to delete '+title+'?', function(result){
-                if ( result ) {
-                    form.submit();
-                }
-            });
+            if ( confirm('Are you sure you want to delete '+title+'?') ) {
+                form[0].submit();
+            }
 
             return false;
         });
-
-        $('#side-menu').metisMenu();
-
-        $(window).bind("load resize", function() {
-            topOffset = 50;
-            width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-            if (width < 768) {
-                $('div.navbar-collapse').addClass('collapse');
-                topOffset = 100; // 2-row-menu
-            } else {
-                $('div.navbar-collapse').removeClass('collapse');
-            }
-
-            height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
-            height = height - topOffset;
-            if (height < 1) height = 1;
-            if (height > topOffset) {
-                $("#page-wrapper").css("min-height", (height) + "px");
-            }
-        });
-
-        var url = window.location;
-        var element = $('ul.nav a').filter(function() {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }).addClass('active').parent().parent().addClass('in').parent();
-        if (element.is('li')) {
-            element.addClass('active');
-        }
 
     });
 

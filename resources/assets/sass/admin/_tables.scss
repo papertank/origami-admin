@@ -5,6 +5,13 @@ table {
   td.links {
     cursor: default;
   }
+  a.link, button.link {
+    background: none;
+    &, &:hover, &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 }
 
 .table-tree {
@@ -24,37 +31,6 @@ table {
   }
 }
 
-.media-table-file {
-  min-height: 65px;
-  > img {
-    margin-right: 10px;
-  }
-}
-
-.table-files {
-  margin: 40px 0;
-  display: table;
-  .file-row {
-    display: table-row;
-    > div {
-      display: table-cell;
-      vertical-align: top;
-      border-top: 1px solid #ddd;
-      padding: 8px;
-    }
-    &:nth-child(odd) {
-      background: #f9f9f9;
-    }
-  }
-  .file-preview {
-    > img {
-      max-width: 120px;
-      height: auto;
-    }
-  }
-}
-
-
 // DataTables Overrides
 
 table.dataTable thead .sorting,
@@ -65,24 +41,24 @@ table.dataTable thead .sorting_desc_disabled {
   background: transparent;
 }
 
-table.dataTable thead .sorting_asc:after {
-  content: "\f0de";
-  float: right;
-  font-family: fontawesome;
-}
+// table.dataTable thead .sorting_asc:after {
+//   content: "\f0de";
+//   float: right;
+//   font-family: fontawesome;
+// }
 
-table.dataTable thead .sorting_desc:after {
-  content: "\f0dd";
-  float: right;
-  font-family: fontawesome;
-}
+// table.dataTable thead .sorting_desc:after {
+//   content: "\f0dd";
+//   float: right;
+//   font-family: fontawesome;
+// }
 
-table.dataTable thead .sorting:after {
-  content: "\f0dc";
-  float: right;
-  font-family: fontawesome;
-  color: rgba(50,50,50,.5);
-}
+// table.dataTable thead .sorting:after {
+//   content: "\f0dc";
+//   float: right;
+//   font-family: fontawesome;
+//   color: rgba(50,50,50,.5);
+// }
 
 .dataTables_wrapper {
   padding: 10px 0;

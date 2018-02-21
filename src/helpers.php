@@ -17,7 +17,7 @@ if ( ! function_exists('aurl') ) {
 if ( ! function_exists('admin_path') ) {
     function admin_path($path = null) {
         $prefix = trim(config('admin.url'), '/');
-        return $prefix.'/'.$path;
+        return rtrim($prefix.'/'.$path, '/');
     }
 }
 
@@ -25,5 +25,11 @@ if (!function_exists('admin_redirect')) {
     function admin_redirect($to = null, $status = 302, $headers = [], $secure = null)
     {
         return redirect(admin_path($to), $status, $headers, $secure);
+    }
+}
+
+if ( ! function_exists('adminUser') ) {
+    function adminUser() {
+        return request()->user('admin');
     }
 }
