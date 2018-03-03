@@ -17,10 +17,10 @@ mix.setResourceRoot('/assets/');
 mix.sass('resources/assets/sass/admin.scss', 'public/assets/css')
     .js('resources/assets/js/admin.js', 'public/assets/js');
 
-mix.browserSync({
-    proxy: 'basics.test',
-    files: [
-        'public/**/*.js',
-        'public/**/*.css'
-    ]
-});
+// mix.browserSync({
+//     proxy: 'admin.test',
+//     files: [
+//         'public/**/*.js',
+//         'public/**/*.css'
+//     ]
+// });
