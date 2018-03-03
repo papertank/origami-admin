@@ -10,7 +10,7 @@ use Origami\Admin\Auth\AdminUserProvider;
 
 class AdminServiceProvider extends ServiceProvider {
 
-    const VERSION = '2.0.0-dev';
+    const VERSION = '2.0.0';
 
     public function boot()
     {
