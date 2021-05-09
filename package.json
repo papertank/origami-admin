@@ -24,7 +24,7 @@
     "feather-icons": "^4.5.0",
     "jquery": "^3.2.1",
     "laravel-mix": "^2.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "magnific-popup": "^1.1.0",
     "modernizr": "^3.4.0",
     "popper.js": "^1.12.9",
