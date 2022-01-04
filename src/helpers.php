@@ -8,15 +8,9 @@ if ( ! function_exists('admin_url') ) {
     }
 }
 
-if ( ! function_exists('aurl') ) {
-    function aurl($path = null, $extra = [], $secure = null) {
-        return URL::admin($path, $extra, $secure);
-    }
-}
-
 if ( ! function_exists('admin_path') ) {
     function admin_path($path = null) {
-        $prefix = trim(config('admin.url'), '/');
+        $prefix = trim(config('admin.path', 'admin'), '/');
         return rtrim($prefix.'/'.$path, '/');
     }
 }

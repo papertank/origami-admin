@@ -4,7 +4,7 @@ namespace Origami\Admin\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Origami\Admin\Auth\ThrottlesLogins;
 use Origami\Admin\Http\Controllers\AdminController;
 
 class Sessions extends AdminController
@@ -13,7 +13,7 @@ class Sessions extends AdminController
 
     public function create()
     {
-        return view('admin.auth.login');
+        return view('admin::auth.login');
     }
 
     public function store(Request $request)

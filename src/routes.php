@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 if ( config('admin.impersonating') ) {
     Route::group([
-        'prefix' => config('admin.url'),
+        'prefix' => config('admin.path'),
         'namespace' => 'Origami\Admin\Http\Controllers',
         'middleware' => 'web'
     ], function () {

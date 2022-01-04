@@ -2,7 +2,7 @@
 
 return [
 
-    'url' => 'admin',
+    'path' => 'admin',
 
     'impersonating' => false,
 

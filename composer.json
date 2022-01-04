@@ -1,19 +1,25 @@
 {
   "name": "origami/admin",
-  "description": "Laravel 5 Admin Package",
+  "description": "Laravel Admin Package",
   "authors": [
     {
-      "name": "Papertank",
-      "email": "david@papertank.co.uk"
+      "name": "Papertank Limited",
+      "homepage": "https://papertank.com",
+      "email": "hello@papertank.com"
+    },
+    {
+      "name": "David Rushton",
+      "email": "david@papertank.com",
+      "role": "Developer"
     }
   ],
   "require": {
-    "php": ">=5.6.4",
-    "illuminate/auth": "~5.4|^6.0",
-    "illuminate/support": "~5.4|^6.0",
-    "illuminate/routing": "~5.4|^6.0",
-    "laravelcollective/html": "~5.4|^6.0",
-    "origami/notice": "^1.2",
+    "php": "^7.3|^8.0",
+    "illuminate/auth": "^7.0|^8.0",
+    "illuminate/support": "^7.0|^8.0",
+    "illuminate/routing": "^7.0|^8.0",
+    "laravelcollective/html": "^6.0",
+    "origami/notice": "^1.5",
     "lab404/laravel-impersonate": "^1.2"
   },
   "autoload": {
@@ -26,7 +32,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "2.1.x-dev"
+      "dev-develop": "3.x-dev"
     },
     "laravel": {
       "providers": [
