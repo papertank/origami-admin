@@ -14,7 +14,7 @@
     "@types/metismenu": "^2.6.2",
     "axios": "^0.18.0",
     "bootbox": "^4.4.0",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.3.1",
     "browser-sync": "^2.23.6",
     "browser-sync-webpack-plugin": "^2.0.1",
     "codemirror": "^5.29.0",
